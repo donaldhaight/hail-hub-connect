@@ -208,6 +208,21 @@ function Inbox() {
                   await updNotes({ data: { id: selected.id, note } });
                   setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
                 }}
+                onApproveAndInvite={
+                  tab === "briefings"
+                    ? async () => {
+                        const r = await grant({ data: { briefingRequestId: selected.id } });
+                        await load();
+                        setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
+                        return r;
+                      }
+                    : undefined
+                }
+                loadInvitation={
+                  tab === "briefings"
+                    ? () => getInv({ data: { briefingRequestId: selected.id } })
+                    : undefined
+                }
               />
             ) : (
               <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
