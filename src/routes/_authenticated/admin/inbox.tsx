@@ -10,6 +10,7 @@ import {
   updateBriefingNotes,
   getMyRoles,
 } from "@/lib/inbox.functions";
+import { grantInsiderAccess, getInvitationForRequest } from "@/lib/insider.functions";
 import {
   BRIEFING_STATUSES,
   CONFERENCE_STATUSES,
@@ -47,6 +48,8 @@ function Inbox() {
   const updConf = useServerFn(updateConferenceStatus);
   const updNotes = useServerFn(updateBriefingNotes);
   const myRoles = useServerFn(getMyRoles);
+  const grant = useServerFn(grantInsiderAccess);
+  const getInv = useServerFn(getInvitationForRequest);
 
   useEffect(() => {
     myRoles()
@@ -205,6 +208,21 @@ function Inbox() {
                   await updNotes({ data: { id: selected.id, note } });
                   setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
                 }}
+                onApproveAndInvite={
+                  tab === "briefings"
+                    ? async () => {
+                        const r = await grant({ data: { briefingRequestId: selected.id } });
+                        await load();
+                        setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
+                        return r;
+                      }
+                    : undefined
+                }
+                loadInvitation={
+                  tab === "briefings"
+                    ? () => getInv({ data: { briefingRequestId: selected.id } })
+                    : undefined
+                }
               />
             ) : (
               <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
@@ -234,22 +252,51 @@ function DetailPanel({
   tab,
   onSaveStatus,
   onSaveNotes,
+  onApproveAndInvite,
+  loadInvitation,
 }: {
   row: Row;
   tab: "briefings" | "conference";
   onSaveStatus: (s: string, note?: string) => Promise<void>;
   onSaveNotes: (note: string) => Promise<void>;
+  onApproveAndInvite?: () => Promise<{ token: string; expiresAt: string }>;
+  loadInvitation?: () => Promise<{ invitation: Row | null }>;
 }) {
   const [notes, setNotes] = useState<string>(row.internal_notes ?? "");
   const [actionNote, setActionNote] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
+  const [invitation, setInvitation] = useState<Row | null>(null);
+  const [copied, setCopied] = useState(false);
   const statuses = tab === "briefings" ? BRIEFING_STATUSES : CONFERENCE_STATUSES;
+
+  useEffect(() => {
+    if (!loadInvitation) return;
+    loadInvitation().then((r) => setInvitation(r.invitation)).catch(() => {});
+  }, [loadInvitation, row.id]);
 
   async function doStatus(s: string) {
     setBusy(s);
     try { await onSaveStatus(s, actionNote || undefined); setActionNote(""); }
     finally { setBusy(null); }
   }
+
+  async function doApproveAndInvite() {
+    if (!onApproveAndInvite) return;
+    setBusy("invite");
+    try {
+      await onApproveAndInvite();
+      if (loadInvitation) {
+        const r = await loadInvitation();
+        setInvitation(r.invitation);
+      }
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  const inviteUrl = invitation
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/insider/accept?token=${invitation.token}`
+    : null;
 
   return (
     <div className="space-y-4 border border-border bg-card p-5">
@@ -300,6 +347,57 @@ function DetailPanel({
           </button>
         ))}
       </div>
+
+      {onApproveAndInvite ? (
+        <div className="space-y-2 border-t border-border pt-4">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+            Insider access
+          </div>
+          {invitation && invitation.status !== "revoked" ? (
+            <div className="space-y-2">
+              <div className="text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
+                Status: <span className="text-ink">{invitation.status}</span>
+                {invitation.redeemed_at
+                  ? ` · redeemed ${new Date(invitation.redeemed_at).toLocaleDateString()}`
+                  : ` · expires ${new Date(invitation.expires_at).toLocaleDateString()}`}
+              </div>
+              {invitation.status === "pending" && inviteUrl ? (
+                <>
+                  <div className="break-all border border-border bg-paper p-2 text-xs font-mono text-ink">
+                    {inviteUrl}
+                  </div>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(inviteUrl);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 1500);
+                    }}
+                    className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+                  >
+                    {copied ? "Copied" : "Copy invite link"}
+                  </button>
+                  <button
+                    onClick={doApproveAndInvite}
+                    disabled={busy !== null}
+                    className="ml-2 border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy disabled:opacity-50"
+                  >
+                    Re-issue
+                  </button>
+                </>
+              ) : null}
+            </div>
+          ) : (
+            <button
+              onClick={doApproveAndInvite}
+              disabled={busy !== null}
+              className="border border-navy bg-navy px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-ink hover:border-ink disabled:opacity-50"
+            >
+              {busy === "invite" ? "Working…" : "Approve & invite"}
+            </button>
+          )}
+        </div>
+      ) : null}
+
       <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
         Applicant reply email queues once sender domain is verified.
       </div>
