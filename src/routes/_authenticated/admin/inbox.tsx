@@ -255,7 +255,7 @@ function Inbox() {
             </div>
 
             <div className="lg:col-span-2">
-              {selected && tab !== "activity" ? (
+              {selected ? (
                 <DetailPanel
                   key={selected.id}
                   row={selected}
