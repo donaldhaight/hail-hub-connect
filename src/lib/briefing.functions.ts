@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { briefingRequestSchema, type BriefingRequestInput } from "./briefing.schemas";
 
 export const submitBriefingRequest = createServerFn({ method: "POST" })
-  .inputValidator((data: BriefingRequestInput) => briefingRequestSchema.parse(data))
+  .validator((data: BriefingRequestInput) => briefingRequestSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
