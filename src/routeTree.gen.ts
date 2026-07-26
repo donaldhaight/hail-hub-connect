@@ -16,7 +16,10 @@ import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
   id: '/why-rrca',
@@ -53,14 +56,29 @@ const FounderRoute = FounderRouteImport.update({
   path: '/founder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
+  id: '/admin/inbox',
+  path: '/admin/inbox',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/prepare-america': typeof PrepareAmericaRoute
@@ -68,9 +86,11 @@ export interface FileRoutesByFullPath {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/prepare-america': typeof PrepareAmericaRoute
@@ -78,10 +98,13 @@ export interface FileRoutesByTo {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/admin/inbox': typeof AuthenticatedAdminInboxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/prepare-america': typeof PrepareAmericaRoute
@@ -89,11 +112,13 @@ export interface FileRoutesById {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/founder'
     | '/industry-problem'
     | '/prepare-america'
@@ -101,9 +126,11 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/admin/inbox'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/founder'
     | '/industry-problem'
     | '/prepare-america'
@@ -111,9 +138,12 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/admin/inbox'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/founder'
     | '/industry-problem'
     | '/prepare-america'
@@ -121,10 +151,13 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/_authenticated/admin/inbox'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
   PrepareAmericaRoute: typeof PrepareAmericaRoute
@@ -185,6 +218,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FounderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -192,11 +239,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/inbox': {
+      id: '/_authenticated/admin/inbox'
+      path: '/admin/inbox'
+      fullPath: '/admin/inbox'
+      preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
   PrepareAmericaRoute: PrepareAmericaRoute,
