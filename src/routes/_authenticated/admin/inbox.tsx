@@ -17,6 +17,8 @@ import {
   grantInsiderAccessFromConference,
   getInvitationForConference,
 } from "@/lib/insider.functions";
+import { listInsiderActivity } from "@/lib/dossier.functions";
+import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
   CONFERENCE_STATUSES,
