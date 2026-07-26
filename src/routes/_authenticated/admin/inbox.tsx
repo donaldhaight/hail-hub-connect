@@ -8,9 +8,15 @@ import {
   updateBriefingStatus,
   updateConferenceStatus,
   updateBriefingNotes,
+  updateConferenceNotes,
   getMyRoles,
 } from "@/lib/inbox.functions";
-import { grantInsiderAccess, getInvitationForRequest } from "@/lib/insider.functions";
+import {
+  grantInsiderAccess,
+  getInvitationForRequest,
+  grantInsiderAccessFromConference,
+  getInvitationForConference,
+} from "@/lib/insider.functions";
 import {
   BRIEFING_STATUSES,
   CONFERENCE_STATUSES,
