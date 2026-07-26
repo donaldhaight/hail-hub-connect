@@ -14,16 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      briefing_request_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          briefing_request_id: string
+          created_at: string
+          id: string
+          note: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          briefing_request_id: string
+          created_at?: string
+          id?: string
+          note?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          briefing_request_id?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "briefing_request_events_briefing_request_id_fkey"
+            columns: ["briefing_request_id"]
+            isOneToOne: false
+            referencedRelation: "briefing_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      briefing_requests: {
+        Row: {
+          acknowledged: boolean
+          context: string | null
+          created_at: string
+          email: string
+          id: string
+          interest: string
+          internal_notes: string | null
+          name: string
+          organization: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged?: boolean
+          context?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          interest: string
+          internal_notes?: string | null
+          name: string
+          organization: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged?: boolean
+          context?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          interest?: string
+          internal_notes?: string | null
+          name?: string
+          organization?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      conference_applications: {
+        Row: {
+          acknowledged: boolean
+          briefing_request_id: string | null
+          context: string | null
+          created_at: string
+          email: string
+          id: string
+          interest: string
+          internal_notes: string | null
+          name: string
+          organization: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged?: boolean
+          briefing_request_id?: string | null
+          context?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          interest: string
+          internal_notes?: string | null
+          name: string
+          organization: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged?: boolean
+          briefing_request_id?: string | null
+          context?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          interest?: string
+          internal_notes?: string | null
+          name?: string
+          organization?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conference_applications_briefing_request_id_fkey"
+            columns: ["briefing_request_id"]
+            isOneToOne: false
+            referencedRelation: "briefing_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "founder_admin"
+        | "counsel"
+        | "rrca_exec"
+        | "investor_prospect"
+        | "sponsor_prospect"
+        | "strategic_partner"
+        | "specialist_advisor"
+        | "system_auditor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +317,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "founder_admin",
+        "counsel",
+        "rrca_exec",
+        "investor_prospect",
+        "sponsor_prospect",
+        "strategic_partner",
+        "specialist_advisor",
+        "system_auditor",
+      ],
+    },
   },
 } as const
