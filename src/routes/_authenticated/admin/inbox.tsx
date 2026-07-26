@@ -214,7 +214,11 @@ function Inbox() {
                   setSelected((cur) => (cur ? { ...cur, status: s } : cur));
                 }}
                 onSaveNotes={async (note) => {
-                  await updNotes({ data: { id: selected.id, note } });
+                  if (tab === "briefings") {
+                    await updNotes({ data: { id: selected.id, note } });
+                  } else {
+                    await updConfNotes({ data: { id: selected.id, note } });
+                  }
                   setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
                 }}
                 onApproveAndInvite={
@@ -225,12 +229,17 @@ function Inbox() {
                         setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
                         return r;
                       }
-                    : undefined
+                    : async () => {
+                        const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
+                        await load();
+                        setSelected((cur) => (cur ? { ...cur, status: "confirmed" } : cur));
+                        return r;
+                      }
                 }
                 loadInvitation={
                   tab === "briefings"
                     ? () => getInv({ data: { briefingRequestId: selected.id } })
-                    : undefined
+                    : () => getInvConf({ data: { conferenceApplicationId: selected.id } })
                 }
               />
             ) : (
