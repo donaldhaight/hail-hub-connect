@@ -1,0 +1,245 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { z } from "zod";
+import { PageShell, PageHeader } from "@/components/briefing/PageShell";
+import { Meta } from "@/components/briefing/Badges";
+
+const TITLE = "Request a Private Briefing";
+const DESC =
+  "Request a private briefing on the RRCA restructuring and the ClaimStore proof of concept. Reviewed by the founder personally.";
+
+const searchSchema = z.object({
+  interest: z
+    .enum(["investor", "sponsor", "partner", "counsel", "advisor", "prepare-america"])
+    .optional(),
+});
+
+export const Route = createFileRoute("/request-briefing")({
+  validateSearch: (search) => searchSchema.parse(search),
+  head: () => ({
+    meta: [
+      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { name: "description", content: DESC },
+      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
+      { property: "og:description", content: DESC },
+    ],
+  }),
+  component: RequestBriefing,
+});
+
+const INTERESTS = [
+  { id: "investor", label: "RRCA investor prospect" },
+  { id: "sponsor", label: "ClaimStore sponsor" },
+  { id: "partner", label: "Strategic industry partner" },
+  { id: "counsel", label: "Counsel · construction / restructuring / securities" },
+  { id: "advisor", label: "Trusted advisor" },
+  { id: "prepare-america", label: "PrepareAmerica Conference applicant" },
+] as const;
+
+function RequestBriefing() {
+  const { interest } = Route.useSearch();
+  const [submitted, setSubmitted] = useState(false);
+
+  return (
+    <PageShell>
+      <PageHeader
+        eyebrow="Access"
+        title="Request a private briefing."
+        lede="Reviewed by the founder. Approved requests receive a follow-up within seven business days. No approval commits either party to a transaction or business relationship."
+        confidentiality="C0"
+      />
+
+      <section className="border-b border-border">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-12 md:py-20">
+          <aside className="md:col-span-4">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+              What happens next
+            </div>
+            <ol className="mt-4 space-y-4 text-sm text-muted-foreground">
+              <li>
+                <span className="mr-2 font-mono text-ink">01</span>
+                We review your request personally.
+              </li>
+              <li>
+                <span className="mr-2 font-mono text-ink">02</span>
+                If appropriate, we schedule a private briefing and — where
+                needed — send a mutual confidentiality agreement.
+              </li>
+              <li>
+                <span className="mr-2 font-mono text-ink">03</span>
+                Approved participants receive access to the qualified-insider
+                materials in the Briefing Room.
+              </li>
+            </ol>
+            <div className="mt-8">
+              <Meta status="No transaction · No offering" />
+            </div>
+          </aside>
+
+          <div className="md:col-span-8">
+            {submitted ? (
+              <SubmittedNotice />
+            ) : (
+              <BriefingForm
+                defaultInterest={interest}
+                onSubmit={() => setSubmitted(true)}
+              />
+            )}
+          </div>
+        </div>
+      </section>
+    </PageShell>
+  );
+}
+
+function SubmittedNotice() {
+  return (
+    <div className="border border-border bg-card p-8">
+      <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+        Received
+      </div>
+      <h2 className="mt-3 font-serif text-3xl text-ink">
+        Your request has been received.
+      </h2>
+      <p className="mt-4 max-w-[52ch] text-muted-foreground">
+        We will review it personally. If a briefing is appropriate you will
+        hear from us within seven business days. Nothing you submitted has
+        been shared outside the founder's review.
+      </p>
+    </div>
+  );
+}
+
+function BriefingForm({
+  defaultInterest,
+  onSubmit,
+}: {
+  defaultInterest?: string;
+  onSubmit: () => void;
+}) {
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        // Phase 0.3 will wire this to Lovable Cloud (briefing_requests
+        // table + email notification). For Sprint 0.2 we acknowledge
+        // client-side and log to console for founder walkthroughs.
+        const data = Object.fromEntries(new FormData(e.currentTarget));
+        console.info("briefing_request", data);
+        onSubmit();
+      }}
+      className="space-y-6"
+    >
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field label="Full name" name="name" required maxLength={120} />
+        <Field
+          label="Institutional email"
+          name="email"
+          type="email"
+          required
+          maxLength={200}
+        />
+        <Field label="Organization" name="organization" required maxLength={160} />
+        <Field label="Title / role" name="title" required maxLength={160} />
+      </div>
+
+      <fieldset className="space-y-3">
+        <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+          Primary interest
+        </legend>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {INTERESTS.map((opt) => (
+            <label
+              key={opt.id}
+              className="flex cursor-pointer items-start gap-3 border border-border bg-card p-3 text-sm hover:border-navy has-[:checked]:border-navy has-[:checked]:bg-navy/5"
+            >
+              <input
+                type="radio"
+                name="interest"
+                value={opt.id}
+                defaultChecked={defaultInterest === opt.id}
+                required
+                className="mt-1 accent-navy"
+              />
+              <span className="text-ink">{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div>
+        <label
+          htmlFor="context"
+          className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"
+        >
+          Context (optional)
+        </label>
+        <textarea
+          id="context"
+          name="context"
+          rows={5}
+          maxLength={1500}
+          placeholder="Referral source, the specific question you want to explore, or the outcome you're evaluating."
+          className="mt-2 block w-full border border-border bg-card p-3 text-[15px] leading-relaxed text-ink placeholder:text-silver focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+        />
+      </div>
+
+      <label className="flex items-start gap-3 text-sm text-muted-foreground">
+        <input
+          type="checkbox"
+          name="acknowledged"
+          required
+          className="mt-1 accent-navy"
+        />
+        <span>
+          I acknowledge this is a private briefing request and not an
+          investment, sponsorship, or transaction. Nothing on this website is
+          an offer to buy or sell securities.
+        </span>
+      </label>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
+        >
+          Submit request
+          <span aria-hidden="true">→</span>
+        </button>
+        <span className="text-xs text-muted-foreground">
+          Reviewed by the founder. No third-party marketing.
+        </span>
+      </div>
+    </form>
+  );
+}
+
+function Field({
+  label,
+  name,
+  type = "text",
+  required,
+  maxLength,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  maxLength?: number;
+}) {
+  return (
+    <label className="block">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+        {label}
+        {required ? " *" : ""}
+      </span>
+      <input
+        type={type}
+        name={name}
+        required={required}
+        maxLength={maxLength}
+        className="mt-2 block w-full border border-border bg-card px-3 py-2.5 text-[15px] text-ink placeholder:text-silver focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+      />
+    </label>
+  );
+}

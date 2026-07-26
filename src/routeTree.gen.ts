@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
+import { Route as VisionRouteImport } from './routes/vision'
+import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
+import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
+import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
+import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
+import { Route as FounderRouteImport } from './routes/founder'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WhyRrcaRoute = WhyRrcaRouteImport.update({
+  id: '/why-rrca',
+  path: '/why-rrca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VisionRoute = VisionRouteImport.update({
+  id: '/vision',
+  path: '/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestBriefingRoute = RequestBriefingRouteImport.update({
+  id: '/request-briefing',
+  path: '/request-briefing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProofOfConceptRoute = ProofOfConceptRouteImport.update({
+  id: '/proof-of-concept',
+  path: '/proof-of-concept',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrepareAmericaRoute = PrepareAmericaRouteImport.update({
+  id: '/prepare-america',
+  path: '/prepare-america',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustryProblemRoute = IndustryProblemRouteImport.update({
+  id: '/industry-problem',
+  path: '/industry-problem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FounderRoute = FounderRouteImport.update({
+  id: '/founder',
+  path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/founder': typeof FounderRoute
+  '/industry-problem': typeof IndustryProblemRoute
+  '/prepare-america': typeof PrepareAmericaRoute
+  '/proof-of-concept': typeof ProofOfConceptRoute
+  '/request-briefing': typeof RequestBriefingRoute
+  '/vision': typeof VisionRoute
+  '/why-rrca': typeof WhyRrcaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/founder': typeof FounderRoute
+  '/industry-problem': typeof IndustryProblemRoute
+  '/prepare-america': typeof PrepareAmericaRoute
+  '/proof-of-concept': typeof ProofOfConceptRoute
+  '/request-briefing': typeof RequestBriefingRoute
+  '/vision': typeof VisionRoute
+  '/why-rrca': typeof WhyRrcaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/founder': typeof FounderRoute
+  '/industry-problem': typeof IndustryProblemRoute
+  '/prepare-america': typeof PrepareAmericaRoute
+  '/proof-of-concept': typeof ProofOfConceptRoute
+  '/request-briefing': typeof RequestBriefingRoute
+  '/vision': typeof VisionRoute
+  '/why-rrca': typeof WhyRrcaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/founder'
+    | '/industry-problem'
+    | '/prepare-america'
+    | '/proof-of-concept'
+    | '/request-briefing'
+    | '/vision'
+    | '/why-rrca'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/founder'
+    | '/industry-problem'
+    | '/prepare-america'
+    | '/proof-of-concept'
+    | '/request-briefing'
+    | '/vision'
+    | '/why-rrca'
+  id:
+    | '__root__'
+    | '/'
+    | '/founder'
+    | '/industry-problem'
+    | '/prepare-america'
+    | '/proof-of-concept'
+    | '/request-briefing'
+    | '/vision'
+    | '/why-rrca'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FounderRoute: typeof FounderRoute
+  IndustryProblemRoute: typeof IndustryProblemRoute
+  PrepareAmericaRoute: typeof PrepareAmericaRoute
+  ProofOfConceptRoute: typeof ProofOfConceptRoute
+  RequestBriefingRoute: typeof RequestBriefingRoute
+  VisionRoute: typeof VisionRoute
+  WhyRrcaRoute: typeof WhyRrcaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/why-rrca': {
+      id: '/why-rrca'
+      path: '/why-rrca'
+      fullPath: '/why-rrca'
+      preLoaderRoute: typeof WhyRrcaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vision': {
+      id: '/vision'
+      path: '/vision'
+      fullPath: '/vision'
+      preLoaderRoute: typeof VisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-briefing': {
+      id: '/request-briefing'
+      path: '/request-briefing'
+      fullPath: '/request-briefing'
+      preLoaderRoute: typeof RequestBriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proof-of-concept': {
+      id: '/proof-of-concept'
+      path: '/proof-of-concept'
+      fullPath: '/proof-of-concept'
+      preLoaderRoute: typeof ProofOfConceptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prepare-america': {
+      id: '/prepare-america'
+      path: '/prepare-america'
+      fullPath: '/prepare-america'
+      preLoaderRoute: typeof PrepareAmericaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry-problem': {
+      id: '/industry-problem'
+      path: '/industry-problem'
+      fullPath: '/industry-problem'
+      preLoaderRoute: typeof IndustryProblemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founder': {
+      id: '/founder'
+      path: '/founder'
+      fullPath: '/founder'
+      preLoaderRoute: typeof FounderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +197,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FounderRoute: FounderRoute,
+  IndustryProblemRoute: IndustryProblemRoute,
+  PrepareAmericaRoute: PrepareAmericaRoute,
+  ProofOfConceptRoute: ProofOfConceptRoute,
+  RequestBriefingRoute: RequestBriefingRoute,
+  VisionRoute: VisionRoute,
+  WhyRrcaRoute: WhyRrcaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
