@@ -41,7 +41,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity">("briefings");
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
@@ -61,6 +61,7 @@ function Inbox() {
   const getInv = useServerFn(getInvitationForRequest);
   const grantConf = useServerFn(grantInsiderAccessFromConference);
   const getInvConf = useServerFn(getInvitationForConference);
+  const listActivity = useServerFn(listInsiderActivity);
 
   useEffect(() => {
     myRoles()
@@ -68,15 +69,20 @@ function Inbox() {
       .catch(() => setAuthorized(false));
   }, [myRoles]);
 
-  const statuses = tab === "briefings" ? BRIEFING_STATUSES : CONFERENCE_STATUSES;
+  const statuses = tab === "briefings" ? BRIEFING_STATUSES : tab === "conference" ? CONFERENCE_STATUSES : [];
 
   async function load() {
     setLoading(true);
     setError(null);
     try {
-      const fn = tab === "briefings" ? listBriefings : listConf;
-      const r = await fn({ data: { status: status || undefined, search: search || undefined } });
-      setRows(r.rows);
+      if (tab === "activity") {
+        const r = await listActivity();
+        setRows(r.rows);
+      } else {
+        const fn = tab === "briefings" ? listBriefings : listConf;
+        const r = await fn({ data: { status: status || undefined, search: search || undefined } });
+        setRows(r.rows);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
     } finally {
@@ -127,9 +133,14 @@ function Inbox() {
             <TabBtn active={tab === "conference"} onClick={() => { setTab("conference"); setStatus(""); setSelected(null); }}>
               PrepareAmerica Applications
             </TabBtn>
+            <TabBtn active={tab === "activity"} onClick={() => { setTab("activity"); setStatus(""); setSelected(null); }}>
+              Insider Activity
+            </TabBtn>
           </div>
           <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
         </div>
+
+
 
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <button
