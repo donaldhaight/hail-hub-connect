@@ -150,6 +150,56 @@ export type Database = {
           },
         ]
       }
+      insider_invitations: {
+        Row: {
+          briefing_request_id: string | null
+          created_at: string
+          created_by: string | null
+          email: string
+          expires_at: string
+          id: string
+          redeemed_at: string | null
+          redeemed_by: string | null
+          status: string
+          token: string
+          updated_at: string
+        }
+        Insert: {
+          briefing_request_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          email: string
+          expires_at?: string
+          id?: string
+          redeemed_at?: string | null
+          redeemed_by?: string | null
+          status?: string
+          token?: string
+          updated_at?: string
+        }
+        Update: {
+          briefing_request_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          redeemed_at?: string | null
+          redeemed_by?: string | null
+          status?: string
+          token?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insider_invitations_briefing_request_id_fkey"
+            columns: ["briefing_request_id"]
+            isOneToOne: false
+            referencedRelation: "briefing_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -180,6 +230,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      redeem_insider_invitation: { Args: { _token: string }; Returns: Json }
     }
     Enums: {
       app_role:
@@ -191,6 +242,7 @@ export type Database = {
         | "strategic_partner"
         | "specialist_advisor"
         | "system_auditor"
+        | "qualified_insider"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -327,6 +379,7 @@ export const Constants = {
         "strategic_partner",
         "specialist_advisor",
         "system_auditor",
+        "qualified_insider",
       ],
     },
   },
