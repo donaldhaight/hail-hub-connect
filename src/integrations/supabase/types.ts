@@ -150,6 +150,27 @@ export type Database = {
           },
         ]
       }
+      insider_access_log: {
+        Row: {
+          dossier_slug: string
+          id: string
+          opened_at: string
+          user_id: string
+        }
+        Insert: {
+          dossier_slug: string
+          id?: string
+          opened_at?: string
+          user_id: string
+        }
+        Update: {
+          dossier_slug?: string
+          id?: string
+          opened_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       insider_invitations: {
         Row: {
           briefing_request_id: string | null

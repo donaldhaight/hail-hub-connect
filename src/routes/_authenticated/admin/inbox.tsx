@@ -17,6 +17,8 @@ import {
   grantInsiderAccessFromConference,
   getInvitationForConference,
 } from "@/lib/insider.functions";
+import { listInsiderActivity } from "@/lib/dossier.functions";
+import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
   CONFERENCE_STATUSES,
@@ -39,7 +41,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity">("briefings");
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
@@ -59,6 +61,7 @@ function Inbox() {
   const getInv = useServerFn(getInvitationForRequest);
   const grantConf = useServerFn(grantInsiderAccessFromConference);
   const getInvConf = useServerFn(getInvitationForConference);
+  const listActivity = useServerFn(listInsiderActivity);
 
   useEffect(() => {
     myRoles()
@@ -66,15 +69,20 @@ function Inbox() {
       .catch(() => setAuthorized(false));
   }, [myRoles]);
 
-  const statuses = tab === "briefings" ? BRIEFING_STATUSES : CONFERENCE_STATUSES;
+  const statuses = tab === "briefings" ? BRIEFING_STATUSES : tab === "conference" ? CONFERENCE_STATUSES : [];
 
   async function load() {
     setLoading(true);
     setError(null);
     try {
-      const fn = tab === "briefings" ? listBriefings : listConf;
-      const r = await fn({ data: { status: status || undefined, search: search || undefined } });
-      setRows(r.rows);
+      if (tab === "activity") {
+        const r = await listActivity();
+        setRows(r.rows);
+      } else {
+        const fn = tab === "briefings" ? listBriefings : listConf;
+        const r = await fn({ data: { status: status || undefined, search: search || undefined } });
+        setRows(r.rows);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
     } finally {
@@ -125,134 +133,197 @@ function Inbox() {
             <TabBtn active={tab === "conference"} onClick={() => { setTab("conference"); setStatus(""); setSelected(null); }}>
               PrepareAmerica Applications
             </TabBtn>
+            <TabBtn active={tab === "activity"} onClick={() => { setTab("activity"); setStatus(""); setSelected(null); }}>
+              Insider Activity
+            </TabBtn>
           </div>
           <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
         </div>
 
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setStatus("")}
-            className={`border px-3 py-1 text-xs font-mono uppercase tracking-[0.14em] ${status === "" ? "border-ink bg-ink text-paper" : "border-border text-muted-foreground"}`}
-          >
-            All
-          </button>
-          {statuses.map((s) => (
+
+
+        {tab !== "activity" ? (
+          <div className="mb-4 flex flex-wrap items-center gap-2">
             <button
-              key={s}
-              onClick={() => setStatus(s)}
-              className={`border px-3 py-1 text-xs font-mono uppercase tracking-[0.14em] ${status === s ? "border-ink bg-ink text-paper" : "border-border text-muted-foreground"}`}
+              onClick={() => setStatus("")}
+              className={`border px-3 py-1 text-xs font-mono uppercase tracking-[0.14em] ${status === "" ? "border-ink bg-ink text-paper" : "border-border text-muted-foreground"}`}
             >
-              {s}
+              All
             </button>
-          ))}
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && load()}
-            placeholder="Search name, email, org…"
-            className="ml-2 flex-1 min-w-[200px] border border-border bg-paper px-3 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
-          />
-          <button onClick={load} className="border border-ink px-3 py-1.5 text-xs font-medium">Search</button>
-          <a
-            href={`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`}
-            download={`${tab}-${new Date().toISOString().slice(0, 10)}.csv`}
-            className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
-          >
-            Export CSV
-          </a>
-        </div>
+            {statuses.map((s) => (
+              <button
+                key={s}
+                onClick={() => setStatus(s)}
+                className={`border px-3 py-1 text-xs font-mono uppercase tracking-[0.14em] ${status === s ? "border-ink bg-ink text-paper" : "border-border text-muted-foreground"}`}
+              >
+                {s}
+              </button>
+            ))}
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && load()}
+              placeholder="Search name, email, org…"
+              className="ml-2 flex-1 min-w-[200px] border border-border bg-paper px-3 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+            />
+            <button onClick={load} className="border border-ink px-3 py-1.5 text-xs font-medium">Search</button>
+            <a
+              href={`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`}
+              download={`${tab}-${new Date().toISOString().slice(0, 10)}.csv`}
+              className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+            >
+              Export CSV
+            </a>
+          </div>
+        ) : (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Every dossier open by every insider, most recent first.
+            </div>
+            <a
+              href={`data:text/csv;charset=utf-8,${encodeURIComponent(activityCsv(rows))}`}
+              download={`insider-activity-${new Date().toISOString().slice(0, 10)}.csv`}
+              className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+            >
+              Export CSV
+            </a>
+          </div>
+        )}
 
         {error ? <div className="mb-4 border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">{error}</div> : null}
 
-        <div className="grid gap-6 lg:grid-cols-5">
-          <div className="lg:col-span-3 border border-border">
+        {tab === "activity" ? (
+          <div className="border border-border">
             <table className="w-full text-sm">
               <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
                 <tr>
-                  <th className="p-3">Date</th>
-                  <th className="p-3">Name</th>
-                  <th className="p-3">Organization</th>
-                  <th className="p-3">Interest</th>
-                  <th className="p-3">Status</th>
+                  <th className="p-3">Opened</th>
+                  <th className="p-3">Insider</th>
+                  <th className="p-3">Dossier</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
-                  <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+                  <tr><td colSpan={3} className="p-6 text-center text-silver">Loading…</td></tr>
                 ) : rows.length === 0 ? (
-                  <tr><td colSpan={5} className="p-6 text-center text-silver">No records.</td></tr>
+                  <tr><td colSpan={3} className="p-6 text-center text-silver">No opens yet.</td></tr>
                 ) : rows.map((r) => (
-                  <tr
-                    key={r.id}
-                    onClick={() => setSelected(r)}
-                    className={`cursor-pointer border-t border-border hover:bg-muted/50 ${selected?.id === r.id ? "bg-muted/70" : ""}`}
-                  >
-                    <td className="p-3 text-xs text-muted-foreground font-mono">{new Date(r.created_at).toLocaleDateString()}</td>
-                    <td className="p-3 text-ink">{r.name}</td>
-                    <td className="p-3 text-muted-foreground">{r.organization}</td>
-                    <td className="p-3 text-xs text-muted-foreground">{r.interest}</td>
-                    <td className="p-3 text-xs font-mono uppercase">{r.status}</td>
+                  <tr key={r.id} className="border-t border-border">
+                    <td className="p-3 text-xs text-muted-foreground font-mono">{new Date(r.opened_at).toLocaleString()}</td>
+                    <td className="p-3 text-ink">{r.email}</td>
+                    <td className="p-3 text-sm text-muted-foreground">
+                      {DOSSIERS_BY_SLUG[r.dossier_slug]?.title ?? r.dossier_slug}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+        ) : (
+          <div className="grid gap-6 lg:grid-cols-5">
+            <div className="lg:col-span-3 border border-border">
+              <table className="w-full text-sm">
+                <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+                  <tr>
+                    <th className="p-3">Date</th>
+                    <th className="p-3">Name</th>
+                    <th className="p-3">Organization</th>
+                    <th className="p-3">Interest</th>
+                    <th className="p-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loading ? (
+                    <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+                  ) : rows.length === 0 ? (
+                    <tr><td colSpan={5} className="p-6 text-center text-silver">No records.</td></tr>
+                  ) : rows.map((r) => (
+                    <tr
+                      key={r.id}
+                      onClick={() => setSelected(r)}
+                      className={`cursor-pointer border-t border-border hover:bg-muted/50 ${selected?.id === r.id ? "bg-muted/70" : ""}`}
+                    >
+                      <td className="p-3 text-xs text-muted-foreground font-mono">{new Date(r.created_at).toLocaleDateString()}</td>
+                      <td className="p-3 text-ink">{r.name}</td>
+                      <td className="p-3 text-muted-foreground">{r.organization}</td>
+                      <td className="p-3 text-xs text-muted-foreground">{r.interest}</td>
+                      <td className="p-3 text-xs font-mono uppercase">{r.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          <div className="lg:col-span-2">
-            {selected ? (
-              <DetailPanel
-                key={selected.id}
-                row={selected}
-                tab={tab}
-                onSaveStatus={async (s, note) => {
-                  if (tab === "briefings") {
-                    await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
-                  } else {
-                    await updConf({ data: { id: selected.id, status: s as ConferenceStatus, note } });
+            <div className="lg:col-span-2">
+              {selected ? (
+                <DetailPanel
+                  key={selected.id}
+                  row={selected}
+                  tab={tab as "briefings" | "conference"}
+                  onSaveStatus={async (s, note) => {
+                    if (tab === "briefings") {
+                      await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
+                    } else {
+                      await updConf({ data: { id: selected.id, status: s as ConferenceStatus, note } });
+                    }
+                    await load();
+                    setSelected((cur) => (cur ? { ...cur, status: s } : cur));
+                  }}
+                  onSaveNotes={async (note) => {
+                    if (tab === "briefings") {
+                      await updNotes({ data: { id: selected.id, note } });
+                    } else {
+                      await updConfNotes({ data: { id: selected.id, note } });
+                    }
+                    setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
+                  }}
+                  onApproveAndInvite={
+                    tab === "briefings"
+                      ? async () => {
+                          const r = await grant({ data: { briefingRequestId: selected.id } });
+                          await load();
+                          setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
+                          return r;
+                        }
+                      : async () => {
+                          const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
+                          await load();
+                          setSelected((cur) => (cur ? { ...cur, status: "confirmed" } : cur));
+                          return r;
+                        }
                   }
-                  await load();
-                  setSelected((cur) => (cur ? { ...cur, status: s } : cur));
-                }}
-                onSaveNotes={async (note) => {
-                  if (tab === "briefings") {
-                    await updNotes({ data: { id: selected.id, note } });
-                  } else {
-                    await updConfNotes({ data: { id: selected.id, note } });
+                  loadInvitation={
+                    tab === "briefings"
+                      ? () => getInv({ data: { briefingRequestId: selected.id } })
+                      : () => getInvConf({ data: { conferenceApplicationId: selected.id } })
                   }
-                  setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
-                }}
-                onApproveAndInvite={
-                  tab === "briefings"
-                    ? async () => {
-                        const r = await grant({ data: { briefingRequestId: selected.id } });
-                        await load();
-                        setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
-                        return r;
-                      }
-                    : async () => {
-                        const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
-                        await load();
-                        setSelected((cur) => (cur ? { ...cur, status: "confirmed" } : cur));
-                        return r;
-                      }
-                }
-                loadInvitation={
-                  tab === "briefings"
-                    ? () => getInv({ data: { briefingRequestId: selected.id } })
-                    : () => getInvConf({ data: { conferenceApplicationId: selected.id } })
-                }
-              />
-            ) : (
-              <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
-                Select a row to review.
-              </div>
-            )}
+                />
+              ) : (
+                <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
+                  Select a row to review.
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </PageShell>
   );
 }
+
+function activityCsv(rows: Row[]): string {
+  if (rows.length === 0) return "";
+  const cols = ["opened_at", "email", "dossier_slug"];
+  const esc = (v: unknown) => {
+    const s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
+}
+
+
+
+
 
 function TabBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (

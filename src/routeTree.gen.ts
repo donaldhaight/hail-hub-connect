@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
+import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
   id: '/why-rrca',
@@ -88,6 +89,12 @@ const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   path: '/admin/inbox',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedInsiderDossierSlugRoute =
+  AuthenticatedInsiderDossierSlugRouteImport.update({
+    id: '/insider/dossier/$slug',
+    path: '/insider/dossier/$slug',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
+  '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -116,6 +124,7 @@ export interface FileRoutesByTo {
   '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
+  '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -132,6 +141,7 @@ export interface FileRoutesById {
   '/insider/accept': typeof InsiderAcceptRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
+  '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/admin/inbox'
     | '/insider/'
+    | '/insider/dossier/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/admin/inbox'
     | '/insider'
+    | '/insider/dossier/$slug'
   id:
     | '__root__'
     | '/'
@@ -177,6 +189,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/_authenticated/admin/inbox'
     | '/_authenticated/insider/'
+    | '/_authenticated/insider/dossier/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -286,17 +299,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/insider/dossier/$slug': {
+      id: '/_authenticated/insider/dossier/$slug'
+      path: '/insider/dossier/$slug'
+      fullPath: '/insider/dossier/$slug'
+      preLoaderRoute: typeof AuthenticatedInsiderDossierSlugRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
+  AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
+  AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

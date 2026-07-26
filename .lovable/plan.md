@@ -1,47 +1,51 @@
-# Sprint 0.6 — Close the Conference Loop + Insider Room Shell
+# Sprint 0.7 — Dossier Reader + Insider Activity Log
 
-Phase 0 has a briefing funnel but the PrepareAmerica conference tab in the founder inbox is empty because no public form writes to `conference_applications`. This sprint closes that loop and lays the first real content shell for the insider room so approved insiders land on something intentional, not placeholders.
+The `/insider` room currently lists dossier cards but they don't open. Insiders can't actually read anything, and the founder has no visibility into who has accessed what. This sprint closes that loop so the insider layer becomes usable at the PrepareAmerica preview.
 
-## Goals
+## What we'll build
 
-1. Public conference application flow that feeds the existing inbox tab.
-2. Founder-side triage parity with briefings (approve → optional insider invite).
-3. First real Insider Room shell: a documented index of the working artifacts (still gated, still labeled as drafts) instead of four generic placeholder cards.
+### 1. Dossier content model (C2/C3, simulated)
+Move dossier definitions out of the index component into a typed registry so each entry has:
+- `slug`, `title`, `summary`, `confidentiality` (C2/C3), `truthDefault` (DRAFT/SIMULATION/ASSERTION)
+- `sections[]` — ordered narrative blocks, each with its own truth label
+- `storyOrder` position so the canonical sequence (RRCA → Case Study → ClaimExpress → ClaimStore → USA Foundry → PrepareAmerica) is enforced in navigation
 
-## Scope
+Content is authored in-repo as structured TS (not a DB table yet — faster to iterate, and keeps C2/C3 material out of any anon-reachable surface).
 
-### 1. PrepareAmerica application form (public)
-- Add a "Request to attend" section on `/prepare-america` with an application form: name, title, organization, email, category (Executive / Investor / Contractor / Government / Advisor), referral source, why-attend note.
-- New server fn `submitConferenceApplication` in `src/lib/briefing.functions.ts` mirroring `submitBriefingRequest`: Zod validation, 24h rate limit by email, writes to `conference_applications`.
-- Success/failure states matching the briefing form UX.
+### 2. Dossier reader route
+New route `/_authenticated/insider/dossier/$slug`:
+- Gated to `qualified_insider` or `founder_admin` (same guard as `/insider`)
+- Renders title, confidentiality chip, per-section truth chips
+- Persistent "Confidential Working Concept — Not an Offering" footer + simulation banner when any section is SIMULATION
+- Prev/Next navigation follows `storyOrder`
+- "Back to Index" returns to `/insider`
 
-### 2. Founder inbox parity
-- Conference tab already lists rows; add the same detail-panel actions the briefing tab has: status updates with audit note, internal notes editor, and — for `confirmed` status — an optional "Issue insider invite" button reusing `grantInsiderAccess` (extended to accept a `conferenceApplicationId` variant, or a thin wrapper that creates the invitation from the application record).
-- Extend `insider_invitations` usage so an invite can be sourced from either a briefing request or a conference application (add nullable `conference_application_id` column; keep existing behavior unchanged).
+### 3. Access logging
+New table `insider_access_log` (user_id, dossier_slug, opened_at, ip hash optional).
+- Server fn `logDossierOpen` called on reader mount
+- RLS: insert-own for authenticated; select restricted to `founder_admin`
 
-### 3. Insider Room shell (`/insider`)
-- Replace the four generic placeholder cards with a real "Working Dossier Index" reflecting the master vision:
-  - RRCA Restructuring — Case Study
-  - ClaimExpress — Operational Layer
-  - ClaimStore — Network Thesis
-  - USA Foundry — ClaimsBank / ClaimLoan / ClaimCoin
-  - PrepareAmerica Conference — Agenda & Attendees
-- Each entry: title, one-line thesis, confidentiality chip (C2/C3), truth chip (DRAFT / SIMULATION), "Not yet released" state. No document bodies yet — that's Phase 1.
-- Add a top strip showing the viewer's role (`qualified_insider` vs `founder_admin`) and the standing "Confidential Working Concept — Not an Offering" reminder.
+### 4. Founder visibility
+New tab in `/admin/inbox` → **Insider Activity**:
+- List recent opens (who, what, when)
+- Group by insider so the founder can see engagement depth before PrepareAmerica
+- CSV export
 
-### 4. Housekeeping
-- Head metadata pass on `/prepare-america` to match the new form (unique title + description, `noindex` stays off — this page is public).
-- Header link to `/prepare-america` confirmed reachable from the front door.
-
-## Out of scope (deferred)
-- Email activation (waiting on your sender domain).
-- Any real dossier content behind `/insider` (Phase 1).
-- Payments / ticketing for the conference.
+### 5. Insider index polish
+- Show "Last opened" per card for the current insider
+- Order cards by canonical story order (not alphabetical)
 
 ## Technical notes
-- Migration: `ALTER TABLE insider_invitations ADD COLUMN conference_application_id uuid REFERENCES conference_applications(id)`; keep `briefing_request_id` nullable; CHECK that exactly one source is set. Preserve existing GRANTs and RLS.
-- `submitConferenceApplication` is a public server fn (no `requireSupabaseAuth`), same shape as `submitBriefingRequest`.
-- Inbox conference actions call existing `updateConferenceStatus`; add `grantInsiderAccessFromConference({ conferenceApplicationId })` alongside the existing briefing variant to keep call sites explicit.
-- No changes to auth, `_authenticated` gate, or the managed Supabase client files.
 
-After this sprint the front door has two working intake lanes (briefing + conference), the founder can triage and invite from either, and insiders see a real (if empty) working index instead of placeholders.
+- Migration adds `insider_access_log` with GRANTs (`authenticated` insert/select, `service_role` all) and RLS policies using `has_role()`.
+- Dossier registry: `src/content/dossiers.ts` — pure data, imported by both index and reader.
+- Reader uses `createServerFn` + `requireSupabaseAuth` to verify role server-side before returning content (defense in depth beyond the route gate).
+- No email work — sender domain still deferred.
+
+## Out of scope
+- Real content authoring beyond 1-2 seed sections per dossier (you'll want to redline)
+- Dossier editing UI (Phase 2)
+- ClaimCoin / ClaimsBank interactive models (Phase 3)
+
+## Next sprint preview (0.8)
+Once you're ready: founder-authored dossier notes + insider Q&A thread per dossier, so PrepareAmerica attendees can leave structured feedback tied to specific sections.
