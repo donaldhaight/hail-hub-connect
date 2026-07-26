@@ -10,6 +10,7 @@ import {
   updateBriefingNotes,
   getMyRoles,
 } from "@/lib/inbox.functions";
+import { grantInsiderAccess, getInvitationForRequest } from "@/lib/insider.functions";
 import {
   BRIEFING_STATUSES,
   CONFERENCE_STATUSES,

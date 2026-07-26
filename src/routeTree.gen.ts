@@ -19,6 +19,8 @@ import { Route as FounderRouteImport } from './routes/founder'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
+import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
@@ -70,6 +72,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsiderAcceptRoute = InsiderAcceptRouteImport.update({
+  id: '/insider/accept',
+  path: '/insider/accept',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedInsiderIndexRoute =
+  AuthenticatedInsiderIndexRouteImport.update({
+    id: '/insider/',
+    path: '/insider/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   id: '/admin/inbox',
   path: '/admin/inbox',
@@ -86,7 +99,9 @@ export interface FileRoutesByFullPath {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/insider/': typeof AuthenticatedInsiderIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,7 +113,9 @@ export interface FileRoutesByTo {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/insider': typeof AuthenticatedInsiderIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,7 +129,9 @@ export interface FileRoutesById {
   '/request-briefing': typeof RequestBriefingRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/insider/accept': typeof InsiderAcceptRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -126,7 +145,9 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/insider/accept'
     | '/admin/inbox'
+    | '/insider/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -138,7 +159,9 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/insider/accept'
     | '/admin/inbox'
+    | '/insider'
   id:
     | '__root__'
     | '/'
@@ -151,7 +174,9 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/vision'
     | '/why-rrca'
+    | '/insider/accept'
     | '/_authenticated/admin/inbox'
+    | '/_authenticated/insider/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -165,6 +190,7 @@ export interface RootRouteChildren {
   RequestBriefingRoute: typeof RequestBriefingRoute
   VisionRoute: typeof VisionRoute
   WhyRrcaRoute: typeof WhyRrcaRoute
+  InsiderAcceptRoute: typeof InsiderAcceptRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -239,6 +265,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insider/accept': {
+      id: '/insider/accept'
+      path: '/insider/accept'
+      fullPath: '/insider/accept'
+      preLoaderRoute: typeof InsiderAcceptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/insider/': {
+      id: '/_authenticated/insider/'
+      path: '/insider'
+      fullPath: '/insider/'
+      preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/inbox': {
       id: '/_authenticated/admin/inbox'
       path: '/admin/inbox'
@@ -251,10 +291,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+  AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+  AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -271,6 +313,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestBriefingRoute: RequestBriefingRoute,
   VisionRoute: VisionRoute,
   WhyRrcaRoute: WhyRrcaRoute,
+  InsiderAcceptRoute: InsiderAcceptRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
