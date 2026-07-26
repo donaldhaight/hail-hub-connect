@@ -1,8 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
+import {
+  INTERESTS,
+  briefingRequestSchema,
+  type BriefingRequestInput,
+} from "@/lib/briefing.schemas";
+import { submitBriefingRequest } from "@/lib/briefing.functions";
 
 const TITLE = "Request a Private Briefing";
 const DESC =
@@ -26,15 +33,6 @@ export const Route = createFileRoute("/request-briefing")({
   }),
   component: RequestBriefing,
 });
-
-const INTERESTS = [
-  { id: "investor", label: "RRCA investor prospect" },
-  { id: "sponsor", label: "ClaimStore sponsor" },
-  { id: "partner", label: "Strategic industry partner" },
-  { id: "counsel", label: "Counsel · construction / restructuring / securities" },
-  { id: "advisor", label: "Trusted advisor" },
-  { id: "prepare-america", label: "PrepareAmerica Conference applicant" },
-] as const;
 
 function RequestBriefing() {
   const { interest } = Route.useSearch();
