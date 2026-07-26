@@ -135,3 +135,19 @@ export const updateBriefingNotes = createServerFn({ method: "POST" })
     if (error) throw new Error("Failed to save notes");
     return { ok: true };
   });
+
+export const updateConferenceNotes = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) =>
+    updateConferenceStatusSchema.pick({ id: true }).extend(updateConferenceStatusSchema.pick({ note: true }).shape).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("conference_applications")
+      .update({ internal_notes: data.note ?? null, updated_at: new Date().toISOString() })
+      .eq("id", data.id);
+    if (error) throw new Error("Failed to save notes");
+    return { ok: true };
+  });
