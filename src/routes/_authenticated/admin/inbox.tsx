@@ -301,11 +301,25 @@ function Inbox() {
               ) : (
                 <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
                   Select a row to review.
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </section>
+    </PageShell>
+  );
+}
+
+function activityCsv(rows: Row[]): string {
+  if (rows.length === 0) return "";
+  const cols = ["opened_at", "email", "dossier_slug"];
+  const esc = (v: unknown) => {
+    const s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
+}
     </PageShell>
   );
 }
