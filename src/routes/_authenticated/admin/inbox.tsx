@@ -53,9 +53,12 @@ function Inbox() {
   const updBrief = useServerFn(updateBriefingStatus);
   const updConf = useServerFn(updateConferenceStatus);
   const updNotes = useServerFn(updateBriefingNotes);
+  const updConfNotes = useServerFn(updateConferenceNotes);
   const myRoles = useServerFn(getMyRoles);
   const grant = useServerFn(grantInsiderAccess);
   const getInv = useServerFn(getInvitationForRequest);
+  const grantConf = useServerFn(grantInsiderAccessFromConference);
+  const getInvConf = useServerFn(getInvitationForConference);
 
   useEffect(() => {
     myRoles()
