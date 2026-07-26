@@ -279,12 +279,14 @@ function Field({
   type = "text",
   required,
   maxLength,
+  error,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
   maxLength?: number;
+  error?: string;
 }) {
   return (
     <label className="block">
@@ -297,8 +299,10 @@ function Field({
         name={name}
         required={required}
         maxLength={maxLength}
-        className="mt-2 block w-full border border-border bg-card px-3 py-2.5 text-[15px] text-ink placeholder:text-silver focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+        aria-invalid={!!error}
+        className={`mt-2 block w-full border bg-card px-3 py-2.5 text-[15px] text-ink placeholder:text-silver focus:outline-none focus:ring-1 focus:ring-navy ${error ? "border-destructive focus:border-destructive" : "border-border focus:border-navy"}`}
       />
+      {error ? <p className="mt-1 text-sm text-destructive">{error}</p> : null}
     </label>
   );
 }
