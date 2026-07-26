@@ -153,6 +153,7 @@ export type Database = {
       insider_invitations: {
         Row: {
           briefing_request_id: string | null
+          conference_application_id: string | null
           created_at: string
           created_by: string | null
           email: string
@@ -166,6 +167,7 @@ export type Database = {
         }
         Insert: {
           briefing_request_id?: string | null
+          conference_application_id?: string | null
           created_at?: string
           created_by?: string | null
           email: string
@@ -179,6 +181,7 @@ export type Database = {
         }
         Update: {
           briefing_request_id?: string | null
+          conference_application_id?: string | null
           created_at?: string
           created_by?: string | null
           email?: string
@@ -196,6 +199,13 @@ export type Database = {
             columns: ["briefing_request_id"]
             isOneToOne: false
             referencedRelation: "briefing_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insider_invitations_conference_application_id_fkey"
+            columns: ["conference_application_id"]
+            isOneToOne: false
+            referencedRelation: "conference_applications"
             referencedColumns: ["id"]
           },
         ]
