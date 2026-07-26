@@ -115,36 +115,84 @@ function BriefingForm({
   defaultInterest?: string;
   onSubmit: () => void;
 }) {
+  const submit = useServerFn(submitBriefingRequest);
+  const [errors, setErrors] = useState<Partial<Record<keyof BriefingRequestInput, string>>>({});
+  const [globalError, setGlobalError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setErrors({});
+    setGlobalError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const raw = Object.fromEntries(formData) as Record<string, unknown>;
+
+    const parsed = briefingRequestSchema.safeParse(raw);
+    if (!parsed.success) {
+      const next: Partial<Record<keyof BriefingRequestInput, string>> = {};
+      parsed.error.errors.forEach((err) => {
+        const key = err.path[0] as keyof BriefingRequestInput;
+        next[key] = err.message;
+      });
+      setErrors(next);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await submit({ data: parsed.data });
+      onSubmit();
+    } catch (err) {
+      setGlobalError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        // Phase 0.3 will wire this to Lovable Cloud (briefing_requests
-        // table + email notification). For Sprint 0.2 we acknowledge
-        // client-side and log to console for founder walkthroughs.
-        const data = Object.fromEntries(new FormData(e.currentTarget));
-        console.info("briefing_request", data);
-        onSubmit();
-      }}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="Full name" name="name" required maxLength={120} />
+        <Field
+          label="Full name"
+          name="name"
+          required
+          maxLength={120}
+          error={errors.name}
+        />
         <Field
           label="Institutional email"
           name="email"
           type="email"
           required
-          maxLength={200}
+          maxLength={255}
+          error={errors.email}
         />
-        <Field label="Organization" name="organization" required maxLength={160} />
-        <Field label="Title / role" name="title" required maxLength={160} />
+        <Field
+          label="Organization"
+          name="organization"
+          required
+          maxLength={160}
+          error={errors.organization}
+        />
+        <Field
+          label="Title / role"
+          name="title"
+          required
+          maxLength={160}
+          error={errors.title}
+        />
       </div>
 
       <fieldset className="space-y-3">
         <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
           Primary interest
         </legend>
+        {errors.interest ? (
+          <p className="text-sm text-destructive">{errors.interest}</p>
+        ) : null}
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((opt) => (
             <label
@@ -180,6 +228,9 @@ function BriefingForm({
           placeholder="Referral source, the specific question you want to explore, or the outcome you're evaluating."
           className="mt-2 block w-full border border-border bg-card p-3 text-[15px] leading-relaxed text-ink placeholder:text-silver focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
         />
+        {errors.context ? (
+          <p className="mt-1 text-sm text-destructive">{errors.context}</p>
+        ) : null}
       </div>
 
       <label className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -195,13 +246,23 @@ function BriefingForm({
           an offer to buy or sell securities.
         </span>
       </label>
+      {errors.acknowledged ? (
+        <p className="text-sm text-destructive">{errors.acknowledged}</p>
+      ) : null}
+
+      {globalError ? (
+        <div className="border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
+          {globalError}
+        </div>
+      ) : null}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
+          disabled={isSubmitting}
+          className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy disabled:opacity-60"
         >
-          Submit request
+          {isSubmitting ? "Submitting…" : "Submit request"}
           <span aria-hidden="true">→</span>
         </button>
         <span className="text-xs text-muted-foreground">
