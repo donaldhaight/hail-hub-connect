@@ -22,10 +22,19 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as BRouteRouteImport } from './routes/b/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
+import { Route as BUnitedStakeholdersRouteImport } from './routes/b/united-stakeholders'
+import { Route as BSelfinsurityRouteImport } from './routes/b/selfinsurity'
+import { Route as BRrcaRouteImport } from './routes/b/rrca'
+import { Route as BMarketApplicationsRouteImport } from './routes/b/market-applications'
+import { Route as BKimosabeRouteImport } from './routes/b/kimosabe'
+import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
+import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
@@ -102,6 +111,16 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArchitectureRoute = ArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BRouteRoute = BRouteRouteImport.update({
+  id: '/b',
+  path: '/b',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -120,6 +139,41 @@ const InsiderAcceptRoute = InsiderAcceptRouteImport.update({
   id: '/insider/accept',
   path: '/insider/accept',
   getParentRoute: () => rootRouteImport,
+} as any)
+const BUnitedStakeholdersRoute = BUnitedStakeholdersRouteImport.update({
+  id: '/united-stakeholders',
+  path: '/united-stakeholders',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BSelfinsurityRoute = BSelfinsurityRouteImport.update({
+  id: '/selfinsurity',
+  path: '/selfinsurity',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BRrcaRoute = BRrcaRouteImport.update({
+  id: '/rrca',
+  path: '/rrca',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BMarketApplicationsRoute = BMarketApplicationsRouteImport.update({
+  id: '/market-applications',
+  path: '/market-applications',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BKimosabeRoute = BKimosabeRouteImport.update({
+  id: '/kimosabe',
+  path: '/kimosabe',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BClaimstoreRoute = BClaimstoreRouteImport.update({
+  id: '/claimstore',
+  path: '/claimstore',
+  getParentRoute: () => BRouteRoute,
+} as any)
+const BBuddyClaimRoute = BBuddyClaimRouteImport.update({
+  id: '/buddy-claim',
+  path: '/buddy-claim',
+  getParentRoute: () => BRouteRoute,
 } as any)
 const AuthenticatedInsiderIndexRoute =
   AuthenticatedInsiderIndexRouteImport.update({
@@ -180,6 +234,8 @@ const AuthenticatedInsiderDossierSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/b': typeof BRouteRouteWithChildren
+  '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -193,6 +249,13 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/b/buddy-claim': typeof BBuddyClaimRoute
+  '/b/claimstore': typeof BClaimstoreRoute
+  '/b/kimosabe': typeof BKimosabeRoute
+  '/b/market-applications': typeof BMarketApplicationsRoute
+  '/b/rrca': typeof BRrcaRoute
+  '/b/selfinsurity': typeof BSelfinsurityRoute
+  '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
@@ -208,6 +271,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/b': typeof BRouteRouteWithChildren
+  '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -221,6 +286,13 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/b/buddy-claim': typeof BBuddyClaimRoute
+  '/b/claimstore': typeof BClaimstoreRoute
+  '/b/kimosabe': typeof BKimosabeRoute
+  '/b/market-applications': typeof BMarketApplicationsRoute
+  '/b/rrca': typeof BRrcaRoute
+  '/b/selfinsurity': typeof BSelfinsurityRoute
+  '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
@@ -238,6 +310,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/b': typeof BRouteRouteWithChildren
+  '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -251,6 +325,13 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/b/buddy-claim': typeof BBuddyClaimRoute
+  '/b/claimstore': typeof BClaimstoreRoute
+  '/b/kimosabe': typeof BKimosabeRoute
+  '/b/market-applications': typeof BMarketApplicationsRoute
+  '/b/rrca': typeof BRrcaRoute
+  '/b/selfinsurity': typeof BSelfinsurityRoute
+  '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
@@ -268,6 +349,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/b'
+    | '/architecture'
     | '/auth'
     | '/founder'
     | '/industry-problem'
@@ -281,6 +364,13 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/b/buddy-claim'
+    | '/b/claimstore'
+    | '/b/kimosabe'
+    | '/b/market-applications'
+    | '/b/rrca'
+    | '/b/selfinsurity'
+    | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/admin/digest'
@@ -296,6 +386,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/b'
+    | '/architecture'
     | '/auth'
     | '/founder'
     | '/industry-problem'
@@ -309,6 +401,13 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/b/buddy-claim'
+    | '/b/claimstore'
+    | '/b/kimosabe'
+    | '/b/market-applications'
+    | '/b/rrca'
+    | '/b/selfinsurity'
+    | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/admin/digest'
@@ -325,6 +424,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/b'
+    | '/architecture'
     | '/auth'
     | '/founder'
     | '/industry-problem'
@@ -338,6 +439,13 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/b/buddy-claim'
+    | '/b/claimstore'
+    | '/b/kimosabe'
+    | '/b/market-applications'
+    | '/b/rrca'
+    | '/b/selfinsurity'
+    | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/_authenticated/admin/digest'
@@ -355,6 +463,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  BRouteRoute: typeof BRouteRouteWithChildren
+  ArchitectureRoute: typeof ArchitectureRoute
   AuthRoute: typeof AuthRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
@@ -464,6 +574,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/architecture': {
+      id: '/architecture'
+      path: '/architecture'
+      fullPath: '/architecture'
+      preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/b': {
+      id: '/b'
+      path: '/b'
+      fullPath: '/b'
+      preLoaderRoute: typeof BRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -491,6 +615,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/insider/accept'
       preLoaderRoute: typeof InsiderAcceptRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/b/united-stakeholders': {
+      id: '/b/united-stakeholders'
+      path: '/united-stakeholders'
+      fullPath: '/b/united-stakeholders'
+      preLoaderRoute: typeof BUnitedStakeholdersRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/selfinsurity': {
+      id: '/b/selfinsurity'
+      path: '/selfinsurity'
+      fullPath: '/b/selfinsurity'
+      preLoaderRoute: typeof BSelfinsurityRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/rrca': {
+      id: '/b/rrca'
+      path: '/rrca'
+      fullPath: '/b/rrca'
+      preLoaderRoute: typeof BRrcaRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/market-applications': {
+      id: '/b/market-applications'
+      path: '/market-applications'
+      fullPath: '/b/market-applications'
+      preLoaderRoute: typeof BMarketApplicationsRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/kimosabe': {
+      id: '/b/kimosabe'
+      path: '/kimosabe'
+      fullPath: '/b/kimosabe'
+      preLoaderRoute: typeof BKimosabeRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/claimstore': {
+      id: '/b/claimstore'
+      path: '/claimstore'
+      fullPath: '/b/claimstore'
+      preLoaderRoute: typeof BClaimstoreRouteImport
+      parentRoute: typeof BRouteRoute
+    }
+    '/b/buddy-claim': {
+      id: '/b/buddy-claim'
+      path: '/buddy-claim'
+      fullPath: '/b/buddy-claim'
+      preLoaderRoute: typeof BBuddyClaimRouteImport
+      parentRoute: typeof BRouteRoute
     }
     '/_authenticated/insider/': {
       id: '/_authenticated/insider/'
@@ -594,6 +767,29 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface BRouteRouteChildren {
+  BBuddyClaimRoute: typeof BBuddyClaimRoute
+  BClaimstoreRoute: typeof BClaimstoreRoute
+  BKimosabeRoute: typeof BKimosabeRoute
+  BMarketApplicationsRoute: typeof BMarketApplicationsRoute
+  BRrcaRoute: typeof BRrcaRoute
+  BSelfinsurityRoute: typeof BSelfinsurityRoute
+  BUnitedStakeholdersRoute: typeof BUnitedStakeholdersRoute
+}
+
+const BRouteRouteChildren: BRouteRouteChildren = {
+  BBuddyClaimRoute: BBuddyClaimRoute,
+  BClaimstoreRoute: BClaimstoreRoute,
+  BKimosabeRoute: BKimosabeRoute,
+  BMarketApplicationsRoute: BMarketApplicationsRoute,
+  BRrcaRoute: BRrcaRoute,
+  BSelfinsurityRoute: BSelfinsurityRoute,
+  BUnitedStakeholdersRoute: BUnitedStakeholdersRoute,
+}
+
+const BRouteRouteWithChildren =
+  BRouteRoute._addFileChildren(BRouteRouteChildren)
+
 interface PrepareAmericaRouteChildren {
   PrepareAmericaConfirmedRoute: typeof PrepareAmericaConfirmedRoute
 }
@@ -609,6 +805,8 @@ const PrepareAmericaRouteWithChildren = PrepareAmericaRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  BRouteRoute: BRouteRouteWithChildren,
+  ArchitectureRoute: ArchitectureRoute,
   AuthRoute: AuthRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,

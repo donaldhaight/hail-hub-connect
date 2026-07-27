@@ -78,6 +78,7 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <QuantumSwitcher />
         </nav>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -173,6 +174,9 @@ export function Header() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <QuantumSwitcher variant="mobile" />
+              </li>
               {signedIn ? (
                 <>
                   <li>
