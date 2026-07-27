@@ -44,19 +44,22 @@ function PrepareAmerica() {
 
       <Section number="01" title="The details">
         <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {[
-            ["Date", "November 1, 2026"],
-            ["Location", "Gratitude Ranch, Flower Mound, Texas"],
-            ["Capacity", "300 seats — private"],
-            ["Convener", "United Stakeholders of America LLC"],
-          ].map(([k, v]) => (
-            <div key={k}>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-                {k}
-              </dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">{v}</dd>
-            </div>
-          ))}
+          <div>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Date</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink">November 1, 2026</dd>
+          </div>
+          <div>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Location</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink">Gratitude Ranch, Flower Mound, Texas</dd>
+          </div>
+          <div>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink"><CapacityDisplay /></dd>
+          </div>
+          <div>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Convener</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink">United Stakeholders of America LLC</dd>
+          </div>
         </dl>
       </Section>
 
