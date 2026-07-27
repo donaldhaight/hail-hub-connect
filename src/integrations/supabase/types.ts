@@ -248,6 +248,38 @@ export type Database = {
           },
         ]
       }
+      dossier_attachment_opens: {
+        Row: {
+          attachment_id: string
+          dossier_slug: string
+          id: string
+          opened_at: string
+          user_id: string
+        }
+        Insert: {
+          attachment_id: string
+          dossier_slug: string
+          id?: string
+          opened_at?: string
+          user_id: string
+        }
+        Update: {
+          attachment_id?: string
+          dossier_slug?: string
+          id?: string
+          opened_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dossier_attachment_opens_attachment_id_fkey"
+            columns: ["attachment_id"]
+            isOneToOne: false
+            referencedRelation: "dossier_attachments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dossier_attachments: {
         Row: {
           created_at: string
