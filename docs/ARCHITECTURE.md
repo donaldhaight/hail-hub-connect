@@ -28,15 +28,17 @@ The site is intentionally understated. It reads like a private transaction memor
 │  Requires Google OAuth + role assignment                     │
 │                                                              │
 │  Founder Admin:                                              │
-│    /admin/inbox    — triage requests, invitations, itinerary │
-│    /admin/signals  — insider engagement dashboard            │
-│    /admin/digest   — daily rollup                            │
-│    /admin/edits    — dossier edit audit log                  │
-│                                                              │
-│  Qualified Insider:                                          │
-│    /insider        — dossier index                           │
-│    /insider/dossier/$slug  — reader + Q&A + notes            │
-│    /insider/accept — token redemption for invitations          │
+  │    /admin/inbox    — triage requests, invitations, itinerary │
+  │    /admin/signals  — insider engagement dashboard            │
+  │    /admin/digest   — daily rollup                            │
+  │    /admin/edits    — dossier edit audit log                  │
+  │    /admin/reads    — section-level read heatmap              │
+  │                                                              │
+  │  Qualified Insider:                                          │
+  │    /insider        — dossier index                           │
+  │    /insider/dossier/$slug  — reader + Q&A + notes            │
+  │    /insider/accept — token redemption for invitations        │
+  │    /insider/refer  — peer nomination form                    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -74,10 +76,14 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 - `dossier_notes` — founder annotations tied to a dossier/section.
 - `dossier_messages` — insider Q&A threads tied to a dossier/section.
 - `dossier_edits` — audit log of corpus changes (before/after values).
+- `dossier_attachments` — file/link evidence attached to a dossier/section; stored in private `dossier-artifacts` bucket.
+- `dossier_attachment_opens` — per-user attachment open events for engagement analytics.
+- `dossier_section_reads` — per-user section dwell time and explicit read confirmation.
 - `insider_access_log` — per-user dossier open events.
+- `insider_referrals` — peer nominations submitted by insiders; founder triage converts approved referrals into invitations.
 
 ### Invitations and itinerary
-- `insider_invitations` — single-use tokens linking to a briefing request, conference application, or direct seed.
+- `insider_invitations` — single-use tokens linking to a briefing request, conference application, direct seed, or approved referral.
 - `conference_itinerary_items` — agenda entries; public read for published items, full CRUD for founder admin.
 
 ### Access pattern
@@ -94,6 +100,9 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 - `src/lib/inbox.functions.ts` — founder inbox data and triage actions.
 - `src/lib/insider.functions.ts` — invitation lifecycle and redemption.
 - `src/lib/dossier.functions.ts` — dossier corpus, notes, messages, activity, and edit audit.
+- `src/lib/section-reads.functions.ts` — section-level dwell tracking and read-heatmap aggregation.
+- `src/lib/attachments.functions.ts` — attachment CRUD, signed URLs, and open analytics.
+- `src/lib/referrals.functions.ts` — referral submission, founder triage, and funnel analytics.
 
 ## Public API and webhooks
 

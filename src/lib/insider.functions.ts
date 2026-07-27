@@ -456,9 +456,34 @@ export const listInsiderSignals = createServerFn({ method: "GET" })
       msgCountByUser[m.author_id] = (msgCountByUser[m.author_id] ?? 0) + 1;
     }
 
+    // Section reads (depth)
+    const { data: sectionReads } = await supabaseAdmin
+      .from("dossier_section_reads")
+      .select("user_id, dwell_ms, read_confirmed_at")
+      .in("user_id", insiderUserIds);
+    const readDepthByUser: Record<string, { sectionsRead: number; sectionsConfirmed: number; totalDwellMs: number }> = {};
+    for (const r of (sectionReads ?? []) as any[]) {
+      const cur = readDepthByUser[r.user_id] ?? { sectionsRead: 0, sectionsConfirmed: 0, totalDwellMs: 0 };
+      cur.sectionsRead++;
+      cur.totalDwellMs += r.dwell_ms ?? 0;
+      if (r.read_confirmed_at) cur.sectionsConfirmed++;
+      readDepthByUser[r.user_id] = cur;
+    }
+
+    // Attachment opens
+    const { data: attachOpens } = await supabaseAdmin
+      .from("dossier_attachment_opens")
+      .select("user_id")
+      .in("user_id", insiderUserIds);
+    const attachOpenCountByUser: Record<string, number> = {};
+    for (const o of (attachOpens ?? []) as any[]) {
+      attachOpenCountByUser[o.user_id] = (attachOpenCountByUser[o.user_id] ?? 0) + 1;
+    }
+
     const rows = insiderUserIds.map((uid) => {
       const o = opensByUser[uid];
       const inv = invByUser[uid];
+      const rd = readDepthByUser[uid];
       return {
         user_id: uid,
         email: emailByUser[uid] ?? "(unknown)",
@@ -470,6 +495,10 @@ export const listInsiderSignals = createServerFn({ method: "GET" })
         last_active: o?.lastAt ?? null,
         last_dossier: o?.lastSlug ?? null,
         messages_posted: msgCountByUser[uid] ?? 0,
+        sections_read: rd?.sectionsRead ?? 0,
+        sections_confirmed: rd?.sectionsConfirmed ?? 0,
+        total_dwell_ms: rd?.totalDwellMs ?? 0,
+        attachments_opened: attachOpenCountByUser[uid] ?? 0,
       };
     });
 

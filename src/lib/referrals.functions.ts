@@ -260,3 +260,94 @@ export const listReferralCountsByReferrer = createServerFn({ method: "GET" })
     }
     return { byUser };
   });
+
+export type ReferralFunnel = {
+  pending: number;
+  approved: number;
+  invited: number;
+  redeemed: number;
+  declined: number;
+  conversionRate: number | null;
+};
+
+export const getReferralFunnel = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const [{ data: refs }, { data: invs }] = await Promise.all([
+      supabaseAdmin.from("insider_referrals").select("id, status, resulting_invitation_id"),
+      supabaseAdmin
+        .from("insider_invitations")
+        .select("id, status, redeemed_at")
+        .not("redeemed_at", "is", null),
+    ]);
+
+    const redeemedInvitationIds = new Set(
+      (invs ?? []).filter((i: any) => i.redeemed_at).map((i: any) => i.id as string),
+    );
+
+    const funnel: ReferralFunnel = {
+      pending: 0,
+      approved: 0,
+      invited: 0,
+      redeemed: 0,
+      declined: 0,
+      conversionRate: null,
+    };
+
+    for (const r of (refs ?? []) as Array<{ status: string; resulting_invitation_id: string | null }>) {
+      if (r.status === "pending") funnel.pending++;
+      if (r.status === "approved") funnel.approved++;
+      if (r.status === "invited") funnel.invited++;
+      if (r.status === "declined") funnel.declined++;
+      if (r.status === "invited" && r.resulting_invitation_id && redeemedInvitationIds.has(r.resulting_invitation_id)) {
+        funnel.redeemed++;
+      }
+    }
+
+    const total = funnel.pending + funnel.approved + funnel.invited + funnel.declined + funnel.redeemed;
+    funnel.conversionRate = total > 0 ? Math.round((funnel.redeemed / total) * 1000) / 10 : null;
+
+    return { funnel };
+  });
+
+const byReferrerSchema = z.object({ referrerId: z.string().uuid() });
+
+export const getReferralsByReferrer = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => byReferrerSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: rows, error } = await supabaseAdmin
+      .from("insider_referrals")
+      .select(
+        "id, referrer_id, nominee_name, nominee_email, nominee_organization, nominee_role, context, status, founder_note, resulting_invitation_id, created_at, updated_at",
+      )
+      .eq("referrer_id", data.referrerId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error("Failed to load referrals");
+
+    const invitationIds = (rows ?? [])
+      .map((r: any) => r.resulting_invitation_id as string | null)
+      .filter(Boolean) as string[];
+    const redeemedIds = new Set<string>();
+    if (invitationIds.length > 0) {
+      const { data: invs } = await supabaseAdmin
+        .from("insider_invitations")
+        .select("id, redeemed_at")
+        .in("id", invitationIds)
+        .not("redeemed_at", "is", null);
+      for (const i of (invs ?? []) as any[]) redeemedIds.add(i.id as string);
+    }
+
+    return {
+      rows: (rows ?? []).map((r: any) => ({
+        ...(r as ReferralRow),
+        redeemed: r.resulting_invitation_id ? redeemedIds.has(r.resulting_invitation_id) : false,
+      })),
+    };
+  });

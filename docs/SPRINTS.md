@@ -120,3 +120,24 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Created `conference_itinerary_items` and public/founder itinerary functions.
 - Built `/prepare-america/confirmed` with seat details, logistics form, live itinerary, and insider-room bridge.
 - Added the Itinerary tab and attendee-link copy button to the founder inbox.
+
+## Sprint 0.15 — Insider room depth
+
+**Goal:** Make the dossier room a complete reading and referral environment.
+
+- Created `dossier_attachments`, `insider_referrals`, and `dossier_section_reads` tables with RLS and private storage bucket `dossier-artifacts`.
+- Built attachment CRUD, signed-URL access, and referral submission + founder triage flows.
+- Implemented `useSectionReads` hook using `IntersectionObserver` for section-level dwell tracking and explicit "Mark as read" confirmation.
+- Updated `/insider/dossier/$slug` with truth chips, seen/read badges, attachment evidence cards, and a dossier appendix.
+- Built `/insider/refer` for peer nominations and added a Referrals tab to the founder inbox for one-click approve-and-invite.
+
+## Sprint 0.16 — Founder read-depth signals
+
+**Goal:** Turn dossier engagement into actionable founder intelligence.
+
+- Created `dossier_attachment_opens` table and composite index on `dossier_section_reads`.
+- Added `getDossierReadHeatmap`, `getSectionReadSummary`, `getAttachmentAnalytics`, `getAttachmentOpens`, `getReferralFunnel`, and `getReferralsByReferrer` server functions.
+- Updated `listInsiderSignals` to include sections read, sections confirmed, and attachments opened per insider.
+- Overhauled `getFounderDigest` with most-engaged insiders, referral momentum, and sections that need work.
+- Built `/admin/reads` with a per-dossier section-by-insider heatmap and attachment engagement table.
+- Expanded `/admin/signals` with a referral funnel dashboard and read-depth columns.
