@@ -195,6 +195,9 @@ function Inbox() {
             <TabBtn active={tab === "itinerary"} onClick={() => { setTab("itinerary"); setStatus(""); setSelected(null); }}>
               Itinerary
             </TabBtn>
+            <TabBtn active={tab === "referrals"} onClick={() => { setTab("referrals"); setStatus(""); setSelected(null); }}>
+              Referrals
+            </TabBtn>
           </div>
           <div className="flex items-center gap-3">
             <button
