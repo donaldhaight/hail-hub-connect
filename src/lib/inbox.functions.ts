@@ -112,7 +112,10 @@ export const updateConferenceStatus = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const update: Record<string, unknown> = { status: data.status, updated_at: new Date().toISOString() };
+    const update: { status: string; seat_status?: string; updated_at: string } = {
+      status: data.status,
+      updated_at: new Date().toISOString(),
+    };
     if (data.status !== "applied") {
       update.seat_status = data.status;
     }
