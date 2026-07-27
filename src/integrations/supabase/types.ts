@@ -150,6 +150,63 @@ export type Database = {
           },
         ]
       }
+      dossier_messages: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          dossier_slug: string
+          id: string
+          section_heading: string | null
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          dossier_slug: string
+          id?: string
+          section_heading?: string | null
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          dossier_slug?: string
+          id?: string
+          section_heading?: string | null
+        }
+        Relationships: []
+      }
+      dossier_notes: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          dossier_slug: string
+          id: string
+          section_heading: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          dossier_slug: string
+          id?: string
+          section_heading?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          dossier_slug?: string
+          id?: string
+          section_heading?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       insider_access_log: {
         Row: {
           dossier_slug: string
