@@ -403,41 +403,57 @@ export const getFounderDigest = createServerFn({ method: "POST" })
     const since = new Date(sinceMs).toISOString();
     const dormantThreshold = new Date(sinceMs - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-    const [briefingsRes, confsRes, msgsRes, invitesRes, opensRes] = await Promise.all([
-      supabaseAdmin
-        .from("briefing_requests")
-        .select("id, name, email, organization, interest, status, created_at")
-        .gte("created_at", since)
-        .order("created_at", { ascending: false }),
-      supabaseAdmin
-        .from("conference_applications")
-        .select("id, name, email, organization, role_category, status, created_at")
-        .gte("created_at", since)
-        .order("created_at", { ascending: false }),
-      supabaseAdmin
-        .from("dossier_messages")
-        .select("id, dossier_slug, section_heading, body, author_id, created_at")
-        .gte("created_at", since)
-        .order("created_at", { ascending: false })
-        .limit(200),
-      supabaseAdmin
-        .from("insider_invitations")
-        .select("id, email, source, redeemed_at, redeemed_by")
-        .not("redeemed_at", "is", null)
-        .gte("redeemed_at", since)
-        .order("redeemed_at", { ascending: false }),
-      supabaseAdmin
-        .from("insider_access_log")
-        .select("id, user_id, dossier_slug, opened_at")
-        .gte("opened_at", since)
-        .order("opened_at", { ascending: false })
-        .limit(1000),
-    ]);
+    const [briefingsRes, confsRes, msgsRes, invitesRes, opensRes, referralsRes, sectionReadsRes, attachOpensRes] =
+      await Promise.all([
+        supabaseAdmin
+          .from("briefing_requests")
+          .select("id, name, email, organization, interest, status, created_at")
+          .gte("created_at", since)
+          .order("created_at", { ascending: false }),
+        supabaseAdmin
+          .from("conference_applications")
+          .select("id, name, email, organization, role_category, status, created_at")
+          .gte("created_at", since)
+          .order("created_at", { ascending: false }),
+        supabaseAdmin
+          .from("dossier_messages")
+          .select("id, dossier_slug, section_heading, body, author_id, created_at")
+          .gte("created_at", since)
+          .order("created_at", { ascending: false })
+          .limit(200),
+        supabaseAdmin
+          .from("insider_invitations")
+          .select("id, email, source, redeemed_at, redeemed_by")
+          .not("redeemed_at", "is", null)
+          .gte("redeemed_at", since)
+          .order("redeemed_at", { ascending: false }),
+        supabaseAdmin
+          .from("insider_access_log")
+          .select("id, user_id, dossier_slug, opened_at")
+          .gte("opened_at", since)
+          .order("opened_at", { ascending: false })
+          .limit(1000),
+        supabaseAdmin
+          .from("insider_referrals")
+          .select("id, status, resulting_invitation_id, created_at")
+          .gte("created_at", since)
+          .order("created_at", { ascending: false }),
+        supabaseAdmin
+          .from("dossier_section_reads")
+          .select("user_id, dossier_slug, dwell_ms, read_confirmed_at, last_seen_at")
+          .gte("last_seen_at", since),
+        supabaseAdmin
+          .from("dossier_attachment_opens")
+          .select("user_id, dossier_slug, opened_at")
+          .gte("opened_at", since),
+      ]);
 
     const userIds = Array.from(
       new Set([
         ...((msgsRes.data ?? []).map((r: any) => r.author_id as string)),
         ...((opensRes.data ?? []).map((r: any) => r.user_id as string)),
+        ...((sectionReadsRes.data ?? []).map((r: any) => r.user_id as string)),
+        ...((attachOpensRes.data ?? []).map((r: any) => r.user_id as string)),
       ]),
     );
     const emailByUser: Record<string, string> = {};
@@ -495,6 +511,104 @@ export const getFounderDigest = createServerFn({ method: "POST" })
       });
     }
 
+    // Most engaged insiders this week: score = opens + section reads + attachment opens + messages.
+    const engagementByUser: Record<
+      string,
+      { email: string; score: number; opens: number; sectionsRead: number; attachmentsOpened: number; messagesPosted: number }
+    > = {};
+    for (const o of opens) {
+      const e = (engagementByUser[o.user_id] ??= {
+        email: emailByUser[o.user_id] ?? "(unknown)",
+        score: 0,
+        opens: 0,
+        sectionsRead: 0,
+        attachmentsOpened: 0,
+        messagesPosted: 0,
+      });
+      e.opens++;
+      e.score += 1;
+    }
+    for (const r of (sectionReadsRes.data ?? []) as any[]) {
+      if (founderIds.has(r.user_id)) continue;
+      const e = (engagementByUser[r.user_id] ??= {
+        email: emailByUser[r.user_id] ?? "(unknown)",
+        score: 0,
+        opens: 0,
+        sectionsRead: 0,
+        attachmentsOpened: 0,
+        messagesPosted: 0,
+      });
+      e.sectionsRead++;
+      e.score += r.read_confirmed_at ? 3 : 1;
+    }
+    for (const o of (attachOpensRes.data ?? []) as any[]) {
+      if (founderIds.has(o.user_id)) continue;
+      const e = (engagementByUser[o.user_id] ??= {
+        email: emailByUser[o.user_id] ?? "(unknown)",
+        score: 0,
+        opens: 0,
+        sectionsRead: 0,
+        attachmentsOpened: 0,
+        messagesPosted: 0,
+      });
+      e.attachmentsOpened++;
+      e.score += 2;
+    }
+    for (const m of (msgsRes.data ?? []) as any[]) {
+      if (founderIds.has(m.author_id)) continue;
+      const e = (engagementByUser[m.author_id] ??= {
+        email: emailByUser[m.author_id] ?? "(unknown)",
+        score: 0,
+        opens: 0,
+        sectionsRead: 0,
+        attachmentsOpened: 0,
+        messagesPosted: 0,
+      });
+      e.messagesPosted++;
+      e.score += 2;
+    }
+    const mostEngaged = Object.values(engagementByUser)
+      .filter((e) => e.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+
+    // Sections that need work: dossiers with high traffic but low confirmation rate.
+    const sectionReadBySlug: Record<
+      string,
+      { totalReads: number; confirmedReads: number; readers: Set<string> }
+    > = {};
+    for (const r of (sectionReadsRes.data ?? []) as any[]) {
+      const cur = (sectionReadBySlug[r.dossier_slug] ??= { totalReads: 0, confirmedReads: 0, readers: new Set() });
+      cur.totalReads++;
+      if (r.read_confirmed_at) cur.confirmedReads++;
+      cur.readers.add(r.user_id);
+    }
+    const sectionsNeedWork: Array<{ slug: string; title: string; totalReads: number; confirmedReads: number }> = [];
+    for (const [slug, stats] of Object.entries(sectionReadBySlug)) {
+      if (stats.totalReads >= 5 && stats.confirmedReads / stats.totalReads < 0.25) {
+        sectionsNeedWork.push({ slug, title: "", totalReads: stats.totalReads, confirmedReads: stats.confirmedReads });
+      }
+    }
+
+    // Referral momentum in the window.
+    const redeemedInvitationIds = new Set(
+      (invitesRes.data ?? []).map((i: any) => i.id as string).filter(Boolean),
+    );
+    const referralMomentum = {
+      submitted: 0,
+      approved: 0,
+      invited: 0,
+      redeemed: 0,
+    };
+    for (const r of (referralsRes.data ?? []) as any[]) {
+      referralMomentum.submitted++;
+      if (r.status === "approved") referralMomentum.approved++;
+      if (r.status === "invited") referralMomentum.invited++;
+      if (r.status === "invited" && r.resulting_invitation_id && redeemedInvitationIds.has(r.resulting_invitation_id)) {
+        referralMomentum.redeemed++;
+      }
+    }
+
     return {
       windowDays: data.windowDays,
       briefings: briefingsRes.data ?? [],
@@ -506,6 +620,9 @@ export const getFounderDigest = createServerFn({ method: "POST" })
       })),
       redemptions: invitesRes.data ?? [],
       reengagements,
+      mostEngaged,
+      sectionsNeedWork,
+      referralMomentum,
     };
   });
 
