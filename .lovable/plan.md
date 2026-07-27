@@ -1,75 +1,28 @@
-# Sprint 0.18 — Access Polish + Private Tour
+## Sprint 0.18a — Seed Founder Admin Account
 
-Three related pieces, in one sprint because they all touch the same surface (how a human actually gets into and understands this app).
+### What you asked for
+Create `Donald.Haight@rrcausa.com` with password `Admin` and grant it founder-admin rights.
 
-## Part A — Sign-in affordance in the header
+### Two things to flag before we build
 
-Today `/auth` is unlinked. Fix:
+1. **Password strength.** `Admin` is 5 characters and almost certainly below Supabase's minimum (default 6) and will trip the HIBP leaked-password check we discussed enabling. I'd like to seed the account with a temporary password of your choice (min 8 chars, e.g. `Admin!2026` or similar) and force a reset on first login. If you insist on literal `Admin`, I'll disable HIBP for the seed and re-enable it after — but that's a real security hole for a site aimed at C-levels and VCs.
+2. **Google is the primary path.** The app is wired for Google OAuth. An email/password account works, but if you plan to sign in with Google using this same address, sign in with Google *first* — Supabase will link the identities. Otherwise the two identities can collide.
 
-- Add a small **"Sign in"** link in the header (desktop + mobile menu), visible only when signed out. Muted styling — it stays understated and does not compete with the "Request a Private Briefing" CTA.
-- When signed in, the existing Digest/Inbox links already show; add a compact **"Sign out"** control alongside them that calls `supabase.auth.signOut()` and navigates to `/`.
-- No change to the primary nav items — public pages stay as-is.
+### Plan (executes in build mode after you approve)
 
-## Part B — Password reset flow
+1. **Confirm email/password auth is enabled** in Lovable Cloud auth settings (read-only check; enable if off — you already have Google on).
+2. **One-shot seed server function** `src/lib/seed-founder.functions.ts` (public route, guarded so it only runs when *no* `founder_admin` exists yet, then self-disables):
+   - Uses `supabaseAdmin.auth.admin.createUser({ email, password, email_confirm: true })`.
+   - Inserts `('<uid>', 'founder_admin')` into `public.user_roles`.
+   - Returns `{ ok: true }` or a clear reason (already exists, weak password, etc.).
+3. **Trigger the seed once** via `stack_modern--invoke-server-function` from my side — no UI, no leftover endpoint exposed on the published site (the function checks "founder already exists" and refuses subsequent calls).
+4. **Verify** by signing in at `/auth` with the credentials, confirming `/admin/inbox`, `/admin/digest`, `/admin/reads`, `/admin/tour` all load.
+5. **Docs**: add a line to `docs/DECISIONS.md` recording the seeded founder identity and the "first Google sign-in also becomes founder" fallback that already exists in `inbox.functions.ts`.
 
-- Add a **"Forgot password?"** link on `/auth` (email/password mode only).
-- New public route `/reset-password` that:
-  - Detects `type=recovery` in the URL hash.
-  - Renders a "set new password" form.
-  - Calls `supabase.auth.updateUser({ password })` and redirects to `/admin/inbox` on success.
-- Wire `supabase.auth.resetPasswordForEmail(email, { redirectTo: ${origin}/reset-password })` from the forgot-password action.
-- Add `/reset-password` to `robots.txt` disallow list (same as other private surfaces).
+### What I need from you before executing
 
-## Part C — Private illustrated tour ("How this app works")
+- **Password**: keep literal `Admin` (weak, I'll note the risk) **or** give me a stronger temporary one. Reply with the password you want and I'll switch to build mode and run the seed.
+- Confirm the email is exactly `Donald.Haight@rrcausa.com` (case-insensitive on Supabase's side, but I'll store it as written).
 
-A single signed-in-only page that walks a viewer through everything built in Phase 0, with real screenshots and short explainers written in the same documentary voice as the dossiers.
-
-**Route:** `/_authenticated/admin/tour` (founder-only via existing `_authenticated` gate; not in sitemap; noindex).
-
-**Structure — five acts matching the load-bearing story order:**
-
-1. **The Front Door** — `/`, `/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`, plus the new `/investors`, `/policy`, `/why-prepare-america`. One screenshot each, one paragraph explaining who it's aimed at and what job it does.
-2. **Capture & Triage** — `/request-briefing` and the conference application form → `/admin/inbox` (all four tabs: Briefing, Conference, Discussion, Referrals, Invitations, Itinerary). Explains the funnel from anonymous visitor → qualified insider.
-3. **The Insider Room** — `/insider` (dossier index with NEW badges), `/insider/dossier/$slug` (reader with section truth chips, read receipts, attachments, Q&A), `/insider/refer`. Explains the confidentiality model and read-depth instrumentation.
-4. **Founder Intelligence** — `/admin/digest`, `/admin/signals`, `/admin/reads` heatmap, `/admin/edits` corpus history. Explains what each signal means and how to act on it.
-5. **Conference Operations** — Capacity meter, seat lifecycle, `/prepare-america/confirmed` attendee page, itinerary editor. Explains the 300-seat cap and token-gated attendee access.
-
-**Screenshot generation (build-time, not runtime):**
-
-- Playwright script under `scripts/generate-tour-screenshots.ts`:
-  - Signs in as founder via injected Supabase session.
-  - Seeds a small scoped demo dataset (2-3 briefing requests, 1-2 conference apps in each seat state, 1 insider with a few dossier reads and one Q&A message, 1 referral). All rows tagged with a `demo_tour` marker so they're deleted at the end.
-  - Visits each route at 1440×900, captures PNG to `src/assets/tour/{act}-{slug}.png`.
-  - Tears down demo rows.
-- Screenshots are committed as static assets and imported into the tour page — the page itself does no runtime capture.
-- Re-run the script manually when the UI changes materially (documented in `docs/SPRINTS.md`).
-
-**Header link:** Add a small **"Tour"** link next to Digest/Inbox for signed-in founders only.
-
-**Documentation:**
-
-- Add Sprint 0.18 entry to `docs/SPRINTS.md`.
-- Add `REQ-ACC-*` and `REQ-TOUR-*` entries to `docs/REQUIREMENTS.md`.
-- ADR in `docs/DECISIONS.md`: "Tour is private, screenshots are build-time static assets" (rationale: avoids exposing private UI publicly, avoids per-request Playwright cost, keeps the page fast and SSR-safe).
-
-## Confidentiality
-
-- Tour page: C2 chip + "Confidential Working Concept — Not an Offering" footer (inherited from `PageShell`).
-- `robots.txt`: add `/reset-password` and `/admin/tour` to Disallow (already covers `/admin/*`, so tour is fine; reset-password is new).
-
-## Explicitly out of scope
-
-- Public "how it works" marketing page (can be a later sprint if you want a redacted external version).
-- Video walkthrough (screenshots + prose only for now).
-- Email templates for password reset (Supabase default template is used; custom templating is a separate sprint).
-
-## Deliverables checklist
-
-- [ ] Header: Sign in link (signed-out), Sign out + Tour link (signed-in)
-- [ ] `/auth`: Forgot password link
-- [ ] `/reset-password` route
-- [ ] `robots.txt` updated
-- [ ] `scripts/generate-tour-screenshots.ts` + first run committed to `src/assets/tour/`
-- [ ] `/_authenticated/admin/tour` page with five acts
-- [ ] `docs/SPRINTS.md`, `REQUIREMENTS.md`, `DECISIONS.md` updated
-- [ ] Typecheck + build clean; manual verification of sign-in, reset request, and tour page
+### Note on current state (verified)
+No admin account has been provisioned by me in prior sprints. The existing fallback in `src/lib/inbox.functions.ts` auto-promotes the *first* signed-in user to `founder_admin` if none exists — so if you'd rather just sign in with Google once at `/auth`, you become founder automatically and we can skip the password seed entirely. Say the word.
