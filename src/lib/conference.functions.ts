@@ -81,7 +81,7 @@ export const updateConferenceSeat = createServerFn({ method: "POST" })
       } else {
         confirmedAt = new Date().toISOString();
       }
-    } else if (data.seatStatus !== "confirmed") {
+    } else {
       confirmedAt = null;
     }
 
