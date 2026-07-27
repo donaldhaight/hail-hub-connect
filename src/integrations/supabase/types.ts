@@ -96,7 +96,9 @@ export type Database = {
       }
       conference_applications: {
         Row: {
+          access_token: string
           acknowledged: boolean
+          attendee_notes: string | null
           briefing_request_id: string | null
           confirmed_at: string | null
           context: string | null
@@ -117,7 +119,9 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          access_token?: string
           acknowledged?: boolean
+          attendee_notes?: string | null
           briefing_request_id?: string | null
           confirmed_at?: string | null
           context?: string | null
@@ -138,7 +142,9 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          access_token?: string
           acknowledged?: boolean
+          attendee_notes?: string | null
           briefing_request_id?: string | null
           confirmed_at?: string | null
           context?: string | null
@@ -167,6 +173,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      conference_itinerary_items: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_published: boolean
+          location: string | null
+          position: number
+          time_label: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          position?: number
+          time_label: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          position?: number
+          time_label?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       conference_seat_events: {
         Row: {
@@ -498,6 +540,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_attendee_view: { Args: { _token: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -506,6 +549,16 @@ export type Database = {
         Returns: boolean
       }
       redeem_insider_invitation: { Args: { _token: string }; Returns: Json }
+      update_attendee_details: {
+        Args: {
+          _dietary: string
+          _hotel_needed: boolean
+          _notes: string
+          _plus_ones: number
+          _token: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       app_role:
