@@ -150,6 +150,39 @@ export type Database = {
           },
         ]
       }
+      dossier_edits: {
+        Row: {
+          actor_id: string
+          after_value: string | null
+          before_value: string | null
+          created_at: string
+          dossier_slug: string
+          field: string
+          id: string
+          section_id: string | null
+        }
+        Insert: {
+          actor_id: string
+          after_value?: string | null
+          before_value?: string | null
+          created_at?: string
+          dossier_slug: string
+          field: string
+          id?: string
+          section_id?: string | null
+        }
+        Update: {
+          actor_id?: string
+          after_value?: string | null
+          before_value?: string | null
+          created_at?: string
+          dossier_slug?: string
+          field?: string
+          id?: string
+          section_id?: string | null
+        }
+        Relationships: []
+      }
       dossier_messages: {
         Row: {
           author_id: string
@@ -203,6 +236,86 @@ export type Database = {
           dossier_slug?: string
           id?: string
           section_heading?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      dossier_sections: {
+        Row: {
+          body: string
+          created_at: string
+          dossier_slug: string
+          heading: string
+          id: string
+          position: number
+          truth: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          dossier_slug: string
+          heading: string
+          id?: string
+          position: number
+          truth: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          dossier_slug?: string
+          heading?: string
+          id?: string
+          position?: number
+          truth?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dossier_sections_dossier_slug_fkey"
+            columns: ["dossier_slug"]
+            isOneToOne: false
+            referencedRelation: "dossiers"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      dossiers: {
+        Row: {
+          code: string
+          confidentiality: string
+          created_at: string
+          published_at: string | null
+          slug: string
+          story_order: number
+          summary: string
+          title: string
+          truth_default: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          confidentiality: string
+          created_at?: string
+          published_at?: string | null
+          slug: string
+          story_order: number
+          summary: string
+          title: string
+          truth_default: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          confidentiality?: string
+          created_at?: string
+          published_at?: string | null
+          slug?: string
+          story_order?: number
+          summary?: string
+          title?: string
+          truth_default?: string
           updated_at?: string
         }
         Relationships: []

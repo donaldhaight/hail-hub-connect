@@ -508,3 +508,273 @@ export const getFounderDigest = createServerFn({ method: "POST" })
       reengagements,
     };
   });
+
+// ---------- Dossier editor (DB-backed corpus) ----------
+
+export type DossierRow = {
+  slug: string;
+  code: string;
+  story_order: number;
+  title: string;
+  summary: string;
+  confidentiality: string;
+  truth_default: string;
+  published_at: string | null;
+  updated_at: string;
+};
+
+export type DossierSectionRow = {
+  id: string;
+  dossier_slug: string;
+  position: number;
+  heading: string;
+  truth: string;
+  body: string;
+  updated_at: string;
+};
+
+export const listDossiersFromDb = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInsider(context);
+    const { data, error } = await context.supabase
+      .from("dossiers")
+      .select("slug, code, story_order, title, summary, confidentiality, truth_default, published_at, updated_at")
+      .order("story_order", { ascending: true });
+    if (error) throw new Error("Failed to load dossiers");
+    return { dossiers: (data ?? []) as DossierRow[] };
+  });
+
+const getDossierSchema = z.object({ slug: z.string().min(1).max(80) });
+
+export const getDossierFromDb = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => getDossierSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertInsider(context);
+    const [d1, s1] = await Promise.all([
+      context.supabase
+        .from("dossiers")
+        .select("slug, code, story_order, title, summary, confidentiality, truth_default, published_at, updated_at")
+        .eq("slug", data.slug)
+        .maybeSingle(),
+      context.supabase
+        .from("dossier_sections")
+        .select("id, dossier_slug, position, heading, truth, body, updated_at")
+        .eq("dossier_slug", data.slug)
+        .order("position", { ascending: true }),
+    ]);
+    if (d1.error) throw new Error("Failed to load dossier");
+    if (s1.error) throw new Error("Failed to load sections");
+    return {
+      dossier: (d1.data ?? null) as DossierRow | null,
+      sections: (s1.data ?? []) as DossierSectionRow[],
+    };
+  });
+
+const CONF = ["C0", "C1", "C2", "C3", "C4"] as const;
+const TRUTH = ["FACT", "ASSERTION", "DECISION", "HYPOTHESIS", "SIMULATION", "OPEN"] as const;
+
+const metaSchema = z.object({
+  slug: z.string().min(1).max(80),
+  title: z.string().min(1).max(200),
+  summary: z.string().min(1).max(1000),
+  confidentiality: z.enum(CONF),
+  truth_default: z.enum(TRUTH),
+});
+
+async function logEdit(
+  supabase: any,
+  actorId: string,
+  slug: string,
+  sectionId: string | null,
+  field: string,
+  before: string | null,
+  after: string | null,
+) {
+  await supabase.from("dossier_edits").insert({
+    actor_id: actorId,
+    dossier_slug: slug,
+    section_id: sectionId,
+    field,
+    before_value: before,
+    after_value: after,
+  });
+}
+
+export const upsertDossierMeta = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => metaSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { data: existing } = await context.supabase
+      .from("dossiers")
+      .select("title, summary, confidentiality, truth_default")
+      .eq("slug", data.slug)
+      .maybeSingle();
+    if (!existing) throw new Error("Dossier not found");
+    const { error } = await context.supabase
+      .from("dossiers")
+      .update({
+        title: data.title,
+        summary: data.summary,
+        confidentiality: data.confidentiality,
+        truth_default: data.truth_default,
+      })
+      .eq("slug", data.slug);
+    if (error) throw new Error(error.message || "Failed to save");
+    const fields: Array<[string, string, string]> = [
+      ["title", existing.title, data.title],
+      ["summary", existing.summary, data.summary],
+      ["confidentiality", existing.confidentiality, data.confidentiality],
+      ["truth_default", existing.truth_default, data.truth_default],
+    ];
+    for (const [f, before, after] of fields) {
+      if (before !== after) await logEdit(context.supabase, context.userId, data.slug, null, f, before, after);
+    }
+    return { ok: true };
+  });
+
+const sectionSchema = z.object({
+  id: z.string().uuid().optional(),
+  slug: z.string().min(1).max(80),
+  heading: z.string().min(1).max(200),
+  truth: z.enum(TRUTH),
+  body: z.string().min(1).max(20000),
+});
+
+export const upsertDossierSection = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => sectionSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    if (data.id) {
+      const { data: prev } = await context.supabase
+        .from("dossier_sections")
+        .select("heading, truth, body")
+        .eq("id", data.id)
+        .maybeSingle();
+      if (!prev) throw new Error("Section not found");
+      const { error } = await context.supabase
+        .from("dossier_sections")
+        .update({ heading: data.heading, truth: data.truth, body: data.body })
+        .eq("id", data.id);
+      if (error) throw new Error(error.message || "Failed to save section");
+      const fields: Array<[string, string, string]> = [
+        ["heading", prev.heading, data.heading],
+        ["truth", prev.truth, data.truth],
+        ["body", prev.body, data.body],
+      ];
+      for (const [f, before, after] of fields) {
+        if (before !== after) await logEdit(context.supabase, context.userId, data.slug, data.id, f, before, after);
+      }
+      return { id: data.id };
+    }
+    // insert at end
+    const { data: last } = await context.supabase
+      .from("dossier_sections")
+      .select("position")
+      .eq("dossier_slug", data.slug)
+      .order("position", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const nextPos = (last?.position ?? 0) + 1;
+    const { data: inserted, error } = await context.supabase
+      .from("dossier_sections")
+      .insert({
+        dossier_slug: data.slug,
+        position: nextPos,
+        heading: data.heading,
+        truth: data.truth,
+        body: data.body,
+      })
+      .select()
+      .single();
+    if (error) throw new Error(error.message || "Failed to add section");
+    await logEdit(context.supabase, context.userId, data.slug, inserted.id, "section:add", null, data.heading);
+    return { id: inserted.id as string };
+  });
+
+const deleteSchema = z.object({ id: z.string().uuid(), slug: z.string().min(1).max(80) });
+
+export const deleteDossierSection = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => deleteSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { data: prev } = await context.supabase
+      .from("dossier_sections")
+      .select("heading")
+      .eq("id", data.id)
+      .maybeSingle();
+    const { error } = await context.supabase
+      .from("dossier_sections")
+      .delete()
+      .eq("id", data.id);
+    if (error) throw new Error(error.message || "Failed to delete section");
+    await logEdit(context.supabase, context.userId, data.slug, null, "section:remove", prev?.heading ?? null, null);
+    return { ok: true };
+  });
+
+const reorderSchema = z.object({
+  slug: z.string().min(1).max(80),
+  id: z.string().uuid(),
+  direction: z.enum(["up", "down"]),
+});
+
+export const reorderDossierSection = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => reorderSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { data: rows, error: e1 } = await context.supabase
+      .from("dossier_sections")
+      .select("id, position")
+      .eq("dossier_slug", data.slug)
+      .order("position", { ascending: true });
+    if (e1) throw new Error("Failed to load sections");
+    const list = (rows ?? []) as Array<{ id: string; position: number }>;
+    const idx = list.findIndex((r) => r.id === data.id);
+    if (idx < 0) throw new Error("Section not found");
+    const swapIdx = data.direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= list.length) return { ok: true };
+    const a = list[idx];
+    const b = list[swapIdx];
+    // deferred unique constraint lets us swap in one txn; do two-step via temp positions
+    const tempPos = -Math.abs(a.position) - 1000;
+    const s1 = await context.supabase.from("dossier_sections").update({ position: tempPos }).eq("id", a.id);
+    if (s1.error) throw new Error("Reorder failed");
+    const s2 = await context.supabase.from("dossier_sections").update({ position: a.position }).eq("id", b.id);
+    if (s2.error) throw new Error("Reorder failed");
+    const s3 = await context.supabase.from("dossier_sections").update({ position: b.position }).eq("id", a.id);
+    if (s3.error) throw new Error("Reorder failed");
+    await logEdit(context.supabase, context.userId, data.slug, a.id, "section:reorder", String(a.position), String(b.position));
+    return { ok: true };
+  });
+
+export const listDossierEdits = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("dossier_edits")
+      .select("id, actor_id, dossier_slug, section_id, field, before_value, after_value, created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (error) throw new Error("Failed to load edits");
+    const actorIds = Array.from(new Set((data ?? []).map((r: any) => r.actor_id)));
+    const emailByUser: Record<string, string> = {};
+    if (actorIds.length > 0) {
+      const results = await Promise.all(
+        actorIds.map((id) => supabaseAdmin.auth.admin.getUserById(id).catch(() => null)),
+      );
+      for (const r of results) {
+        const u = r?.data?.user;
+        if (u?.id && u.email) emailByUser[u.id] = u.email;
+      }
+    }
+    return {
+      rows: (data ?? []).map((r: any) => ({ ...r, email: emailByUser[r.actor_id] ?? "(unknown)" })),
+    };
+  });

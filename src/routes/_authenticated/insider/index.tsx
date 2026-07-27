@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
-import { TruthChip, ConfidentialityChip } from "@/components/briefing/Badges";
+import { TruthChip, ConfidentialityChip, type TruthClass, type ConfidentialityClass } from "@/components/briefing/Badges";
 import { ORDERED_DOSSIERS } from "@/content/dossiers";
-import { listDossierCounts, getInsiderWhatsNew } from "@/lib/dossier.functions";
+import { listDossierCounts, getInsiderWhatsNew, listDossiersFromDb } from "@/lib/dossier.functions";
 
 export const Route = createFileRoute("/_authenticated/insider/")({
   beforeLoad: async () => {
@@ -30,16 +30,36 @@ export const Route = createFileRoute("/_authenticated/insider/")({
   component: InsiderRoom,
 });
 
+type ListItem = {
+  slug: string;
+  code: string;
+  title: string;
+  summary: string;
+  confidentiality: ConfidentialityClass;
+  truthDefault: TruthClass;
+};
+
 function InsiderRoom() {
   const { roles } = Route.useRouteContext();
   const isFounder = roles.includes("founder_admin");
   const roleLabel = isFounder ? "Founder Admin" : "Qualified Insider";
   const loadWhatsNew = useServerFn(getInsiderWhatsNew);
   const loadCounts = useServerFn(listDossierCounts);
+  const loadList = useServerFn(listDossiersFromDb);
   const [lastBySlug, setLastBySlug] = useState<Record<string, string>>({});
   const [latestBySlug, setLatestBySlug] = useState<Record<string, string>>({});
   const [notesBySlug, setNotesBySlug] = useState<Record<string, number>>({});
   const [messagesBySlug, setMessagesBySlug] = useState<Record<string, number>>({});
+  const [items, setItems] = useState<ListItem[]>(() =>
+    ORDERED_DOSSIERS.map((d) => ({
+      slug: d.slug,
+      code: d.code,
+      title: d.title,
+      summary: d.summary,
+      confidentiality: d.confidentiality,
+      truthDefault: d.truthDefault,
+    })),
+  );
 
   useEffect(() => {
     loadWhatsNew()
@@ -54,10 +74,27 @@ function InsiderRoom() {
         setMessagesBySlug(r.messagesBySlug);
       })
       .catch(() => {});
-  }, [loadWhatsNew, loadCounts]);
+    loadList()
+      .then((r) => {
+        if (r.dossiers.length > 0) {
+          setItems(
+            r.dossiers.map((d) => ({
+              slug: d.slug,
+              code: d.code,
+              title: d.title,
+              summary: d.summary,
+              confidentiality: d.confidentiality as ConfidentialityClass,
+              truthDefault: d.truth_default as TruthClass,
+            })),
+          );
+        }
+      })
+      .catch(() => {});
+  }, [loadWhatsNew, loadCounts, loadList]);
 
   const whatsNew = useMemo(() => {
-    return ORDERED_DOSSIERS.map((d) => {
+    return items.map((d) => {
+
       const opened = lastBySlug[d.slug];
       const latest = latestBySlug[d.slug];
       let label: string | null = null;
@@ -111,7 +148,7 @@ function InsiderRoom() {
       ) : null}
 
       <section className="mx-auto max-w-4xl space-y-4 px-6 py-10">
-        {ORDERED_DOSSIERS.map((d) => {
+        {items.map((d) => {
           const last = lastBySlug[d.slug];
           const latest = latestBySlug[d.slug];
           const isNew = !last || (latest && latest > last);
