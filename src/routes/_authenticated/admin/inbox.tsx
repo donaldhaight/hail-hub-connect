@@ -186,8 +186,28 @@ function Inbox() {
           </div>
         </div>
 
-
-
+        {tab === "conference" ? (
+          <div className="mb-4 border border-border bg-card p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</div>
+                <div className="mt-1 text-sm text-ink">
+                  {capacity.confirmed} of {capacity.total} seats confirmed
+                  {capacity.waitlisted > 0 ? ` · ${capacity.waitlisted} waitlisted` : ""}
+                  {capacity.available > 0 ? ` · ${capacity.available} available` : " · sold out"}
+                </div>
+              </div>
+              <div className="flex-1 min-w-[200px] max-w-md">
+                <div className="h-2 w-full bg-muted">
+                  <div
+                    className="h-2 bg-navy transition-all"
+                    style={{ width: `${Math.min(100, (capacity.confirmed / capacity.total) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {tab === "briefings" || tab === "conference" ? (
           <div className="mb-4 flex flex-wrap items-center gap-2">
