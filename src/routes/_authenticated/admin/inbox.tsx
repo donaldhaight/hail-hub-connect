@@ -17,7 +17,7 @@ import {
   grantInsiderAccessFromConference,
   getInvitationForConference,
 } from "@/lib/insider.functions";
-import { listInsiderActivity } from "@/lib/dossier.functions";
+import { listInsiderActivity, listRecentDossierMessages } from "@/lib/dossier.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
@@ -41,7 +41,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference" | "activity">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion">("briefings");
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
@@ -62,6 +62,7 @@ function Inbox() {
   const grantConf = useServerFn(grantInsiderAccessFromConference);
   const getInvConf = useServerFn(getInvitationForConference);
   const listActivity = useServerFn(listInsiderActivity);
+  const listDiscussion = useServerFn(listRecentDossierMessages);
 
   useEffect(() => {
     myRoles()
@@ -77,6 +78,9 @@ function Inbox() {
     try {
       if (tab === "activity") {
         const r = await listActivity();
+        setRows(r.rows);
+      } else if (tab === "discussion") {
+        const r = await listDiscussion();
         setRows(r.rows);
       } else {
         const fn = tab === "briefings" ? listBriefings : listConf;
@@ -136,13 +140,16 @@ function Inbox() {
             <TabBtn active={tab === "activity"} onClick={() => { setTab("activity"); setStatus(""); setSelected(null); }}>
               Insider Activity
             </TabBtn>
+            <TabBtn active={tab === "discussion"} onClick={() => { setTab("discussion"); setStatus(""); setSelected(null); }}>
+              Discussion
+            </TabBtn>
           </div>
           <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
         </div>
 
 
 
-        {tab !== "activity" ? (
+        {tab === "briefings" || tab === "conference" ? (
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <button
               onClick={() => setStatus("")}
@@ -175,7 +182,7 @@ function Inbox() {
               Export CSV
             </a>
           </div>
-        ) : (
+        ) : tab === "activity" ? (
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <div className="text-xs text-muted-foreground">
               Every dossier open by every insider, most recent first.
@@ -187,6 +194,12 @@ function Inbox() {
             >
               Export CSV
             </a>
+          </div>
+        ) : (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Cross-dossier insider Q&amp;A feed, most recent first. Click through to reply in-context.
+            </div>
           </div>
         )}
 
@@ -218,6 +231,53 @@ function Inbox() {
                 ))}
               </tbody>
             </table>
+          </div>
+        ) : tab === "discussion" ? (
+          <div className="border border-border">
+            <ul className="divide-y divide-border">
+              {loading ? (
+                <li className="p-6 text-center text-silver">Loading…</li>
+              ) : rows.length === 0 ? (
+                <li className="p-6 text-center text-silver">No insider messages yet.</li>
+              ) : rows.map((r) => {
+                const dossier = DOSSIERS_BY_SLUG[r.dossier_slug];
+                return (
+                  <li key={r.id} className="p-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className={`inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] ${
+                          r.author_is_founder
+                            ? "border-ink/30 bg-ink text-paper"
+                            : "border-border bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {r.author_is_founder ? "Founder" : r.email}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy">
+                        {dossier?.title ?? r.dossier_slug}
+                      </span>
+                      {r.section_heading ? (
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                          § {r.section_heading}
+                        </span>
+                      ) : null}
+                      <span className="ml-auto font-mono text-[10px] text-silver">
+                        {new Date(r.created_at).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="mt-2 whitespace-pre-wrap text-sm text-ink/90">{r.body}</p>
+                    <div className="mt-2">
+                      <a
+                        href={`/insider/dossier/${r.dossier_slug}`}
+                        className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy hover:underline"
+                      >
+                        Open dossier →
+                      </a>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         ) : (
           <div className="grid gap-6 lg:grid-cols-5">

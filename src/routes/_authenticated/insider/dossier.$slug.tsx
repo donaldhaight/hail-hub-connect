@@ -6,6 +6,7 @@ import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 import { TruthChip } from "@/components/briefing/Badges";
 import { DOSSIERS_BY_SLUG, neighbors } from "@/content/dossiers";
 import { logDossierOpen } from "@/lib/dossier.functions";
+import { DossierDiscussion } from "@/components/briefing/DossierDiscussion";
 
 export const Route = createFileRoute("/_authenticated/insider/dossier/$slug")({
   beforeLoad: async ({ params }) => {
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/_authenticated/insider/dossier/$slug")({
       throw redirect({ to: "/" });
     }
     if (!DOSSIERS_BY_SLUG[params.slug]) throw notFound();
+    return { isFounder: set.has("founder_admin") };
   },
   head: ({ params }) => {
     const d = DOSSIERS_BY_SLUG[params.slug];
@@ -40,6 +42,7 @@ export const Route = createFileRoute("/_authenticated/insider/dossier/$slug")({
 
 function DossierReader() {
   const { slug } = Route.useParams();
+  const { isFounder } = Route.useRouteContext();
   const dossier = DOSSIERS_BY_SLUG[slug];
   const { prev, next } = neighbors(slug);
   const logOpen = useServerFn(logDossierOpen);
@@ -90,6 +93,12 @@ function DossierReader() {
           </article>
         ))}
       </section>
+
+      <DossierDiscussion
+        slug={slug}
+        sectionHeadings={dossier.sections.map((s) => s.heading)}
+        isFounder={isFounder}
+      />
 
       <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 border-t border-border px-6 py-8">
         {prev ? (

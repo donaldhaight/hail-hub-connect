@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 import { TruthChip, ConfidentialityChip } from "@/components/briefing/Badges";
 import { ORDERED_DOSSIERS } from "@/content/dossiers";
-import { listMyDossierOpens } from "@/lib/dossier.functions";
+import { listMyDossierOpens, listDossierCounts } from "@/lib/dossier.functions";
 
 export const Route = createFileRoute("/_authenticated/insider/")({
   beforeLoad: async () => {
@@ -35,11 +35,20 @@ function InsiderRoom() {
   const isFounder = roles.includes("founder_admin");
   const roleLabel = isFounder ? "Founder Admin" : "Qualified Insider";
   const loadOpens = useServerFn(listMyDossierOpens);
+  const loadCounts = useServerFn(listDossierCounts);
   const [lastBySlug, setLastBySlug] = useState<Record<string, string>>({});
+  const [notesBySlug, setNotesBySlug] = useState<Record<string, number>>({});
+  const [messagesBySlug, setMessagesBySlug] = useState<Record<string, number>>({});
 
   useEffect(() => {
     loadOpens().then((r) => setLastBySlug(r.lastBySlug)).catch(() => {});
-  }, [loadOpens]);
+    loadCounts()
+      .then((r) => {
+        setNotesBySlug(r.notesBySlug);
+        setMessagesBySlug(r.messagesBySlug);
+      })
+      .catch(() => {});
+  }, [loadOpens, loadCounts]);
 
   return (
     <PageShell>
@@ -84,9 +93,16 @@ function InsiderRoom() {
               </div>
               <h2 className="mt-3 font-serif text-2xl text-ink">{d.title}</h2>
               <p className="mt-2 max-w-[62ch] text-sm text-muted-foreground">{d.summary}</p>
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-navy">
-                Read dossier →
-              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-4">
+                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy">
+                  Read dossier →
+                </p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+                  {(notesBySlug[d.slug] ?? 0)} note{(notesBySlug[d.slug] ?? 0) === 1 ? "" : "s"}
+                  {" · "}
+                  {(messagesBySlug[d.slug] ?? 0)} message{(messagesBySlug[d.slug] ?? 0) === 1 ? "" : "s"}
+                </p>
+              </div>
             </Link>
           );
         })}
