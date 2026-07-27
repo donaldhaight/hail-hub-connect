@@ -23,6 +23,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
+import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authenticated/admin/edits'
@@ -99,6 +100,12 @@ const AuthenticatedInsiderIndexRoute =
     path: '/insider/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedInsiderReferRoute =
+  AuthenticatedInsiderReferRouteImport.update({
+    id: '/insider/refer',
+    path: '/insider/refer',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminSignalsRoute =
   AuthenticatedAdminSignalsRouteImport.update({
     id: '/admin/signals',
@@ -145,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -165,6 +173,7 @@ export interface FileRoutesByTo {
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -187,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/admin/edits'
     | '/admin/inbox'
     | '/admin/signals'
+    | '/insider/refer'
     | '/insider/'
     | '/insider/dossier/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -229,6 +240,7 @@ export interface FileRouteTypes {
     | '/admin/edits'
     | '/admin/inbox'
     | '/admin/signals'
+    | '/insider/refer'
     | '/insider'
     | '/insider/dossier/$slug'
   id:
@@ -250,6 +262,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/inbox'
     | '/_authenticated/admin/signals'
+    | '/_authenticated/insider/refer'
     | '/_authenticated/insider/'
     | '/_authenticated/insider/dossier/$slug'
   fileRoutesById: FileRoutesById
@@ -369,6 +382,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/insider/refer': {
+      id: '/_authenticated/insider/refer'
+      path: '/insider/refer'
+      fullPath: '/insider/refer'
+      preLoaderRoute: typeof AuthenticatedInsiderReferRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/signals': {
       id: '/_authenticated/admin/signals'
       path: '/admin/signals'
@@ -412,6 +432,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
+  AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -421,6 +442,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
+  AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
 }

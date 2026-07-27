@@ -13,6 +13,8 @@ import {
   type DossierSectionRow,
 } from "@/lib/dossier.functions";
 import { DossierDiscussion } from "@/components/briefing/DossierDiscussion";
+import { DossierAttachments } from "@/components/briefing/DossierAttachments";
+import { useSectionReads, formatDwell } from "@/hooks/useSectionReads";
 import {
   DossierMetaEditor,
   DossierSectionEditor,
@@ -73,6 +75,7 @@ function DossierReader() {
   const logOpen = useServerFn(logDossierOpen);
   const loadWhatsNew = useServerFn(getInsiderWhatsNew);
   const loadDossier = useServerFn(getDossierFromDb);
+  const reads = useSectionReads(slug);
 
   const fallback = DOSSIERS_BY_SLUG[slug];
   const [meta, setMeta] = useState<LiveDossier>(() => ({
@@ -181,8 +184,13 @@ function DossierReader() {
         {sections.map((s, i) => {
           const row = s.id ? rawSections.find((r) => r.id === s.id) ?? null : null;
           const editing = editingId && editingId === s.id;
+          const readState = s.id ? reads.state[s.id] : undefined;
           return (
-            <article key={s.id ?? i} className="space-y-3">
+            <article
+              key={s.id ?? i}
+              ref={(node) => { if (s.id) reads.observe(s.id, node); }}
+              className="space-y-3"
+            >
               <div className="flex flex-wrap items-center gap-3">
                 <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
                   § {String(i + 1).padStart(2, "0")}
@@ -192,6 +200,17 @@ function DossierReader() {
                   <span className="border border-navy/50 bg-navy/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-navy">
                     New
                   </span>
+                ) : null}
+                {!isFounder && readState ? (
+                  readState.read_confirmed_at ? (
+                    <span className="border border-navy/50 bg-navy/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-navy">
+                      Read ✓
+                    </span>
+                  ) : formatDwell(readState.dwell_ms) ? (
+                    <span className="border border-border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+                      Seen {formatDwell(readState.dwell_ms)}
+                    </span>
+                  ) : null
                 ) : null}
                 {isFounder && row && !editing ? (
                   <div className="ml-auto">
@@ -221,6 +240,19 @@ function DossierReader() {
                   ))}
                 </div>
               )}
+              {s.id ? (
+                <DossierAttachments slug={slug} sectionId={s.id} isFounder={isFounder} />
+              ) : null}
+              {s.id && !isFounder && !readState?.read_confirmed_at && !editing ? (
+                <div className="pt-1">
+                  <button
+                    onClick={() => reads.confirm(s.id!)}
+                    className="border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground hover:border-navy hover:text-navy"
+                  >
+                    Mark as read
+                  </button>
+                </div>
+              ) : null}
             </article>
           );
         })}
@@ -241,6 +273,10 @@ function DossierReader() {
             </button>
           )
         ) : null}
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6">
+        <DossierAttachments slug={slug} isFounder={isFounder} dossierLevel />
       </section>
 
       <DossierDiscussion

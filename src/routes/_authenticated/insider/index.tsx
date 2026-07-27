@@ -119,8 +119,16 @@ function InsiderRoom() {
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Session</div>
             <div className="text-sm text-ink">Signed in as <span className="font-mono">{roleLabel}</span></div>
           </div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-            Confidential Working Concept — Not an Offering
+          <div className="flex items-center gap-4">
+            <Link
+              to="/_authenticated/insider/refer"
+              className="border border-ink px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink hover:bg-ink hover:text-paper"
+            >
+              Nominate someone →
+            </Link>
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+              Confidential Working Concept — Not an Offering
+            </div>
           </div>
         </div>
       </section>
