@@ -5,8 +5,10 @@ import { BRANDS, VERTICAL_ORDER } from "@/content/brands";
 
 /**
  * QuantumSwitcher — persistent dropdown in the header that lets any
- * visitor (public or insider) jump between the seven brand front doors,
- * grouped by vertical in the Metatron 7-position order.
+ * visitor (public or insider) explore the seven stakeholder verticals,
+ * grouped in the Metatron 7-position order. Brand names are surfaced
+ * inside authenticated views; the public switcher shows only verticals
+ * and their generic roles.
  */
 export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" | "mobile" }) {
   const [open, setOpen] = useState(false);
@@ -32,7 +34,7 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
     return (
       <div className="py-2">
         <div className="pb-2 text-[10px] font-mono uppercase tracking-[0.22em] text-silver">
-          Quantum Dashboard
+          The Human Blockchain
         </div>
         <ul className="divide-y divide-border">
           {VERTICAL_ORDER.map((vertical) => {
@@ -46,9 +48,9 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
                   className="flex items-center justify-between py-2.5 text-[14px] text-ink"
                 >
                   <span>
-                    <span className="text-silver">{brand.vertical}</span>
+                    <span className="text-ink">{brand.vertical}</span>
                     <span className="mx-2 text-silver">·</span>
-                    <span>{brand.brandName}</span>
+                    <span className="text-muted-foreground">{brand.verticalRole}</span>
                   </span>
                   <span aria-hidden className="text-silver">→</span>
                 </Link>
@@ -69,7 +71,7 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
         aria-haspopup="menu"
         className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-ink"
       >
-        Quantum Dashboard
+        The Human Blockchain
         <ChevronDown className="h-3 w-3" />
       </button>
       {open ? (
@@ -96,16 +98,11 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
                       <span className="block text-[10px] font-mono uppercase tracking-[0.2em] text-silver">
                         {brand.vertical}
                       </span>
-                      <span className="block truncate font-serif text-[15px] text-ink">
-                        {brand.brandName}
-                      </span>
-                      <span className="block truncate font-mono text-[11px] text-muted-foreground">
-                        {brand.domain}
+                      <span className="block truncate text-[15px] text-ink">
+                        {brand.verticalRole}
                       </span>
                     </span>
-                    <span className="whitespace-nowrap border border-border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
-                      {brand.status}
-                    </span>
+                    <span aria-hidden className="text-silver">→</span>
                   </Link>
                 </li>
               );
