@@ -1,19 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "Why RRCA";
 const DESC =
   "RRCA is an established roofing and reconstruction company that requires restructuring. A live correction produces stronger evidence than a theoretical pilot.";
 
 export const Route = createFileRoute("/why-rrca")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/why-rrca" }),
   component: WhyRRCA,
 });
 

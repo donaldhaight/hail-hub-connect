@@ -1,19 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "The Proof of Concept";
 const DESC =
   "RRCA's restructuring becomes the first documented case study for the ClaimStore operating model — six sequenced steps, human decisions throughout.";
 
 export const Route = createFileRoute("/proof-of-concept")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/proof-of-concept" }),
   component: ProofOfConcept,
 });
 

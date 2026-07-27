@@ -1,19 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "Founder Statement";
 const DESC =
   "A statement from Donald Haight, founder of United Stakeholders of America LLC and co-owner of Roofing & Reconstruction Contractors of America LLC.";
 
 export const Route = createFileRoute("/founder")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/founder" }),
   component: Founder,
 });
 

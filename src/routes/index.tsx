@@ -11,9 +11,14 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: `${TITLE} — ClaimStore Briefing Room` },
       { name: "description", content: DESC },
-      { property: "og:title", content: `ClaimStore Briefing Room` },
+      { property: "og:title", content: "ClaimStore Briefing Room" },
       { property: "og:description", content: DESC },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://hail-hub-connect.lovable.app/" },
+      { name: "twitter:title", content: "ClaimStore Briefing Room" },
+      { name: "twitter:description", content: DESC },
     ],
+    links: [{ rel: "canonical", href: "https://hail-hub-connect.lovable.app/" }],
   }),
   component: Index,
 });
