@@ -142,12 +142,15 @@ function Inbox() {
       />
       <section className="mx-auto max-w-6xl px-6 py-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex gap-2 border border-border">
+          <div className="flex flex-wrap gap-2 border border-border">
             <TabBtn active={tab === "briefings"} onClick={() => { setTab("briefings"); setStatus(""); setSelected(null); }}>
               Briefing Requests
             </TabBtn>
             <TabBtn active={tab === "conference"} onClick={() => { setTab("conference"); setStatus(""); setSelected(null); }}>
               PrepareAmerica Applications
+            </TabBtn>
+            <TabBtn active={tab === "invitations"} onClick={() => { setTab("invitations"); setStatus(""); setSelected(null); }}>
+              Invitations
             </TabBtn>
             <TabBtn active={tab === "activity"} onClick={() => { setTab("activity"); setStatus(""); setSelected(null); }}>
               Insider Activity
@@ -156,8 +159,18 @@ function Inbox() {
               Discussion
             </TabBtn>
           </div>
-          <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setInviteOpen(true)}
+              className="border border-ink bg-ink px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
+            >
+              Invite insider directly
+            </button>
+            <a href="/admin/signals" className="text-xs text-muted-foreground hover:text-ink">Signals →</a>
+            <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
+          </div>
         </div>
+
 
 
 
