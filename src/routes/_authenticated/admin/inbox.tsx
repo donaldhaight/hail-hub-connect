@@ -1522,3 +1522,122 @@ function ItineraryEditor() {
     </div>
   );
 }
+
+type ReferralRow = {
+  id: string;
+  referrer_email: string;
+  referred_name: string;
+  referred_email: string;
+  referred_organization: string | null;
+  reason: string | null;
+  status: "pending" | "approved" | "declined" | "invited";
+  founder_note: string | null;
+  created_at: string;
+  invitation_id: string | null;
+};
+
+function ReferralsPanel({
+  list,
+  updateStatus,
+  approve,
+}: {
+  list: () => Promise<{ rows: ReferralRow[] }>;
+  updateStatus: (id: string, status: "pending" | "approved" | "declined", note: string) => Promise<void>;
+  approve: (id: string) => Promise<{ token: string; invitationId: string }>;
+}) {
+  const [rows, setRows] = useState<ReferralRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [busy, setBusy] = useState<string | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const refresh = async () => {
+    setLoading(true);
+    try { const r = await list(); setRows(r.rows); } finally { setLoading(false); }
+  };
+  useEffect(() => { refresh(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
+
+  async function doAction(id: string, label: string, fn: () => Promise<void>) {
+    setBusy(`${id}:${label}`);
+    try { await fn(); await refresh(); } finally { setBusy(null); }
+  }
+
+  function copyLink(id: string, token: string) {
+    const url = `${typeof window !== "undefined" ? window.location.origin : ""}/insider/accept?token=${token}`;
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(url);
+      setCopied(id);
+      setTimeout(() => setCopied((c) => (c === id ? null : c)), 1500);
+    }
+  }
+
+  return (
+    <div className="border border-border">
+      <table className="w-full text-sm">
+        <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+          <tr>
+            <th className="p-3">Date</th>
+            <th className="p-3">Referred</th>
+            <th className="p-3">Referred by</th>
+            <th className="p-3">Reason</th>
+            <th className="p-3">Status</th>
+            <th className="p-3 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr><td colSpan={6} className="p-6 text-center text-silver">Loading…</td></tr>
+          ) : rows.length === 0 ? (
+            <tr><td colSpan={6} className="p-6 text-center text-silver">No nominations yet.</td></tr>
+          ) : rows.map((r) => (
+            <tr key={r.id} className="border-t border-border align-top">
+              <td className="p-3 text-xs text-muted-foreground font-mono whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
+              <td className="p-3">
+                <div className="text-ink">{r.referred_name}</div>
+                <div className="text-xs text-muted-foreground">{r.referred_email}</div>
+                {r.referred_organization ? <div className="text-xs text-muted-foreground">{r.referred_organization}</div> : null}
+              </td>
+              <td className="p-3 text-xs text-muted-foreground">{r.referrer_email}</td>
+              <td className="p-3 text-xs text-ink/80 max-w-[24ch]">{r.reason || <span className="text-silver">—</span>}</td>
+              <td className="p-3">
+                <span className="inline-flex items-center border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                  {r.status}
+                </span>
+              </td>
+              <td className="p-3">
+                <div className="flex flex-wrap justify-end gap-2">
+                  {r.status === "pending" ? (
+                    <>
+                      <button
+                        disabled={busy === `${r.id}:approve`}
+                        onClick={() => doAction(r.id, "approve", async () => {
+                          const res = await approve(r.id);
+                          copyLink(r.id, res.token);
+                        })}
+                        className="border border-ink bg-ink px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-paper disabled:opacity-50"
+                      >
+                        {busy === `${r.id}:approve` ? "…" : "Approve + invite"}
+                      </button>
+                      <button
+                        disabled={busy === `${r.id}:decline`}
+                        onClick={() => doAction(r.id, "decline", () => updateStatus(r.id, "declined", ""))}
+                        className="border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground hover:border-navy disabled:opacity-50"
+                      >
+                        Decline
+                      </button>
+                    </>
+                  ) : r.status === "invited" ? (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-navy">
+                      {copied === r.id ? "Link copied" : "Invitation sent"}
+                    </span>
+                  ) : (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-silver">—</span>
+                  )}
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
