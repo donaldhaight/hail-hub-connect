@@ -420,9 +420,228 @@ function Inbox() {
           </div>
         )}
       </section>
+      {inviteOpen ? (
+        <DirectInviteModal
+          onClose={() => setInviteOpen(false)}
+          onSubmit={async (payload) => {
+            await inviteDirect({ data: payload });
+            setInviteOpen(false);
+            if (tab === "invitations") await load();
+          }}
+        />
+      ) : null}
     </PageShell>
   );
 }
+
+function InvitationsTable({
+  rows,
+  loading,
+  onRevoke,
+  onResend,
+}: {
+  rows: Row[];
+  loading: boolean;
+  onRevoke: (id: string) => Promise<void>;
+  onResend: (id: string) => Promise<void>;
+}) {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  async function doAction(id: string, label: string, fn: () => Promise<void>) {
+    setBusy(`${id}:${label}`);
+    try { await fn(); } finally { setBusy(null); }
+  }
+
+  function copyLink(id: string, token: string) {
+    const url = `${typeof window !== "undefined" ? window.location.origin : ""}/insider/accept?token=${token}`;
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(url);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId((cur) => (cur === id ? null : cur)), 1500);
+    }
+  }
+
+  return (
+    <div className="border border-border">
+      <table className="w-full text-sm">
+        <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+          <tr>
+            <th className="p-3">Created</th>
+            <th className="p-3">Recipient</th>
+            <th className="p-3">Lane</th>
+            <th className="p-3">Status</th>
+            <th className="p-3">Expires</th>
+            <th className="p-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr><td colSpan={6} className="p-6 text-center text-silver">Loading…</td></tr>
+          ) : rows.length === 0 ? (
+            <tr><td colSpan={6} className="p-6 text-center text-silver">No invitations match.</td></tr>
+          ) : rows.map((r) => {
+            const eff = r.effective_status as string;
+            const canRevoke = eff === "pending";
+            const canResend = !r.redeemed_at;
+            return (
+              <tr key={r.id} className="border-t border-border align-top">
+                <td className="p-3 text-xs text-muted-foreground font-mono">
+                  {new Date(r.created_at).toLocaleDateString()}
+                </td>
+                <td className="p-3">
+                  <div className="text-ink">{r.full_name ?? r.email}</div>
+                  <div className="text-xs text-muted-foreground">{r.email}</div>
+                  {r.organization ? (
+                    <div className="text-xs text-silver">{r.organization}</div>
+                  ) : null}
+                  {r.redeemed_by_email && r.redeemed_by_email !== r.email ? (
+                    <div className="mt-1 text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+                      redeemed by {r.redeemed_by_email}
+                    </div>
+                  ) : null}
+                </td>
+                <td className="p-3 text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
+                  {r.source}
+                </td>
+                <td className="p-3">
+                  <span
+                    className={`inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] ${
+                      eff === "pending"  ? "border-navy/40 bg-navy/5 text-navy"
+                    : eff === "redeemed" ? "border-emerald-600/40 bg-emerald-50 text-emerald-700"
+                    : eff === "expired"  ? "border-amber-600/40 bg-amber-50 text-amber-700"
+                    :                      "border-border bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {eff}
+                  </span>
+                  {r.redeemed_at ? (
+                    <div className="mt-1 text-[10px] text-silver font-mono">
+                      {new Date(r.redeemed_at).toLocaleDateString()}
+                    </div>
+                  ) : null}
+                </td>
+                <td className="p-3 text-xs text-muted-foreground font-mono">
+                  {r.expires_at ? new Date(r.expires_at).toLocaleDateString() : "—"}
+                </td>
+                <td className="p-3">
+                  <div className="flex flex-wrap gap-2">
+                    {canRevoke ? (
+                      <button
+                        onClick={() => copyLink(r.id, r.token)}
+                        className="border border-border px-2 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:border-navy hover:text-navy"
+                      >
+                        {copiedId === r.id ? "Copied" : "Copy link"}
+                      </button>
+                    ) : null}
+                    {canResend ? (
+                      <button
+                        disabled={busy === `${r.id}:resend`}
+                        onClick={() => doAction(r.id, "resend", () => onResend(r.id))}
+                        className="border border-ink px-2 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-ink hover:bg-ink hover:text-paper disabled:opacity-50"
+                      >
+                        {busy === `${r.id}:resend` ? "…" : "Resend"}
+                      </button>
+                    ) : null}
+                    {canRevoke ? (
+                      <button
+                        disabled={busy === `${r.id}:revoke`}
+                        onClick={() => doAction(r.id, "revoke", () => onRevoke(r.id))}
+                        className="border border-destructive/40 px-2 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-destructive hover:bg-destructive hover:text-paper disabled:opacity-50"
+                      >
+                        {busy === `${r.id}:revoke` ? "…" : "Revoke"}
+                      </button>
+                    ) : null}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function DirectInviteModal({
+  onClose,
+  onSubmit,
+}: {
+  onClose: () => void;
+  onSubmit: (payload: { email: string; fullName: string; organization: string; roleCategory: string; internalNote: string }) => Promise<void>;
+}) {
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [roleCategory, setRoleCategory] = useState("Executive");
+  const [internalNote, setInternalNote] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true); setErr(null);
+    try {
+      await onSubmit({ email: email.trim(), fullName: fullName.trim(), organization: organization.trim(), roleCategory, internalNote: internalNote.trim() });
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Failed to invite");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4" onClick={onClose}>
+      <form
+        onSubmit={submit}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg space-y-4 border border-border bg-paper p-6"
+      >
+        <div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Direct invitation</div>
+          <h2 className="mt-1 font-serif text-2xl text-ink">Invite an insider.</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Bypass the public form. Creates a single-use token valid for 30 days. Applicant email will send once the sender domain is verified.
+          </p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Full name</span>
+            <input required value={fullName} onChange={(e) => setFullName(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
+          </label>
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Email</span>
+            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
+          </label>
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Organization</span>
+            <input value={organization} onChange={(e) => setOrganization(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
+          </label>
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Role category</span>
+            <select value={roleCategory} onChange={(e) => setRoleCategory(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none">
+              {["Executive", "Investor", "Contractor", "Government", "Counsel", "Advisor", "Other"].map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Internal note (private)</span>
+          <textarea value={internalNote} onChange={(e) => setInternalNote(e.target.value)} rows={3} className="mt-1 w-full border border-border bg-paper p-2 text-sm text-ink focus:border-navy focus:outline-none" />
+        </label>
+        {err ? <div className="border border-destructive/40 bg-destructive/5 p-2 text-xs text-destructive">{err}</div> : null}
+        <div className="flex items-center justify-end gap-2">
+          <button type="button" onClick={onClose} className="text-xs text-silver hover:text-ink">Cancel</button>
+          <button type="submit" disabled={busy} className="border border-ink bg-ink px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy disabled:opacity-50">
+            {busy ? "Sending…" : "Issue invitation"}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 
 function activityCsv(rows: Row[]): string {
   if (rows.length === 0) return "";
