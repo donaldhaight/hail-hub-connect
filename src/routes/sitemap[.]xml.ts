@@ -16,6 +16,9 @@ const ENTRIES: Entry[] = [
   { path: "/proof-of-concept", changefreq: "monthly", priority: "0.9" },
   { path: "/vision", changefreq: "monthly", priority: "0.9" },
   { path: "/prepare-america", changefreq: "weekly", priority: "0.9" },
+  { path: "/why-prepare-america", changefreq: "monthly", priority: "0.8" },
+  { path: "/investors", changefreq: "monthly", priority: "0.8" },
+  { path: "/policy", changefreq: "monthly", priority: "0.8" },
   { path: "/founder", changefreq: "monthly", priority: "0.7" },
   { path: "/request-briefing", changefreq: "monthly", priority: "0.6" },
 ];
