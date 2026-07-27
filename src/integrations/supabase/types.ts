@@ -98,14 +98,20 @@ export type Database = {
         Row: {
           acknowledged: boolean
           briefing_request_id: string | null
+          confirmed_at: string | null
           context: string | null
           created_at: string
+          dietary_restrictions: string | null
           email: string
+          hotel_needed: boolean
           id: string
           interest: string
           internal_notes: string | null
+          logistics_notes: string | null
           name: string
           organization: string
+          plus_ones: number
+          seat_status: string
           status: string
           title: string
           updated_at: string
@@ -113,14 +119,20 @@ export type Database = {
         Insert: {
           acknowledged?: boolean
           briefing_request_id?: string | null
+          confirmed_at?: string | null
           context?: string | null
           created_at?: string
+          dietary_restrictions?: string | null
           email: string
+          hotel_needed?: boolean
           id?: string
           interest: string
           internal_notes?: string | null
+          logistics_notes?: string | null
           name: string
           organization: string
+          plus_ones?: number
+          seat_status?: string
           status?: string
           title: string
           updated_at?: string
@@ -128,14 +140,20 @@ export type Database = {
         Update: {
           acknowledged?: boolean
           briefing_request_id?: string | null
+          confirmed_at?: string | null
           context?: string | null
           created_at?: string
+          dietary_restrictions?: string | null
           email?: string
+          hotel_needed?: boolean
           id?: string
           interest?: string
           internal_notes?: string | null
+          logistics_notes?: string | null
           name?: string
           organization?: string
+          plus_ones?: number
+          seat_status?: string
           status?: string
           title?: string
           updated_at?: string
@@ -146,6 +164,44 @@ export type Database = {
             columns: ["briefing_request_id"]
             isOneToOne: false
             referencedRelation: "briefing_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conference_seat_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          application_id: string
+          created_at: string
+          id: string
+          note: string | null
+          updated_at: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          application_id: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          application_id?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conference_seat_events_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "conference_applications"
             referencedColumns: ["id"]
           },
         ]
