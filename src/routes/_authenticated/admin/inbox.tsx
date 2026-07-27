@@ -220,13 +220,34 @@ function Inbox() {
               Export CSV
             </a>
           </div>
-        ) : (
+        ) : tab === "discussion" ? (
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <div className="text-xs text-muted-foreground">
               Cross-dossier insider Q&amp;A feed, most recent first. Click through to reply in-context.
             </div>
           </div>
+        ) : (
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            {(["", "pending", "redeemed", "expired", "revoked"] as const).map((s) => (
+              <button
+                key={s || "all"}
+                onClick={() => setStatus(s)}
+                className={`border px-3 py-1 text-xs font-mono uppercase tracking-[0.14em] ${status === s ? "border-ink bg-ink text-paper" : "border-border text-muted-foreground"}`}
+              >
+                {s || "All"}
+              </button>
+            ))}
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && load()}
+              placeholder="Search email, name, org…"
+              className="ml-2 flex-1 min-w-[200px] border border-border bg-paper px-3 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+            />
+            <button onClick={load} className="border border-ink px-3 py-1.5 text-xs font-medium">Search</button>
+          </div>
         )}
+
 
         {error ? <div className="mb-4 border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">{error}</div> : null}
 
