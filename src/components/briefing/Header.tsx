@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
@@ -13,45 +14,60 @@ const NAV = [
 
 export function Header() {
   const [signedIn, setSignedIn] = useState(false);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setSignedIn(!!session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) =>
+      setSignedIn(!!session),
+    );
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="font-serif text-xl leading-none text-ink">ClaimStore</span>
+      <div className="mx-auto grid h-14 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6">
+        <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="ClaimStore Briefing Room — home">
+          <span className="truncate font-serif text-xl leading-none text-ink">ClaimStore</span>
           <span className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-silver sm:inline">
             Briefing Room
           </span>
         </Link>
-        <nav className="hidden items-center gap-6 lg:flex">
+
+        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               className="text-[13px] text-muted-foreground transition-colors hover:text-ink"
-              activeProps={{ className: "text-ink" }}
+              activeProps={{ className: "text-ink", "aria-current": "page" }}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           {signedIn ? (
             <>
               <Link
                 to="/admin/digest"
-                className="text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
               >
                 Digest
               </Link>
               <Link
                 to="/admin/inbox"
-                className="text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
               >
                 Inbox
               </Link>
@@ -59,13 +75,80 @@ export function Header() {
           ) : null}
           <Link
             to="/request-briefing"
-            className="inline-flex items-center gap-2 border border-ink bg-ink px-3 py-1.5 text-[12px] font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
+            className="hidden items-center gap-2 border border-ink bg-ink px-3 py-1.5 text-[12px] font-medium text-paper transition-colors hover:bg-navy hover:border-navy sm:inline-flex"
           >
             Request a Private Briefing
             <span aria-hidden="true">→</span>
           </Link>
+          <Link
+            to="/request-briefing"
+            className="inline-flex shrink-0 items-center border border-ink bg-ink px-2.5 py-1.5 text-[11px] font-medium text-paper sm:hidden"
+          >
+            Briefing
+          </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-ink lg:hidden"
+          >
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </div>
+
+      {open ? (
+        <div
+          id="mobile-nav"
+          className="border-t border-border bg-background lg:hidden"
+        >
+          <nav aria-label="Mobile" className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+            <ul className="divide-y divide-border">
+              {NAV.map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between py-3 text-[15px] text-ink"
+                    activeProps={{ "aria-current": "page" }}
+                  >
+                    <span>{item.label}</span>
+                    <span aria-hidden="true" className="text-silver">
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+              {signedIn ? (
+                <>
+                  <li>
+                    <Link
+                      to="/admin/digest"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Digest
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/admin/inbox"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Inbox
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                </>
+              ) : null}
+            </ul>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

@@ -1,19 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "The Industry Problem";
 const DESC =
   "Insurance-restoration participants coordinate around six questions and lack a shared, independently verifiable record.";
 
 export const Route = createFileRoute("/industry-problem")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/industry-problem" }),
   component: IndustryProblem,
 });
 

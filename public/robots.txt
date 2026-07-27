@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /admin/
+Disallow: /insider
+Disallow: /insider/
+Disallow: /insider.accept
+
+Sitemap: https://hail-hub-connect.lovable.app/sitemap.xml

@@ -1,61 +1,54 @@
-## Sprint 0.12 — Conference Seat & Logistics Management
+## Sprint 0.13 — Public Front Door Polish
 
-The PrepareAmerica intake is live, but it is still just an inbox of applications. With 300 physical seats at Gratitude Ranch on 11-1-2026, the founder needs a real event-management surface: capacity, confirmations, waitlist, plus-ones, dietary/logistics capture, and an exportable attendee roster. This sprint turns the conference tab into an operational command center for the convening.
+Goal: make the public briefing room look credible when a C-level, VC, or contractor opens it cold — on mobile, in a link preview, or via search. No new features; tighten what exists.
 
-### What ships
+### 1. Mobile navigation
 
-**1. Seat-management schema**
-- Extend `conference_applications` with:
-  - `seat_status` — `applied` | `invited` | `confirmed` | `waitlisted` | `declined` | `cancelled`
-  - `plus_ones` — integer, default 0
-  - `dietary_restrictions` — text
-  - `hotel_needed` — boolean
-  - `logistics_notes` — text
-  - `confirmed_at` — timestamp
-- New `conference_seat_events` audit table: `application_id`, `actor_id`, `action`, `note`, `created_at`.
-- Hard capacity constant of 300 seats (confirmed seats = applicant + plus_ones). Waitlist opens automatically when a confirmation would exceed capacity.
+Current `Header` hides the nav below `lg:` and shows nothing in its place, so on phones the site loses its wayfinding. Add:
+- A hamburger button (visible below `lg:`) that opens a full-width sheet with the same NAV entries plus the admin links (when signed in).
+- Ensure the sticky "Request a Private Briefing" CTA stays reachable without overflowing on 360px widths (apply the `grid-cols-[minmax(0,1fr)_auto]` + `min-w-0` + `shrink-0` pattern from responsive-layout guidance).
+- Verify `PageShell`, `PageHeader`, and the six coordination-question grid on `/industry-problem` don't clip at 375px.
 
-**2. Server functions in `src/lib/conference.functions.ts`**
-- `getConferenceCapacitySummary()` — public, returns total, confirmed, waitlisted, available.
-- `updateConferenceSeat({ id, seatStatus, plusOnes, dietary, hotelNeeded, logisticsNotes, note })` — founder-only; enforces capacity, logs event, sets `confirmed_at` when appropriate.
-- `promoteFromWaitlist({ id, note })` — founder-only; moves a waitlisted applicant to confirmed if seats exist.
-- `listConferenceAttendees()` — founder-only; all confirmed rows with logistics data.
-- `getPublicConferenceStatus()` — public; counts only, no PII, surfaced on `/prepare-america`.
+### 2. Per-route head metadata audit
 
-**3. Founder Inbox — Conference tab upgrade**
-- Capacity meter at the top: `X / 300 seats filled`.
-- Per-row seat actions: Confirm, Waitlist, Decline, Cancel, Promote (waitlist only).
-- Inline logistics editor for confirmed applicants: plus-ones, dietary restrictions, hotel needed, internal logistics notes.
-- Waitlist position computed by `confirmed_at` ordering.
-- New CSV export: attendee roster with name, email, org, title, category, plus-ones, dietary, hotel.
+Every public leaf route already sets title/description/og:title/og:description. Add what's missing:
+- `og:type: "website"` on the root, `"article"` on briefing routes (`/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`).
+- `og:url` self-referencing each route, using the project domain.
+- `twitter:card: "summary_large_image"` on each leaf.
+- `<link rel="canonical">` on each leaf route (not `__root`).
+- Set a proper root default title/description in `__root.tsx` (site-wide fallback), plus `og:site_name: "ClaimStore Briefing Room"`.
+- Do NOT add `og:image` — no branded hero exists yet; let hosting inject the screenshot preview.
 
-**4. Public `/prepare-america` page**
-- Add a live seat-availability strip: e.g. "300 seats · N confirmed · applications reviewed personally".
-- Keep the existing application form; successful applicants see a status-aware message referencing the review process.
+### 3. Sitemap + robots
 
-**5. Insider-facing attendee roster (optional but high-impact)**
-- New route `/_authenticated/insider/prepare-america` or a section inside the existing PrepareAmerica dossier.
-- Confirmed insiders see a read-only list of attending organizations/categories (no emails) to signal who else is coming.
-- Gated to `qualified_insider` or `founder_admin`.
+- Create `src/routes/sitemap[.]xml.ts` as a server route listing the seven public routes (`/`, `/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`, `/request-briefing`). Omit `/auth`, `/insider.accept`, and everything under `_authenticated`.
+- Add `public/robots.txt` allowing all crawlers with a `Sitemap:` directive pointing at the project domain.
+- Base URL: `https://hail-hub-connect.lovable.app`.
+- Omit `<lastmod>` (no authoritative per-page timestamp).
 
-**6. Email stub**
-- Add a `conference_seat_confirmed` template to `src/lib/email.ts` and call it on confirmation.
-- It remains no-op until the Lovable email domain is configured, just like the other templates.
+### 4. JSON-LD
 
-### What this is NOT
+- `Organization` schema on `__root` (name: ClaimStore / United Stakeholders of America LLC).
+- `Event` schema on `/prepare-america` (PrepareAmerica Conference, 2026-11-01, Gratitude Ranch, Flower Mound TX) using the existing copy.
 
-- Not a full agenda builder or session scheduler.
-- Not a payment/ticketing system.
-- Not a hotel room-block booking integration.
-- Not an automated waitlist promotion queue; promotion is founder-triggered.
+### 5. Small consistency + a11y passes
 
-### Technical notes
+- Confirm a single `<h1>` per page (the `PageHeader` title).
+- Add `aria-label` / `aria-current` where the nav uses `activeProps`.
+- Confirm focus-visible rings on the CTA and nav links against the paper background.
+- Verify color contrast of `text-silver` micro-labels meets AA on the paper background; darken the token slightly if it doesn't.
 
-- Migration: add columns to `conference_applications` and create `conference_seat_events`. Both get GRANTs + RLS + `updated_at` trigger on the new table.
-- Update `src/lib/inbox.schemas.ts` to include the new `seat_status` enum and an `updateConferenceSeatSchema`.
-- Update `src/lib/inbox.functions.ts` with the new server functions or create a focused `src/lib/conference.functions.ts`.
-- The founder inbox conference tab becomes the primary UI; no separate admin route needed.
-- Capacity math is computed server-side to prevent race conditions; the UI reflects the same numbers.
-- After the migration runs, the Supabase types file regenerates, and code that touches the new columns is wired in.
+### 6. Verify
 
-Approve and I'll build it.
+- `bun run build` clean.
+- Playwright: load `/`, `/why-rrca`, `/prepare-america` at 375×812 and 1280×800; capture screenshots; confirm nav sheet opens on mobile; assert canonical + og:url present in rendered head.
+- `curl` `/sitemap.xml` and `/robots.txt` and confirm both return correct content-types.
+
+### Out of scope
+
+- No `og:image` generation (no brand hero decided yet).
+- No copy rewrites — polish only.
+- No changes to auth, insider, or founder surfaces.
+- No new dossier content.
+
+After this ships, the natural next sprint is either **Attendee Experience** (confirmation page + itinerary for confirmed guests) or **Brand hero + OG image** (once you approve a visual direction).

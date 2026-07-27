@@ -1,20 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "The Vision";
 const DESC =
   "The proposed ClaimStore layer, its components — ClaimExpress, ClaimsBank, ClaimLoan, ClaimCoin — and the United Stakeholders of America foundry. All conceptual; nothing yet operational.";
 
 export const Route = createFileRoute("/vision")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/vision" }),
   component: Vision,
 });
 

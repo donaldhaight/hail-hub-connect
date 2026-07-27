@@ -11,20 +11,50 @@ import {
 } from "@/lib/briefing.schemas";
 import { submitConferenceApplication } from "@/lib/briefing.functions";
 import { getPublicConferenceStatus } from "@/lib/conference.functions";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "PrepareAmerica Conference";
 const DESC =
   "The first annual PrepareAmerica Conference. 300 seats. Private. Gratitude Ranch, Flower Mound, Texas. November 1, 2026.";
 
 export const Route = createFileRoute("/prepare-america")({
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => {
+    const base = routeHead({ title: TITLE, description: DESC, path: "/prepare-america" });
+    return {
+      ...base,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            name: "PrepareAmerica Conference 2026",
+            description: DESC,
+            startDate: "2026-11-01",
+            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            eventStatus: "https://schema.org/EventScheduled",
+            location: {
+              "@type": "Place",
+              name: "Gratitude Ranch",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Flower Mound",
+                addressRegion: "TX",
+                addressCountry: "US",
+              },
+            },
+            organizer: {
+              "@type": "Organization",
+              name: "United Stakeholders of America LLC",
+              url: "https://hail-hub-connect.lovable.app",
+            },
+            maximumAttendeeCapacity: 300,
+            isAccessibleForFree: false,
+          }),
+        },
+      ],
+    };
+  },
   component: PrepareAmerica,
 });
 

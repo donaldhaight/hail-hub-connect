@@ -10,6 +10,7 @@ import {
   type BriefingRequestInput,
 } from "@/lib/briefing.schemas";
 import { submitBriefingRequest } from "@/lib/briefing.functions";
+import { routeHead } from "@/lib/site";
 
 const TITLE = "Request a Private Briefing";
 const DESC =
@@ -23,14 +24,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/request-briefing")({
   validateSearch: (search) => searchSchema.parse(search),
-  head: () => ({
-    meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
-      { name: "description", content: DESC },
-      { property: "og:title", content: `${TITLE} — ClaimStore Briefing Room` },
-      { property: "og:description", content: DESC },
-    ],
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/request-briefing" }),
   component: RequestBriefing,
 });
 
