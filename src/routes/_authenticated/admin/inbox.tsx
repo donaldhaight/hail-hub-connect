@@ -422,6 +422,12 @@ function Inbox() {
           />
         ) : tab === "itinerary" ? (
           <ItineraryEditor />
+        ) : tab === "referrals" ? (
+          <ReferralsPanel
+            list={listRefs}
+            updateStatus={async (id, status, note) => { await updRef({ data: { id, status, note } }); }}
+            approve={async (id) => approveRef({ data: { id } })}
+          />
         ) : (
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3 border border-border">
