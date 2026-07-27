@@ -308,6 +308,12 @@ function Inbox() {
               Working itinerary for PrepareAmerica 2026. Published rows appear on every confirmed attendee's private page immediately.
             </div>
           </div>
+        ) : tab === "referrals" ? (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Insider nominations. Approve to auto-generate an invitation link addressed to the referred email.
+            </div>
+          </div>
         ) : (
           <div className="mb-4 flex flex-wrap items-center gap-2">
             {(["", "pending", "redeemed", "expired", "revoked"] as const).map((s) => (
