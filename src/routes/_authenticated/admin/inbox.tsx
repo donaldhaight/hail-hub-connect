@@ -207,6 +207,7 @@ function Inbox() {
               Invite insider directly
             </button>
             <a href="/admin/signals" className="text-xs text-muted-foreground hover:text-ink">Signals →</a>
+            <a href="/admin/reads" className="text-xs text-muted-foreground hover:text-ink">Read heatmap →</a>
             <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
           </div>
         </div>
