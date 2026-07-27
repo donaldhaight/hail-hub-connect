@@ -60,6 +60,7 @@ function Inbox() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const [capacity, setCapacity] = useState({ total: 300, confirmed: 0, waitlisted: 0, available: 300 });
 
   const listBriefings = useServerFn(listBriefingRequests);
   const listConf = useServerFn(listConferenceApplications);
