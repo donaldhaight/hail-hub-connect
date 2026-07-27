@@ -13,6 +13,7 @@ import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
 import { Route as WhyPrepareAmericaRouteImport } from './routes/why-prepare-america'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
@@ -27,6 +28,7 @@ import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-am
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
+import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
@@ -52,6 +54,11 @@ const VisionRoute = VisionRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestBriefingRoute = RequestBriefingRouteImport.update({
@@ -125,6 +132,11 @@ const AuthenticatedInsiderReferRoute =
     path: '/insider/refer',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminTourRoute = AuthenticatedAdminTourRouteImport.update({
+  id: '/admin/tour',
+  path: '/admin/tour',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminSignalsRoute =
   AuthenticatedAdminSignalsRouteImport.update({
     id: '/admin/signals',
@@ -169,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -180,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -194,6 +208,7 @@ export interface FileRoutesByTo {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -205,6 +220,7 @@ export interface FileRoutesByTo {
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -221,6 +237,7 @@ export interface FileRoutesById {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -232,6 +249,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -248,6 +266,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -259,6 +278,7 @@ export interface FileRouteTypes {
     | '/admin/inbox'
     | '/admin/reads'
     | '/admin/signals'
+    | '/admin/tour'
     | '/insider/refer'
     | '/insider/'
     | '/insider/dossier/$slug'
@@ -273,6 +293,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -284,6 +305,7 @@ export interface FileRouteTypes {
     | '/admin/inbox'
     | '/admin/reads'
     | '/admin/signals'
+    | '/admin/tour'
     | '/insider/refer'
     | '/insider'
     | '/insider/dossier/$slug'
@@ -299,6 +321,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -310,6 +333,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/inbox'
     | '/_authenticated/admin/reads'
     | '/_authenticated/admin/signals'
+    | '/_authenticated/admin/tour'
     | '/_authenticated/insider/refer'
     | '/_authenticated/insider/'
     | '/_authenticated/insider/dossier/$slug'
@@ -326,6 +350,7 @@ export interface RootRouteChildren {
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
@@ -361,6 +386,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-briefing': {
@@ -461,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInsiderReferRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/tour': {
+      id: '/_authenticated/admin/tour'
+      path: '/admin/tour'
+      fullPath: '/admin/tour'
+      preLoaderRoute: typeof AuthenticatedAdminTourRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/signals': {
       id: '/_authenticated/admin/signals'
       path: '/admin/signals'
@@ -512,6 +551,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
+  AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
@@ -523,6 +563,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
+  AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
@@ -554,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
@@ -563,13 +605,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
