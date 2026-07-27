@@ -1,54 +1,35 @@
-## Sprint 0.13 — Public Front Door Polish
+## Where we are
 
-Goal: make the public briefing room look credible when a C-level, VC, or contractor opens it cold — on mobile, in a link preview, or via search. No new features; tighten what exists.
+Phase 0 has shipped: public front door, capture forms, founder inbox, insider room, dossier reader with editor, signals, digest, conference seat management, and now SEO/mobile polish. The 11-1-2026 convening is ~14 weeks out.
 
-### 1. Mobile navigation
+## Two credible next moves
 
-Current `Header` hides the nav below `lg:` and shows nothing in its place, so on phones the site loses its wayfinding. Add:
-- A hamburger button (visible below `lg:`) that opens a full-width sheet with the same NAV entries plus the admin links (when signed in).
-- Ensure the sticky "Request a Private Briefing" CTA stays reachable without overflowing on 360px widths (apply the `grid-cols-[minmax(0,1fr)_auto]` + `min-w-0` + `shrink-0` pattern from responsive-layout guidance).
-- Verify `PageShell`, `PageHeader`, and the six coordination-question grid on `/industry-problem` don't clip at 375px.
+Pick one — both are useful, they answer different pressures.
 
-### 2. Per-route head metadata audit
+### Option A — Sprint 0.14: Attendee Experience (recommended)
 
-Every public leaf route already sets title/description/og:title/og:description. Add what's missing:
-- `og:type: "website"` on the root, `"article"` on briefing routes (`/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`).
-- `og:url` self-referencing each route, using the project domain.
-- `twitter:card: "summary_large_image"` on each leaf.
-- `<link rel="canonical">` on each leaf route (not `__root`).
-- Set a proper root default title/description in `__root.tsx` (site-wide fallback), plus `og:site_name: "ClaimStore Briefing Room"`.
-- Do NOT add `og:image` — no branded hero exists yet; let hosting inject the screenshot preview.
+Close the loop for the 300 people whose seats you're managing. Right now confirmed attendees get nothing back from the site.
 
-### 3. Sitemap + robots
+- **Confirmed attendee page** at `/prepare-america/confirmed` — token-gated, shows their seat status, plus-one form, hotel toggle, dietary/access notes, and the working itinerary.
+- **Plus-one capture** writes back to `conference_applications` and updates the capacity meter live.
+- **Itinerary block** (editable by founder from `/admin/inbox` → new "Itinerary" tab) so you can publish agenda updates without a code change.
+- **"My Briefing" bridge** — confirmed attendees who are also insiders see a one-click link into `/insider`.
+- Email stubs stay stubbed until you verify the sender domain.
 
-- Create `src/routes/sitemap[.]xml.ts` as a server route listing the seven public routes (`/`, `/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`, `/request-briefing`). Omit `/auth`, `/insider.accept`, and everything under `_authenticated`.
-- Add `public/robots.txt` allowing all crawlers with a `Sitemap:` directive pointing at the project domain.
-- Base URL: `https://hail-hub-connect.lovable.app`.
-- Omit `<lastmod>` (no authoritative per-page timestamp).
+Why this next: it converts the seat pipeline from a spreadsheet into a two-way channel, and it's the thing every confirmed C-level will actually touch before 11-1.
 
-### 4. JSON-LD
+### Option B — Sprint 0.14: Insider Room Depth
 
-- `Organization` schema on `__root` (name: ClaimStore / United Stakeholders of America LLC).
-- `Event` schema on `/prepare-america` (PrepareAmerica Conference, 2026-11-01, Gratitude Ranch, Flower Mound TX) using the existing copy.
+Deepen what qualified insiders see so referrals from them carry more weight.
 
-### 5. Small consistency + a11y passes
+- **Dossier attachments** — founder can attach PDFs/images per section (Supabase Storage, C-class gated).
+- **Insider referrals** — an insider can nominate 1–3 peers; nominations land in the founder inbox as a new lane.
+- **Reading receipts per section** (not just per dossier) so Signals shows depth, not just opens.
 
-- Confirm a single `<h1>` per page (the `PageHeader` title).
-- Add `aria-label` / `aria-current` where the nav uses `activeProps`.
-- Confirm focus-visible rings on the CTA and nav links against the paper background.
-- Verify color contrast of `text-silver` micro-labels meets AA on the paper background; darken the token slightly if it doesn't.
+Why this instead: if the strategy right now is "let warm insiders pull in the next wave," this arms them. But it doesn't help the 11-1 convening directly.
 
-### 6. Verify
+## Recommendation
 
-- `bun run build` clean.
-- Playwright: load `/`, `/why-rrca`, `/prepare-america` at 375×812 and 1280×800; capture screenshots; confirm nav sheet opens on mobile; assert canonical + og:url present in rendered head.
-- `curl` `/sitemap.xml` and `/robots.txt` and confirm both return correct content-types.
+**Option A.** The conference is the load-bearing event; every week that confirmed attendees have no return surface is a week of silent attrition. Insider depth can follow in 0.15.
 
-### Out of scope
-
-- No `og:image` generation (no brand hero decided yet).
-- No copy rewrites — polish only.
-- No changes to auth, insider, or founder surfaces.
-- No new dossier content.
-
-After this ships, the natural next sprint is either **Attendee Experience** (confirmation page + itinerary for confirmed guests) or **Brand hero + OG image** (once you approve a visual direction).
+Tell me A or B (or something else) and I'll write the detailed sprint plan.
