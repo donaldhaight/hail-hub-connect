@@ -1,5 +1,5 @@
 /**
- * Quantum Federation — Brand Registry
+ * The Human Blockchain — Brand Registry
  *
  * Seven stakeholder groups (Metatron 7-position model) plus four unnamed
  * Constitutional Guardrails ("Angels"). Encoded in the Three-Layer Reveal
@@ -7,7 +7,7 @@
  *
  * This registry drives:
  *  - The seven /b/<slug> public front doors
- *  - The Quantum Dashboard switcher in the header
+ *  - The Human Blockchain switcher in the header
  *  - The /architecture page's 7-position diagram
  */
 export type BrandVertical =
