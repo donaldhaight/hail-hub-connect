@@ -7,7 +7,8 @@ export type EmailTemplate =
   | { kind: "applicant_auto_reply"; to: string; name: string }
   | { kind: "insider_invitation"; to: string; name: string; acceptUrl: string; expiresAt: string }
   | { kind: "founder_new_insider_message"; dossierSlug: string; sectionHeading: string | null; body: string; authorId: string }
-  | { kind: "insider_reply_posted"; to: string; dossierSlug: string; sectionHeading: string | null; body: string };
+  | { kind: "insider_reply_posted"; to: string; dossierSlug: string; sectionHeading: string | null; body: string }
+  | { kind: "conference_seat_confirmed"; to: string; name: string; seats: number; eventDate: string; venue: string };
 
 export async function sendEmail(_template: EmailTemplate): Promise<{ sent: boolean; reason?: string }> {
   // Stubbed until a Lovable email domain is configured.
