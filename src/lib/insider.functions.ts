@@ -97,10 +97,25 @@ export const grantInsiderAccessFromConference = createServerFn({ method: "POST" 
 
     const { data: app, error: appErr } = await supabaseAdmin
       .from("conference_applications")
-      .select("id, name, email")
+      .select("id, name, email, plus_ones")
       .eq("id", data.conferenceApplicationId)
       .single();
     if (appErr || !app) throw new Error("Conference application not found");
+
+    const totalSeats = 300;
+    const { data: confirmedRows } = await supabaseAdmin
+      .from("conference_applications")
+      .select("plus_ones")
+      .eq("seat_status", "confirmed");
+    const confirmedSeats = (confirmedRows ?? []).reduce(
+      (sum: number, r: { plus_ones: number }) => sum + 1 + (r.plus_ones ?? 0),
+      0,
+    );
+    const available = Math.max(0, totalSeats - confirmedSeats);
+    const requestedSeats = 1 + (app.plus_ones ?? 0);
+    const canConfirm = requestedSeats <= available;
+    const seatStatus = canConfirm ? "confirmed" : "waitlisted";
+    const confirmedAt = canConfirm ? new Date().toISOString() : null;
 
     await supabaseAdmin
       .from("insider_invitations")
@@ -124,8 +139,20 @@ export const grantInsiderAccessFromConference = createServerFn({ method: "POST" 
 
     await supabaseAdmin
       .from("conference_applications")
-      .update({ status: "confirmed", updated_at: new Date().toISOString() })
+      .update({
+        status: seatStatus,
+        seat_status: seatStatus,
+        confirmed_at: confirmedAt,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", app.id);
+
+    await supabaseAdmin.from("conference_seat_events").insert({
+      application_id: app.id,
+      actor_id: context.userId,
+      action: `insider_invited:seat:${seatStatus}`,
+      note: `invitation ${inv.id}`,
+    });
 
     await sendEmail({
       kind: "insider_invitation",
@@ -135,7 +162,18 @@ export const grantInsiderAccessFromConference = createServerFn({ method: "POST" 
       expiresAt: new Date(inv.expires_at).toISOString(),
     });
 
-    return { token: inv.token as string, expiresAt: inv.expires_at as string };
+    if (canConfirm) {
+      await sendEmail({
+        kind: "conference_seat_confirmed",
+        to: app.email,
+        name: app.name,
+        seats: requestedSeats,
+        eventDate: "November 1, 2026",
+        venue: "Gratitude Ranch, Flower Mound, Texas",
+      }).catch(() => {});
+    }
+
+    return { token: inv.token as string, expiresAt: inv.expires_at as string, seatStatus };
   });
 
 export const getInvitationForConference = createServerFn({ method: "POST" })

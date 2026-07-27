@@ -1,43 +1,61 @@
-## Sprint 0.11 — Founder Dossier Editor (in-app authoring)
+## Sprint 0.12 — Conference Seat & Logistics Management
 
-Right now every dossier's title, summary, and section body lives in `src/content/dossiers.ts` — a source file. To change one word, the founder has to ask me to ship code. That's a bottleneck heading into the 11-1-2026 convening, where dossier language will iterate daily. This sprint moves the dossier corpus into Lovable Cloud, gives the founder an in-app editor, and keeps the current file as the seed / fallback.
+The PrepareAmerica intake is live, but it is still just an inbox of applications. With 300 physical seats at Gratitude Ranch on 11-1-2026, the founder needs a real event-management surface: capacity, confirmations, waitlist, plus-ones, dietary/logistics capture, and an exportable attendee roster. This sprint turns the conference tab into an operational command center for the convening.
 
 ### What ships
 
-**1. Dossier storage in the database**
-Two tables: `dossiers` (slug, code, story_order, title, summary, confidentiality, truth_default, published_at) and `dossier_sections` (dossier_slug, position, heading, truth, body). RLS: anyone with `qualified_insider` or `founder_admin` can read; only `founder_admin` can write. Existing dossier slugs stay the same, so all existing notes/messages/opens keep working.
+**1. Seat-management schema**
+- Extend `conference_applications` with:
+  - `seat_status` — `applied` | `invited` | `confirmed` | `waitlisted` | `declined` | `cancelled`
+  - `plus_ones` — integer, default 0
+  - `dietary_restrictions` — text
+  - `hotel_needed` — boolean
+  - `logistics_notes` — text
+  - `confirmed_at` — timestamp
+- New `conference_seat_events` audit table: `application_id`, `actor_id`, `action`, `note`, `created_at`.
+- Hard capacity constant of 300 seats (confirmed seats = applicant + plus_ones). Waitlist opens automatically when a confirmation would exceed capacity.
 
-**2. Seed from `src/content/dossiers.ts`**
-Migration inserts the current five dossiers and their sections verbatim. Nothing visible changes to insiders on first load.
+**2. Server functions in `src/lib/conference.functions.ts`**
+- `getConferenceCapacitySummary()` — public, returns total, confirmed, waitlisted, available.
+- `updateConferenceSeat({ id, seatStatus, plusOnes, dietary, hotelNeeded, logisticsNotes, note })` — founder-only; enforces capacity, logs event, sets `confirmed_at` when appropriate.
+- `promoteFromWaitlist({ id, note })` — founder-only; moves a waitlisted applicant to confirmed if seats exist.
+- `listConferenceAttendees()` — founder-only; all confirmed rows with logistics data.
+- `getPublicConferenceStatus()` — public; counts only, no PII, surfaced on `/prepare-america`.
 
-**3. Founder edit surface**
-- Inline "Edit" button next to each section heading in the dossier reader (founder only). Opens a compact inline editor for heading, truth label, and body. Save writes to `dossier_sections`.
-- Header-level "Edit dossier meta" toggle for title / summary / confidentiality / truth default.
-- "Add section" and "Remove section" controls (with a confirm) at the bottom of the section list.
-- Reorder via up/down arrows on each section (position is authoritative).
-- All edits are optimistic on the founder's screen with a visible saved/unsaved state; server is source of truth.
+**3. Founder Inbox — Conference tab upgrade**
+- Capacity meter at the top: `X / 300 seats filled`.
+- Per-row seat actions: Confirm, Waitlist, Decline, Cancel, Promote (waitlist only).
+- Inline logistics editor for confirmed applicants: plus-ones, dietary restrictions, hotel needed, internal logistics notes.
+- Waitlist position computed by `confirmed_at` ordering.
+- New CSV export: attendee roster with name, email, org, title, category, plus-ones, dietary, hotel.
 
-**4. Reader reads from DB, falls back to file**
-Reader and index load from the `dossiers` + `dossier_sections` tables. If the DB is empty for a slug (first load before seed runs), fall back to `src/content/dossiers.ts` so nothing breaks mid-migration. Story order, truth chips, confidentiality chips, SIMULATION banner, and section-level NEW markers all continue to work — they just read live data.
+**4. Public `/prepare-america` page**
+- Add a live seat-availability strip: e.g. "300 seats · N confirmed · applications reviewed personally".
+- Keep the existing application form; successful applicants see a status-aware message referencing the review process.
 
-**5. Edit audit trail**
-`dossier_edits` table logs each save (actor, slug, section_id or null, field, before, after, timestamp). Surfaces as a small "Recent edits" tab inside `/admin/inbox` so co-authors can see what the founder just changed. No versioned rollback in this sprint — that's Sprint 0.12 if wanted.
+**5. Insider-facing attendee roster (optional but high-impact)**
+- New route `/_authenticated/insider/prepare-america` or a section inside the existing PrepareAmerica dossier.
+- Confirmed insiders see a read-only list of attending organizations/categories (no emails) to signal who else is coming.
+- Gated to `qualified_insider` or `founder_admin`.
+
+**6. Email stub**
+- Add a `conference_seat_confirmed` template to `src/lib/email.ts` and call it on confirmation.
+- It remains no-op until the Lovable email domain is configured, just like the other templates.
 
 ### What this is NOT
 
-- Not a rich-text editor. Body is plain text with blank-line paragraph splitting, exactly like today. Truth discipline stays chip-based, not inline markup.
-- Not multi-author. Only `founder_admin` writes.
-- Not versioned rollback. The edit log records history; restoring a prior version is a follow-on.
-- No new dossier types or fields beyond what already exists.
+- Not a full agenda builder or session scheduler.
+- Not a payment/ticketing system.
+- Not a hotel room-block booking integration.
+- Not an automated waitlist promotion queue; promotion is founder-triggered.
 
 ### Technical notes
 
-- Migration: `dossiers`, `dossier_sections`, `dossier_edits`. All three get GRANTs + RLS + `updated_at` triggers. Section unique key: `(dossier_slug, position)`.
-- New server functions in `src/lib/dossier.functions.ts`:
-  `listDossiersFromDb`, `getDossierFromDb(slug)`, `upsertDossierMeta`, `upsertDossierSection`, `deleteDossierSection`, `reorderDossierSection`, `listDossierEdits`.
-- `src/content/dossiers.ts` stays as the seed source and typed fallback; `Dossier` / `DossierSection` types move to a shared `src/content/dossier-types.ts` so DB responses share the type.
-- Reader (`insider/dossier.$slug.tsx`) becomes DB-first with file fallback. Index (`insider/index.tsx`) loads the ordered list from DB (falls back to `ORDERED_DOSSIERS`).
-- Founder-only edit UI is a small `<DossierEditor>` co-located with the reader — no separate route. Non-founders see the same page they see today.
-- Story order stays load-bearing: the seed migration sets `story_order` explicitly per current values; the editor exposes reordering only within a dossier's sections, not across dossiers, to preserve the RRCA → ClaimExpress → ClaimStore → USA Foundry → PrepareAmerica sequence unless we explicitly decide otherwise.
+- Migration: add columns to `conference_applications` and create `conference_seat_events`. Both get GRANTs + RLS + `updated_at` trigger on the new table.
+- Update `src/lib/inbox.schemas.ts` to include the new `seat_status` enum and an `updateConferenceSeatSchema`.
+- Update `src/lib/inbox.functions.ts` with the new server functions or create a focused `src/lib/conference.functions.ts`.
+- The founder inbox conference tab becomes the primary UI; no separate admin route needed.
+- Capacity math is computed server-side to prevent race conditions; the UI reflects the same numbers.
+- After the migration runs, the Supabase types file regenerates, and code that touches the new columns is wired in.
 
 Approve and I'll build it.

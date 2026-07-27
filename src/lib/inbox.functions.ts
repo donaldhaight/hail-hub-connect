@@ -75,7 +75,7 @@ export const listConferenceApplications = createServerFn({ method: "POST" })
       .select("*")
       .order("created_at", { ascending: false })
       .limit(500);
-    if (data.status) q = q.eq("status", data.status);
+    if (data.status) q = q.eq("seat_status", data.status);
     if (data.search) {
       const s = `%${data.search}%`;
       q = q.or(`name.ilike.${s},email.ilike.${s},organization.ilike.${s}`);
@@ -112,11 +112,24 @@ export const updateConferenceStatus = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const update: { status: string; seat_status?: string; updated_at: string } = {
+      status: data.status,
+      updated_at: new Date().toISOString(),
+    };
+    if (data.status !== "applied") {
+      update.seat_status = data.status;
+    }
     const { error } = await supabaseAdmin
       .from("conference_applications")
-      .update({ status: data.status, updated_at: new Date().toISOString() })
+      .update(update)
       .eq("id", data.id);
     if (error) throw new Error("Failed to update status");
+    await supabaseAdmin.from("conference_seat_events").insert({
+      application_id: data.id,
+      actor_id: context.userId,
+      action: `status:${data.status}`,
+      note: data.note ?? null,
+    });
     return { ok: true };
   });
 

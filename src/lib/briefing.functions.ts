@@ -63,6 +63,7 @@ export const submitBriefingRequest = createServerFn({ method: "POST" })
         context: insert.context,
         acknowledged: true,
         status: "applied" as const,
+        seat_status: "applied" as const,
       });
 
       if (confError) {
@@ -114,6 +115,7 @@ export const submitConferenceApplication = createServerFn({ method: "POST" })
       context: contextComposed || null,
       acknowledged: true,
       status: "applied" as const,
+      seat_status: "applied" as const,
     };
 
     const { data: row, error: insertError } = await supabaseAdmin

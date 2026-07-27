@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -11,6 +11,12 @@ import {
   updateConferenceNotes,
   getMyRoles,
 } from "@/lib/inbox.functions";
+import {
+  getConferenceCapacitySummary,
+  updateConferenceSeat,
+  promoteFromWaitlist,
+  listConferenceAttendees,
+} from "@/lib/conference.functions";
 import {
   grantInsiderAccess,
   getInvitationForRequest,
@@ -50,10 +56,15 @@ function Inbox() {
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
+  const rowsRef = useRef<Row[]>(rows);
+  useEffect(() => {
+    rowsRef.current = rows;
+  }, [rows]);
   const [selected, setSelected] = useState<Row | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [authorized, setAuthorized] = useState<boolean | null>(null);
+  const [capacity, setCapacity] = useState({ total: 300, confirmed: 0, waitlisted: 0, available: 300 });
 
   const listBriefings = useServerFn(listBriefingRequests);
   const listConf = useServerFn(listConferenceApplications);
@@ -72,6 +83,10 @@ function Inbox() {
   const revokeInv = useServerFn(revokeInvitation);
   const resendInv = useServerFn(resendInvitation);
   const inviteDirect = useServerFn(inviteInsiderDirect);
+  const loadCapacity = useServerFn(getConferenceCapacitySummary);
+  const updateSeat = useServerFn(updateConferenceSeat);
+  const promoteSeat = useServerFn(promoteFromWaitlist);
+  const loadAttendees = useServerFn(listConferenceAttendees);
 
   useEffect(() => {
     myRoles()
@@ -98,6 +113,10 @@ function Inbox() {
         const fn = tab === "briefings" ? listBriefings : listConf;
         const r = await fn({ data: { status: status || undefined, search: search || undefined } });
         setRows(r.rows);
+      }
+      if (tab === "conference") {
+        const cap = await loadCapacity();
+        setCapacity(cap);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
@@ -171,8 +190,44 @@ function Inbox() {
           </div>
         </div>
 
-
-
+        {tab === "conference" ? (
+          <div className="mb-4 border border-border bg-card p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</div>
+                <div className="mt-1 text-sm text-ink">
+                  {capacity.confirmed} of {capacity.total} seats confirmed
+                  {capacity.waitlisted > 0 ? ` · ${capacity.waitlisted} waitlisted` : ""}
+                  {capacity.available > 0 ? ` · ${capacity.available} available` : " · sold out"}
+                </div>
+              </div>
+              <div className="flex flex-1 min-w-[200px] max-w-md items-center gap-3">
+                <div className="h-2 flex-1 bg-muted">
+                  <div
+                    className="h-2 bg-navy transition-all"
+                    style={{ width: `${Math.min(100, (capacity.confirmed / capacity.total) * 100)}%` }}
+                  />
+                </div>
+                <button
+                  onClick={async () => {
+                    const r = await loadAttendees();
+                    const csv = attendeesToCsv(r.rows);
+                    const blob = new Blob([csv], { type: "text/csv" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `prepare-america-attendees-${new Date().toISOString().slice(0, 10)}.csv`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="shrink-0 border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+                >
+                  Export attendees
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {tab === "briefings" || tab === "conference" ? (
           <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -341,15 +396,16 @@ function Inbox() {
                     <th className="p-3">Date</th>
                     <th className="p-3">Name</th>
                     <th className="p-3">Organization</th>
-                    <th className="p-3">Interest</th>
+                    <th className="p-3">{tab === "conference" ? "Category" : "Interest"}</th>
+                    {tab === "conference" ? <th className="p-3">Seats</th> : null}
                     <th className="p-3">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">Loading…</td></tr>
                   ) : rows.length === 0 ? (
-                    <tr><td colSpan={5} className="p-6 text-center text-silver">No records.</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">No records.</td></tr>
                   ) : rows.map((r) => (
                     <tr
                       key={r.id}
@@ -360,7 +416,12 @@ function Inbox() {
                       <td className="p-3 text-ink">{r.name}</td>
                       <td className="p-3 text-muted-foreground">{r.organization}</td>
                       <td className="p-3 text-xs text-muted-foreground">{r.interest}</td>
-                      <td className="p-3 text-xs font-mono uppercase">{r.status}</td>
+                      {tab === "conference" ? (
+                        <td className="p-3 text-xs font-mono text-muted-foreground">
+                          {1 + (r.plus_ones ?? 0)}
+                        </td>
+                      ) : null}
+                      <td className="p-3 text-xs font-mono uppercase">{r.seat_status ?? r.status}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -369,48 +430,61 @@ function Inbox() {
 
             <div className="lg:col-span-2">
               {selected ? (
-                <DetailPanel
-                  key={selected.id}
-                  row={selected}
-                  tab={tab as "briefings" | "conference"}
-                  onSaveStatus={async (s, note) => {
-                    if (tab === "briefings") {
-                      await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
-                    } else {
-                      await updConf({ data: { id: selected.id, status: s as ConferenceStatus, note } });
-                    }
-                    await load();
-                    setSelected((cur) => (cur ? { ...cur, status: s } : cur));
-                  }}
-                  onSaveNotes={async (note) => {
-                    if (tab === "briefings") {
-                      await updNotes({ data: { id: selected.id, note } });
-                    } else {
+                tab === "conference" ? (
+                  <ConferenceDetailPanel
+                    key={selected.id}
+                    row={selected}
+                    capacity={capacity}
+                    onChanged={async () => {
+                      await load();
+                      const fresh = rowsRef.current.find((r) => r.id === selected.id);
+                      if (fresh) setSelected(fresh);
+                    }}
+                    onApproveAndInvite={async () => {
+                      const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: r.seatStatus, seat_status: r.seatStatus } : cur));
+                      return r;
+                    }}
+                    loadInvitation={() => getInvConf({ data: { conferenceApplicationId: selected.id } })}
+                    updateSeat={async (payload) => {
+                      const r = await updateSeat({ data: payload });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, seat_status: r.seatStatus, status: r.seatStatus, confirmed_at: r.confirmedAt } : cur));
+                    }}
+                    promote={async (note) => {
+                      const r = await promoteSeat({ data: { id: selected.id, note } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, seat_status: "confirmed", status: "confirmed", confirmed_at: r.confirmedAt } : cur));
+                    }}
+                    saveNotes={async (note) => {
                       await updConfNotes({ data: { id: selected.id, note } });
-                    }
-                    setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
-                  }}
-                  onApproveAndInvite={
-                    tab === "briefings"
-                      ? async () => {
-                          const r = await grant({ data: { briefingRequestId: selected.id } });
-                          await load();
-                          setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
-                          return r;
-                        }
-                      : async () => {
-                          const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
-                          await load();
-                          setSelected((cur) => (cur ? { ...cur, status: "confirmed" } : cur));
-                          return r;
-                        }
-                  }
-                  loadInvitation={
-                    tab === "briefings"
-                      ? () => getInv({ data: { briefingRequestId: selected.id } })
-                      : () => getInvConf({ data: { conferenceApplicationId: selected.id } })
-                  }
-                />
+                      setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
+                    }}
+                  />
+                ) : (
+                  <DetailPanel
+                    key={selected.id}
+                    row={selected}
+                    tab={tab as "briefings"}
+                    onSaveStatus={async (s, note) => {
+                      await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: s } : cur));
+                    }}
+                    onSaveNotes={async (note) => {
+                      await updNotes({ data: { id: selected.id, note } });
+                      setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
+                    }}
+                    onApproveAndInvite={async () => {
+                      const r = await grant({ data: { briefingRequestId: selected.id } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
+                      return r;
+                    }}
+                    loadInvitation={() => getInv({ data: { briefingRequestId: selected.id } })}
+                  />
+                )
               ) : (
                 <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
                   Select a row to review.
@@ -834,4 +908,286 @@ function rowsToCsv(rows: Row[]): string {
     return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
   return [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
+}
+
+function attendeesToCsv(rows: Row[]): string {
+  if (rows.length === 0) return "";
+  const cols = ["confirmed_at", "name", "email", "organization", "title", "interest", "plus_ones", "dietary_restrictions", "hotel_needed", "logistics_notes"];
+  const esc = (v: unknown) => {
+    const s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
+}
+
+function ConferenceDetailPanel({
+  row,
+  capacity,
+  onChanged,
+  onApproveAndInvite,
+  loadInvitation,
+  updateSeat,
+  promote,
+  saveNotes,
+}: {
+  row: Row;
+  capacity: { total: number; confirmed: number; waitlisted: number; available: number };
+  onChanged: () => Promise<void>;
+  onApproveAndInvite: () => Promise<{ token: string; expiresAt: string; seatStatus: string }>;
+  loadInvitation: () => Promise<{ invitation: Row | null }>;
+  updateSeat: (payload: {
+    id: string;
+    seatStatus: ConferenceStatus;
+    plusOnes: number;
+    dietaryRestrictions?: string;
+    hotelNeeded?: boolean;
+    logisticsNotes?: string;
+    note?: string;
+  }) => Promise<void>;
+  promote: (note?: string) => Promise<void>;
+  saveNotes: (note: string) => Promise<void>;
+}) {
+  const [notes, setNotes] = useState<string>(row.internal_notes ?? "");
+  const [actionNote, setActionNote] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
+  const [invitation, setInvitation] = useState<Row | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [plusOnes, setPlusOnes] = useState<number>(row.plus_ones ?? 0);
+  const [dietary, setDietary] = useState<string>(row.dietary_restrictions ?? "");
+  const [hotel, setHotel] = useState<boolean>(row.hotel_needed ?? false);
+  const [logisticsNotes, setLogisticsNotes] = useState<string>(row.logistics_notes ?? "");
+
+  const seatStatus: string = row.seat_status ?? row.status ?? "applied";
+  const seats = 1 + plusOnes;
+  const canPromote = seatStatus === "waitlisted" && seats <= capacity.available;
+
+  useEffect(() => {
+    loadInvitation().then((r) => setInvitation(r.invitation)).catch(() => {});
+  }, [loadInvitation, row.id]);
+
+  async function doAction(label: string, fn: () => Promise<void>) {
+    setBusy(label);
+    try { await fn(); } finally { setBusy(null); }
+  }
+
+  async function setSeat(status: ConferenceStatus) {
+    await updateSeat({
+      id: row.id,
+      seatStatus: status,
+      plusOnes,
+      dietaryRestrictions: dietary || undefined,
+      hotelNeeded: hotel,
+      logisticsNotes: logisticsNotes || undefined,
+      note: actionNote || undefined,
+    });
+    setActionNote("");
+    await onChanged();
+  }
+
+  async function doPromote() {
+    await promote(actionNote || undefined);
+    setActionNote("");
+    await onChanged();
+  }
+
+  async function doApproveAndInvite() {
+    setBusy("invite");
+    try {
+      const r = await onApproveAndInvite();
+      const fresh = await loadInvitation();
+      setInvitation(fresh.invitation);
+      await onChanged();
+      return r;
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  const inviteUrl = invitation && invitation.status !== "revoked"
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/insider/accept?token=${invitation.token}`
+    : null;
+
+  return (
+    <div className="space-y-4 border border-border bg-card p-5">
+      <div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Contact</div>
+        <div className="mt-1 font-serif text-xl text-ink">{row.name}</div>
+        <div className="text-sm text-muted-foreground">{row.title} · {row.organization}</div>
+        <a href={`mailto:${row.email}`} className="mt-1 block text-sm text-navy hover:underline">{row.email}</a>
+      </div>
+      <div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Category</div>
+        <div className="mt-1 text-sm text-ink">{row.interest}</div>
+      </div>
+      {row.context ? (
+        <div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Context</div>
+          <p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{row.context}</p>
+        </div>
+      ) : null}
+
+      <div className="border-t border-border pt-4">
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Logistics</div>
+        <div className="mt-3 grid gap-3">
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Plus-ones</span>
+            <input
+              type="number"
+              min={0}
+              max={10}
+              value={plusOnes}
+              onChange={(e) => setPlusOnes(Math.max(0, Math.min(10, Number(e.target.value) || 0)))}
+              className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+            />
+          </label>
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Dietary restrictions</span>
+            <input
+              value={dietary}
+              onChange={(e) => setDietary(e.target.value)}
+              className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+            />
+          </label>
+          <label className="flex items-center gap-2 text-xs">
+            <input
+              type="checkbox"
+              checked={hotel}
+              onChange={(e) => setHotel(e.target.checked)}
+              className="h-4 w-4 border-border"
+            />
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Hotel needed</span>
+          </label>
+          <label className="block text-xs">
+            <span className="font-mono uppercase tracking-[0.14em] text-silver">Logistics notes</span>
+            <textarea
+              value={logisticsNotes}
+              onChange={(e) => setLogisticsNotes(e.target.value)}
+              rows={2}
+              className="mt-1 w-full border border-border bg-paper p-2 text-sm text-ink focus:border-navy focus:outline-none"
+            />
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Internal notes</div>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          onBlur={() => notes !== (row.internal_notes ?? "") && saveNotes(notes)}
+          rows={3}
+          className="mt-2 w-full border border-border bg-paper p-2 text-sm text-ink focus:border-navy focus:outline-none"
+        />
+      </div>
+      <div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Action note (audit log)</div>
+        <input
+          value={actionNote}
+          onChange={(e) => setActionNote(e.target.value)}
+          className="mt-2 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          placeholder="Optional — recorded with the seat action"
+        />
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {seatStatus !== "confirmed" ? (
+          <button
+            disabled={busy !== null}
+            onClick={() => doAction("confirm", () => setSeat("confirmed"))}
+            className="border border-navy bg-navy px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-ink hover:border-ink disabled:opacity-50"
+          >
+            {busy === "confirm" ? "…" : "Confirm seat"}
+          </button>
+        ) : null}
+        {seatStatus !== "waitlisted" ? (
+          <button
+            disabled={busy !== null}
+            onClick={() => doAction("waitlist", () => setSeat("waitlisted"))}
+            className="border border-border px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground hover:border-navy disabled:opacity-50"
+          >
+            {busy === "waitlist" ? "…" : "Waitlist"}
+          </button>
+        ) : null}
+        {canPromote ? (
+          <button
+            disabled={busy !== null}
+            onClick={() => doAction("promote", doPromote)}
+            className="border border-emerald-600 bg-emerald-600 px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-emerald-700 hover:border-emerald-700 disabled:opacity-50"
+          >
+            {busy === "promote" ? "…" : "Promote from waitlist"}
+          </button>
+        ) : null}
+        {seatStatus !== "declined" ? (
+          <button
+            disabled={busy !== null}
+            onClick={() => doAction("decline", () => setSeat("declined"))}
+            className="border border-border px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground hover:border-destructive hover:text-destructive disabled:opacity-50"
+          >
+            {busy === "decline" ? "…" : "Decline"}
+          </button>
+        ) : null}
+        {seatStatus !== "cancelled" ? (
+          <button
+            disabled={busy !== null}
+            onClick={() => doAction("cancel", () => setSeat("cancelled"))}
+            className="border border-destructive/40 px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-destructive hover:bg-destructive hover:text-paper disabled:opacity-50"
+          >
+            {busy === "cancel" ? "…" : "Cancel"}
+          </button>
+        ) : null}
+      </div>
+
+      <div className="space-y-2 border-t border-border pt-4">
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+          Insider access
+        </div>
+        {invitation && invitation.status !== "revoked" ? (
+          <div className="space-y-2">
+            <div className="text-xs font-mono uppercase tracking-[0.14em] text-muted-foreground">
+              Status: <span className="text-ink">{invitation.status}</span>
+              {invitation.redeemed_at
+                ? ` · redeemed ${new Date(invitation.redeemed_at).toLocaleDateString()}`
+                : ` · expires ${new Date(invitation.expires_at).toLocaleDateString()}`}
+            </div>
+            {invitation.status === "pending" && inviteUrl ? (
+              <>
+                <div className="break-all border border-border bg-paper p-2 text-xs font-mono text-ink">
+                  {inviteUrl}
+                </div>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(inviteUrl);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                  }}
+                  className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+                >
+                  {copied ? "Copied" : "Copy invite link"}
+                </button>
+                <button
+                  onClick={doApproveAndInvite}
+                  disabled={busy !== null}
+                  className="ml-2 border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy disabled:opacity-50"
+                >
+                  Re-issue
+                </button>
+              </>
+            ) : null}
+          </div>
+        ) : (
+          <button
+            onClick={doApproveAndInvite}
+            disabled={busy !== null}
+            className="border border-navy bg-navy px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-ink hover:border-ink disabled:opacity-50"
+          >
+            {busy === "invite" ? "Working…" : "Approve & invite"}
+          </button>
+        )}
+      </div>
+
+      <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+        Applicant reply email queues once sender domain is verified.
+      </div>
+    </div>
+  );
 }

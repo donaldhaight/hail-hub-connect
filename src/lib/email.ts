@@ -7,7 +7,8 @@ export type EmailTemplate =
   | { kind: "applicant_auto_reply"; to: string; name: string }
   | { kind: "insider_invitation"; to: string; name: string; acceptUrl: string; expiresAt: string }
   | { kind: "founder_new_insider_message"; dossierSlug: string; sectionHeading: string | null; body: string; authorId: string }
-  | { kind: "insider_reply_posted"; to: string; dossierSlug: string; sectionHeading: string | null; body: string };
+  | { kind: "insider_reply_posted"; to: string; dossierSlug: string; sectionHeading: string | null; body: string }
+  | { kind: "conference_seat_confirmed"; to: string; name: string; seats: number; eventDate: string; venue: string };
 
 export async function sendEmail(_template: EmailTemplate): Promise<{ sent: boolean; reason?: string }> {
   // Stubbed until a Lovable email domain is configured.
@@ -61,6 +62,11 @@ export function renderTemplate(t: EmailTemplate): { subject: string; text: strin
           "",
           `— ClaimStore Briefing Room`,
         ].join("\n"),
+      };
+    case "conference_seat_confirmed":
+      return {
+        subject: `Your seat is confirmed — PrepareAmerica 2026`,
+        text: `${t.name},\n\nYour seat${t.seats > 1 ? `s (${t.seats})` : ""} for PrepareAmerica 2026 on ${t.eventDate} at ${t.venue} ${t.seats > 1 ? "are" : "is"} confirmed.\n\nWe will send logistics details as the convening approaches.\n\n— ClaimStore Briefing Room\n\nConfidential Working Concept — Not an Offering.`,
       };
   }
 }
