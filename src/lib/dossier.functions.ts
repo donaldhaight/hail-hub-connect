@@ -332,3 +332,179 @@ export const listDossierCounts = createServerFn({ method: "GET" })
     }
     return { notesBySlug, messagesBySlug };
   });
+
+// What's-new for the current insider: last open per dossier and latest
+// note/message timestamps at both dossier and section level.
+export const getInsiderWhatsNew = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertInsider(context);
+    const [opensRes, notesRes, msgsRes] = await Promise.all([
+      context.supabase
+        .from("insider_access_log")
+        .select("dossier_slug, opened_at")
+        .eq("user_id", context.userId)
+        .order("opened_at", { ascending: false })
+        .limit(500),
+      context.supabase
+        .from("dossier_notes")
+        .select("dossier_slug, section_heading, created_at, updated_at"),
+      context.supabase
+        .from("dossier_messages")
+        .select("dossier_slug, section_heading, created_at"),
+    ]);
+    if (opensRes.error) throw new Error("Failed to load opens");
+
+    const lastOpenBySlug: Record<string, string> = {};
+    for (const r of (opensRes.data ?? []) as Array<{ dossier_slug: string; opened_at: string }>) {
+      if (!lastOpenBySlug[r.dossier_slug]) lastOpenBySlug[r.dossier_slug] = r.opened_at;
+    }
+
+    const latestBySlug: Record<string, string> = {};
+    const latestBySection: Record<string, Record<string, string>> = {};
+    const bump = (slug: string, section: string | null, iso: string) => {
+      if (!latestBySlug[slug] || iso > latestBySlug[slug]) latestBySlug[slug] = iso;
+      const key = section ?? "__dossier__";
+      latestBySection[slug] ??= {};
+      if (!latestBySection[slug][key] || iso > latestBySection[slug][key]) {
+        latestBySection[slug][key] = iso;
+      }
+    };
+    for (const r of (notesRes.data ?? []) as Array<{
+      dossier_slug: string;
+      section_heading: string | null;
+      created_at: string;
+      updated_at: string;
+    }>) {
+      const ts = r.updated_at > r.created_at ? r.updated_at : r.created_at;
+      bump(r.dossier_slug, r.section_heading, ts);
+    }
+    for (const r of (msgsRes.data ?? []) as Array<{
+      dossier_slug: string;
+      section_heading: string | null;
+      created_at: string;
+    }>) {
+      bump(r.dossier_slug, r.section_heading, r.created_at);
+    }
+
+    return { lastOpenBySlug, latestBySlug, latestBySection };
+  });
+
+// Founder daily digest: recent activity across every lane.
+const digestSchema = z.object({ windowDays: z.number().int().min(1).max(90).default(7) });
+
+export const getFounderDigest = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => digestSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const sinceMs = Date.now() - data.windowDays * 24 * 60 * 60 * 1000;
+    const since = new Date(sinceMs).toISOString();
+    const dormantThreshold = new Date(sinceMs - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+    const [briefingsRes, confsRes, msgsRes, invitesRes, opensRes] = await Promise.all([
+      supabaseAdmin
+        .from("briefing_requests")
+        .select("id, name, email, organization, interest, status, created_at")
+        .gte("created_at", since)
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
+        .from("conference_applications")
+        .select("id, name, email, organization, role_category, status, created_at")
+        .gte("created_at", since)
+        .order("created_at", { ascending: false }),
+      supabaseAdmin
+        .from("dossier_messages")
+        .select("id, dossier_slug, section_heading, body, author_id, created_at")
+        .gte("created_at", since)
+        .order("created_at", { ascending: false })
+        .limit(200),
+      supabaseAdmin
+        .from("insider_invitations")
+        .select("id, email, source, redeemed_at, redeemed_by")
+        .not("redeemed_at", "is", null)
+        .gte("redeemed_at", since)
+        .order("redeemed_at", { ascending: false }),
+      supabaseAdmin
+        .from("insider_access_log")
+        .select("id, user_id, dossier_slug, opened_at")
+        .gte("opened_at", since)
+        .order("opened_at", { ascending: false })
+        .limit(1000),
+    ]);
+
+    const userIds = Array.from(
+      new Set([
+        ...((msgsRes.data ?? []).map((r: any) => r.author_id as string)),
+        ...((opensRes.data ?? []).map((r: any) => r.user_id as string)),
+      ]),
+    );
+    const emailByUser: Record<string, string> = {};
+    const founderIds = new Set<string>();
+    if (userIds.length > 0) {
+      const [users, roleRows] = await Promise.all([
+        Promise.all(userIds.map((id) => supabaseAdmin.auth.admin.getUserById(id).catch(() => null))),
+        supabaseAdmin.from("user_roles").select("user_id, role").in("user_id", userIds),
+      ]);
+      for (const r of users) {
+        const u = r?.data?.user;
+        if (u?.id && u.email) emailByUser[u.id] = u.email;
+      }
+      for (const r of (roleRows.data ?? []) as Array<{ user_id: string; role: string }>) {
+        if (r.role === "founder_admin") founderIds.add(r.user_id);
+      }
+    }
+
+    // Re-engagement: for each user active in the window, if their prior open
+    // (before window) is older than 7 days from window start, flag them.
+    const opens = (opensRes.data ?? []) as Array<{
+      id: string; user_id: string; dossier_slug: string; opened_at: string;
+    }>;
+    const firstInWindowByUser: Record<string, { slug: string; opened_at: string }> = {};
+    for (const o of [...opens].reverse()) {
+      if (!firstInWindowByUser[o.user_id]) {
+        firstInWindowByUser[o.user_id] = { slug: o.dossier_slug, opened_at: o.opened_at };
+      }
+    }
+    const reengagements: Array<{ email: string; dossier_slug: string; opened_at: string }> = [];
+    const toCheck = Object.keys(firstInWindowByUser).filter((u) => !founderIds.has(u));
+    if (toCheck.length > 0) {
+      const priors = await Promise.all(
+        toCheck.map((u) =>
+          supabaseAdmin
+            .from("insider_access_log")
+            .select("opened_at")
+            .eq("user_id", u)
+            .lt("opened_at", since)
+            .order("opened_at", { ascending: false })
+            .limit(1),
+        ),
+      );
+      priors.forEach((res, i) => {
+        const uid = toCheck[i];
+        const prior = (res.data?.[0] as any)?.opened_at as string | undefined;
+        if (prior && prior < dormantThreshold) {
+          const f = firstInWindowByUser[uid];
+          reengagements.push({
+            email: emailByUser[uid] ?? "(unknown)",
+            dossier_slug: f.slug,
+            opened_at: f.opened_at,
+          });
+        }
+      });
+    }
+
+    return {
+      windowDays: data.windowDays,
+      briefings: briefingsRes.data ?? [],
+      conferences: confsRes.data ?? [],
+      messages: (msgsRes.data ?? []).map((r: any) => ({
+        ...r,
+        email: emailByUser[r.author_id] ?? "(unknown)",
+        author_is_founder: founderIds.has(r.author_id),
+      })),
+      redemptions: invitesRes.data ?? [],
+      reengagements,
+    };
+  });
