@@ -24,9 +24,10 @@ The founder's private workspace for triage, communication, and governance.
 | A-2 | Founder can review conference applications. | `/admin/inbox` lists applications with seat status, capacity meter, plus-one/dietary editor. | shipped |
 | A-3 | Founder can invite insiders directly or from inbound requests. | Invitation tokens are generated, copied, revoked, and resent from the inbox. | shipped |
 | A-4 | Founder can see insider engagement. | `/admin/signals` shows dossier opens, message counts, last activity per insider. | shipped |
-| A-5 | Founder gets a daily rollup. | `/admin/digest` surfaces new requests, applications, messages, and re-engaged dormant insiders. | shipped |
+| A-5 | Founder gets a daily rollup. | `/admin/digest` surfaces new requests, applications, messages, re-engaged dormant insiders, most-engaged insiders, referral momentum, and sections that need work. | shipped |
 | A-6 | Founder can manage the conference itinerary. | `/admin/inbox` Itinerary tab supports CRUD on agenda items; published items appear on attendee page. | shipped |
 | A-7 | Founder can copy a confirmed attendee's private link. | Conference detail panel shows `/prepare-america/confirmed?t=<token>` with copy button. | shipped |
+| A-9 | Founder can see section-level read depth. | `/admin/reads` shows a heatmap of sections × insiders and attachment opens per dossier. | shipped |
 | A-8 | Founder receives email notifications for new submissions. | Email is sent when a briefing request or conference application is submitted. | deferred |
 
 ## Epic 3 — Insider room
@@ -40,9 +41,9 @@ The gated, labeled, versioned corpus room for qualified insiders.
 | I-3 | An insider can read a dossier with truth labels intact. | `/insider/dossier/$slug` renders sections with heading, truth class, body; access is logged. | shipped |
 | I-4 | An insider can ask questions and reply in Q&A threads. | `DossierDiscussion` supports flat messages per dossier/section; authors can edit within 15 minutes. | shipped |
 | I-5 | An insider sees what's new since their last visit. | Index and reader show `Unread`, `New`, or `New activity` badges based on `insider_access_log`. | shipped |
-| I-6 | Founder can attach PDFs/images to dossier sections. | Supabase Storage bucket; C-class gated; attachments render in reader. | open |
-| I-7 | Insiders can refer 1–3 peers. | Referral form writes to founder inbox as a new lane; referred peers get invitation tokens. | open |
-| I-8 | Reading receipts are tracked per section, not just per dossier. | `insider_access_log` records section-level opens; signals show depth. | open |
+| I-6 | Founder can attach PDFs/images to dossier sections. | Supabase Storage bucket `dossier-artifacts`; attachments render in reader via signed URLs. | shipped |
+| I-7 | Insiders can refer 1–3 peers. | `/insider/refer` form writes to founder inbox; approved referrals auto-generate invitation tokens. | shipped |
+| I-8 | Reading receipts are tracked per section, not just per dossier. | `dossier_section_reads` records dwell time and explicit confirmation; signals show depth. | shipped |
 
 ## Epic 4 — Conference logistics
 
