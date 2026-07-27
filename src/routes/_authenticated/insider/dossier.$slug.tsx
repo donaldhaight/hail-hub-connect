@@ -75,6 +75,7 @@ function DossierReader() {
   const logOpen = useServerFn(logDossierOpen);
   const loadWhatsNew = useServerFn(getInsiderWhatsNew);
   const loadDossier = useServerFn(getDossierFromDb);
+  const reads = useSectionReads(slug);
 
   const fallback = DOSSIERS_BY_SLUG[slug];
   const [meta, setMeta] = useState<LiveDossier>(() => ({
