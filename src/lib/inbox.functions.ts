@@ -112,11 +112,21 @@ export const updateConferenceStatus = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const update: Record<string, unknown> = { status: data.status, updated_at: new Date().toISOString() };
+    if (data.status !== "applied") {
+      update.seat_status = data.status;
+    }
     const { error } = await supabaseAdmin
       .from("conference_applications")
-      .update({ status: data.status, updated_at: new Date().toISOString() })
+      .update(update)
       .eq("id", data.id);
     if (error) throw new Error("Failed to update status");
+    await supabaseAdmin.from("conference_seat_events").insert({
+      application_id: data.id,
+      actor_id: context.userId,
+      action: `status:${data.status}`,
+      note: data.note ?? null,
+    });
     return { ok: true };
   });
 
