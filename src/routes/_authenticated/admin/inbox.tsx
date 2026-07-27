@@ -412,12 +412,23 @@ function Inbox() {
             </ul>
           </div>
         ) : tab === "invitations" ? (
-          <InvitationsTable
-            rows={rows}
-            loading={loading}
-            onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
-            onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
-          />
+          <div>
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="font-serif text-lg text-ink">Invitations</h2>
+              <Link
+                to="/admin/invite"
+                className="border border-ink bg-ink px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
+              >
+                New invitation
+              </Link>
+            </div>
+            <InvitationsTable
+              rows={rows}
+              loading={loading}
+              onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
+              onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
+            />
+          </div>
         ) : tab === "itinerary" ? (
           <ItineraryEditor />
         ) : tab === "referrals" ? (
