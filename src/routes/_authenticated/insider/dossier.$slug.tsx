@@ -46,11 +46,32 @@ function DossierReader() {
   const dossier = DOSSIERS_BY_SLUG[slug];
   const { prev, next } = neighbors(slug);
   const logOpen = useServerFn(logDossierOpen);
+  const loadWhatsNew = useServerFn(getInsiderWhatsNew);
   const hasSim = dossier.sections.some((s) => s.truth === "SIMULATION");
 
+  // Snapshot the "since when is this new" cutoff BEFORE we log this open, so
+  // NEW chips stay visible during the current visit and reset on next return.
+  const [sinceCutoff, setSinceCutoff] = useState<string | null>(null);
+  const [sectionLatest, setSectionLatest] = useState<Record<string, string>>({});
+
   useEffect(() => {
-    logOpen({ data: { slug } }).catch(() => {});
-  }, [logOpen, slug]);
+    loadWhatsNew()
+      .then((r) => {
+        setSinceCutoff(r.lastOpenBySlug[slug] ?? "");
+        setSectionLatest(r.latestBySection[slug] ?? {});
+      })
+      .catch(() => {})
+      .finally(() => {
+        logOpen({ data: { slug } }).catch(() => {});
+      });
+  }, [logOpen, loadWhatsNew, slug]);
+
+  const isNewSection = (heading: string) => {
+    if (sinceCutoff === null) return false; // not loaded yet
+    if (sinceCutoff === "") return true; // never opened before
+    const ts = sectionLatest[heading];
+    return !!ts && ts > sinceCutoff;
+  };
 
   return (
     <PageShell>
@@ -83,6 +104,11 @@ function DossierReader() {
                 § {String(i + 1).padStart(2, "0")}
               </span>
               <TruthChip value={s.truth} />
+              {isNewSection(s.heading) ? (
+                <span className="border border-navy/50 bg-navy/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-navy">
+                  New
+                </span>
+              ) : null}
             </div>
             <h2 className="font-serif text-2xl text-ink">{s.heading}</h2>
             <div className="space-y-3 text-[15px] leading-relaxed text-ink/90">
@@ -93,6 +119,7 @@ function DossierReader() {
           </article>
         ))}
       </section>
+
 
       <DossierDiscussion
         slug={slug}
