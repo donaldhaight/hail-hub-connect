@@ -16,6 +16,10 @@ import {
   getInvitationForRequest,
   grantInsiderAccessFromConference,
   getInvitationForConference,
+  inviteInsiderDirect,
+  listInvitations,
+  revokeInvitation,
+  resendInvitation,
 } from "@/lib/insider.functions";
 import { listInsiderActivity, listRecentDossierMessages } from "@/lib/dossier.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
