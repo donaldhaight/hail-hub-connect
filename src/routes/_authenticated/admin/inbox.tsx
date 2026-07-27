@@ -437,7 +437,7 @@ function Inbox() {
                     capacity={capacity}
                     onChanged={async () => {
                       await load();
-                      const fresh = rows.find((r) => r.id === selected.id);
+                      const fresh = rowsRef.current.find((r) => r.id === selected.id);
                       if (fresh) setSelected(fresh);
                     }}
                     onApproveAndInvite={async () => {
