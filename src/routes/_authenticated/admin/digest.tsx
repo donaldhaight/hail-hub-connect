@@ -153,6 +153,7 @@ function DigestPage() {
           <div className="ml-auto flex items-center gap-2">
             <a href="/admin/inbox" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Inbox</a>
             <a href="/admin/signals" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Signals</a>
+            <a href="/admin/reads" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Read heatmap</a>
           </div>
         </div>
 
@@ -162,28 +163,111 @@ function DigestPage() {
 
         {loading ? (
           <div className="p-16 text-center text-silver">Loading…</div>
-        ) : items.length === 0 ? (
-          <div className="border border-dashed border-border p-12 text-center text-sm text-muted-foreground">
-            Nothing to report in this window.
-          </div>
         ) : (
-          <div className="space-y-8">
-            {grouped.map(([day, entries]) => (
-              <div key={day}>
-                <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-                  {new Date(day).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}
-                </div>
-                <div className="divide-y divide-border border border-border">
-                  {entries.map((it, i) => (
-                    <div key={i}>{it.node}</div>
-                  ))}
+          <div className="space-y-10">
+            {digest?.referralMomentum ? (
+              <div>
+                <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Referral momentum</div>
+                <div className="grid gap-3 border border-border bg-card p-4 sm:grid-cols-4">
+                  <Metric label="Submitted" value={digest.referralMomentum.submitted} />
+                  <Metric label="Approved" value={digest.referralMomentum.approved} />
+                  <Metric label="Invited" value={digest.referralMomentum.invited} />
+                  <Metric label="Redeemed" value={digest.referralMomentum.redeemed} />
                 </div>
               </div>
-            ))}
+            ) : null}
+
+            {digest?.mostEngaged && digest.mostEngaged.length > 0 ? (
+              <div>
+                <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Most engaged insiders</div>
+                <div className="border border-border">
+                  <table className="w-full text-sm">
+                    <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+                      <tr>
+                        <th className="p-3">Insider</th>
+                        <th className="p-3">Score</th>
+                        <th className="p-3">Opens</th>
+                        <th className="p-3">Sections</th>
+                        <th className="p-3">Attachments</th>
+                        <th className="p-3">Messages</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {digest.mostEngaged.map((e, i) => (
+                        <tr key={i} className="border-t border-border">
+                          <td className="p-3 text-ink">{e.email}</td>
+                          <td className="p-3 font-mono text-xs text-navy">{e.score}</td>
+                          <td className="p-3 font-mono text-xs text-muted-foreground">{e.opens}</td>
+                          <td className="p-3 font-mono text-xs text-muted-foreground">{e.sectionsRead}</td>
+                          <td className="p-3 font-mono text-xs text-muted-foreground">{e.attachmentsOpened}</td>
+                          <td className="p-3 font-mono text-xs text-muted-foreground">{e.messagesPosted}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ) : null}
+
+            {sectionsNeedWork.length > 0 ? (
+              <div>
+                <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Sections that may need work</div>
+                <div className="border border-border bg-card p-4">
+                  <p className="mb-3 text-xs text-muted-foreground">
+                    Dossiers with ≥5 section reads but &lt;25% confirmed. Consider sharpening the section or prompting insiders to mark it read.
+                  </p>
+                  <ul className="space-y-2">
+                    {sectionsNeedWork.map((s, i) => (
+                      <li key={i} className="flex items-center justify-between text-sm">
+                        <a href={`/insider/dossier/${s.slug}`} className="text-ink hover:text-navy hover:underline">
+                          {s.title}
+                        </a>
+                        <span className="font-mono text-xs text-muted-foreground">
+                          {s.confirmedReads}/{s.totalReads} confirmed
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : null}
+
+            <div>
+              <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Activity stream</div>
+              {items.length === 0 ? (
+                <div className="border border-dashed border-border p-12 text-center text-sm text-muted-foreground">
+                  Nothing to report in this window.
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {grouped.map(([day, entries]) => (
+                    <div key={day}>
+                      <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                        {new Date(day).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}
+                      </div>
+                      <div className="divide-y divide-border border border-border">
+                        {entries.map((it, i) => (
+                          <div key={i}>{it.node}</div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </section>
     </PageShell>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="border border-border p-3">
+      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-silver">{label}</div>
+      <div className="mt-1 font-serif text-2xl text-ink">{value}</div>
+    </div>
   );
 }
 
