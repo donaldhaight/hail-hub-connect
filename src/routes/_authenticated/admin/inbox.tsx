@@ -91,6 +91,9 @@ function Inbox() {
       } else if (tab === "discussion") {
         const r = await listDiscussion();
         setRows(r.rows);
+      } else if (tab === "invitations") {
+        const r = await listInv({ data: { status: (status as any) || "", source: "", search: search || "" } });
+        setRows(r.rows);
       } else {
         const fn = tab === "briefings" ? listBriefings : listConf;
         const r = await fn({ data: { status: status || undefined, search: search || undefined } });
