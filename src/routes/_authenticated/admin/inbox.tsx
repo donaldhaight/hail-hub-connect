@@ -113,7 +113,7 @@ function Inbox() {
     setLoading(true);
     setError(null);
     try {
-      if (tab === "itinerary") {
+      if (tab === "itinerary" || tab === "referrals") {
         setRows([]);
       } else if (tab === "activity") {
         const r = await listActivity();
