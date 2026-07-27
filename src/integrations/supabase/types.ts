@@ -236,9 +236,15 @@ export type Database = {
           created_by: string | null
           email: string
           expires_at: string
+          full_name: string | null
           id: string
+          internal_note: string | null
+          organization: string | null
           redeemed_at: string | null
           redeemed_by: string | null
+          revoked_at: string | null
+          role_category: string | null
+          source: string
           status: string
           token: string
           updated_at: string
@@ -250,9 +256,15 @@ export type Database = {
           created_by?: string | null
           email: string
           expires_at?: string
+          full_name?: string | null
           id?: string
+          internal_note?: string | null
+          organization?: string | null
           redeemed_at?: string | null
           redeemed_by?: string | null
+          revoked_at?: string | null
+          role_category?: string | null
+          source?: string
           status?: string
           token?: string
           updated_at?: string
@@ -264,9 +276,15 @@ export type Database = {
           created_by?: string | null
           email?: string
           expires_at?: string
+          full_name?: string | null
           id?: string
+          internal_note?: string | null
+          organization?: string | null
           redeemed_at?: string | null
           redeemed_by?: string | null
+          revoked_at?: string | null
+          role_category?: string | null
+          source?: string
           status?: string
           token?: string
           updated_at?: string
