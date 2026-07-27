@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,6 +13,7 @@ const NAV = [
 ] as const;
 
 export function Header() {
+  const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -32,6 +33,12 @@ export function Header() {
       document.body.style.overflow = prev;
     };
   }, [open]);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate({ to: "/", replace: true });
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
@@ -60,6 +67,12 @@ export function Header() {
           {signedIn ? (
             <>
               <Link
+                to="/admin/tour"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+              >
+                Tour
+              </Link>
+              <Link
                 to="/admin/digest"
                 className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
               >
@@ -71,8 +84,22 @@ export function Header() {
               >
                 Inbox
               </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+              >
+                Sign out
+              </button>
             </>
-          ) : null}
+          ) : (
+            <Link
+              to="/auth"
+              className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+            >
+              Sign in
+            </Link>
+          )}
           <Link
             to="/request-briefing"
             className="hidden items-center gap-2 border border-ink bg-ink px-3 py-1.5 text-[12px] font-medium text-paper transition-colors hover:bg-navy hover:border-navy sm:inline-flex"
@@ -125,6 +152,16 @@ export function Header() {
                 <>
                   <li>
                     <Link
+                      to="/admin/tour"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Tour
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       to="/admin/digest"
                       onClick={() => setOpen(false)}
                       className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
@@ -143,8 +180,29 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="flex w-full items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Sign out
+                      <span aria-hidden="true">→</span>
+                    </button>
+                  </li>
                 </>
-              ) : null}
+              ) : (
+                <li>
+                  <Link
+                    to="/auth"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                  >
+                    Sign in
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
