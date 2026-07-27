@@ -158,6 +158,18 @@ export const getAttachmentSignedUrl = createServerFn({ method: "POST" })
       .single();
     if (error || !row) throw new Error("Attachment not found");
     if (!isFounder && !row.is_published) throw new Error("Forbidden");
+
+    // Log the open for analytics (best-effort).
+    try {
+      await context.supabase.from("dossier_attachment_opens").insert({
+        attachment_id: row.id,
+        user_id: context.userId,
+        dossier_slug: row.dossier_slug,
+      });
+    } catch {
+      // ignore
+    }
+
     if (row.kind === "link") {
       return { url: row.external_url as string, kind: "link" as const, title: row.title as string };
     }
@@ -168,4 +180,93 @@ export const getAttachmentSignedUrl = createServerFn({ method: "POST" })
       .createSignedUrl(row.storage_path, 300);
     if (signErr || !signed?.signedUrl) throw new Error("Failed to sign URL");
     return { url: signed.signedUrl, kind: "file" as const, title: row.title as string };
+  });
+
+const attachmentAnalyticsSchema = z.object({ slug: z.string().min(1).max(80) });
+
+export const getAttachmentAnalytics = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => attachmentAnalyticsSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: attachments, error: attachErr } = await supabaseAdmin
+      .from("dossier_attachments")
+      .select("id, dossier_slug, section_id, kind, title, is_published, position")
+      .eq("dossier_slug", data.slug)
+      .order("position", { ascending: true });
+    if (attachErr) throw new Error("Failed to load attachments");
+
+    const attachmentIds = (attachments ?? []).map((a: any) => a.id as string);
+    let opens: Array<{ attachment_id: string; user_id: string; opened_at: string }> = [];
+    if (attachmentIds.length > 0) {
+      const { data: opensRows, error: opensErr } = await supabaseAdmin
+        .from("dossier_attachment_opens")
+        .select("attachment_id, user_id, opened_at")
+        .in("attachment_id", attachmentIds);
+      if (opensErr) throw new Error("Failed to load attachment opens");
+      opens = (opensRows ?? []) as typeof opens;
+    }
+
+    const openCounts: Record<string, { count: number; uniqueUsers: Set<string>; lastAt: string | null }> = {};
+    for (const o of opens) {
+      const cur = openCounts[o.attachment_id] ?? { count: 0, uniqueUsers: new Set<string>(), lastAt: null };
+      cur.count++;
+      cur.uniqueUsers.add(o.user_id);
+      if (!cur.lastAt || o.opened_at > cur.lastAt) cur.lastAt = o.opened_at;
+      openCounts[o.attachment_id] = cur;
+    }
+
+    return {
+      attachments: (attachments ?? []).map((a: any) => {
+        const stats = openCounts[a.id];
+        return {
+          id: a.id as string,
+          title: a.title as string,
+          kind: a.kind as "file" | "link",
+          isPublished: a.is_published as boolean,
+          openCount: stats?.count ?? 0,
+          uniqueReaders: stats?.uniqueUsers.size ?? 0,
+          lastOpenedAt: stats?.lastAt ?? null,
+        };
+      }),
+    };
+  });
+
+const attachmentOpensSchema = z.object({ attachmentId: z.string().uuid() });
+
+export const getAttachmentOpens = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => attachmentOpensSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: opens, error } = await supabaseAdmin
+      .from("dossier_attachment_opens")
+      .select("user_id, opened_at")
+      .eq("attachment_id", data.attachmentId)
+      .order("opened_at", { ascending: false });
+    if (error) throw new Error("Failed to load opens");
+
+    const userIds = Array.from(new Set((opens ?? []).map((o: any) => o.user_id as string)));
+    const emailByUser: Record<string, string> = {};
+    if (userIds.length > 0) {
+      const results = await Promise.all(
+        userIds.map((id) => supabaseAdmin.auth.admin.getUserById(id).catch(() => null)),
+      );
+      for (const r of results) {
+        const u = r?.data?.user;
+        if (u?.id && u.email) emailByUser[u.id] = u.email;
+      }
+    }
+
+    return {
+      opens: (opens ?? []).map((o: any) => ({
+        userId: o.user_id as string,
+        email: emailByUser[o.user_id] ?? "(unknown)",
+        openedAt: o.opened_at as string,
+      })),
+    };
   });
