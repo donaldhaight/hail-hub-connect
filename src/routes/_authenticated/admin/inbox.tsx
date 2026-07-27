@@ -68,6 +68,10 @@ function Inbox() {
   const getInvConf = useServerFn(getInvitationForConference);
   const listActivity = useServerFn(listInsiderActivity);
   const listDiscussion = useServerFn(listRecentDossierMessages);
+  const listInv = useServerFn(listInvitations);
+  const revokeInv = useServerFn(revokeInvitation);
+  const resendInv = useServerFn(resendInvitation);
+  const inviteDirect = useServerFn(inviteInsiderDirect);
 
   useEffect(() => {
     myRoles()
