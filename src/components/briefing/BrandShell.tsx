@@ -32,7 +32,7 @@ function BrandHero({ brand }: { brand: Brand }) {
     <section className="border-b border-border">
       <div className="mx-auto max-w-6xl px-6 pt-16 pb-14 md:pt-24 md:pb-20">
         <div className="mb-6 flex items-center gap-3 text-[10px] font-mono uppercase tracking-[0.24em] text-silver">
-          <span>Quantum Dashboard · {brand.vertical}</span>
+          <span>The Human Blockchain · {brand.vertical}</span>
           <span aria-hidden>·</span>
           <StatusChip>{brand.status}</StatusChip>
         </div>
