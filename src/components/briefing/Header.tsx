@@ -100,6 +100,14 @@ export function Header() {
               >
                 Inbox
               </Link>
+              {isFounder ? (
+                <Link
+                  to="/admin/invite"
+                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper lg:inline"
+                >
+                  Invite
+                </Link>
+              ) : null}
               <button
                 type="button"
                 onClick={handleSignOut}
