@@ -77,10 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "ClaimStore Briefing Room — Private industry briefing" },
+      {
+        name: "description",
+        content:
+          "A private briefing room for the RRCA restructuring and the ClaimStore proof of concept for the insurance-restoration market. Circulated to referred insiders only.",
+      },
       { name: "author", content: "United Stakeholders of America LLC" },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "ClaimStore Briefing Room" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#1a1c2e" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -90,6 +98,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "United Stakeholders of America LLC",
+          alternateName: "ClaimStore Briefing Room",
+          url: "https://hail-hub-connect.lovable.app",
+          description:
+            "Convener of the ClaimStore Briefing Room and the PrepareAmerica Conference.",
+        }),
       },
     ],
   }),
