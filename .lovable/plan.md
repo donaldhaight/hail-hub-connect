@@ -1,58 +1,89 @@
-# ClaimStore Briefing Room — Plan
+# Sprint 0.15 — Insider Room Depth
 
-## Current sprint
+Goal: give qualified insiders the tools to work *inside* a dossier (bring evidence, pull in the right people, and prove they've actually read it), and give the founder the signal to act on it.
 
-### Sprint 0.14 — Attendee Experience
-**Status:** shipped.
+Three tracks, shippable independently but designed together.
 
-- Added `access_token` to `conference_applications` for private attendee pages.
-- Created `conference_itinerary_items` and founder/public itinerary functions.
-- Built `/prepare-america/confirmed` with seat details, logistics form, live itinerary, and insider-room bridge.
-- Added Itinerary tab and attendee-link copy button to `/admin/inbox`.
+---
 
-## Where we are
+## Track 1 — Dossier Attachments (evidence layer)
 
-Phase 0 is complete. The project has:
+Each dossier section can carry founder-uploaded artifacts (PDFs, images, decks, spreadsheets) plus optional external links. Insiders can view/download; the founder controls what's published.
 
-- A public front door with SEO, mobile nav, and structured data.
-- A founder inbox with triage for briefing requests, conference applications, invitations, insider activity, discussion, and itinerary.
-- A qualified-insider room with a labeled, versioned dossier corpus, founder notes, Q&A, and "what's new" signals.
-- Conference seat management with a 300-seat cap, waitlist, logistics capture, and CSV export.
-- A private attendee experience for confirmed guests.
-- Documentation: README, architecture, sprints, requirements, and decisions.
+**Data**
+- New table `dossier_attachments`: `id`, `dossier_id`, `section_id` (nullable = dossier-level), `kind` ('file' | 'link'), `storage_path` (nullable), `external_url` (nullable), `title`, `description`, `mime_type`, `size_bytes`, `is_published`, `position`, `created_by`, timestamps.
+- Storage bucket `dossier-artifacts` (private). RLS: founders write; qualified insiders read only `is_published = true` via signed URLs minted server-side.
+- Grants + policies in the same migration (per project rules).
 
-## Documentation and GitHub hygiene
+**Server functions**
+- `listAttachments(dossierId)` — insider-visible (published only) and founder-visible (all).
+- `upsertAttachment`, `deleteAttachment`, `reorderAttachments` — `founder_admin` only.
+- `getAttachmentSignedUrl(attachmentId)` — mints a short-lived signed URL after verifying insider role and `is_published`.
 
-The next immediate task is to connect the project to GitHub and verify bidirectional sync. Once connected, the documentation layer is in place and will be maintained as part of each subsequent sprint.
+**UI**
+- Reader (`/insider/dossier/$slug`): "Evidence" strip under each section + a dossier-level "Appendix" block. File cards show title, size, kind icon. Click → signed URL open in new tab.
+- Editor (inline for founders): drag-drop upload, link-paste, publish toggle, reorder, delete.
+- Log every attachment open into `insider_access_log` with `action='attachment_open'`.
 
-**Open item:** Connect GitHub via Lovable editor → Plus (+) → GitHub → Connect project.
+---
 
-## Two credible next moves
+## Track 2 — Insider Referrals (network expansion, gated)
 
-Pick one — both are useful, they answer different pressures.
+Let a qualified insider nominate someone to the founder. Never auto-approve — every referral lands in the founder inbox as a first-class triage item.
 
-### Option A — Sprint 0.15: Insider Room Depth (recommended)
+**Data**
+- New table `insider_referrals`: `id`, `referrer_id` (auth.uid), `nominee_name`, `nominee_email`, `nominee_organization`, `nominee_role`, `context` (why this person, C0–C2), `status` ('pending' | 'approved' | 'declined' | 'invited'), `founder_note`, `resulting_invitation_id` (nullable → `insider_invitations`), timestamps.
+- RLS: insider can insert + read own; founder reads/updates all.
 
-Deepen what qualified insiders see so referrals from them carry more weight.
+**Server functions**
+- `submitInsiderReferral` — auth'd, rate-limited (max N/day per insider), Zod-validated.
+- `listReferrals` (founder), `updateReferralStatus` (founder) — approving can optionally create an `insider_invitations` row in one step and link it back.
 
-- **Dossier attachments** — founder can attach PDFs/images per section (Supabase Storage, C-class gated).
-- **Insider referrals** — an insider can nominate 1–3 peers; nominations land in the founder inbox as a new lane.
-- **Reading receipts per section** — not just per dossier, so Signals shows depth, not just opens.
+**UI**
+- `/insider/refer` — clean single-form page ("Who should be in the room?"). Explicit note: *"Every nomination is reviewed personally. No auto-invites."*
+- Inbox: new **Referrals** tab alongside Briefing / Conference / Invitations. Triage panel with Approve → Invite (opens invitation modal pre-filled) / Decline / Note.
+- Signals dashboard: add "Referrals sent" column per insider.
 
-Why this next: the conference is the load-bearing event, but the insider cohort is the only channel that can pull in the right 300 people. Arming them before 11-1 compounds the value of every seat.
+---
 
-### Option B — Sprint 0.15: Public Front Door Scale
+## Track 3 — Section-Level Read Receipts
 
-Widen the top of the funnel before the convening.
+Move from "opened the dossier" to "actually read section X." Founder needs to know which arguments are landing.
 
-- **Investor-specific landing page** — a `/for-investors` path with a tailored narrative and downloadable one-pager stub.
-- **Government/think-tank page** — a `/for-policy` path framing the infrastructure and workforce angle.
-- **Press kit / fact sheet** — public C0 summary with truth labels, ready to share.
+**Data**
+- New table `dossier_section_reads`: `id`, `user_id`, `dossier_id`, `section_id`, `first_seen_at`, `last_seen_at`, `dwell_ms` (accumulator), `read_confirmed_at` (nullable). Unique on (user_id, section_id).
+- RLS: insider writes own; founder reads all.
 
-Why this instead: if the immediate priority is filling the remaining seats with the right categories, more targeted public surfaces help. But it does not deepen the insider experience.
+**Client instrumentation**
+- IntersectionObserver on each section in the reader. Record `first_seen_at` on first ≥50% visibility; accumulate dwell while visible; batch-flush every 10s and on unload via `sendBeacon` → server function `recordSectionRead`.
+- "Mark as read" button per section for explicit confirmation → sets `read_confirmed_at`.
 
-## Recommendation
+**UI**
+- Reader: subtle per-section state chip ("Seen 2m" / "Read ✓") for the insider viewing their own progress.
+- Founder side: on each section in the editor, a small "Read by N/M · confirmed by K" badge. New **Reads** view (or column in Signals) showing per-section heatmap per insider.
 
-**Option A.** The 300 seats are managed; the insider room is where the real pre-convening persuasion happens. Insider depth can be shipped in 0.15, then front-door scale in 0.16 if time allows.
+---
 
-Tell me A or B (or something else) and I'll write the detailed sprint plan.
+## Sequence
+
+1. Migration + storage bucket + grants/policies for all three tables.
+2. Track 1 (attachments) end-to-end — highest leverage; unlocks real conversations.
+3. Track 3 (read receipts) — pure additive instrumentation.
+4. Track 2 (referrals) — new surface + inbox tab.
+5. Verify with Playwright: founder uploads → insider sees + downloads; insider submits referral → founder sees in inbox; scrolling a section registers dwell + confirm.
+
+## Docs updates at close
+
+- `docs/SPRINTS.md`: add 0.15 entry.
+- `docs/ARCHITECTURE.md`: add attachments/referrals/reads to data model + storage section.
+- `docs/REQUIREMENTS.md`: tick off relevant items, add follow-ups (e.g. threaded referrals, per-section comments tied to reads).
+
+## Explicitly out of scope
+
+- Attachment previews inline (open in new tab only).
+- Referral-to-invitation email delivery (email transport is still deferred per your earlier call).
+- Public analytics / read receipts for non-insider surfaces.
+
+---
+
+Say the word and I'll switch to build mode and start with the migration.
