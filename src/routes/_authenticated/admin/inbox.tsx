@@ -410,48 +410,61 @@ function Inbox() {
 
             <div className="lg:col-span-2">
               {selected ? (
-                <DetailPanel
-                  key={selected.id}
-                  row={selected}
-                  tab={tab as "briefings" | "conference"}
-                  onSaveStatus={async (s, note) => {
-                    if (tab === "briefings") {
-                      await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
-                    } else {
-                      await updConf({ data: { id: selected.id, status: s as ConferenceStatus, note } });
-                    }
-                    await load();
-                    setSelected((cur) => (cur ? { ...cur, status: s } : cur));
-                  }}
-                  onSaveNotes={async (note) => {
-                    if (tab === "briefings") {
-                      await updNotes({ data: { id: selected.id, note } });
-                    } else {
+                tab === "conference" ? (
+                  <ConferenceDetailPanel
+                    key={selected.id}
+                    row={selected}
+                    capacity={capacity}
+                    onChanged={async () => {
+                      await load();
+                      const fresh = rows.find((r) => r.id === selected.id);
+                      if (fresh) setSelected(fresh);
+                    }}
+                    onApproveAndInvite={async () => {
+                      const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: r.seatStatus, seat_status: r.seatStatus } : cur));
+                      return r;
+                    }}
+                    loadInvitation={() => getInvConf({ data: { conferenceApplicationId: selected.id } })}
+                    updateSeat={async (payload) => {
+                      const r = await updateSeat({ data: payload });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, seat_status: r.seatStatus, status: r.seatStatus, confirmed_at: r.confirmedAt } : cur));
+                    }}
+                    promote={async (note) => {
+                      const r = await promoteSeat({ data: { id: selected.id, note } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, seat_status: "confirmed", status: "confirmed", confirmed_at: r.confirmedAt } : cur));
+                    }}
+                    saveNotes={async (note) => {
                       await updConfNotes({ data: { id: selected.id, note } });
-                    }
-                    setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
-                  }}
-                  onApproveAndInvite={
-                    tab === "briefings"
-                      ? async () => {
-                          const r = await grant({ data: { briefingRequestId: selected.id } });
-                          await load();
-                          setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
-                          return r;
-                        }
-                      : async () => {
-                          const r = await grantConf({ data: { conferenceApplicationId: selected.id } });
-                          await load();
-                          setSelected((cur) => (cur ? { ...cur, status: "confirmed" } : cur));
-                          return r;
-                        }
-                  }
-                  loadInvitation={
-                    tab === "briefings"
-                      ? () => getInv({ data: { briefingRequestId: selected.id } })
-                      : () => getInvConf({ data: { conferenceApplicationId: selected.id } })
-                  }
-                />
+                      setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
+                    }}
+                  />
+                ) : (
+                  <DetailPanel
+                    key={selected.id}
+                    row={selected}
+                    tab={tab as "briefings"}
+                    onSaveStatus={async (s, note) => {
+                      await updBrief({ data: { id: selected.id, status: s as BriefingStatus, note } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: s } : cur));
+                    }}
+                    onSaveNotes={async (note) => {
+                      await updNotes({ data: { id: selected.id, note } });
+                      setSelected((cur) => (cur ? { ...cur, internal_notes: note } : cur));
+                    }}
+                    onApproveAndInvite={async () => {
+                      const r = await grant({ data: { briefingRequestId: selected.id } });
+                      await load();
+                      setSelected((cur) => (cur ? { ...cur, status: "approved" } : cur));
+                      return r;
+                    }}
+                    loadInvitation={() => getInv({ data: { briefingRequestId: selected.id } })}
+                  />
+                )
               ) : (
                 <div className="border border-dashed border-border p-8 text-center text-sm text-silver">
                   Select a row to review.
