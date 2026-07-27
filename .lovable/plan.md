@@ -1,57 +1,63 @@
-# Sprint 0.8 — Founder Notes + Insider Q&A per Dossier
+## Sprint 0.9 — Insider Signals + Founder Outbound
 
-The dossier reader works and every open is logged. The missing loop: insiders can read but can't respond, and the founder can't annotate a dossier in-place. This sprint turns each dossier into a two-way surface so PrepareAmerica attendees leave structured feedback tied to specific sections — and the founder can see and reply.
+Phase 0 has a working funnel (public → briefing/conference → invite → insider room → dossier reading → notes + Q&A). What's missing before the PrepareAmerica conference is (a) a way for the founder to see *who is actually engaging* at a glance, and (b) a way to invite people directly — not only in response to inbound requests.
 
-## What we'll build
+This sprint closes both gaps without touching the public UI (you said you'll provide screens for that).
 
-### 1. Founder notes (per dossier, per section)
-- Founder-only authored notes pinned to either the whole dossier or a specific section heading.
-- Rendered inline in the reader with a distinct "Founder note" chip.
-- Editable/deletable from the reader when signed in as `founder_admin` (inline composer, no separate admin screen).
+### What we'll build
 
-### 2. Insider Q&A thread (per dossier)
-- One thread per dossier, ordered oldest→newest.
-- Any `qualified_insider` or `founder_admin` can post a message; optional `section_ref` to tie it to a heading.
-- Founder replies are visually distinguished (same chip system).
-- Insiders see all messages in the thread (not just their own) — the point is collective redline before PrepareAmerica.
+**1. Insider Signals dashboard (founder-only)**
 
-### 3. Notifications (stubbed, consistent with 0.5)
-- New insider post → `sendEmail({ kind: 'founder_new_insider_message' })` to founder (no-op until domain verified).
-- Founder reply → `sendEmail({ kind: 'insider_reply_posted' })` to the original poster.
-- Both templates added to `src/lib/email.ts` as stubs.
+New route: `/admin/signals`
 
-### 4. Founder inbox: Discussion tab
-- Fourth tab in `/admin/inbox` → **Discussion**.
-- Cross-dossier feed of latest insider messages with dossier + section context.
-- Click-through to `/insider/dossier/$slug` anchored to the thread.
+A single scannable page that turns the raw `insider_access_log` + `dossier_messages` + `dossier_notes` streams into a per-insider view:
 
-### 5. Reader polish
-- Anchor links on section headings so posts can deep-link to a section.
-- "N notes · M messages" counter on each card in `/insider` (uses existing per-user opens query, extended).
+- One row per qualified insider (email, role, invited-from lane, invited date).
+- Columns: dossiers opened (count / of 5), last active, messages posted, most-recent dossier touched.
+- Sort by last-active by default; filter by "engaged / dormant / never-opened".
+- CSV export for the pre-conference briefing.
 
-## Technical notes
+This is the founder's "who's warm" list heading into 11-1-2026.
 
-- New tables (both under `public`, RLS on, GRANTs to `authenticated` + `service_role`):
-  - `dossier_notes` (id, dossier_slug, section_heading nullable, body, author_id, created_at, updated_at)
-    - SELECT: `qualified_insider` or `founder_admin`
-    - INSERT/UPDATE/DELETE: `founder_admin` only
-  - `dossier_messages` (id, dossier_slug, section_heading nullable, body, author_id, created_at)
-    - SELECT: `qualified_insider` or `founder_admin`
-    - INSERT: `qualified_insider` or `founder_admin` (author_id = auth.uid())
-    - UPDATE/DELETE: author-only within 15 min, plus `founder_admin` always
-- Server fns in `src/lib/dossier.functions.ts` (co-locate with existing dossier logic):
-  - `listDossierNotes({ slug })`, `upsertDossierNote({...})`, `deleteDossierNote({ id })` — founder-gated writes
-  - `listDossierMessages({ slug })`, `postDossierMessage({...})`, `listRecentDossierMessages()` (founder-only for the inbox tab)
-- Reader: new `<DossierDiscussion />` component mounted below sections; reuses existing `Meta`/`TruthChip` styling for consistency.
-- No changes to dossier content model or story order.
+**2. Direct insider invitations (no inbound required)**
 
-## Out of scope
+New action in `/admin/inbox` header: **"Invite insider directly"**.
 
-- Threaded replies (flat thread only this sprint)
-- Attachments / redline uploads
-- Realtime updates (poll on mount + after post; no subscriptions)
-- Email delivery (still stubbed until sender domain)
+- Modal: email + full name + organization + role category + optional internal note.
+- Creates an `insider_invitations` row with `source = 'direct'` (new allowed value), issues a token, shows the accept URL to copy.
+- Uses the same `redeem_insider_invitation` flow already in place — no new redemption logic.
 
-## Next sprint preview (0.9)
+This lets you seed the room with people you already know (Tan-style hand-picked cohort) without making them fill out the public form first.
 
-Sender domain + turn on the existing email stubs (founder notifications, applicant auto-replies, insider invitations, new-message pings). One migration-free sprint once you have the domain ready.
+**3. Invitation lifecycle visibility**
+
+New tab in `/admin/inbox`: **Invitations**.
+
+- Lists every invitation (from briefing / conference / direct).
+- Status: pending, redeemed, expired, revoked.
+- Actions: copy link, revoke, resend (regenerates token + 30-day expiry).
+- Shows redeemed-by email + redemption date when applicable.
+
+Right now invitation URLs only appear once at issue-time; if you close the tab, they're gone. This fixes that.
+
+### Data changes
+
+- Extend `insider_invitations` to allow `source = 'direct'` and make `briefing_request_id` / `conference_application_id` both nullable (the existing one-source check constraint gets updated to allow "exactly zero sources" when `source = 'direct'`).
+- Add `revoked_at timestamptz` for the revoke action.
+- No new tables.
+
+### What we're NOT doing this sprint
+
+- No changes to public routes or the marketing UI (waiting on your screens).
+- No email sending (still stubbed until you set up the sender domain).
+- No dossier content changes — story order and truth labels stay locked.
+- No Phase 1 workspace features yet.
+
+### Deliverables
+
+- Migration: invitations schema tweaks + revoke column.
+- Server functions: `listInsiderSignals`, `inviteInsiderDirect`, `listInvitations`, `revokeInvitation`, `resendInvitation`.
+- Routes: `/admin/signals`, new **Invitations** tab in `/admin/inbox`, direct-invite modal.
+- CSV export on the signals page.
+
+Approve and I'll build it.
