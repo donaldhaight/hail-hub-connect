@@ -27,6 +27,7 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ function AuthPage() {
   async function handleEmail(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    setInfo(null);
     setBusy(true);
     try {
       if (mode === "signup") {
@@ -61,6 +63,7 @@ function AuthPage() {
 
   async function handleGoogle() {
     setError(null);
+    setInfo(null);
     setBusy(true);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
@@ -71,6 +74,27 @@ function AuthPage() {
       await redirectAfterAuth(navigate);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Google sign in failed");
+      setBusy(false);
+    }
+  }
+
+  async function handleForgot() {
+    setError(null);
+    setInfo(null);
+    if (!email) {
+      setError("Enter your email above, then click Forgot password.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setInfo("If an account exists for that email, a reset link is on its way.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send reset email");
+    } finally {
       setBusy(false);
     }
   }
@@ -126,6 +150,22 @@ function AuthPage() {
           {error ? (
             <div className="border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
               {error}
+            </div>
+          ) : null}
+          {info ? (
+            <div className="border border-border bg-paper p-3 text-sm text-ink/80">
+              {info}
+            </div>
+          ) : null}
+          {mode === "signin" ? (
+            <div className="text-right">
+              <button
+                type="button"
+                onClick={handleForgot}
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-silver hover:text-ink"
+              >
+                Forgot password?
+              </button>
             </div>
           ) : null}
           <button

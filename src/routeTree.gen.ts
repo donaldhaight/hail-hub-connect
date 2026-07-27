@@ -13,6 +13,7 @@ import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
 import { Route as WhyPrepareAmericaRouteImport } from './routes/why-prepare-america'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
@@ -52,6 +53,11 @@ const VisionRoute = VisionRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestBriefingRoute = RequestBriefingRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -248,6 +257,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -326,6 +338,7 @@ export interface RootRouteChildren {
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
@@ -361,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-briefing': {
@@ -554,6 +574,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
