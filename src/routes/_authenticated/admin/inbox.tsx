@@ -376,15 +376,16 @@ function Inbox() {
                     <th className="p-3">Date</th>
                     <th className="p-3">Name</th>
                     <th className="p-3">Organization</th>
-                    <th className="p-3">Interest</th>
+                    <th className="p-3">{tab === "conference" ? "Category" : "Interest"}</th>
+                    {tab === "conference" ? <th className="p-3">Seats</th> : null}
                     <th className="p-3">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">Loading…</td></tr>
                   ) : rows.length === 0 ? (
-                    <tr><td colSpan={5} className="p-6 text-center text-silver">No records.</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">No records.</td></tr>
                   ) : rows.map((r) => (
                     <tr
                       key={r.id}
@@ -395,7 +396,12 @@ function Inbox() {
                       <td className="p-3 text-ink">{r.name}</td>
                       <td className="p-3 text-muted-foreground">{r.organization}</td>
                       <td className="p-3 text-xs text-muted-foreground">{r.interest}</td>
-                      <td className="p-3 text-xs font-mono uppercase">{r.status}</td>
+                      {tab === "conference" ? (
+                        <td className="p-3 text-xs font-mono text-muted-foreground">
+                          {1 + (r.plus_ones ?? 0)}
+                        </td>
+                      ) : null}
+                      <td className="p-3 text-xs font-mono uppercase">{r.seat_status ?? r.status}</td>
                     </tr>
                   ))}
                 </tbody>
