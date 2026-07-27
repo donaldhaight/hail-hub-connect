@@ -148,7 +148,7 @@ function InsiderRoom() {
       ) : null}
 
       <section className="mx-auto max-w-4xl space-y-4 px-6 py-10">
-        {ORDERED_DOSSIERS.map((d) => {
+        {items.map((d) => {
           const last = lastBySlug[d.slug];
           const latest = latestBySlug[d.slug];
           const isNew = !last || (latest && latest > last);
