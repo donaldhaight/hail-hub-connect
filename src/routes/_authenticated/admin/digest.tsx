@@ -112,6 +112,14 @@ function DigestPage() {
     return Array.from(map.entries());
   }, [items]);
 
+  const sectionsNeedWork = useMemo(() => {
+    if (!digest?.sectionsNeedWork) return [];
+    return digest.sectionsNeedWork.map((s) => ({
+      ...s,
+      title: DOSSIERS_BY_SLUG[s.slug]?.title ?? s.slug,
+    }));
+  }, [digest]);
+
   if (authorized === null) {
     return <PageShell><div className="p-16 text-center text-silver">Loading…</div></PageShell>;
   }
