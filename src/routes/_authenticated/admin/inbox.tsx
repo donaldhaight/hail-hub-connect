@@ -232,6 +232,53 @@ function Inbox() {
               </tbody>
             </table>
           </div>
+        ) : tab === "discussion" ? (
+          <div className="border border-border">
+            <ul className="divide-y divide-border">
+              {loading ? (
+                <li className="p-6 text-center text-silver">Loading…</li>
+              ) : rows.length === 0 ? (
+                <li className="p-6 text-center text-silver">No insider messages yet.</li>
+              ) : rows.map((r) => {
+                const dossier = DOSSIERS_BY_SLUG[r.dossier_slug];
+                return (
+                  <li key={r.id} className="p-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className={`inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] ${
+                          r.author_is_founder
+                            ? "border-ink/30 bg-ink text-paper"
+                            : "border-border bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {r.author_is_founder ? "Founder" : r.email}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy">
+                        {dossier?.title ?? r.dossier_slug}
+                      </span>
+                      {r.section_heading ? (
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                          § {r.section_heading}
+                        </span>
+                      ) : null}
+                      <span className="ml-auto font-mono text-[10px] text-silver">
+                        {new Date(r.created_at).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="mt-2 whitespace-pre-wrap text-sm text-ink/90">{r.body}</p>
+                    <div className="mt-2">
+                      <a
+                        href={`/insider/dossier/${r.dossier_slug}`}
+                        className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy hover:underline"
+                      >
+                        Open dossier →
+                      </a>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         ) : (
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3 border border-border">
