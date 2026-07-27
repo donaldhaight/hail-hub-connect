@@ -105,7 +105,9 @@ function Inbox() {
     setLoading(true);
     setError(null);
     try {
-      if (tab === "activity") {
+      if (tab === "itinerary") {
+        setRows([]);
+      } else if (tab === "activity") {
         const r = await listActivity();
         setRows(r.rows);
       } else if (tab === "discussion") {
