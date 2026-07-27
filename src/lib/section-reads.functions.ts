@@ -143,3 +143,126 @@ export const listSectionReadRollup = createServerFn({ method: "POST" })
     }
     return { bySection };
   });
+
+const heatmapSchema = z.object({ slug: z.string().min(1).max(80) });
+
+export type HeatmapCell = {
+  userId: string;
+  email: string;
+  sectionId: string;
+  firstSeenAt: string | null;
+  lastSeenAt: string | null;
+  dwellMs: number;
+  confirmedAt: string | null;
+  state: "unseen" | "skimmed" | "read" | "confirmed";
+};
+
+export const getDossierReadHeatmap = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => heatmapSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const [sectionsRes, readsRes] = await Promise.all([
+      supabaseAdmin
+        .from("dossier_sections")
+        .select("id, position, heading")
+        .eq("dossier_slug", data.slug)
+        .order("position", { ascending: true }),
+      supabaseAdmin
+        .from("dossier_section_reads")
+        .select("section_id, user_id, dwell_ms, first_seen_at, last_seen_at, read_confirmed_at")
+        .eq("dossier_slug", data.slug),
+    ]);
+
+    if (sectionsRes.error) throw new Error("Failed to load sections");
+    if (readsRes.error) throw new Error("Failed to load reads");
+
+    const sections = (sectionsRes.data ?? []) as Array<{ id: string; position: number; heading: string }>;
+    const reads = (readsRes.data ?? []) as Array<{
+      section_id: string;
+      user_id: string;
+      dwell_ms: number;
+      first_seen_at: string;
+      last_seen_at: string;
+      read_confirmed_at: string | null;
+    }>;
+
+    const userIds = Array.from(new Set(reads.map((r) => r.user_id)));
+    const emailByUser: Record<string, string> = {};
+    if (userIds.length > 0) {
+      const results = await Promise.all(
+        userIds.map((id) => supabaseAdmin.auth.admin.getUserById(id).catch(() => null)),
+      );
+      for (const r of results) {
+        const u = r?.data?.user;
+        if (u?.id && u.email) emailByUser[u.id] = u.email;
+      }
+    }
+
+    const cells: HeatmapCell[] = [];
+    for (const r of reads) {
+      const dwellMs = r.dwell_ms ?? 0;
+      let state: HeatmapCell["state"] = "unseen";
+      if (r.read_confirmed_at) {
+        state = "confirmed";
+      } else if (dwellMs >= 10000) {
+        state = "read";
+      } else if (dwellMs > 0 || r.first_seen_at) {
+        state = "skimmed";
+      }
+      cells.push({
+        userId: r.user_id,
+        email: emailByUser[r.user_id] ?? "(unknown)",
+        sectionId: r.section_id,
+        firstSeenAt: r.first_seen_at,
+        lastSeenAt: r.last_seen_at,
+        dwellMs,
+        confirmedAt: r.read_confirmed_at ?? null,
+        state,
+      });
+    }
+
+    return { sections, cells };
+  });
+
+const sectionSummarySchema = z.object({ slug: z.string().min(1).max(80), sectionId: z.string().uuid() });
+
+export const getSectionReadSummary = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => sectionSummarySchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await supabaseAdmin
+      .from("dossier_section_reads")
+      .select("user_id, dwell_ms, first_seen_at, last_seen_at, read_confirmed_at")
+      .eq("dossier_slug", data.slug)
+      .eq("section_id", data.sectionId)
+      .order("last_seen_at", { ascending: false });
+    if (error) throw new Error("Failed to load section summary");
+
+    const userIds = Array.from(new Set((rows ?? []).map((r: any) => r.user_id as string)));
+    const emailByUser: Record<string, string> = {};
+    if (userIds.length > 0) {
+      const results = await Promise.all(
+        userIds.map((id) => supabaseAdmin.auth.admin.getUserById(id).catch(() => null)),
+      );
+      for (const r of results) {
+        const u = r?.data?.user;
+        if (u?.id && u.email) emailByUser[u.id] = u.email;
+      }
+    }
+
+    return {
+      readers: (rows ?? []).map((r: any) => ({
+        userId: r.user_id as string,
+        email: emailByUser[r.user_id] ?? "(unknown)",
+        dwellMs: (r.dwell_ms ?? 0) as number,
+        firstSeenAt: r.first_seen_at as string,
+        lastSeenAt: r.last_seen_at as string,
+        confirmedAt: (r.read_confirmed_at ?? null) as string | null,
+      })),
+    };
+  });
