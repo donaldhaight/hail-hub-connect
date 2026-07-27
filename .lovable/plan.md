@@ -1,114 +1,113 @@
-# Sprint 0.16 — Founder Read-Depth Signals
+# Sprint 0.17 — Public Trust Layer
 
-**Goal:** Turn the raw instrumentation from Sprint 0.15 (section-level reads, attachment opens, insider referrals) into actionable founder intelligence before the 11-1-2026 convening.
+**Goal:** Strengthen the public front door for two high-value audiences — investors and policy/government actors — before the 11-1-2026 convening.
 
-You now have section-level dwell time, explicit "Mark as read" confirmations, attachment downloads, and peer nominations flowing into the database. That data is only useful once the founder can see patterns across insiders and dossiers. This sprint builds the intelligence layer on top of the capture layer.
+The insider room now has depth and the founder has signal. The public site, however, still speaks in one voice. To attract the C-levels, VCs, and think-tank audiences the founder wants in the room, the front door needs audience-specific landing pages that answer the question each constituency asks first:
+
+- **Investors:** What is the rollup thesis, what are the unit economics, and why is now the time?
+- **Policy / Government:** Why does this matter to national resilience, and how does it fit existing public-private frameworks?
+
+This sprint builds those two lanes without changing the insider room or the founder command center.
 
 ---
 
-## Track 1 — Per-Dossier Read Heatmap
+## Track 1 — Investor Lane
 
-A founder view that shows, for each dossier, which insiders have actually read which sections and how deeply.
+A dedicated `/investors` page that frames ClaimStore as a Diller-style rollup opportunity executed through a YC-style network.
 
-**Data**
-- Aggregate `dossier_section_reads` by `dossier_slug` and `section_id`.
-- Metrics per (insider, section): `first_seen_at`, `last_seen_at`, cumulative `dwell_ms`, `read_confirmed_at`.
-- Derived states: `unseen`, `skimmed` (< 10s dwell), `read` (≥ 10s or confirmed), `confirmed` (explicit mark).
-
-**Server functions**
-- `getDossierReadHeatmap(slug)` — returns a matrix: sections × insiders with state and dwell time.
-- `getSectionReadSummary(slug, sectionId)` — list of insiders who have seen/confirmed a specific section.
+**Content**
+- The rollup thesis: fragmented insurance restoration market, repeatable acquisition pattern, data moat.
+- Capital stack preview: ClaimStore → ClaimsBank → ClaimLoan → ClaimCoin as a staged capital-and-liquidity flywheel.
+- Unit economics as **simulations** (truth-labeled `SIMULATION`), not projections.
+- PrepareAmerica as the first annual convening where the network becomes self-aware.
+- Call to action: request a private briefing or apply for a PrepareAmerica seat (links to existing forms).
 
 **UI**
-- New route `/admin/reads` (or extend `/admin/signals` with a "Reads" tab).
-- Dossier selector. For the selected dossier, render a grid: rows = sections in order, columns = insiders (email or name), cells = colored state chips.
-- Click a cell to open a detail panel with exact dwell time and confirmation timestamp.
-- Export the matrix to CSV for offline review or investor updates.
+- New public route `/investors`.
+- Uses existing `PageShell`, `TruthChip`, and `ConfidentialityChip` components.
+- SEO: unique title, description, canonical, OG tags, JSON-LD `Organization` + `InvestmentFund` (as a `Project` fallback if no standard type fits).
+- Mobile-responsive and linked from the main navigation under a new "For investors" item.
 
 ---
 
-## Track 2 — Attachment Open Analytics
+## Track 2 — Policy / Government Lane
 
-Surface which evidence files are being consumed and which are ignored.
+A dedicated `/policy` page that frames the mission in resilience and public-interest terms.
 
-**Data**
-- Join `dossier_attachments` with a new lightweight log table or reuse `insider_access_log` if it can represent attachment opens cleanly.
-- If `insider_access_log` lacks an `action` column, add `action` enum (`dossier_open`, `attachment_open`, `referral_submitted`) and backfill safely.
-
-**Server functions**
-- `getAttachmentAnalytics(slug)` — list attachments with open count, unique insiders, last open time.
-- `getAttachmentOpens(attachmentId)` — per-insider open log.
+**Content**
+- The problem: climate-driven property losses, fragmented contractor networks, information asymmetry between homeowners, carriers, and adjusters.
+- The ClaimStore answer: a standardized claim-data register that improves transparency without replacing existing public systems.
+- RRCA and USA Foundry as the private governance layer that can interface with state insurance departments, FEMA-adjacent frameworks, and municipal preparedness offices.
+- Truth labels: most claims are `ASSERTION` or `HYPOTHESIS`; nothing is presented as enacted policy.
+- Call to action: request a policy briefing or register interest in a PrepareAmerica seat.
 
 **UI**
-- In the dossier reader (founder view only), each attachment card shows an "opened by N insiders" badge.
-- New sub-view under `/admin/reads` or `/admin/signals`: "Evidence engagement" table.
+- New public route `/policy`.
+- Uses existing components and design tokens.
+- SEO metadata and JSON-LD `GovernmentOrganization` / `NGO` references where appropriate.
+- Linked from the main navigation under "For policy."
 
 ---
 
-## Track 3 — Referral Funnel
+## Track 3 — Why PrepareAmerica Page
 
-Show the conversion path from insider nomination to redeemed invitation.
+A narrative page at `/why-prepare-america` that explains the convening itself: what it is, who it is for, what will happen, and what will not.
 
-**Data**
-- Join `insider_referrals` → `insider_invitations` via `resulting_invitation_id`.
-- States: `pending` → `approved` → `invited` (token created) → `redeemed` (user accepted).
-- Group by referrer to see which insiders are bringing the strongest peers.
-
-**Server functions**
-- `getReferralFunnel()` — counts per stage, top referrers, conversion rate.
-- `getReferralsByReferrer(referrerId)` — full history for a single insider.
+**Content**
+- The origin: 25 years in insurance restoration, a network that needs to become a market.
+- The format: 300 qualified stakeholders, no press, no pitching stage, working sessions only.
+- The output: a published set of principles and a roadmap, not a product announcement.
+- Truth labels: attendance is invite-only or application-based; no tickets are sold.
 
 **UI**
-- Add a "Referral Funnel" card to `/admin/signals`.
-- Extend the existing Referrals inbox tab with stage counts and a one-click "promote pending to invited" bulk action.
+- New public route `/why-prepare-america`.
+- Links to `/prepare-america` application.
+- SEO metadata and JSON-LD `Event` schema.
 
 ---
 
-## Track 4 — Digest Upgrade
+## Track 4 — Navigation and SEO Polish
 
-Make the daily digest smarter by surfacing patterns, not just events.
-
-**Additions to `/admin/digest`**
-- "Most engaged insiders this week" — ranked by sections read + attachments opened + messages posted.
-- "Sections that need work" — high-traffic dossiers with low confirmation rates.
-- "Dormant readers returning" — insiders whose `last_seen_at` moved after a 7+ day gap.
-- "Referral momentum" — nominations submitted, approved, redeemed in the last 7 days.
+- Update `Header.tsx` to include the three new public pages in a clean dropdown or inline on desktop.
+- Ensure mobile menu includes the new routes.
+- Update `sitemap.xml` generator to include `/investors`, `/policy`, and `/why-prepare-america`.
+- Verify all new pages have unique titles, descriptions, canonicals, and OG tags via `routeHead`.
 
 ---
 
 ## Sequence
 
-1. Migration: add `action` column to `insider_access_log` if needed; ensure indexes on `dossier_section_reads(dossier_slug, user_id)` and `(section_id, user_id)`.
-2. Track 1: heatmap server function and `/admin/reads` route.
-3. Track 3: referral funnel aggregation and `/admin/signals` cards.
-4. Track 2: attachment analytics (depends on access-log action column decision).
-5. Track 4: digest upgrades using the new aggregations.
-6. Verify with Playwright: founder opens heatmap, clicks a cell, exports CSV; attachment open increments; referral funnel counts update after approve/redeem.
+1. Draft content for `/investors`, `/policy`, and `/why-prepare-america` in a founder-reviewable form.
+2. Build the three public routes using existing components and truth-label conventions.
+3. Update `Header.tsx` navigation and mobile menu.
+4. Update `sitemap.xml` generator.
+5. Run typecheck and a Playwright smoke test across the new routes.
+6. Update docs: `docs/SPRINTS.md`, `docs/REQUIREMENTS.md`, `docs/ARCHITECTURE.md`.
 
 ---
 
 ## Docs updates at close
 
-- `docs/SPRINTS.md`: add 0.16 entry.
-- `docs/REQUIREMENTS.md`: mark I-6, I-7, I-8 as shipped; add new open items for heatmap drill-down and referral conversion tracking.
-- `docs/DECISIONS.md`: add ADR-011 — "Read-depth aggregation as founder signal, not surveillance." Include a note that dwell time is approximate and used only for founder prioritization, not as a legal record.
-- `docs/ARCHITECTURE.md`: update data model with `dossier_section_reads`, `dossier_attachments`, and `insider_referrals` relationships.
+- `docs/SPRINTS.md`: add 0.17 entry.
+- `docs/REQUIREMENTS.md`: add F-6, F-7, F-8 for new public lanes; mark as shipped.
+- `docs/ARCHITECTURE.md`: update public layer route list.
+- `docs/DECISIONS.md`: optional ADR-012 on audience-specific public pages vs. a single generic front door.
 
 ---
 
 ## Explicitly out of scope
 
-- Email notifications for attachment opens or read confirmations (email transport still deferred).
-- Inline attachment previews (still open-in-new-tab only).
-- Public analytics or read-depth visible to non-founders.
-- Real-time websockets; polling on digest/inbox is sufficient for Phase 0.
+- Email capture beyond existing briefing/conference forms.
+- New data models or authenticated functionality.
+- Payment, ticketing, or sponsorship transactions.
+- Real-time updates or websockets.
 
 ---
 
-## Alternative: Sprint 0.16 — Public Trust Layer
+## Alternative: Sprint 0.17 — Email Activation
 
-If you would rather strengthen the front door before the conference, the alternative is to build dedicated landing pages for **Investors** and **Policy / Government** audiences, plus a "Why PrepareAmerica" narrative page. This is lower risk but does not leverage the data we just captured.
+If the sender domain is verified between now and the next session, the alternative is to activate the email stubs in `src/lib/email.ts` so the founder receives notifications for new briefing requests, conference applications, and insider messages. This is a smaller, high-leverage sprint that depends entirely on domain verification.
 
-**Recommendation:** Ship the read-depth signals first. The founder needs to know who is actually consuming the corpus before 11-1-2026. The public trust layer can follow as Sprint 0.17.
+**Recommendation:** Ship the public trust layer first. The 11-1-2026 audience-building window is more urgent than inbox notifications, and email activation can be slotted in as soon as the domain is ready.
 
-Say the word and I will switch to build mode and start with the migration and `/admin/reads` route.
+Say the word and I will switch to build mode and start with the three public routes.
