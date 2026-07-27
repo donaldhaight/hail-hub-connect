@@ -28,6 +28,11 @@ import {
   resendInvitation,
 } from "@/lib/insider.functions";
 import { listInsiderActivity, listRecentDossierMessages } from "@/lib/dossier.functions";
+import {
+  listItineraryItems,
+  upsertItineraryItem,
+  deleteItineraryItem,
+} from "@/lib/itinerary.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
@@ -51,7 +56,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations" | "itinerary">("briefings");
   const [inviteOpen, setInviteOpen] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
@@ -100,7 +105,9 @@ function Inbox() {
     setLoading(true);
     setError(null);
     try {
-      if (tab === "activity") {
+      if (tab === "itinerary") {
+        setRows([]);
+      } else if (tab === "activity") {
         const r = await listActivity();
         setRows(r.rows);
       } else if (tab === "discussion") {
@@ -176,6 +183,9 @@ function Inbox() {
             </TabBtn>
             <TabBtn active={tab === "discussion"} onClick={() => { setTab("discussion"); setStatus(""); setSelected(null); }}>
               Discussion
+            </TabBtn>
+            <TabBtn active={tab === "itinerary"} onClick={() => { setTab("itinerary"); setStatus(""); setSelected(null); }}>
+              Itinerary
             </TabBtn>
           </div>
           <div className="flex items-center gap-3">
@@ -279,6 +289,12 @@ function Inbox() {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <div className="text-xs text-muted-foreground">
               Cross-dossier insider Q&amp;A feed, most recent first. Click through to reply in-context.
+            </div>
+          </div>
+        ) : tab === "itinerary" ? (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Working itinerary for PrepareAmerica 2026. Published rows appear on every confirmed attendee's private page immediately.
             </div>
           </div>
         ) : (
@@ -387,6 +403,8 @@ function Inbox() {
             onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
             onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
           />
+        ) : tab === "itinerary" ? (
+          <ItineraryEditor />
         ) : (
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3 border border-border">
@@ -1185,8 +1203,298 @@ function ConferenceDetailPanel({
         )}
       </div>
 
+      {seatStatus === "confirmed" && row.access_token ? (
+        <div className="space-y-2 border-t border-border pt-4">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+            Attendee private page
+          </div>
+          <AttendeeLink token={row.access_token} />
+        </div>
+      ) : null}
+
       <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
         Applicant reply email queues once sender domain is verified.
+      </div>
+    </div>
+  );
+}
+
+function AttendeeLink({ token }: { token: string }) {
+  const [copied, setCopied] = useState(false);
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/prepare-america/confirmed?t=${token}`
+      : `/prepare-america/confirmed?t=${token}`;
+  return (
+    <>
+      <div className="break-all border border-border bg-paper p-2 text-xs font-mono text-ink">
+        {url}
+      </div>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(url);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        }}
+        className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+      >
+        {copied ? "Copied" : "Copy attendee link"}
+      </button>
+    </>
+  );
+}
+
+type ItineraryRow = {
+  id: string;
+  position: number;
+  time_label: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  is_published: boolean;
+};
+
+function ItineraryEditor() {
+  const listFn = useServerFn(listItineraryItems);
+  const upsertFn = useServerFn(upsertItineraryItem);
+  const delFn = useServerFn(deleteItineraryItem);
+  const [items, setItems] = useState<ItineraryRow[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  const emptyDraft = {
+    id: "",
+    position: 0,
+    time_label: "",
+    title: "",
+    description: "",
+    location: "",
+    is_published: true,
+  };
+  const [draft, setDraft] = useState<{
+    id: string;
+    position: number;
+    time_label: string;
+    title: string;
+    description: string;
+    location: string;
+    is_published: boolean;
+  }>(emptyDraft);
+
+  async function refresh() {
+    setLoading(true);
+    setError(null);
+    try {
+      const r = await listFn();
+      setItems(r.rows as ItineraryRow[]);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load");
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function save() {
+    if (!draft.time_label.trim() || !draft.title.trim()) {
+      setError("Time label and title are required");
+      return;
+    }
+    setError(null);
+    try {
+      await upsertFn({
+        data: {
+          id: draft.id || undefined,
+          position: draft.position,
+          timeLabel: draft.time_label,
+          title: draft.title,
+          description: draft.description,
+          location: draft.location,
+          isPublished: draft.is_published,
+        },
+      });
+      setDraft(emptyDraft);
+      await refresh();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Save failed");
+    }
+  }
+
+  async function togglePublished(row: ItineraryRow) {
+    setBusyId(row.id);
+    try {
+      await upsertFn({
+        data: {
+          id: row.id,
+          position: row.position,
+          timeLabel: row.time_label,
+          title: row.title,
+          description: row.description ?? "",
+          location: row.location ?? "",
+          isPublished: !row.is_published,
+        },
+      });
+      await refresh();
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function remove(id: string) {
+    if (!confirm("Delete this itinerary item?")) return;
+    setBusyId(id);
+    try {
+      await delFn({ data: { id } });
+      await refresh();
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  function editRow(row: ItineraryRow) {
+    setDraft({
+      id: row.id,
+      position: row.position,
+      time_label: row.time_label,
+      title: row.title,
+      description: row.description ?? "",
+      location: row.location ?? "",
+      is_published: row.is_published,
+    });
+  }
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-5">
+      <div className="lg:col-span-3 border border-border">
+        <table className="w-full text-sm">
+          <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
+            <tr>
+              <th className="p-3 w-16">#</th>
+              <th className="p-3">Time</th>
+              <th className="p-3">Title</th>
+              <th className="p-3">Status</th>
+              <th className="p-3 w-24"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+            ) : items.length === 0 ? (
+              <tr><td colSpan={5} className="p-6 text-center text-silver">No items yet.</td></tr>
+            ) : items.map((r) => (
+              <tr key={r.id} className={`border-t border-border ${draft.id === r.id ? "bg-muted/60" : ""}`}>
+                <td className="p-3 font-mono text-xs text-silver">{r.position}</td>
+                <td className="p-3 font-mono text-xs text-ink">{r.time_label}</td>
+                <td className="p-3">
+                  <button onClick={() => editRow(r)} className="text-left text-ink hover:underline">
+                    {r.title}
+                  </button>
+                  {r.location ? <div className="text-xs text-muted-foreground">{r.location}</div> : null}
+                </td>
+                <td className="p-3">
+                  <button
+                    onClick={() => togglePublished(r)}
+                    disabled={busyId === r.id}
+                    className={`border px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] ${
+                      r.is_published
+                        ? "border-navy bg-navy text-paper"
+                        : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {r.is_published ? "Published" : "Draft"}
+                  </button>
+                </td>
+                <td className="p-3 text-right">
+                  <button
+                    onClick={() => remove(r.id)}
+                    disabled={busyId === r.id}
+                    className="text-xs text-destructive hover:underline disabled:opacity-50"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="lg:col-span-2 space-y-3 border border-border bg-card p-5">
+        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+          {draft.id ? "Edit item" : "New item"}
+        </div>
+        {error ? <div className="border border-destructive/40 bg-destructive/5 p-2 text-xs text-destructive">{error}</div> : null}
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Position</span>
+          <input
+            type="number"
+            value={draft.position}
+            onChange={(e) => setDraft({ ...draft, position: Number(e.target.value) || 0 })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Time label</span>
+          <input
+            value={draft.time_label}
+            onChange={(e) => setDraft({ ...draft, time_label: e.target.value })}
+            placeholder="9:00 AM"
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Title</span>
+          <input
+            value={draft.title}
+            onChange={(e) => setDraft({ ...draft, title: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Location</span>
+          <input
+            value={draft.location}
+            onChange={(e) => setDraft({ ...draft, location: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Description</span>
+          <textarea
+            rows={4}
+            value={draft.description}
+            onChange={(e) => setDraft({ ...draft, description: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper p-2 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="flex items-center gap-2 text-xs">
+          <input
+            type="checkbox"
+            checked={draft.is_published}
+            onChange={(e) => setDraft({ ...draft, is_published: e.target.checked })}
+          />
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Published</span>
+        </label>
+        <div className="flex gap-2 pt-2">
+          <button
+            onClick={save}
+            className="border border-navy bg-navy px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-ink hover:border-ink"
+          >
+            {draft.id ? "Save changes" : "Add item"}
+          </button>
+          {draft.id ? (
+            <button
+              onClick={() => setDraft(emptyDraft)}
+              className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+            >
+              Cancel
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );
