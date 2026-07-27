@@ -29,6 +29,9 @@ export function Footer() {
             </div>
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link to="/prepare-america" className="text-ink/80 hover:text-ink">PrepareAmerica Conference</Link></li>
+              <li><Link to="/why-prepare-america" className="text-ink/80 hover:text-ink">Why PrepareAmerica</Link></li>
+              <li><Link to="/investors" className="text-ink/80 hover:text-ink">For Investors</Link></li>
+              <li><Link to="/policy" className="text-ink/80 hover:text-ink">For Policy &amp; Government</Link></li>
               <li><Link to="/founder" className="text-ink/80 hover:text-ink">Founder Statement</Link></li>
               <li><Link to="/request-briefing" className="text-ink/80 hover:text-ink">Request a Briefing</Link></li>
             </ul>

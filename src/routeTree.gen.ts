@@ -10,11 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
+import { Route as WhyPrepareAmericaRouteImport } from './routes/why-prepare-america'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
+import { Route as PolicyRouteImport } from './routes/policy'
+import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -34,6 +37,11 @@ import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_a
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
   id: '/why-rrca',
   path: '/why-rrca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhyPrepareAmericaRoute = WhyPrepareAmericaRouteImport.update({
+  id: '/why-prepare-america',
+  path: '/why-prepare-america',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VisionRoute = VisionRouteImport.update({
@@ -59,6 +67,16 @@ const ProofOfConceptRoute = ProofOfConceptRouteImport.update({
 const PrepareAmericaRoute = PrepareAmericaRouteImport.update({
   id: '/prepare-america',
   path: '/prepare-america',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolicyRoute = PolicyRouteImport.update({
+  id: '/policy',
+  path: '/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvestorsRoute = InvestorsRouteImport.update({
+  id: '/investors',
+  path: '/investors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustryProblemRoute = IndustryProblemRouteImport.update({
@@ -146,11 +164,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
+  '/investors': typeof InvestorsRoute
+  '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
+  '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
@@ -168,11 +189,14 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
+  '/investors': typeof InvestorsRoute
+  '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
+  '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
@@ -192,11 +216,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
+  '/investors': typeof InvestorsRoute
+  '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
+  '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
@@ -216,11 +243,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/founder'
     | '/industry-problem'
+    | '/investors'
+    | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
     | '/sitemap.xml'
     | '/vision'
+    | '/why-prepare-america'
     | '/why-rrca'
     | '/insider/accept'
     | '/prepare-america/confirmed'
@@ -238,11 +268,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/founder'
     | '/industry-problem'
+    | '/investors'
+    | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
     | '/sitemap.xml'
     | '/vision'
+    | '/why-prepare-america'
     | '/why-rrca'
     | '/insider/accept'
     | '/prepare-america/confirmed'
@@ -261,11 +294,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/founder'
     | '/industry-problem'
+    | '/investors'
+    | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
     | '/sitemap.xml'
     | '/vision'
+    | '/why-prepare-america'
     | '/why-rrca'
     | '/insider/accept'
     | '/prepare-america/confirmed'
@@ -285,11 +321,14 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
+  InvestorsRoute: typeof InvestorsRoute
+  PolicyRoute: typeof PolicyRoute
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
+  WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
   WhyRrcaRoute: typeof WhyRrcaRoute
   InsiderAcceptRoute: typeof InsiderAcceptRoute
 }
@@ -301,6 +340,13 @@ declare module '@tanstack/react-router' {
       path: '/why-rrca'
       fullPath: '/why-rrca'
       preLoaderRoute: typeof WhyRrcaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/why-prepare-america': {
+      id: '/why-prepare-america'
+      path: '/why-prepare-america'
+      fullPath: '/why-prepare-america'
+      preLoaderRoute: typeof WhyPrepareAmericaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vision': {
@@ -336,6 +382,20 @@ declare module '@tanstack/react-router' {
       path: '/prepare-america'
       fullPath: '/prepare-america'
       preLoaderRoute: typeof PrepareAmericaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policy': {
+      id: '/policy'
+      path: '/policy'
+      fullPath: '/policy'
+      preLoaderRoute: typeof PolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/investors': {
+      id: '/investors'
+      path: '/investors'
+      fullPath: '/investors'
+      preLoaderRoute: typeof InvestorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industry-problem': {
@@ -489,11 +549,14 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
+  InvestorsRoute: InvestorsRoute,
+  PolicyRoute: PolicyRoute,
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
+  WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
   WhyRrcaRoute: WhyRrcaRoute,
   InsiderAcceptRoute: InsiderAcceptRoute,
 }
