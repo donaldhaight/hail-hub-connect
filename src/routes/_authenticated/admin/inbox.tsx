@@ -17,7 +17,7 @@ import {
   grantInsiderAccessFromConference,
   getInvitationForConference,
 } from "@/lib/insider.functions";
-import { listInsiderActivity } from "@/lib/dossier.functions";
+import { listInsiderActivity, listRecentDossierMessages } from "@/lib/dossier.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
@@ -41,7 +41,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference" | "activity">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion">("briefings");
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
@@ -62,6 +62,7 @@ function Inbox() {
   const grantConf = useServerFn(grantInsiderAccessFromConference);
   const getInvConf = useServerFn(getInvitationForConference);
   const listActivity = useServerFn(listInsiderActivity);
+  const listDiscussion = useServerFn(listRecentDossierMessages);
 
   useEffect(() => {
     myRoles()
@@ -77,6 +78,9 @@ function Inbox() {
     try {
       if (tab === "activity") {
         const r = await listActivity();
+        setRows(r.rows);
+      } else if (tab === "discussion") {
+        const r = await listDiscussion();
         setRows(r.rows);
       } else {
         const fn = tab === "briefings" ? listBriefings : listConf;
@@ -135,6 +139,9 @@ function Inbox() {
             </TabBtn>
             <TabBtn active={tab === "activity"} onClick={() => { setTab("activity"); setStatus(""); setSelected(null); }}>
               Insider Activity
+            </TabBtn>
+            <TabBtn active={tab === "discussion"} onClick={() => { setTab("discussion"); setStatus(""); setSelected(null); }}>
+              Discussion
             </TabBtn>
           </div>
           <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
