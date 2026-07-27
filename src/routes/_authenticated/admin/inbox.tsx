@@ -56,6 +56,10 @@ function Inbox() {
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
+  const rowsRef = useRef<Row[]>(rows);
+  useEffect(() => {
+    rowsRef.current = rows;
+  }, [rows]);
   const [selected, setSelected] = useState<Row | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
