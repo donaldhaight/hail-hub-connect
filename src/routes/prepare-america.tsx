@@ -275,3 +275,22 @@ function Field({
     </label>
   );
 }
+
+function CapacityDisplay() {
+  const load = useServerFn(getPublicConferenceStatus);
+  const [state, setState] = useState<{ total: number; confirmed: number; waitlisted: number; available: number } | null>(null);
+
+  useEffect(() => {
+    load().then(setState).catch(() => {});
+  }, [load]);
+
+  if (!state) return <span className="text-muted-foreground">300 seats — private</span>;
+
+  return (
+    <span>
+      {state.confirmed} of {state.total} confirmed
+      {state.waitlisted > 0 ? ` · ${state.waitlisted} waitlisted` : ""}
+      {state.available > 0 ? ` · ${state.available} open` : " · sold out"}
+    </span>
+  );
+}
