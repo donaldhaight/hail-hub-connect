@@ -28,6 +28,11 @@ import {
   resendInvitation,
 } from "@/lib/insider.functions";
 import { listInsiderActivity, listRecentDossierMessages } from "@/lib/dossier.functions";
+import {
+  listItineraryItems,
+  upsertItineraryItem,
+  deleteItineraryItem,
+} from "@/lib/itinerary.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import {
   BRIEFING_STATUSES,
@@ -51,7 +56,7 @@ type Row = Record<string, any>;
 
 function Inbox() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations">("briefings");
+  const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations" | "itinerary">("briefings");
   const [inviteOpen, setInviteOpen] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
@@ -176,6 +181,9 @@ function Inbox() {
             </TabBtn>
             <TabBtn active={tab === "discussion"} onClick={() => { setTab("discussion"); setStatus(""); setSelected(null); }}>
               Discussion
+            </TabBtn>
+            <TabBtn active={tab === "itinerary"} onClick={() => { setTab("itinerary"); setStatus(""); setSelected(null); }}>
+              Itinerary
             </TabBtn>
           </div>
           <div className="flex items-center gap-3">
@@ -1185,9 +1193,43 @@ function ConferenceDetailPanel({
         )}
       </div>
 
+      {seatStatus === "confirmed" && row.access_token ? (
+        <div className="space-y-2 border-t border-border pt-4">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+            Attendee private page
+          </div>
+          <AttendeeLink token={row.access_token} />
+        </div>
+      ) : null}
+
       <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
         Applicant reply email queues once sender domain is verified.
       </div>
     </div>
+  );
+}
+
+function AttendeeLink({ token }: { token: string }) {
+  const [copied, setCopied] = useState(false);
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/prepare-america/confirmed?t=${token}`
+      : `/prepare-america/confirmed?t=${token}`;
+  return (
+    <>
+      <div className="break-all border border-border bg-paper p-2 text-xs font-mono text-ink">
+        {url}
+      </div>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(url);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        }}
+        className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+      >
+        {copied ? "Copied" : "Copy attendee link"}
+      </button>
+    </>
   );
 }
