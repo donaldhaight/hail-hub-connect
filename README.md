@@ -1,29 +1,55 @@
-# Welcome to your Lovable project
+# ClaimStore Briefing Room
 
-This project was built with [Lovable](https://lovable.dev).
+> A private front door and qualified-insider room for the RRCA restructuring and the ClaimStore proof of concept.
 
-## Build with Lovable
+**Live preview:** [https://hail-hub-connect.lovable.app](https://hail-hub-connect.lovable.app)
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+**Milestone:** Sprint 0.14 complete. The public front door, founder inbox, insider dossier room, conference seat management, and attendee experience are all functional.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## What this is
 
-## Development
+ClaimStore Briefing Room is the understated temporary front door for a larger strategy: restructure the Roofing & Reconstruction Contractors of America (RRCA) as the first operating proof of concept for a proposed transaction and coordination layer for the insurance-restoration market.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+The site is designed to:
+
+1. Attract referred C-level executives, capital, counsel, and government advisors.
+2. Let the founder privately review, triage, and invite qualified insiders.
+3. Give those insiders a labeled, versioned dossier room where they can read, question, and redline the working concept.
+4. Manage the 11-1-2026 PrepareAmerica Conference — 300 seats, private, at Gratitude Ranch in Flower Mound, Texas.
+
+## Run locally
 
 ```sh
-git clone <this-repository-url>
+git clone <repository-url>
 cd <repository-name>
 npm i
 npm run dev
 ```
 
+The dev server starts at `http://localhost:8080`.
+
 ## Built with
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+- [TanStack Start](https://tanstack.com/start) — full-stack React framework
+- [TanStack Query](https://tanstack.com/query) — server-state management
+- [Tailwind CSS v4](https://tailwindcss.com) — styling
+- [Lovable Cloud](https://docs.lovable.dev/features/cloud) — backend, auth, and storage
+- [Supabase JS client](https://supabase.com/docs/reference/javascript) — generated client for type-safe database access
+
+## Project documentation
+
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system map, routes, auth, and data model.
+- [`docs/SPRINTS.md`](docs/SPRINTS.md) — sprint-by-sprint history from 0.1 through 0.14.
+- [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — living requirements backlog.
+- [`docs/DECISIONS.md`](docs/DECISIONS.md) — architecture and product decisions.
+- [`.lovable/plan.md`](.lovable/plan.md) — current plan and next credible moves.
+
+## Important notes
+
+- **This is a working concept, not an offering.** Every page carries a "Confidential Working Concept — Not an Offering" footer.
+- **Truth labels are load-bearing.** All claims inside the insider room are classified as FACT, ASSERTION, DECISION, HYPOTHESIS, SIMULATION, or OPEN.
+- **Email is stubbed until a sender domain is verified.** Invitation and notification emails are implemented as no-op stubs pending domain setup.
+
+## GitHub connection
+
+This project is intended to be connected to a GitHub repository for backup, collaboration, and portability. If the repository is not yet linked, connect it from the Lovable editor: **Plus (+) → GitHub → Connect project**.
