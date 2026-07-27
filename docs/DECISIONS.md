@@ -114,3 +114,16 @@ This document records load-bearing architecture and product decisions. Each entr
 - `/auth` only supports Google sign-in.
 - New users have no roles until an invitation is redeemed or a founder assigns one.
 - The root authenticated gate rejects role-less users gracefully.
+
+## ADR-011: Read-depth signals as founder intelligence
+
+**Decision:** Track section-level dwell time, explicit read confirmation, and attachment opens, then surface them as founder analytics.
+
+**Context:** Dossier opens alone do not reveal whether insiders actually consumed the argument. The founder needs to know which sections are landing, which are being skipped, and which peers are warming up before outreach.
+
+**Consequences:**
+- `dossier_section_reads` records dwell time and a `read_confirmed_at` timestamp.
+- `dossier_attachment_opens` records every signed-URL access.
+- State machine: unseen → skimmed (any dwell) → read (≥10s dwell) → confirmed (explicit mark).
+- `/admin/reads` renders a heatmap; `/admin/signals` and `/admin/digest` roll up engagement scores and referral momentum.
+- All analytics are founder-only and gated by `founder_admin` role.
