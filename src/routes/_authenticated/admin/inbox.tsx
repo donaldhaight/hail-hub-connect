@@ -403,6 +403,8 @@ function Inbox() {
             onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
             onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
           />
+        ) : tab === "itinerary" ? (
+          <ItineraryEditor />
         ) : (
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3 border border-border">
