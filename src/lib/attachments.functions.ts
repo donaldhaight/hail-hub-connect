@@ -159,11 +159,6 @@ export const getAttachmentSignedUrl = createServerFn({ method: "POST" })
     if (error || !row) throw new Error("Attachment not found");
     if (!isFounder && !row.is_published) throw new Error("Forbidden");
     if (row.kind === "link") {
-      // Log then return URL
-      await context.supabase
-        .from("insider_access_log")
-        .insert({ user_id: context.userId, dossier_slug: row.dossier_slug, action: "attachment_open" })
-        .then?.(() => {}, () => {});
       return { url: row.external_url as string, kind: "link" as const, title: row.title as string };
     }
     if (!row.storage_path) throw new Error("Missing file");
@@ -172,14 +167,5 @@ export const getAttachmentSignedUrl = createServerFn({ method: "POST" })
       .from(BUCKET)
       .createSignedUrl(row.storage_path, 300);
     if (signErr || !signed?.signedUrl) throw new Error("Failed to sign URL");
-
-    // Best-effort log; ignore failures.
-    try {
-      await context.supabase
-        .from("insider_access_log")
-        .insert({ user_id: context.userId, dossier_slug: row.dossier_slug, action: "attachment_open" });
-    } catch {
-      // ignore
-    }
     return { url: signed.signedUrl, kind: "file" as const, title: row.title as string };
   });
