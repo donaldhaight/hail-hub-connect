@@ -20,6 +20,7 @@ import { Route as FounderRouteImport } from './routes/founder'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
@@ -82,6 +83,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrepareAmericaConfirmedRoute = PrepareAmericaConfirmedRouteImport.update({
+  id: '/confirmed',
+  path: '/confirmed',
+  getParentRoute: () => PrepareAmericaRoute,
+} as any)
 const InsiderAcceptRoute = InsiderAcceptRouteImport.update({
   id: '/insider/accept',
   path: '/insider/accept',
@@ -127,13 +133,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
-  '/prepare-america': typeof PrepareAmericaRoute
+  '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -146,13 +153,14 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
-  '/prepare-america': typeof PrepareAmericaRoute
+  '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -167,13 +175,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
-  '/prepare-america': typeof PrepareAmericaRoute
+  '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/prepare-america/confirmed'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/prepare-america/confirmed'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
@@ -234,6 +245,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/prepare-america/confirmed'
     | '/_authenticated/admin/digest'
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/inbox'
@@ -248,7 +260,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
-  PrepareAmericaRoute: typeof PrepareAmericaRoute
+  PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -336,6 +348,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prepare-america/confirmed': {
+      id: '/prepare-america/confirmed'
+      path: '/confirmed'
+      fullPath: '/prepare-america/confirmed'
+      preLoaderRoute: typeof PrepareAmericaConfirmedRouteImport
+      parentRoute: typeof PrepareAmericaRoute
+    }
     '/insider/accept': {
       id: '/insider/accept'
       path: '/insider/accept'
@@ -409,13 +428,25 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface PrepareAmericaRouteChildren {
+  PrepareAmericaConfirmedRoute: typeof PrepareAmericaConfirmedRoute
+}
+
+const PrepareAmericaRouteChildren: PrepareAmericaRouteChildren = {
+  PrepareAmericaConfirmedRoute: PrepareAmericaConfirmedRoute,
+}
+
+const PrepareAmericaRouteWithChildren = PrepareAmericaRoute._addFileChildren(
+  PrepareAmericaRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
-  PrepareAmericaRoute: PrepareAmericaRoute,
+  PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
