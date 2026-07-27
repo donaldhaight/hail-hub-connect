@@ -31,6 +31,7 @@ import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
+import { Route as AuthenticatedAdminInviteRouteImport } from './routes/_authenticated/admin/invite'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authenticated/admin/edits'
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
@@ -148,6 +149,12 @@ const AuthenticatedAdminReadsRoute = AuthenticatedAdminReadsRouteImport.update({
   path: '/admin/reads',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminInviteRoute =
+  AuthenticatedAdminInviteRouteImport.update({
+    id: '/admin/invite',
+    path: '/admin/invite',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   id: '/admin/inbox',
   path: '/admin/inbox',
@@ -191,6 +198,7 @@ export interface FileRoutesByFullPath {
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -218,6 +226,7 @@ export interface FileRoutesByTo {
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -247,6 +256,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/_authenticated/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -276,6 +286,7 @@ export interface FileRouteTypes {
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
+    | '/admin/invite'
     | '/admin/reads'
     | '/admin/signals'
     | '/admin/tour'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
+    | '/admin/invite'
     | '/admin/reads'
     | '/admin/signals'
     | '/admin/tour'
@@ -331,6 +343,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/digest'
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/inbox'
+    | '/_authenticated/admin/invite'
     | '/_authenticated/admin/reads'
     | '/_authenticated/admin/signals'
     | '/_authenticated/admin/tour'
@@ -514,6 +527,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminReadsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/invite': {
+      id: '/_authenticated/admin/invite'
+      path: '/admin/invite'
+      fullPath: '/admin/invite'
+      preLoaderRoute: typeof AuthenticatedAdminInviteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/inbox': {
       id: '/_authenticated/admin/inbox'
       path: '/admin/inbox'
@@ -549,6 +569,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+  AuthenticatedAdminInviteRoute: typeof AuthenticatedAdminInviteRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
@@ -561,6 +582,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+  AuthenticatedAdminInviteRoute: AuthenticatedAdminInviteRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
