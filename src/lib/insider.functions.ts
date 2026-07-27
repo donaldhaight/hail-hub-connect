@@ -355,7 +355,7 @@ export const listInsiderSignals = createServerFn({ method: "GET" })
     // All qualified_insider role rows
     const { data: roleRows, error: roleErr } = await supabaseAdmin
       .from("user_roles")
-      .select("user_id, role, created_at")
+      .select("user_id, role")
       .in("role", ["qualified_insider", "founder_admin"]);
     if (roleErr) throw new Error("Failed to load roles");
 

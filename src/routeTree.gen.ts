@@ -21,6 +21,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
+import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
 
@@ -84,6 +85,12 @@ const AuthenticatedInsiderIndexRoute =
     path: '/insider/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminSignalsRoute =
+  AuthenticatedAdminSignalsRouteImport.update({
+    id: '/admin/signals',
+    path: '/admin/signals',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   id: '/admin/inbox',
   path: '/admin/inbox',
@@ -108,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesByTo {
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -140,6 +149,7 @@ export interface FileRoutesById {
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
+  '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/why-rrca'
     | '/insider/accept'
     | '/admin/inbox'
+    | '/admin/signals'
     | '/insider/'
     | '/insider/dossier/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/why-rrca'
     | '/insider/accept'
     | '/admin/inbox'
+    | '/admin/signals'
     | '/insider'
     | '/insider/dossier/$slug'
   id:
@@ -188,6 +200,7 @@ export interface FileRouteTypes {
     | '/why-rrca'
     | '/insider/accept'
     | '/_authenticated/admin/inbox'
+    | '/_authenticated/admin/signals'
     | '/_authenticated/insider/'
     | '/_authenticated/insider/dossier/$slug'
   fileRoutesById: FileRoutesById
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/signals': {
+      id: '/_authenticated/admin/signals'
+      path: '/admin/signals'
+      fullPath: '/admin/signals'
+      preLoaderRoute: typeof AuthenticatedAdminSignalsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/inbox': {
       id: '/_authenticated/admin/inbox'
       path: '/admin/inbox'
@@ -311,12 +331,14 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
+  AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
+  AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
 }
