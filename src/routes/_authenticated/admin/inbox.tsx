@@ -535,16 +535,6 @@ function Inbox() {
           </div>
         )}
       </section>
-      {inviteOpen ? (
-        <DirectInviteModal
-          onClose={() => setInviteOpen(false)}
-          onSubmit={async (payload) => {
-            await inviteDirect({ data: payload });
-            setInviteOpen(false);
-            if (tab === "invitations") await load();
-          }}
-        />
-      ) : null}
     </PageShell>
   );
 }
