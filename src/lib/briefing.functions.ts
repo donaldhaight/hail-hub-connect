@@ -63,6 +63,7 @@ export const submitBriefingRequest = createServerFn({ method: "POST" })
         context: insert.context,
         acknowledged: true,
         status: "applied" as const,
+        seat_status: "applied" as const,
       });
 
       if (confError) {
