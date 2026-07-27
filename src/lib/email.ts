@@ -63,5 +63,10 @@ export function renderTemplate(t: EmailTemplate): { subject: string; text: strin
           `— ClaimStore Briefing Room`,
         ].join("\n"),
       };
+    case "conference_seat_confirmed":
+      return {
+        subject: `Your seat is confirmed — PrepareAmerica 2026`,
+        text: `${t.name},\n\nYour seat${t.seats > 1 ? `s (${t.seats})` : ""} for PrepareAmerica 2026 on ${t.eventDate} at ${t.venue} ${t.seats > 1 ? "are" : "is"} confirmed.\n\nWe will send logistics details as the convening approaches.\n\n— ClaimStore Briefing Room\n\nConfidential Working Concept — Not an Offering.`,
+      };
   }
 }
