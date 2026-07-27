@@ -275,6 +275,10 @@ function DossierReader() {
         ) : null}
       </section>
 
+      <section className="mx-auto max-w-3xl px-6">
+        <DossierAttachments slug={slug} isFounder={isFounder} dossierLevel />
+      </section>
+
       <DossierDiscussion
         slug={slug}
         sectionHeadings={sections.map((s) => s.heading)}
