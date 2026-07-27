@@ -149,7 +149,7 @@ function Inbox() {
 
 
 
-        {tab !== "activity" ? (
+        {tab === "briefings" || tab === "conference" ? (
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <button
               onClick={() => setStatus("")}
@@ -182,7 +182,7 @@ function Inbox() {
               Export CSV
             </a>
           </div>
-        ) : (
+        ) : tab === "activity" ? (
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <div className="text-xs text-muted-foreground">
               Every dossier open by every insider, most recent first.
@@ -194,6 +194,12 @@ function Inbox() {
             >
               Export CSV
             </a>
+          </div>
+        ) : (
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-muted-foreground">
+              Cross-dossier insider Q&amp;A feed, most recent first. Click through to reply in-context.
+            </div>
           </div>
         )}
 
