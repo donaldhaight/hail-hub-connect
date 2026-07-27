@@ -42,12 +42,20 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-3">
           {signedIn ? (
-            <Link
-              to="/admin/inbox"
-              className="text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
-            >
-              Inbox
-            </Link>
+            <>
+              <Link
+                to="/admin/digest"
+                className="text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+              >
+                Digest
+              </Link>
+              <Link
+                to="/admin/inbox"
+                className="text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+              >
+                Inbox
+              </Link>
+            </>
           ) : null}
           <Link
             to="/request-briefing"
