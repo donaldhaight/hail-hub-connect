@@ -188,7 +188,7 @@ function DossierReader() {
           return (
             <article
               key={s.id ?? i}
-              ref={(node) => s.id && reads.observe(s.id, node)}
+              ref={(node) => { if (s.id) reads.observe(s.id, node); }}
               className="space-y-3"
             >
               <div className="flex flex-wrap items-center gap-3">
