@@ -1,113 +1,75 @@
-# Sprint 0.17 — Public Trust Layer
+# Sprint 0.18 — Access Polish + Private Tour
 
-**Goal:** Strengthen the public front door for two high-value audiences — investors and policy/government actors — before the 11-1-2026 convening.
+Three related pieces, in one sprint because they all touch the same surface (how a human actually gets into and understands this app).
 
-The insider room now has depth and the founder has signal. The public site, however, still speaks in one voice. To attract the C-levels, VCs, and think-tank audiences the founder wants in the room, the front door needs audience-specific landing pages that answer the question each constituency asks first:
+## Part A — Sign-in affordance in the header
 
-- **Investors:** What is the rollup thesis, what are the unit economics, and why is now the time?
-- **Policy / Government:** Why does this matter to national resilience, and how does it fit existing public-private frameworks?
+Today `/auth` is unlinked. Fix:
 
-This sprint builds those two lanes without changing the insider room or the founder command center.
+- Add a small **"Sign in"** link in the header (desktop + mobile menu), visible only when signed out. Muted styling — it stays understated and does not compete with the "Request a Private Briefing" CTA.
+- When signed in, the existing Digest/Inbox links already show; add a compact **"Sign out"** control alongside them that calls `supabase.auth.signOut()` and navigates to `/`.
+- No change to the primary nav items — public pages stay as-is.
 
----
+## Part B — Password reset flow
 
-## Track 1 — Investor Lane
+- Add a **"Forgot password?"** link on `/auth` (email/password mode only).
+- New public route `/reset-password` that:
+  - Detects `type=recovery` in the URL hash.
+  - Renders a "set new password" form.
+  - Calls `supabase.auth.updateUser({ password })` and redirects to `/admin/inbox` on success.
+- Wire `supabase.auth.resetPasswordForEmail(email, { redirectTo: ${origin}/reset-password })` from the forgot-password action.
+- Add `/reset-password` to `robots.txt` disallow list (same as other private surfaces).
 
-A dedicated `/investors` page that frames ClaimStore as a Diller-style rollup opportunity executed through a YC-style network.
+## Part C — Private illustrated tour ("How this app works")
 
-**Content**
-- The rollup thesis: fragmented insurance restoration market, repeatable acquisition pattern, data moat.
-- Capital stack preview: ClaimStore → ClaimsBank → ClaimLoan → ClaimCoin as a staged capital-and-liquidity flywheel.
-- Unit economics as **simulations** (truth-labeled `SIMULATION`), not projections.
-- PrepareAmerica as the first annual convening where the network becomes self-aware.
-- Call to action: request a private briefing or apply for a PrepareAmerica seat (links to existing forms).
+A single signed-in-only page that walks a viewer through everything built in Phase 0, with real screenshots and short explainers written in the same documentary voice as the dossiers.
 
-**UI**
-- New public route `/investors`.
-- Uses existing `PageShell`, `TruthChip`, and `ConfidentialityChip` components.
-- SEO: unique title, description, canonical, OG tags, JSON-LD `Organization` + `InvestmentFund` (as a `Project` fallback if no standard type fits).
-- Mobile-responsive and linked from the main navigation under a new "For investors" item.
+**Route:** `/_authenticated/admin/tour` (founder-only via existing `_authenticated` gate; not in sitemap; noindex).
 
----
+**Structure — five acts matching the load-bearing story order:**
 
-## Track 2 — Policy / Government Lane
+1. **The Front Door** — `/`, `/why-rrca`, `/industry-problem`, `/proof-of-concept`, `/vision`, `/prepare-america`, `/founder`, plus the new `/investors`, `/policy`, `/why-prepare-america`. One screenshot each, one paragraph explaining who it's aimed at and what job it does.
+2. **Capture & Triage** — `/request-briefing` and the conference application form → `/admin/inbox` (all four tabs: Briefing, Conference, Discussion, Referrals, Invitations, Itinerary). Explains the funnel from anonymous visitor → qualified insider.
+3. **The Insider Room** — `/insider` (dossier index with NEW badges), `/insider/dossier/$slug` (reader with section truth chips, read receipts, attachments, Q&A), `/insider/refer`. Explains the confidentiality model and read-depth instrumentation.
+4. **Founder Intelligence** — `/admin/digest`, `/admin/signals`, `/admin/reads` heatmap, `/admin/edits` corpus history. Explains what each signal means and how to act on it.
+5. **Conference Operations** — Capacity meter, seat lifecycle, `/prepare-america/confirmed` attendee page, itinerary editor. Explains the 300-seat cap and token-gated attendee access.
 
-A dedicated `/policy` page that frames the mission in resilience and public-interest terms.
+**Screenshot generation (build-time, not runtime):**
 
-**Content**
-- The problem: climate-driven property losses, fragmented contractor networks, information asymmetry between homeowners, carriers, and adjusters.
-- The ClaimStore answer: a standardized claim-data register that improves transparency without replacing existing public systems.
-- RRCA and USA Foundry as the private governance layer that can interface with state insurance departments, FEMA-adjacent frameworks, and municipal preparedness offices.
-- Truth labels: most claims are `ASSERTION` or `HYPOTHESIS`; nothing is presented as enacted policy.
-- Call to action: request a policy briefing or register interest in a PrepareAmerica seat.
+- Playwright script under `scripts/generate-tour-screenshots.ts`:
+  - Signs in as founder via injected Supabase session.
+  - Seeds a small scoped demo dataset (2-3 briefing requests, 1-2 conference apps in each seat state, 1 insider with a few dossier reads and one Q&A message, 1 referral). All rows tagged with a `demo_tour` marker so they're deleted at the end.
+  - Visits each route at 1440×900, captures PNG to `src/assets/tour/{act}-{slug}.png`.
+  - Tears down demo rows.
+- Screenshots are committed as static assets and imported into the tour page — the page itself does no runtime capture.
+- Re-run the script manually when the UI changes materially (documented in `docs/SPRINTS.md`).
 
-**UI**
-- New public route `/policy`.
-- Uses existing components and design tokens.
-- SEO metadata and JSON-LD `GovernmentOrganization` / `NGO` references where appropriate.
-- Linked from the main navigation under "For policy."
+**Header link:** Add a small **"Tour"** link next to Digest/Inbox for signed-in founders only.
 
----
+**Documentation:**
 
-## Track 3 — Why PrepareAmerica Page
+- Add Sprint 0.18 entry to `docs/SPRINTS.md`.
+- Add `REQ-ACC-*` and `REQ-TOUR-*` entries to `docs/REQUIREMENTS.md`.
+- ADR in `docs/DECISIONS.md`: "Tour is private, screenshots are build-time static assets" (rationale: avoids exposing private UI publicly, avoids per-request Playwright cost, keeps the page fast and SSR-safe).
 
-A narrative page at `/why-prepare-america` that explains the convening itself: what it is, who it is for, what will happen, and what will not.
+## Confidentiality
 
-**Content**
-- The origin: 25 years in insurance restoration, a network that needs to become a market.
-- The format: 300 qualified stakeholders, no press, no pitching stage, working sessions only.
-- The output: a published set of principles and a roadmap, not a product announcement.
-- Truth labels: attendance is invite-only or application-based; no tickets are sold.
-
-**UI**
-- New public route `/why-prepare-america`.
-- Links to `/prepare-america` application.
-- SEO metadata and JSON-LD `Event` schema.
-
----
-
-## Track 4 — Navigation and SEO Polish
-
-- Update `Header.tsx` to include the three new public pages in a clean dropdown or inline on desktop.
-- Ensure mobile menu includes the new routes.
-- Update `sitemap.xml` generator to include `/investors`, `/policy`, and `/why-prepare-america`.
-- Verify all new pages have unique titles, descriptions, canonicals, and OG tags via `routeHead`.
-
----
-
-## Sequence
-
-1. Draft content for `/investors`, `/policy`, and `/why-prepare-america` in a founder-reviewable form.
-2. Build the three public routes using existing components and truth-label conventions.
-3. Update `Header.tsx` navigation and mobile menu.
-4. Update `sitemap.xml` generator.
-5. Run typecheck and a Playwright smoke test across the new routes.
-6. Update docs: `docs/SPRINTS.md`, `docs/REQUIREMENTS.md`, `docs/ARCHITECTURE.md`.
-
----
-
-## Docs updates at close
-
-- `docs/SPRINTS.md`: add 0.17 entry.
-- `docs/REQUIREMENTS.md`: add F-6, F-7, F-8 for new public lanes; mark as shipped.
-- `docs/ARCHITECTURE.md`: update public layer route list.
-- `docs/DECISIONS.md`: optional ADR-012 on audience-specific public pages vs. a single generic front door.
-
----
+- Tour page: C2 chip + "Confidential Working Concept — Not an Offering" footer (inherited from `PageShell`).
+- `robots.txt`: add `/reset-password` and `/admin/tour` to Disallow (already covers `/admin/*`, so tour is fine; reset-password is new).
 
 ## Explicitly out of scope
 
-- Email capture beyond existing briefing/conference forms.
-- New data models or authenticated functionality.
-- Payment, ticketing, or sponsorship transactions.
-- Real-time updates or websockets.
+- Public "how it works" marketing page (can be a later sprint if you want a redacted external version).
+- Video walkthrough (screenshots + prose only for now).
+- Email templates for password reset (Supabase default template is used; custom templating is a separate sprint).
 
----
+## Deliverables checklist
 
-## Alternative: Sprint 0.17 — Email Activation
-
-If the sender domain is verified between now and the next session, the alternative is to activate the email stubs in `src/lib/email.ts` so the founder receives notifications for new briefing requests, conference applications, and insider messages. This is a smaller, high-leverage sprint that depends entirely on domain verification.
-
-**Recommendation:** Ship the public trust layer first. The 11-1-2026 audience-building window is more urgent than inbox notifications, and email activation can be slotted in as soon as the domain is ready.
-
-Say the word and I will switch to build mode and start with the three public routes.
+- [ ] Header: Sign in link (signed-out), Sign out + Tour link (signed-in)
+- [ ] `/auth`: Forgot password link
+- [ ] `/reset-password` route
+- [ ] `robots.txt` updated
+- [ ] `scripts/generate-tour-screenshots.ts` + first run committed to `src/assets/tour/`
+- [ ] `/_authenticated/admin/tour` page with five acts
+- [ ] `docs/SPRINTS.md`, `REQUIREMENTS.md`, `DECISIONS.md` updated
+- [ ] Typecheck + build clean; manual verification of sign-in, reset request, and tour page
