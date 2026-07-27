@@ -248,6 +248,75 @@ export type Database = {
           },
         ]
       }
+      dossier_attachments: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          dossier_slug: string
+          external_url: string | null
+          id: string
+          is_published: boolean
+          kind: string
+          mime_type: string | null
+          position: number
+          section_id: string | null
+          size_bytes: number | null
+          storage_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          dossier_slug: string
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          kind: string
+          mime_type?: string | null
+          position?: number
+          section_id?: string | null
+          size_bytes?: number | null
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          dossier_slug?: string
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          kind?: string
+          mime_type?: string | null
+          position?: number
+          section_id?: string | null
+          size_bytes?: number | null
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dossier_attachments_dossier_slug_fkey"
+            columns: ["dossier_slug"]
+            isOneToOne: false
+            referencedRelation: "dossiers"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "dossier_attachments_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "dossier_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dossier_edits: {
         Row: {
           actor_id: string
@@ -337,6 +406,54 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      dossier_section_reads: {
+        Row: {
+          dossier_slug: string
+          dwell_ms: number
+          first_seen_at: string
+          id: string
+          last_seen_at: string
+          read_confirmed_at: string | null
+          section_id: string
+          user_id: string
+        }
+        Insert: {
+          dossier_slug: string
+          dwell_ms?: number
+          first_seen_at?: string
+          id?: string
+          last_seen_at?: string
+          read_confirmed_at?: string | null
+          section_id: string
+          user_id: string
+        }
+        Update: {
+          dossier_slug?: string
+          dwell_ms?: number
+          first_seen_at?: string
+          id?: string
+          last_seen_at?: string
+          read_confirmed_at?: string | null
+          section_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dossier_section_reads_dossier_slug_fkey"
+            columns: ["dossier_slug"]
+            isOneToOne: false
+            referencedRelation: "dossiers"
+            referencedColumns: ["slug"]
+          },
+          {
+            foreignKeyName: "dossier_section_reads_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "dossier_sections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       dossier_sections: {
         Row: {
@@ -513,6 +630,59 @@ export type Database = {
             columns: ["conference_application_id"]
             isOneToOne: false
             referencedRelation: "conference_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insider_referrals: {
+        Row: {
+          context: string
+          created_at: string
+          founder_note: string | null
+          id: string
+          nominee_email: string
+          nominee_name: string
+          nominee_organization: string | null
+          nominee_role: string | null
+          referrer_id: string
+          resulting_invitation_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          context: string
+          created_at?: string
+          founder_note?: string | null
+          id?: string
+          nominee_email: string
+          nominee_name: string
+          nominee_organization?: string | null
+          nominee_role?: string | null
+          referrer_id: string
+          resulting_invitation_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          context?: string
+          created_at?: string
+          founder_note?: string | null
+          id?: string
+          nominee_email?: string
+          nominee_name?: string
+          nominee_organization?: string | null
+          nominee_role?: string | null
+          referrer_id?: string
+          resulting_invitation_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insider_referrals_resulting_invitation_id_fkey"
+            columns: ["resulting_invitation_id"]
+            isOneToOne: false
+            referencedRelation: "insider_invitations"
             referencedColumns: ["id"]
           },
         ]
