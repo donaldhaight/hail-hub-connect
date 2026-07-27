@@ -19,13 +19,13 @@ const DESC = "Your private page for the PrepareAmerica Conference — November 1
 
 export const Route = createFileRoute("/prepare-america/confirmed")({
   validateSearch: (s) => search.parse(s),
-  head: () => ({
-    ...routeHead({ title: TITLE, description: DESC, path: "/prepare-america/confirmed" }),
-    meta: [
-      ...routeHead({ title: TITLE, description: DESC, path: "/prepare-america/confirmed" }).meta,
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
+  head: () => {
+    const base = routeHead({ title: TITLE, description: DESC, path: "/prepare-america/confirmed" });
+    return {
+      ...base,
+      meta: [...base.meta, { name: "robots", content: "noindex, nofollow" }],
+    };
+  },
   component: Confirmed,
 });
 
