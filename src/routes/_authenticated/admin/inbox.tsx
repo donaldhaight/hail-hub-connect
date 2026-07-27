@@ -197,13 +197,29 @@ function Inbox() {
                   {capacity.available > 0 ? ` · ${capacity.available} available` : " · sold out"}
                 </div>
               </div>
-              <div className="flex-1 min-w-[200px] max-w-md">
-                <div className="h-2 w-full bg-muted">
+              <div className="flex flex-1 min-w-[200px] max-w-md items-center gap-3">
+                <div className="h-2 flex-1 bg-muted">
                   <div
                     className="h-2 bg-navy transition-all"
                     style={{ width: `${Math.min(100, (capacity.confirmed / capacity.total) * 100)}%` }}
                   />
                 </div>
+                <button
+                  onClick={async () => {
+                    const r = await loadAttendees();
+                    const csv = attendeesToCsv(r.rows);
+                    const blob = new Blob([csv], { type: "text/csv" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `prepare-america-attendees-${new Date().toISOString().slice(0, 10)}.csv`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  className="shrink-0 border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy"
+                >
+                  Export attendees
+                </button>
               </div>
             </div>
           </div>
