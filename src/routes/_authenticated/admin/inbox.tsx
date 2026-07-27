@@ -97,6 +97,9 @@ function Inbox() {
   const updateSeat = useServerFn(updateConferenceSeat);
   const promoteSeat = useServerFn(promoteFromWaitlist);
   const loadAttendees = useServerFn(listConferenceAttendees);
+  const listRefs = useServerFn(listReferrals);
+  const updRef = useServerFn(updateReferralStatus);
+  const approveRef = useServerFn(approveReferralAndInvite);
 
   useEffect(() => {
     myRoles()
