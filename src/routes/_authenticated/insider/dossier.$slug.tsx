@@ -13,6 +13,8 @@ import {
   type DossierSectionRow,
 } from "@/lib/dossier.functions";
 import { DossierDiscussion } from "@/components/briefing/DossierDiscussion";
+import { DossierAttachments } from "@/components/briefing/DossierAttachments";
+import { useSectionReads, formatDwell } from "@/hooks/useSectionReads";
 import {
   DossierMetaEditor,
   DossierSectionEditor,
