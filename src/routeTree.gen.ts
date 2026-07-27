@@ -23,6 +23,7 @@ import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
+import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
@@ -96,6 +97,12 @@ const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   path: '/admin/inbox',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminDigestRoute =
+  AuthenticatedAdminDigestRouteImport.update({
+    id: '/admin/digest',
+    path: '/admin/digest',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedInsiderDossierSlugRoute =
   AuthenticatedInsiderDossierSlugRouteImport.update({
     id: '/insider/dossier/$slug',
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
@@ -130,6 +138,7 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
@@ -148,6 +157,7 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/admin/digest'
     | '/admin/inbox'
     | '/admin/signals'
     | '/insider/'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/admin/digest'
     | '/admin/inbox'
     | '/admin/signals'
     | '/insider'
@@ -199,6 +211,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
+    | '/_authenticated/admin/digest'
     | '/_authenticated/admin/inbox'
     | '/_authenticated/admin/signals'
     | '/_authenticated/insider/'
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/digest': {
+      id: '/_authenticated/admin/digest'
+      path: '/admin/digest'
+      fullPath: '/admin/digest'
+      preLoaderRoute: typeof AuthenticatedAdminDigestRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/insider/dossier/$slug': {
       id: '/_authenticated/insider/dossier/$slug'
       path: '/insider/dossier/$slug'
@@ -330,6 +350,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
@@ -337,6 +358,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,

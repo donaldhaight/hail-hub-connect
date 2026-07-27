@@ -1,11 +1,11 @@
 import { createFileRoute, redirect, Link, notFound } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 import { TruthChip } from "@/components/briefing/Badges";
 import { DOSSIERS_BY_SLUG, neighbors } from "@/content/dossiers";
-import { logDossierOpen } from "@/lib/dossier.functions";
+import { logDossierOpen, getInsiderWhatsNew } from "@/lib/dossier.functions";
 import { DossierDiscussion } from "@/components/briefing/DossierDiscussion";
 
 export const Route = createFileRoute("/_authenticated/insider/dossier/$slug")({
