@@ -199,12 +199,12 @@ function Inbox() {
             </TabBtn>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setInviteOpen(true)}
+            <Link
+              to="/admin/invite"
               className="border border-ink bg-ink px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
             >
-              Invite insider directly
-            </button>
+              Invite someone
+            </Link>
             <a href="/admin/signals" className="text-xs text-muted-foreground hover:text-ink">Signals →</a>
             <a href="/admin/reads" className="text-xs text-muted-foreground hover:text-ink">Read heatmap →</a>
             <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
