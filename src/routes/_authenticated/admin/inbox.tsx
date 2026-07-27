@@ -12,6 +12,12 @@ import {
   getMyRoles,
 } from "@/lib/inbox.functions";
 import {
+  getConferenceCapacitySummary,
+  updateConferenceSeat,
+  promoteFromWaitlist,
+  listConferenceAttendees,
+} from "@/lib/conference.functions";
+import {
   grantInsiderAccess,
   getInvitationForRequest,
   grantInsiderAccessFromConference,
