@@ -1526,14 +1526,15 @@ function ItineraryEditor() {
 type ReferralRow = {
   id: string;
   referrer_email: string;
-  referred_name: string;
-  referred_email: string;
-  referred_organization: string | null;
-  reason: string | null;
+  nominee_name: string;
+  nominee_email: string;
+  nominee_organization: string | null;
+  nominee_role: string | null;
+  context: string;
   status: "pending" | "approved" | "declined" | "invited";
   founder_note: string | null;
   created_at: string;
-  invitation_id: string | null;
+  resulting_invitation_id: string | null;
 };
 
 function ReferralsPanel({
