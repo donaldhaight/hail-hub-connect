@@ -238,12 +238,6 @@ function Inbox() {
         ) : null}
 
         {tab === "briefings" || tab === "conference" ? (
-          <FiltersRow />
-        ) : null}
-
-        {tab === "itinerary" ? null : null}
-
-        {(false) && (tab === "briefings" || tab === "conference") ? (
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <button
               onClick={() => setStatus("")}
