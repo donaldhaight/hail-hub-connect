@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,7 +22,6 @@ import {
   getInvitationForRequest,
   grantInsiderAccessFromConference,
   getInvitationForConference,
-  inviteInsiderDirect,
   listInvitations,
   revokeInvitation,
   resendInvitation,
@@ -62,7 +61,6 @@ type Row = Record<string, any>;
 function Inbox() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations" | "itinerary" | "referrals">("briefings");
-  const [inviteOpen, setInviteOpen] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
@@ -92,7 +90,6 @@ function Inbox() {
   const listInv = useServerFn(listInvitations);
   const revokeInv = useServerFn(revokeInvitation);
   const resendInv = useServerFn(resendInvitation);
-  const inviteDirect = useServerFn(inviteInsiderDirect);
   const loadCapacity = useServerFn(getConferenceCapacitySummary);
   const updateSeat = useServerFn(updateConferenceSeat);
   const promoteSeat = useServerFn(promoteFromWaitlist);
@@ -200,12 +197,12 @@ function Inbox() {
             </TabBtn>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setInviteOpen(true)}
+            <Link
+              to="/admin/invite"
               className="border border-ink bg-ink px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
             >
-              Invite insider directly
-            </button>
+              Invite someone
+            </Link>
             <a href="/admin/signals" className="text-xs text-muted-foreground hover:text-ink">Signals →</a>
             <a href="/admin/reads" className="text-xs text-muted-foreground hover:text-ink">Read heatmap →</a>
             <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
@@ -415,12 +412,23 @@ function Inbox() {
             </ul>
           </div>
         ) : tab === "invitations" ? (
-          <InvitationsTable
-            rows={rows}
-            loading={loading}
-            onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
-            onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
-          />
+          <div>
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="font-serif text-lg text-ink">Invitations</h2>
+              <Link
+                to="/admin/invite"
+                className="border border-ink bg-ink px-3 py-1.5 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
+              >
+                New invitation
+              </Link>
+            </div>
+            <InvitationsTable
+              rows={rows}
+              loading={loading}
+              onRevoke={async (id) => { await revokeInv({ data: { id } }); await load(); }}
+              onResend={async (id) => { await resendInv({ data: { id } }); await load(); }}
+            />
+          </div>
         ) : tab === "itinerary" ? (
           <ItineraryEditor />
         ) : tab === "referrals" ? (
@@ -536,16 +544,6 @@ function Inbox() {
           </div>
         )}
       </section>
-      {inviteOpen ? (
-        <DirectInviteModal
-          onClose={() => setInviteOpen(false)}
-          onSubmit={async (payload) => {
-            await inviteDirect({ data: payload });
-            setInviteOpen(false);
-            if (tab === "invitations") await load();
-          }}
-        />
-      ) : null}
     </PageShell>
   );
 }
@@ -678,86 +676,6 @@ function InvitationsTable({
     </div>
   );
 }
-
-function DirectInviteModal({
-  onClose,
-  onSubmit,
-}: {
-  onClose: () => void;
-  onSubmit: (payload: { email: string; fullName: string; organization: string; roleCategory: string; internalNote: string }) => Promise<void>;
-}) {
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [organization, setOrganization] = useState("");
-  const [roleCategory, setRoleCategory] = useState("Executive");
-  const [internalNote, setInternalNote] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true); setErr(null);
-    try {
-      await onSubmit({ email: email.trim(), fullName: fullName.trim(), organization: organization.trim(), roleCategory, internalNote: internalNote.trim() });
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to invite");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4" onClick={onClose}>
-      <form
-        onSubmit={submit}
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg space-y-4 border border-border bg-paper p-6"
-      >
-        <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Direct invitation</div>
-          <h2 className="mt-1 font-serif text-2xl text-ink">Invite an insider.</h2>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Bypass the public form. Creates a single-use token valid for 30 days. Applicant email will send once the sender domain is verified.
-          </p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <label className="block text-xs">
-            <span className="font-mono uppercase tracking-[0.14em] text-silver">Full name</span>
-            <input required value={fullName} onChange={(e) => setFullName(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
-          </label>
-          <label className="block text-xs">
-            <span className="font-mono uppercase tracking-[0.14em] text-silver">Email</span>
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
-          </label>
-          <label className="block text-xs">
-            <span className="font-mono uppercase tracking-[0.14em] text-silver">Organization</span>
-            <input value={organization} onChange={(e) => setOrganization(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none" />
-          </label>
-          <label className="block text-xs">
-            <span className="font-mono uppercase tracking-[0.14em] text-silver">Role category</span>
-            <select value={roleCategory} onChange={(e) => setRoleCategory(e.target.value)} className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none">
-              {["Executive", "Investor", "Contractor", "Government", "Counsel", "Advisor", "Other"].map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <label className="block text-xs">
-          <span className="font-mono uppercase tracking-[0.14em] text-silver">Internal note (private)</span>
-          <textarea value={internalNote} onChange={(e) => setInternalNote(e.target.value)} rows={3} className="mt-1 w-full border border-border bg-paper p-2 text-sm text-ink focus:border-navy focus:outline-none" />
-        </label>
-        {err ? <div className="border border-destructive/40 bg-destructive/5 p-2 text-xs text-destructive">{err}</div> : null}
-        <div className="flex items-center justify-end gap-2">
-          <button type="button" onClick={onClose} className="text-xs text-silver hover:text-ink">Cancel</button>
-          <button type="submit" disabled={busy} className="border border-ink bg-ink px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy disabled:opacity-50">
-            {busy ? "Sending…" : "Issue invitation"}
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
 
 function activityCsv(rows: Row[]): string {
   if (rows.length === 0) return "";

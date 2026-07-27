@@ -1,26 +1,40 @@
-## What happened with sign-in
+## Sprint 0.19 — Founder Invite Surface
 
-You did nothing wrong. The password I seeded, `Admin`, is only 5 characters. The sign-in form's `minLength={8}` HTML attribute blocks the browser from even submitting it — that's the "must be 8 characters" tooltip you saw. Email is unrelated: password sign-in doesn't send email at all.
+**Goal:** Make founder-driven insider invitations impossible to miss and pleasant to send.
 
-Two things to fix, and one thing you asked for (the screenshots) I can do right now.
+### Current state
+- The founder inbox has an "Invite insider directly" button that opens a small inline modal, but it blends into the tab bar and is easy to miss.
+- There is no dedicated `/admin/invite` route or persistent nav link.
+- The invite form fields and post-send experience (copy link, resend, revoke) are usable but cramped inside the inbox layout.
 
-## Plan
+### Proposed work
 
-### 1. Show you the UI screenshots in this chat (immediate)
+1. **Dedicated invite page** (`/_authenticated/admin/invite.tsx`)
+   - Full-width form with fields: email, full name, organization, role/category, internal founder note.
+   - Zod validation matching the existing `inviteInsiderDirect` server function.
+   - On submit, call `inviteInsiderDirect`, then display the generated `/insider/accept?token=...` link with a one-click copy button and a "Send another" reset.
+   - Show a live preview of the invitation email body (plain text) so the founder knows what the recipient will see once email sending is enabled.
 
-Copy the 12 captured public-page screenshots from `src/assets/tour/` to `/mnt/documents/tour/` and render them inline in my next reply as an image gallery. No public link needed — they'll appear directly on the chat card. Covers: Home, Why RRCA, Industry Problem, Proof of Concept, Vision, PrepareAmerica, Founder, Investors, Policy, Why PrepareAmerica, Request Briefing, and the Sign-In page. Interior admin/insider surfaces weren't captured (they need a signed-in session); I'll flag that and offer to capture them next.
+2. **Persistent navigation affordance**
+   - Add an "Invite" link to the authenticated header for `founder_admin` users, pointing to `/admin/invite`.
+   - Keep the existing inbox button but relabel it "Invite someone" and make it route to `/admin/invite` instead of opening the modal.
 
-### 2. Reset your founder password to something ≥ 8 chars
+3. **Inbox invitations tab polish**
+   - Add a "New invitation" button on the Invitations tab that also routes to `/admin/invite`.
+   - Add copy-link and resend actions directly on each pending invitation row.
 
-Re-seed a temporary API route that resets the password on the existing `Donald.Haight@rrcausa.com` account (the account and `founder_admin` role are already in place — verified last turn). You pick the new password; suggested: something like `ClaimStore2026!` or any 8+ char string you prefer. Endpoint self-deletes after use.
+4. **Email preview / stub clarity**
+   - Since email sending is still deferred, surface a non-blocking notice: "Email sending is not configured — copy the link and send it manually for now."
 
-Alternative if you'd rather not use a temp endpoint: open `/auth`, click **Forgot password?**, and I'll walk you through the reset. This requires the auth email provider to be sending — which you mentioned deferring while driving, so it may or may not deliver. The temp-endpoint path is more reliable right now.
+### Out of scope
+- Public "request an invite" form.
+- Expanding insider peer referrals (already exists at `/insider/refer`).
+- Bulk CSV upload of invites.
 
-### 3. Confirm the fix
+### Acceptance criteria
+- A founder can sign in, click "Invite" in the header, fill the form, and copy a working invitation link.
+- The existing inbox invitation list remains functional and gains a clear path to the new page.
+- Build passes and the new route is noindex/nofollow.
 
-After the reset, sign in at `/auth` with the new password and land on `/admin/inbox`.
-
-## Questions before I execute
-
-1. **New password?** Tell me the exact string you want (8+ chars). If you'd rather I pick, I'll use `ClaimStore2026!`.
-2. **Want the interior screenshots too?** I can run a second Playwright pass signed in as you and add `/admin/inbox`, `/admin/digest`, `/admin/signals`, `/admin/reads`, `/insider`, and a dossier reader to the gallery.
+### Next step
+Approve this plan and I'll implement Sprint 0.19.

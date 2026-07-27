@@ -15,13 +15,29 @@ const NAV = [
 export function Header() {
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
+  const [isFounder, setIsFounder] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) =>
-      setSignedIn(!!session),
-    );
+    async function checkAuth() {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData.session;
+      setSignedIn(!!session);
+      if (session) {
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id);
+        setIsFounder((roles ?? []).some((r) => r.role === "founder_admin"));
+      } else {
+        setIsFounder(false);
+      }
+    }
+    checkAuth();
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSignedIn(!!session);
+      if (!session) setIsFounder(false);
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -84,6 +100,14 @@ export function Header() {
               >
                 Inbox
               </Link>
+              {isFounder ? (
+                <Link
+                  to="/admin/invite"
+                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper lg:inline"
+                >
+                  Invite
+                </Link>
+              ) : null}
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -180,6 +204,18 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
+                  {isFounder ? (
+                    <li>
+                      <Link
+                        to="/admin/invite"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
+                      >
+                        Invite
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </li>
+                  ) : null}
                   <li>
                     <button
                       type="button"
