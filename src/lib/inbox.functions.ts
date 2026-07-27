@@ -75,7 +75,7 @@ export const listConferenceApplications = createServerFn({ method: "POST" })
       .select("*")
       .order("created_at", { ascending: false })
       .limit(500);
-    if (data.status) q = q.eq("status", data.status);
+    if (data.status) q = q.eq("seat_status", data.status);
     if (data.search) {
       const s = `%${data.search}%`;
       q = q.or(`name.ilike.${s},email.ilike.${s},organization.ilike.${s}`);
