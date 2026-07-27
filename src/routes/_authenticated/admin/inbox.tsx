@@ -110,6 +110,10 @@ function Inbox() {
         const r = await fn({ data: { status: status || undefined, search: search || undefined } });
         setRows(r.rows);
       }
+      if (tab === "conference") {
+        const cap = await loadCapacity();
+        setCapacity(cap);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
     } finally {
