@@ -22,7 +22,6 @@ import {
   getInvitationForRequest,
   grantInsiderAccessFromConference,
   getInvitationForConference,
-  inviteInsiderDirect,
   listInvitations,
   revokeInvitation,
   resendInvitation,
