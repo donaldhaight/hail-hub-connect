@@ -78,6 +78,10 @@ function Inbox() {
   const revokeInv = useServerFn(revokeInvitation);
   const resendInv = useServerFn(resendInvitation);
   const inviteDirect = useServerFn(inviteInsiderDirect);
+  const loadCapacity = useServerFn(getConferenceCapacitySummary);
+  const updateSeat = useServerFn(updateConferenceSeat);
+  const promoteSeat = useServerFn(promoteFromWaitlist);
+  const loadAttendees = useServerFn(listConferenceAttendees);
 
   useEffect(() => {
     myRoles()
