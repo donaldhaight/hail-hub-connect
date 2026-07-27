@@ -1593,12 +1593,12 @@ function ReferralsPanel({
             <tr key={r.id} className="border-t border-border align-top">
               <td className="p-3 text-xs text-muted-foreground font-mono whitespace-nowrap">{new Date(r.created_at).toLocaleDateString()}</td>
               <td className="p-3">
-                <div className="text-ink">{r.referred_name}</div>
-                <div className="text-xs text-muted-foreground">{r.referred_email}</div>
-                {r.referred_organization ? <div className="text-xs text-muted-foreground">{r.referred_organization}</div> : null}
+                <div className="text-ink">{r.nominee_name}</div>
+                <div className="text-xs text-muted-foreground">{r.nominee_email}</div>
+                {r.nominee_organization ? <div className="text-xs text-muted-foreground">{r.nominee_organization}</div> : null}
               </td>
               <td className="p-3 text-xs text-muted-foreground">{r.referrer_email}</td>
-              <td className="p-3 text-xs text-ink/80 max-w-[24ch]">{r.reason || <span className="text-silver">—</span>}</td>
+              <td className="p-3 text-xs text-ink/80 max-w-[24ch]">{r.context || <span className="text-silver">—</span>}</td>
               <td className="p-3">
                 <span className="inline-flex items-center border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   {r.status}
