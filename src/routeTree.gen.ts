@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
@@ -35,6 +36,11 @@ const WhyRrcaRoute = WhyRrcaRouteImport.update({
 const VisionRoute = VisionRouteImport.update({
   id: '/vision',
   path: '/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestBriefingRoute = RequestBriefingRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/prepare-america': typeof PrepareAmericaRoute
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/prepare-america': typeof PrepareAmericaRoute
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/prepare-america': typeof PrepareAmericaRoute
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-rrca': typeof WhyRrcaRoute
   '/insider/accept': typeof InsiderAcceptRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/sitemap.xml'
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/sitemap.xml'
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/prepare-america'
     | '/proof-of-concept'
     | '/request-briefing'
+    | '/sitemap.xml'
     | '/vision'
     | '/why-rrca'
     | '/insider/accept'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   PrepareAmericaRoute: typeof PrepareAmericaRoute
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
   WhyRrcaRoute: typeof WhyRrcaRoute
   InsiderAcceptRoute: typeof InsiderAcceptRoute
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/vision'
       fullPath: '/vision'
       preLoaderRoute: typeof VisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-briefing': {
@@ -398,6 +418,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrepareAmericaRoute: PrepareAmericaRoute,
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
   WhyRrcaRoute: WhyRrcaRoute,
   InsiderAcceptRoute: InsiderAcceptRoute,
