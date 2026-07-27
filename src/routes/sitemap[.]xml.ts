@@ -20,6 +20,14 @@ const ENTRIES: Entry[] = [
   { path: "/investors", changefreq: "monthly", priority: "0.8" },
   { path: "/policy", changefreq: "monthly", priority: "0.8" },
   { path: "/founder", changefreq: "monthly", priority: "0.7" },
+  { path: "/architecture", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/united-stakeholders", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/market-applications", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/buddy-claim", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/selfinsurity", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/claimstore", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/rrca", changefreq: "monthly", priority: "0.8" },
+  { path: "/b/kimosabe", changefreq: "monthly", priority: "0.8" },
   { path: "/request-briefing", changefreq: "monthly", priority: "0.6" },
 ];
 
