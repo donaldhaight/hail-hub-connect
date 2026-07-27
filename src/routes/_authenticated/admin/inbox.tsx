@@ -62,7 +62,6 @@ type Row = Record<string, any>;
 function Inbox() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<"briefings" | "conference" | "activity" | "discussion" | "invitations" | "itinerary" | "referrals">("briefings");
-  const [inviteOpen, setInviteOpen] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [search, setSearch] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
