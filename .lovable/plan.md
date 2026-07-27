@@ -1,28 +1,26 @@
-## Sprint 0.18a — Seed Founder Admin Account
+## What happened with sign-in
 
-### What you asked for
-Create `Donald.Haight@rrcausa.com` with password `Admin` and grant it founder-admin rights.
+You did nothing wrong. The password I seeded, `Admin`, is only 5 characters. The sign-in form's `minLength={8}` HTML attribute blocks the browser from even submitting it — that's the "must be 8 characters" tooltip you saw. Email is unrelated: password sign-in doesn't send email at all.
 
-### Two things to flag before we build
+Two things to fix, and one thing you asked for (the screenshots) I can do right now.
 
-1. **Password strength.** `Admin` is 5 characters and almost certainly below Supabase's minimum (default 6) and will trip the HIBP leaked-password check we discussed enabling. I'd like to seed the account with a temporary password of your choice (min 8 chars, e.g. `Admin!2026` or similar) and force a reset on first login. If you insist on literal `Admin`, I'll disable HIBP for the seed and re-enable it after — but that's a real security hole for a site aimed at C-levels and VCs.
-2. **Google is the primary path.** The app is wired for Google OAuth. An email/password account works, but if you plan to sign in with Google using this same address, sign in with Google *first* — Supabase will link the identities. Otherwise the two identities can collide.
+## Plan
 
-### Plan (executes in build mode after you approve)
+### 1. Show you the UI screenshots in this chat (immediate)
 
-1. **Confirm email/password auth is enabled** in Lovable Cloud auth settings (read-only check; enable if off — you already have Google on).
-2. **One-shot seed server function** `src/lib/seed-founder.functions.ts` (public route, guarded so it only runs when *no* `founder_admin` exists yet, then self-disables):
-   - Uses `supabaseAdmin.auth.admin.createUser({ email, password, email_confirm: true })`.
-   - Inserts `('<uid>', 'founder_admin')` into `public.user_roles`.
-   - Returns `{ ok: true }` or a clear reason (already exists, weak password, etc.).
-3. **Trigger the seed once** via `stack_modern--invoke-server-function` from my side — no UI, no leftover endpoint exposed on the published site (the function checks "founder already exists" and refuses subsequent calls).
-4. **Verify** by signing in at `/auth` with the credentials, confirming `/admin/inbox`, `/admin/digest`, `/admin/reads`, `/admin/tour` all load.
-5. **Docs**: add a line to `docs/DECISIONS.md` recording the seeded founder identity and the "first Google sign-in also becomes founder" fallback that already exists in `inbox.functions.ts`.
+Copy the 12 captured public-page screenshots from `src/assets/tour/` to `/mnt/documents/tour/` and render them inline in my next reply as an image gallery. No public link needed — they'll appear directly on the chat card. Covers: Home, Why RRCA, Industry Problem, Proof of Concept, Vision, PrepareAmerica, Founder, Investors, Policy, Why PrepareAmerica, Request Briefing, and the Sign-In page. Interior admin/insider surfaces weren't captured (they need a signed-in session); I'll flag that and offer to capture them next.
 
-### What I need from you before executing
+### 2. Reset your founder password to something ≥ 8 chars
 
-- **Password**: keep literal `Admin` (weak, I'll note the risk) **or** give me a stronger temporary one. Reply with the password you want and I'll switch to build mode and run the seed.
-- Confirm the email is exactly `Donald.Haight@rrcausa.com` (case-insensitive on Supabase's side, but I'll store it as written).
+Re-seed a temporary API route that resets the password on the existing `Donald.Haight@rrcausa.com` account (the account and `founder_admin` role are already in place — verified last turn). You pick the new password; suggested: something like `ClaimStore2026!` or any 8+ char string you prefer. Endpoint self-deletes after use.
 
-### Note on current state (verified)
-No admin account has been provisioned by me in prior sprints. The existing fallback in `src/lib/inbox.functions.ts` auto-promotes the *first* signed-in user to `founder_admin` if none exists — so if you'd rather just sign in with Google once at `/auth`, you become founder automatically and we can skip the password seed entirely. Say the word.
+Alternative if you'd rather not use a temp endpoint: open `/auth`, click **Forgot password?**, and I'll walk you through the reset. This requires the auth email provider to be sending — which you mentioned deferring while driving, so it may or may not deliver. The temp-endpoint path is more reliable right now.
+
+### 3. Confirm the fix
+
+After the reset, sign in at `/auth` with the new password and land on `/admin/inbox`.
+
+## Questions before I execute
+
+1. **New password?** Tell me the exact string you want (8+ chars). If you'd rather I pick, I'll use `ClaimStore2026!`.
+2. **Want the interior screenshots too?** I can run a second Playwright pass signed in as you and add `/admin/inbox`, `/admin/digest`, `/admin/signals`, `/admin/reads`, `/insider`, and a dossier reader to the gallery.
