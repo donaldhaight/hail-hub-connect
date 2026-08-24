@@ -48,7 +48,7 @@ function ArchitecturePage() {
                 Center
               </div>
               <Link
-                to={`/b/${center.slug}`}
+                to={`/b/${center.slug}` as any}
                 className="mt-1 block font-serif text-xl text-ink hover:text-navy"
               >
                 {center.brandName}
@@ -141,7 +141,7 @@ function BrandCard({
 }) {
   return (
     <Link
-      to={`/b/${slug}`}
+      to={`/b/${slug}` as any}
       className="block border border-border bg-background p-4 hover:border-ink"
     >
       <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-silver">
