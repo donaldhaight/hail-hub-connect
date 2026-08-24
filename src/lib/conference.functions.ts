@@ -15,7 +15,7 @@ export const getConferenceCapacitySummary = createServerFn({ method: "GET" })
 
 export const getPublicConferenceStatus = createServerFn({ method: "GET" }).handler(async () => {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    const { capacitySnapshot } = await import("./conference.server");
   return capacitySnapshot(supabaseAdmin);
 });
 
@@ -146,7 +146,7 @@ export const listConferenceAttendees = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    const { assertFounder } = await import("./conference.server");
     await assertFounder(context);
     const { data, error } = await supabaseAdmin
       .from("conference_applications")
@@ -165,7 +165,7 @@ export const listConferenceSeatEvents = createServerFn({ method: "POST" })
   .validator((d: unknown) => z.object({ applicationId: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    const { assertFounder } = await import("./conference.server");
     await assertFounder(context);
     const { data: rows, error } = await supabaseAdmin
       .from("conference_seat_events")
