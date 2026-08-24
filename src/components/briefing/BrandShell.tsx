@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { PageShell } from "./PageShell";
 import { StatusChip } from "./Badges";
 import type { Brand } from "@/content/brands";
+import { useSignedIn } from "@/hooks/useSignedIn";
 
 /**
  * BrandShell — a per-brand front door built on the shared PageShell.
@@ -28,6 +29,8 @@ export function BrandShell({
 }
 
 function BrandHero({ brand }: { brand: Brand }) {
+  const signedIn = useSignedIn();
+  const reveal = signedIn === true;
   return (
     <section className="border-b border-border">
       <div className="mx-auto max-w-6xl px-6 pt-16 pb-14 md:pt-24 md:pb-20">
@@ -41,9 +44,9 @@ function BrandHero({ brand }: { brand: Brand }) {
         <div className="mb-3 text-[11px] font-mono uppercase tracking-[0.28em] text-[color:var(--brand-accent)]">
           Vertical · Layer 1
         </div>
-        <div className="font-serif text-5xl leading-[1.02] tracking-tight text-ink md:text-7xl">
+        <h1 className="font-serif text-5xl leading-[1.02] tracking-tight text-ink md:text-7xl">
           {brand.vertical}
-        </div>
+        </h1>
         <p className="mt-2 max-w-[52ch] text-sm text-muted-foreground">
           {brand.verticalRole}
         </p>
@@ -54,7 +57,13 @@ function BrandHero({ brand }: { brand: Brand }) {
             Brand · Layer 2
           </div>
           <div className="font-serif text-3xl leading-tight text-ink md:text-4xl">
-            {brand.brandName}
+            {reveal ? (
+              brand.brandName
+            ) : (
+              <span className="text-muted-foreground">
+                Named on request
+              </span>
+            )}
           </div>
           <p className="mt-3 max-w-[58ch] text-lg leading-relaxed text-pretty text-muted-foreground">
             {brand.tagline}
@@ -70,7 +79,7 @@ function BrandHero({ brand }: { brand: Brand }) {
             Domain · Layer 3
           </div>
           <div className="font-mono text-sm text-muted-foreground">
-            {brand.domain}
+            {reveal ? brand.domain : "Disclosed under briefing"}
           </div>
         </div>
 
