@@ -43,8 +43,7 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
             return (
               <li key={brand.id}>
                 <Link
-                  to="/b/$slug"
-                  params={{ slug: brand.slug }}
+                  to={`/b/${brand.slug}` as any}
                   className="flex items-center justify-between py-2.5 text-[14px] text-ink"
                 >
                   <span>
@@ -89,8 +88,7 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
               return (
                 <li key={brand.id}>
                   <Link
-                    to="/b/$slug"
-                    params={{ slug: brand.slug }}
+                    to={`/b/${brand.slug}` as any}
                     onClick={() => setOpen(false)}
                     className="flex items-start justify-between gap-3 border-b border-border px-4 py-3 hover:bg-muted"
                   >
