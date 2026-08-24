@@ -16,6 +16,7 @@ export const Route = createFileRoute("/architecture")({
 function ArchitecturePage() {
   const center = BRANDS.find((b) => b.vertical === "Center")!;
   const outer = BRANDS.filter((b) => b.vertical !== "Center");
+  const reveal = useSignedIn() === true;
 
   return (
     <PageShell>
