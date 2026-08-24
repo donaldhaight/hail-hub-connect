@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { BRANDS } from "@/content/brands";
+import { useSignedIn } from "@/hooks/useSignedIn";
 import { routeHead } from "@/lib/site";
 
 const TITLE = "The Architecture — 1 · 17 · 3,350";
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/architecture")({
 function ArchitecturePage() {
   const center = BRANDS.find((b) => b.vertical === "Center")!;
   const outer = BRANDS.filter((b) => b.vertical !== "Center");
+  const reveal = useSignedIn() === true;
 
   return (
     <PageShell>
@@ -39,7 +41,7 @@ function ArchitecturePage() {
         <div className="mt-8 border border-border bg-muted/30 p-6">
           <div className="grid gap-3 md:grid-cols-3">
             {outer.slice(0, 3).map((b) => (
-              <BrandCard key={b.id} slug={b.slug} vertical={b.vertical} name={b.brandName} role={b.verticalRole} />
+              <BrandCard key={b.id} slug={b.slug} vertical={b.vertical} name={reveal ? b.brandName : null} role={b.verticalRole} />
             ))}
           </div>
           <div className="my-6 flex items-center justify-center">
@@ -51,7 +53,7 @@ function ArchitecturePage() {
                 to={`/b/${center.slug}` as any}
                 className="mt-1 block font-serif text-xl text-ink hover:text-navy"
               >
-                {center.brandName}
+                {reveal ? center.brandName : "Named on request"}
               </Link>
               <div className="mt-1 text-xs text-muted-foreground">
                 {center.verticalRole}
@@ -60,7 +62,7 @@ function ArchitecturePage() {
           </div>
           <div className="grid gap-3 md:grid-cols-3">
             {outer.slice(3).map((b) => (
-              <BrandCard key={b.id} slug={b.slug} vertical={b.vertical} name={b.brandName} role={b.verticalRole} />
+              <BrandCard key={b.id} slug={b.slug} vertical={b.vertical} name={reveal ? b.brandName : null} role={b.verticalRole} />
             ))}
           </div>
         </div>
@@ -136,7 +138,7 @@ function BrandCard({
 }: {
   slug: string;
   vertical: string;
-  name: string;
+  name: string | null;
   role: string;
 }) {
   return (
@@ -147,7 +149,9 @@ function BrandCard({
       <div className="text-[10px] font-mono uppercase tracking-[0.22em] text-silver">
         {vertical}
       </div>
-      <div className="mt-1 font-serif text-lg text-ink">{name}</div>
+      <div className="mt-1 font-serif text-lg text-ink">
+        {name ?? <span className="text-muted-foreground">Named on request</span>}
+      </div>
       <div className="mt-1 text-xs text-muted-foreground">{role}</div>
     </Link>
   );

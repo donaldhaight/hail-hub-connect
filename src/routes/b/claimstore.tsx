@@ -8,7 +8,7 @@ const brand = getBrand("claimstore")!;
 export const Route = createFileRoute("/b/claimstore")({
   head: () =>
     routeHead({
-      title: `${brand.brandName} — ${brand.vertical}`,
+      title: `${brand.vertical} — The Human Blockchain`,
       description: brand.oneLineValue,
       path: "/b/claimstore",
     }),
