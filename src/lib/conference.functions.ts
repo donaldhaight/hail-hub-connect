@@ -4,53 +4,18 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { updateConferenceSeatSchema } from "./inbox.schemas";
 import { sendEmail } from "./email";
 
-const TOTAL_SEATS = 300;
-
-async function assertFounder(ctx: { supabase: any; userId: string }) {
-  const { data, error } = await ctx.supabase.rpc("has_role", {
-    _user_id: ctx.userId,
-    _role: "founder_admin",
-  });
-  if (error) throw new Error("Authorization check failed");
-  if (!data) throw new Error("Forbidden");
-}
-
-async function capacitySnapshot(supabaseAdmin: any) {
-  const { data: confirmedRows, error: confErr } = await supabaseAdmin
-    .from("conference_applications")
-    .select("plus_ones")
-    .eq("seat_status", "confirmed");
-  if (confErr) throw new Error("Failed to read confirmed seats");
-
-  const { count: waitlisted, error: waitErr } = await supabaseAdmin
-    .from("conference_applications")
-    .select("id", { count: "exact", head: true })
-    .eq("seat_status", "waitlisted");
-  if (waitErr) throw new Error("Failed to read waitlist");
-
-  const confirmedSeats = (confirmedRows ?? []).reduce(
-    (sum: number, r: { plus_ones: number }) => sum + 1 + (r.plus_ones ?? 0),
-    0,
-  );
-
-  return {
-    total: TOTAL_SEATS,
-    confirmed: confirmedSeats,
-    waitlisted: waitlisted ?? 0,
-    available: Math.max(0, TOTAL_SEATS - confirmedSeats),
-  };
-}
-
 export const getConferenceCapacitySummary = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    await assertFounder(context);
     return capacitySnapshot(supabaseAdmin);
   });
 
 export const getPublicConferenceStatus = createServerFn({ method: "GET" }).handler(async () => {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { capacitySnapshot } = await import("./conference.server");
   return capacitySnapshot(supabaseAdmin);
 });
 
@@ -58,8 +23,9 @@ export const updateConferenceSeat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((d: unknown) => updateConferenceSeatSchema.parse(d))
   .handler(async ({ context, data }) => {
-    await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    await assertFounder(context);
 
     const { data: row, error: fetchErr } = await supabaseAdmin
       .from("conference_applications")
@@ -123,14 +89,13 @@ export const updateConferenceSeat = createServerFn({ method: "POST" })
     return { ok: true, seatStatus: finalStatus, confirmedAt };
   });
 
-const promoteSchema = z.object({ id: z.string().uuid(), note: z.string().trim().max(2000).optional() });
-
 export const promoteFromWaitlist = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .validator((d: unknown) => promoteSchema.parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid(), note: z.string().trim().max(2000).optional() }).parse(d))
   .handler(async ({ context, data }) => {
-    await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder, capacitySnapshot } = await import("./conference.server");
+    await assertFounder(context);
 
     const { data: row, error: fetchErr } = await supabaseAdmin
       .from("conference_applications")
@@ -180,8 +145,9 @@ export const promoteFromWaitlist = createServerFn({ method: "POST" })
 export const listConferenceAttendees = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder } = await import("./conference.server");
+    await assertFounder(context);
     const { data, error } = await supabaseAdmin
       .from("conference_applications")
       .select(
@@ -198,8 +164,9 @@ export const listConferenceSeatEvents = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((d: unknown) => z.object({ applicationId: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
-    await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder } = await import("./conference.server");
+    await assertFounder(context);
     const { data: rows, error } = await supabaseAdmin
       .from("conference_seat_events")
       .select("action, note, created_at")
