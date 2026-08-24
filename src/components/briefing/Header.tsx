@@ -5,11 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { QuantumSwitcher } from "./QuantumSwitcher";
 
 const NAV = [
-  { to: "/why-rrca", label: "Why RRCA" },
-  { to: "/industry-problem", label: "Industry Problem" },
-  { to: "/proof-of-concept", label: "Proof of Concept" },
-  { to: "/vision", label: "Vision" },
-  { to: "/prepare-america", label: "PrepareAmerica" },
+  { to: "/why-prepare-america", label: "The Thesis" },
+  { to: "/briefing", label: "The Case Study" },
+  { to: "/architecture", label: "The Architecture" },
+  { to: "/prepare-america", label: "The Conference" },
   { to: "/founder", label: "Founder" },
 ] as const;
 

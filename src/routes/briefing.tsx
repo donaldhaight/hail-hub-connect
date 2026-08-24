@@ -2,25 +2,25 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
 
-const TITLE = "If we can fix the Insurance Restoration Market, we can fix the Government of the United States of America.";
+const TITLE = "Restructure one company. Prove a better industry process.";
 const DESC =
-  "PrepareAmerica Conference · November 1, 2026 · Gratitude Ranch, Flower Mound, Texas. A private convening to review the ClaimStore proof of concept in the open.";
+  "A private briefing on the RRCA restructuring and the ClaimStore proof of concept for the insurance-restoration market. Circulated to referred insiders only.";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/briefing")({
   head: () => ({
     meta: [
-      { title: "PrepareAmerica · November 1, 2026" },
+      { title: `${TITLE} — ClaimStore Briefing Room` },
       { name: "description", content: DESC },
-      { property: "og:title", content: "PrepareAmerica · November 1, 2026" },
+      { property: "og:title", content: "ClaimStore Briefing Room" },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://hail-hub-connect.lovable.app/" },
-      { name: "twitter:title", content: "PrepareAmerica · November 1, 2026" },
+      { property: "og:url", content: "https://hail-hub-connect.lovable.app/briefing" },
+      { name: "twitter:title", content: "ClaimStore Briefing Room" },
       { name: "twitter:description", content: DESC },
     ],
-    links: [{ rel: "canonical", href: "https://hail-hub-connect.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://hail-hub-connect.lovable.app/briefing" }],
   }),
-  component: Index,
+  component: Briefing,
 });
 
 const LADDER = [
@@ -31,70 +31,40 @@ const LADDER = [
   { n: "05", label: "The Venture Foundry", note: "United Stakeholders of America" },
 ];
 
-function Index() {
+function Briefing() {
   return (
     <PageShell>
       {/* Hero */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-24">
           <div className="mb-8">
-            <Meta confidentiality="C0" status="Working Draft v0.2" />
+            <Meta confidentiality="C0" status="Working Draft v0.1" />
           </div>
-          <h1 className="max-w-[22ch] font-serif text-4xl leading-[1.05] tracking-tight text-balance text-ink md:text-6xl lg:text-7xl">
+          <h1 className="max-w-[18ch] font-serif text-5xl leading-[0.98] tracking-tight text-balance text-ink md:text-7xl">
             {TITLE}
           </h1>
           <p className="mt-8 max-w-[58ch] text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
-            The first annual <span className="text-ink">PrepareAmerica Conference</span>.
-            Three hundred industry executives, counsel, capital, and government advisors.
-            One day to review the ClaimStore proof of concept in the open.
+            Roofing &amp; Reconstruction Contractors of America is restructuring in
+            the open. That corrective work is the first operating proof of concept
+            for <span className="text-ink">ClaimStore</span>: a proposed
+            transaction and coordination layer for the insurance-restoration
+            market.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
-              to="/prepare-america"
+              to="/request-briefing"
               className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
             >
-              Attend PrepareAmerica
+              Request a Private Briefing
               <span aria-hidden="true">→</span>
             </Link>
             <Link
-              to="/request-briefing"
+              to="/proof-of-concept"
               className="inline-flex items-center justify-center gap-2 border border-border bg-transparent px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-muted"
             >
-              Request a Private Briefing
+              Read the Concept Brief
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Conference details */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="mb-10">
-            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-              The Convening
-            </div>
-            <h2 className="mt-3 max-w-[24ch] font-serif text-3xl text-ink md:text-4xl">
-              November 1, 2026 · Gratitude Ranch, Flower Mound, Texas
-            </h2>
-          </div>
-          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Date</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">November 1, 2026</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Location</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">Gratitude Ranch, Flower Mound, Texas</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">300 seats · private</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Convener</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">United Stakeholders of America LLC</dd>
-            </div>
-          </dl>
         </div>
       </section>
 
@@ -111,7 +81,7 @@ function Index() {
               <p className="font-serif text-3xl leading-tight text-ink md:text-4xl">
                 Restructure one real contractor. Document every correction.
                 Prove a better process. Then determine whether it can become
-                an industry standard — and a model for coordinated governance.
+                an industry standard.
               </p>
             </blockquote>
           </div>
@@ -149,9 +119,6 @@ function Index() {
           <p className="mt-6 max-w-[60ch] text-sm text-muted-foreground">
             No reader should reach layers 04 or 05 before understanding
             layers 01–03.
-            <Link to="/briefing" className="ml-2 text-ink underline underline-offset-4 hover:text-navy">
-              Read the full briefing
-            </Link>
           </p>
         </div>
       </section>
@@ -204,17 +171,17 @@ function Index() {
             </div>
             <div className="md:col-span-4">
               <Link
-                to="/prepare-america"
+                to="/request-briefing"
                 className="inline-flex w-full items-center justify-between border border-ink bg-ink px-5 py-4 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
               >
-                Attend PrepareAmerica
+                Request a Private Briefing
                 <span aria-hidden="true">→</span>
               </Link>
               <Link
-                to="/request-briefing"
+                to="/prepare-america"
                 className="mt-3 inline-flex w-full items-center justify-between border border-border px-5 py-4 text-sm font-medium text-ink transition-colors hover:bg-muted"
               >
-                Request a Private Briefing
+                PrepareAmerica · Nov 1, 2026
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
