@@ -36,7 +36,10 @@ import { Route as BMarketApplicationsRouteImport } from './routes/b/market-appli
 import { Route as BKimosabeRouteImport } from './routes/b/kimosabe'
 import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
+import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
+import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenticated/manual/print'
+import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
@@ -181,12 +184,29 @@ const BBuddyClaimRoute = BBuddyClaimRouteImport.update({
   path: '/buddy-claim',
   getParentRoute: () => BRouteRoute,
 } as any)
+const AuthenticatedManualIndexRoute =
+  AuthenticatedManualIndexRouteImport.update({
+    id: '/manual/',
+    path: '/manual/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedInsiderIndexRoute =
   AuthenticatedInsiderIndexRouteImport.update({
     id: '/insider/',
     path: '/insider/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedManualPrintRoute =
+  AuthenticatedManualPrintRouteImport.update({
+    id: '/manual/print',
+    path: '/manual/print',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedManualSlugRoute = AuthenticatedManualSlugRouteImport.update({
+  id: '/manual/$slug',
+  path: '/manual/$slug',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedInsiderReferRoute =
   AuthenticatedInsiderReferRouteImport.update({
     id: '/insider/refer',
@@ -273,7 +293,10 @@ export interface FileRoutesByFullPath {
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
+  '/manual/$slug': typeof AuthenticatedManualSlugRoute
+  '/manual/print': typeof AuthenticatedManualPrintRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
+  '/manual/': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRoutesByTo {
@@ -311,7 +334,10 @@ export interface FileRoutesByTo {
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
+  '/manual/$slug': typeof AuthenticatedManualSlugRoute
+  '/manual/print': typeof AuthenticatedManualPrintRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
+  '/manual': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRoutesById {
@@ -351,7 +377,10 @@ export interface FileRoutesById {
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
+  '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
+  '/_authenticated/manual/print': typeof AuthenticatedManualPrintRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
+  '/_authenticated/manual/': typeof AuthenticatedManualIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
 }
 export interface FileRouteTypes {
@@ -391,7 +420,10 @@ export interface FileRouteTypes {
     | '/admin/signals'
     | '/admin/tour'
     | '/insider/refer'
+    | '/manual/$slug'
+    | '/manual/print'
     | '/insider/'
+    | '/manual/'
     | '/insider/dossier/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -429,7 +461,10 @@ export interface FileRouteTypes {
     | '/admin/signals'
     | '/admin/tour'
     | '/insider/refer'
+    | '/manual/$slug'
+    | '/manual/print'
     | '/insider'
+    | '/manual'
     | '/insider/dossier/$slug'
   id:
     | '__root__'
@@ -468,7 +503,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/signals'
     | '/_authenticated/admin/tour'
     | '/_authenticated/insider/refer'
+    | '/_authenticated/manual/$slug'
+    | '/_authenticated/manual/print'
     | '/_authenticated/insider/'
+    | '/_authenticated/manual/'
     | '/_authenticated/insider/dossier/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -685,11 +723,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BBuddyClaimRouteImport
       parentRoute: typeof BRouteRoute
     }
+    '/_authenticated/manual/': {
+      id: '/_authenticated/manual/'
+      path: '/manual'
+      fullPath: '/manual/'
+      preLoaderRoute: typeof AuthenticatedManualIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/insider/': {
       id: '/_authenticated/insider/'
       path: '/insider'
       fullPath: '/insider/'
       preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/manual/print': {
+      id: '/_authenticated/manual/print'
+      path: '/manual/print'
+      fullPath: '/manual/print'
+      preLoaderRoute: typeof AuthenticatedManualPrintRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/manual/$slug': {
+      id: '/_authenticated/manual/$slug'
+      path: '/manual/$slug'
+      fullPath: '/manual/$slug'
+      preLoaderRoute: typeof AuthenticatedManualSlugRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/insider/refer': {
@@ -767,7 +826,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
+  AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
+  AuthenticatedManualPrintRoute: typeof AuthenticatedManualPrintRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
+  AuthenticatedManualIndexRoute: typeof AuthenticatedManualIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
 }
 
@@ -780,7 +842,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
+  AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
+  AuthenticatedManualPrintRoute: AuthenticatedManualPrintRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
+  AuthenticatedManualIndexRoute: AuthenticatedManualIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
 }
 

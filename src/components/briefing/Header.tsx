@@ -58,20 +58,20 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto grid h-14 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="ClaimStore Briefing Room — home">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
+        <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="ClaimStore Briefing Room — home">
           <span className="truncate font-serif text-xl leading-none text-ink">ClaimStore</span>
           <span className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-silver sm:inline">
             Briefing Room
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 xl:flex">
+        <nav aria-label="Primary" className="ml-auto hidden items-center gap-4 xl:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-[13px] text-muted-foreground transition-colors hover:text-ink"
+              className="whitespace-nowrap text-[13px] text-muted-foreground transition-colors hover:text-ink"
               activeProps={{ className: "text-ink", "aria-current": "page" }}
             >
               {item.label}
@@ -84,20 +84,26 @@ export function Header() {
           {signedIn ? (
             <>
               <Link
+                to="/manual"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+              >
+                Manual
+              </Link>
+              <Link
                 to="/admin/tour"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
               >
                 Tour
               </Link>
               <Link
                 to="/admin/digest"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
               >
                 Digest
               </Link>
               <Link
                 to="/admin/inbox"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Inbox
               </Link>
@@ -112,7 +118,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Sign out
               </button>
@@ -120,24 +126,28 @@ export function Header() {
           ) : (
             <Link
               to="/auth"
-              className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+              className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
             >
               Sign in
             </Link>
           )}
-          <Link
-            to="/request-briefing"
-            className="hidden items-center gap-2 border border-ink bg-ink px-3 py-1.5 text-[12px] font-medium text-paper transition-colors hover:bg-navy hover:border-navy sm:inline-flex"
-          >
-            Request a Private Briefing
-            <span aria-hidden="true">→</span>
-          </Link>
-          <Link
-            to="/request-briefing"
-            className="inline-flex shrink-0 items-center border border-ink bg-ink px-2.5 py-1.5 text-[11px] font-medium text-paper sm:hidden"
-          >
-            Briefing
-          </Link>
+          {signedIn ? null : (
+            <Link
+              to="/request-briefing"
+              className="hidden shrink-0 items-center gap-2 whitespace-nowrap border border-ink bg-ink px-3 py-1.5 text-[12px] font-medium text-paper transition-colors hover:bg-navy hover:border-navy sm:inline-flex"
+            >
+              Request a Private Briefing
+              <span aria-hidden="true">→</span>
+            </Link>
+          )}
+          {signedIn ? null : (
+            <Link
+              to="/request-briefing"
+              className="inline-flex shrink-0 items-center border border-ink bg-ink px-2.5 py-1.5 text-[11px] font-medium text-paper sm:hidden"
+            >
+              Briefing
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -178,6 +188,16 @@ export function Header() {
               </li>
               {signedIn ? (
                 <>
+                  <li>
+                    <Link
+                      to="/manual"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Manual
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
                   <li>
                     <Link
                       to="/admin/tour"

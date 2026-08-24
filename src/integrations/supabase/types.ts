@@ -719,6 +719,108 @@ export type Database = {
           },
         ]
       }
+      manual_chapters: {
+        Row: {
+          body: string
+          confidentiality: string
+          created_at: string
+          id: string
+          number_label: string | null
+          part: string
+          position: number
+          slug: string
+          subtitle: string | null
+          title: string
+          truth: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          confidentiality?: string
+          created_at?: string
+          id?: string
+          number_label?: string | null
+          part: string
+          position: number
+          slug: string
+          subtitle?: string | null
+          title: string
+          truth?: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          confidentiality?: string
+          created_at?: string
+          id?: string
+          number_label?: string | null
+          part?: string
+          position?: number
+          slug?: string
+          subtitle?: string | null
+          title?: string
+          truth?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      manual_edits: {
+        Row: {
+          chapter_slug: string
+          edited_at: string
+          edited_by: string
+          field: string
+          id: string
+          new_value: string | null
+          old_value: string | null
+        }
+        Insert: {
+          chapter_slug: string
+          edited_at?: string
+          edited_by: string
+          field: string
+          id?: string
+          new_value?: string | null
+          old_value?: string | null
+        }
+        Update: {
+          chapter_slug?: string
+          edited_at?: string
+          edited_by?: string
+          field?: string
+          id?: string
+          new_value?: string | null
+          old_value?: string | null
+        }
+        Relationships: []
+      }
+      manual_glossary: {
+        Row: {
+          created_at: string
+          definition: string
+          id: string
+          see_also: string | null
+          term: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          definition: string
+          id?: string
+          see_also?: string | null
+          term: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          definition?: string
+          id?: string
+          see_also?: string | null
+          term?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
