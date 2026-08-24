@@ -66,7 +66,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex xl:gap-6">
+        <nav aria-label="Primary" className="hidden items-center gap-6 xl:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -144,7 +144,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-ink lg:hidden"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-border text-ink xl:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -154,7 +154,7 @@ export function Header() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-border bg-background lg:hidden"
+          className="border-t border-border bg-background xl:hidden"
         >
           <nav aria-label="Mobile" className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
             <ul className="divide-y divide-border">
