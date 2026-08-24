@@ -121,7 +121,7 @@ function InsiderRoom() {
           </div>
           <div className="flex items-center gap-4">
             <Link
-              to="/_authenticated/insider/refer"
+              to="/insider/refer"
               className="border border-ink px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink hover:bg-ink hover:text-paper"
             >
               Nominate someone →
@@ -141,7 +141,7 @@ function InsiderRoom() {
               {whatsNew.map((n) => (
                 <li key={n.slug}>
                   <Link
-                    to="/_authenticated/insider/dossier/$slug"
+                    to="/insider/dossier/$slug"
                     params={{ slug: n.slug }}
                     className="inline-flex items-center gap-2 border border-navy/40 bg-background px-3 py-1.5 text-xs text-ink hover:border-navy"
                   >
@@ -163,7 +163,7 @@ function InsiderRoom() {
           return (
             <Link
               key={d.slug}
-              to="/_authenticated/insider/dossier/$slug"
+              to="/insider/dossier/$slug"
               params={{ slug: d.slug }}
               className="block border border-border bg-card p-6 transition hover:border-ink"
             >

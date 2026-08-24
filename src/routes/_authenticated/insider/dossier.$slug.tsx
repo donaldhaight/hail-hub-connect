@@ -288,7 +288,7 @@ function DossierReader() {
       <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 border-t border-border px-6 py-8">
         {prev ? (
           <Link
-            to="/_authenticated/insider/dossier/$slug"
+            to="/insider/dossier/$slug"
             params={{ slug: prev.slug }}
             className="group flex flex-col text-left"
           >
@@ -298,7 +298,7 @@ function DossierReader() {
         ) : <span />}
         {next ? (
           <Link
-            to="/_authenticated/insider/dossier/$slug"
+            to="/insider/dossier/$slug"
             params={{ slug: next.slug }}
             className="group flex flex-col text-right"
           >
