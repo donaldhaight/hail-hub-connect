@@ -68,7 +68,7 @@ export function QuantumSwitcher({ variant = "desktop" }: { variant?: "desktop" |
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="inline-flex items-center gap-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-ink"
+        className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-ink"
       >
         The Human Blockchain
         <ChevronDown className="h-3 w-3" />
