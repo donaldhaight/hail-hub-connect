@@ -66,7 +66,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex xl:gap-6">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -85,26 +85,26 @@ export function Header() {
             <>
               <Link
                 to="/admin/tour"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Tour
               </Link>
               <Link
                 to="/admin/digest"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Digest
               </Link>
               <Link
                 to="/admin/inbox"
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Inbox
               </Link>
               {isFounder ? (
                 <Link
                   to="/admin/invite"
-                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper lg:inline"
+                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper xl:inline"
                 >
                   Invite
                 </Link>
@@ -112,7 +112,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+                className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Sign out
               </button>
@@ -120,7 +120,7 @@ export function Header() {
           ) : (
             <Link
               to="/auth"
-              className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink lg:inline"
+              className="hidden text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
             >
               Sign in
             </Link>
