@@ -21,6 +21,7 @@ import { Route as PolicyRouteImport } from './routes/policy'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
+import { Route as BriefingRouteImport } from './routes/briefing'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
 import { Route as BRouteRouteImport } from './routes/b/route'
@@ -104,6 +105,11 @@ const IndustryProblemRoute = IndustryProblemRouteImport.update({
 const FounderRoute = FounderRouteImport.update({
   id: '/founder',
   path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefingRoute = BriefingRouteImport.update({
+  id: '/briefing',
+  path: '/briefing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -237,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/b': typeof BRouteRouteWithChildren
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
+  '/briefing': typeof BriefingRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -274,6 +281,7 @@ export interface FileRoutesByTo {
   '/b': typeof BRouteRouteWithChildren
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
+  '/briefing': typeof BriefingRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -313,6 +321,7 @@ export interface FileRoutesById {
   '/b': typeof BRouteRouteWithChildren
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
+  '/briefing': typeof BriefingRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -352,6 +361,7 @@ export interface FileRouteTypes {
     | '/b'
     | '/architecture'
     | '/auth'
+    | '/briefing'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -389,6 +399,7 @@ export interface FileRouteTypes {
     | '/b'
     | '/architecture'
     | '/auth'
+    | '/briefing'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -427,6 +438,7 @@ export interface FileRouteTypes {
     | '/b'
     | '/architecture'
     | '/auth'
+    | '/briefing'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -466,6 +478,7 @@ export interface RootRouteChildren {
   BRouteRoute: typeof BRouteRouteWithChildren
   ArchitectureRoute: typeof ArchitectureRoute
   AuthRoute: typeof AuthRoute
+  BriefingRoute: typeof BriefingRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
   InvestorsRoute: typeof InvestorsRoute
@@ -565,6 +578,13 @@ declare module '@tanstack/react-router' {
       path: '/founder'
       fullPath: '/founder'
       preLoaderRoute: typeof FounderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/briefing': {
+      id: '/briefing'
+      path: '/briefing'
+      fullPath: '/briefing'
+      preLoaderRoute: typeof BriefingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -808,6 +828,7 @@ const rootRouteChildren: RootRouteChildren = {
   BRouteRoute: BRouteRouteWithChildren,
   ArchitectureRoute: ArchitectureRoute,
   AuthRoute: AuthRoute,
+  BriefingRoute: BriefingRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
   InvestorsRoute: InvestorsRoute,
