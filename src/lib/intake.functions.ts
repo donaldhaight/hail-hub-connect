@@ -1,14 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { LAYERS, TRIAGE_STATES, type TriageState } from "@/content/intake";
 
 const BUCKET = "dossier-artifacts";
-
-export const LAYERS = ["cultural", "business", "requirements", "wildcard"] as const;
-export type Layer = (typeof LAYERS)[number];
-
-export const TRIAGE_STATES = ["new", "read", "filed", "parked"] as const;
-export type TriageState = (typeof TRIAGE_STATES)[number];
 
 async function assertFounder(ctx: { supabase: any; userId: string }) {
   const { data, error } = await ctx.supabase.rpc("has_role", {
