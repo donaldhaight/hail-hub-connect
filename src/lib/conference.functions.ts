@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { updateConferenceSeatSchema } from "./inbox.schemas";
 import { sendEmail } from "./email";
+import { SECOND_CONGRESS, CONGRESS_VENUE } from "@/content/calendar";
 
 export const getConferenceCapacitySummary = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -81,8 +82,8 @@ export const updateConferenceSeat = createServerFn({ method: "POST" })
         to: row.email,
         name: row.name,
         seats: requestedSeats,
-        eventDate: "November 1, 2026",
-        venue: "Gratitude Ranch, Flower Mound, Texas",
+        eventDate: SECOND_CONGRESS.dateLabel,
+        venue: CONGRESS_VENUE,
       }).catch(() => {});
     }
 
@@ -135,8 +136,8 @@ export const promoteFromWaitlist = createServerFn({ method: "POST" })
       to: row.email,
       name: row.name,
       seats: requestedSeats,
-      eventDate: "November 1, 2026",
-      venue: "Gratitude Ranch, Flower Mound, Texas",
+      eventDate: SECOND_CONGRESS.dateLabel,
+      venue: CONGRESS_VENUE,
     }).catch(() => {});
 
     return { ok: true, confirmedAt };
