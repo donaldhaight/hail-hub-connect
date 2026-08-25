@@ -72,7 +72,10 @@ Your preferred rhythm holds: one document at a time. You upload, I read it, writ
 - Figures use a `[[figure:<attachment-id>]]` marker resolved at render time inside the existing prose renderer, so chapter bodies stay plain text and editable.
 - Text extraction runs at upload for PDFs; Office formats are converted server-side to text where possible and otherwise stored with a manual summary field.
 - Brand/UI imagery continues to live in `src/assets` and is imported directly; it never enters the artifact tables.
+- Media adds `kind = 'video' | 'audio'` plus `provider`, `duration_seconds`, `poster_path`, and `transcript` columns; hosted video stays on YouTube/Vimeo (we do not pay to serve video), uploaded audio and short recordings go to the private bucket.
+- Watch progress lands in a `media_progress` table keyed by user and artifact, feeding the existing signals dashboard the same way dwell time already does.
+- Playlists: `media_playlists` and `media_playlist_items` (ordered, mixed media/figure/quote), with a share credential mirroring the `/ticket/$credential` pattern.
 
 ## Out of scope
 
-Public access to any artifact, image editing in-browser, video, and OCR of scanned handwriting.
+Public access to any artifact, in-browser image or video editing, self-hosted video streaming, AI-generated narration, and OCR of scanned handwriting.
