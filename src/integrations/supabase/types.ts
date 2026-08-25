@@ -113,8 +113,12 @@ export type Database = {
           name: string
           organization: string
           plus_ones: number
+          season_id: string
           seat_status: string
           status: string
+          ticket_credential: string
+          ticket_status: string
+          ticket_tier: string
           title: string
           updated_at: string
         }
@@ -136,8 +140,12 @@ export type Database = {
           name: string
           organization: string
           plus_ones?: number
+          season_id?: string
           seat_status?: string
           status?: string
+          ticket_credential?: string
+          ticket_status?: string
+          ticket_tier?: string
           title: string
           updated_at?: string
         }
@@ -159,8 +167,12 @@ export type Database = {
           name?: string
           organization?: string
           plus_ones?: number
+          season_id?: string
           seat_status?: string
           status?: string
+          ticket_credential?: string
+          ticket_status?: string
+          ticket_tier?: string
           title?: string
           updated_at?: string
         }
@@ -845,6 +857,7 @@ export type Database = {
     }
     Functions: {
       get_attendee_view: { Args: { _token: string }; Returns: Json }
+      get_ticket_view: { Args: { _credential: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
