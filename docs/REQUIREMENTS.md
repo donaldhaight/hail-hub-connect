@@ -70,6 +70,20 @@ The project must be explainable to future collaborators, investors, and auditors
 | D-5 | Decisions are recorded. | `docs/DECISIONS.md` captures load-bearing choices with rationale. | shipped |
 | D-6 | Code is backed up to GitHub. | Repository is connected to a user-owned GitHub repo and sync is verified. | open |
 
+## Epic 6 — Evidence, intake, and ideation
+
+Turning the archive into an asset register, and side concepts into a governed lane.
+
+| ID | Story | Acceptance criteria | Status |
+|----|-------|---------------------|--------|
+| E-1 | Every artifact carries provenance. | `original_date`, `source_label`, `significance` on dossier and manual attachments; rendered as a dated evidence strip. | shipped |
+| E-2 | Founder sees one index of all evidence. | `/admin/evidence` lists every artifact across corpora with opens and publish state. | shipped |
+| E-3 | Material can be staged before it is filed. | `/admin/intake` accepts files and links, tags layers, tracks triage state, and files against a chapter or dossier without re-uploading. | shipped |
+| E-4 | The founder can see the shape of the archive. | Intake lane shows counts by triage state, layer, decade, and source. | shipped |
+| E-5 | The whole corpus is searchable from one box. | Search spans intake notes, manual chapters, and dossier sections. | shipped |
+| E-6 | Side concepts are explored without forking the project. | `/admin/lab` holds tracks with briefs, layer tags, notes/questions/decisions, and an adopt action that writes backlog items. | shipped |
+| E-7 | Uploaded documents are searchable by their text. | PDF/Office text extraction at upload populates `extracted_text`. | open |
+
 ## Deferred items
 
 These are intentionally not in the current build path.
