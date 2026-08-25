@@ -26,6 +26,7 @@ const SURFACES = [
   { to: "/admin/signals", label: "Signals", note: "Insider engagement across the dossier corpus." },
   { to: "/admin/reads", label: "Read Heatmap", note: "Section-level dwell and read confirmation." },
   { to: "/admin/edits", label: "Edit Log", note: "Audit trail of corpus changes." },
+  { to: "/admin/evidence", label: "Evidence Index", note: "Every dated artifact behind the manual and the dossiers." },
   { to: "/admin/tour", label: "Tour", note: "Narrated walkthrough of every private surface." },
   { to: "/manual", label: "Owner's Manual", note: "The governing document, editable in place." },
 ] as const;
