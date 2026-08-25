@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { getTicketView } from "@/lib/ticket.functions";
 import { getBroadcastState, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
