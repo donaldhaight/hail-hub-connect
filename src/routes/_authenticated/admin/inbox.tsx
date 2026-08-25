@@ -447,9 +447,11 @@ function Inbox() {
                     <th className="p-3">Name</th>
                     <th className="p-3">Organization</th>
                     <th className="p-3">{tab === "conference" ? "Category" : "Interest"}</th>
+                    {tab === "conference" ? <th className="p-3">Ticket</th> : null}
                     {tab === "conference" ? <th className="p-3">Seats</th> : null}
                     <th className="p-3">Status</th>
                   </tr>
+
                 </thead>
                 <tbody>
                   {loading ? (
