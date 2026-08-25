@@ -5,8 +5,11 @@
 `docs/STRATEGY.md` (25 Aug 2026) corrects the project from a single physical convening on 11-1-2026 to a **Two Congress** structure:
 
 - **First Congress — 1 November 2026, streamed.** Reveal, announce, invite. Ticketed, not open.
-- **Second Congress — Super Bowl weekend 2027 (14 February 2027), convened.** Physical, 300 delegates.
-- **Winter Meeting — recurring annually on Super Bowl weekend.**
+- **Second Congress — Super Bowl weekend 2027 (14 February 2027), convened.** Physical, 300 delegates. This is where Season 1 is ratified.
+- **Season 1 — 1 March 2027 through September 2027.** Short, intentional quasi-beta.
+- **Winter Meeting / Owners Meeting — recurring annually on Super Bowl weekend.**
+- **Season 2 — after the 2028 Owners Meeting.** Reflects rule changes ratified there. Second quasi-beta season.
+- **Season 3 — the fully fueled and vetted launch.**
 
 The live site, however, still depicts the old model: "PrepareAmerica Conference," "Attend PrepareAmerica," 300 seats at Gratitude Ranch on 11-1. That is now the largest credibility risk.
 
@@ -20,13 +23,27 @@ Three corrections that reshape parts of this plan:
 
 **3. Winter Meeting dates float with Super Bowl weekend.** Never hardcode 2-14 as a recurring date. Compute or configure per year: 2027 = 14 February; later years TBD and must not be asserted until the NFL schedule is published.
 
+## Adjusted season calendar (per latest direction)
+
+```text
+First Congress    11-01-2026   streamed     reveal, announce, invite to Second Congress
+Second Congress   Super Bowl weekend 2027   convened     300 delegates; ratify Season 1
+Season 1          03-01-2027 → 09-30-2027   quasi-beta   short, intentional, on Siteforum platform
+Owners Meeting    Super Bowl weekend 2028   convened     ratify rule changes for Season 2
+Season 2          after 02-2028 Owners Meeting   quasi-beta   rule-changed second beta
+Season 3          after 02-2029 Owners Meeting   launch       fully fueled and vetted
+```
+
+The 11-1-2026 First Congress is **not** the start of Season 1. It is the invitation mechanism. Season 1 begins 1 March 2027, immediately after the Second Congress.
+
 ## Goal
 
 Bring every public surface, URL, schema, and admin workflow into alignment with the Two Congress strategy and the invitation ladder:
 
 ```text
-Referral → Ticket to the stream → Invitation to the Congress → Seat
+Referral → Ticket to the First Congress → Invitation to the Second Congress → Delegate seat → Season 1 participant
 ```
+
 
 
 ## Sprints
