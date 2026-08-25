@@ -126,7 +126,18 @@ function TicketPage() {
               ? `Your tier carries a standing right to a delegate seat at the Second Congress — ${SECOND_CONGRESS.dateLabel}, ${CONGRESS_VENUE}.`
               : `After the broadcast, holders may apply for an invitation to the Second Congress — ${SECOND_CONGRESS.dateLabel}, ${CONGRESS_VENUE}. A ticket is not a delegate seat.`}
           </p>
+          <p>
+            <Link
+              to="/first-congress"
+              search={{ t: credential }}
+              className="underline"
+            >
+              Open the broadcast room
+            </Link>{" "}
+            — the countdown, run of show, and stream live there.
+          </p>
         </Prose>
+
       </Section>
 
       <Section number="03" title="Keep this link private">
