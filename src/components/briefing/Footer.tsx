@@ -6,10 +6,11 @@ export function Footer() {
       <footer className="mt-24 border-t border-border">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="font-serif text-2xl leading-none text-ink">ClaimStore</div>
+            <div className="font-serif text-2xl leading-none text-ink">PrepareAmerica</div>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              A private briefing room for the RRCA restructuring and the ClaimStore
-              proof of concept. Circulated to referred insiders only.
+              Convened by United Stakeholders of America LLC. The RRCA restructuring
+              and the ClaimStore proof of concept, reviewed in the open. Circulated
+              to referred insiders only.
             </p>
           </div>
           <div>

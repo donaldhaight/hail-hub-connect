@@ -59,10 +59,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
-        <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="ClaimStore Briefing Room — home">
-          <span className="truncate font-serif text-xl leading-none text-ink">ClaimStore</span>
+        <Link to="/" className="flex shrink-0 items-center gap-3" aria-label="PrepareAmerica — home">
+          <span className="truncate font-serif text-xl leading-none text-ink">PrepareAmerica</span>
           <span className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-silver sm:inline">
-            Briefing Room
+            United Stakeholders of America
           </span>
         </Link>
 

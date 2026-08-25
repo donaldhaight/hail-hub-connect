@@ -8,4 +8,4 @@ Disallow: /insider/
 Disallow: /insider.accept
 Disallow: /prepare-america/confirmed
 
-Sitemap: https://hail-hub-connect.lovable.app/sitemap.xml
+Sitemap: https://prepareamerica.com/sitemap.xml

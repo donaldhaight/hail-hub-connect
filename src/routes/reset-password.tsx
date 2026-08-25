@@ -4,12 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 
 const TITLE = "Set a new password";
-const DESC = "Complete your password reset for the ClaimStore Briefing Room.";
+const DESC = "Complete your password reset for the PrepareAmerica briefing room.";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: TITLE },

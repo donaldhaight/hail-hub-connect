@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://hail-hub-connect.lovable.app";
+const BASE_URL = SITE_URL;
 
 interface Entry {
   path: string;

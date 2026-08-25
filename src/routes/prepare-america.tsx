@@ -46,7 +46,7 @@ export const Route = createFileRoute("/prepare-america")({
             organizer: {
               "@type": "Organization",
               name: "United Stakeholders of America LLC",
-              url: "https://hail-hub-connect.lovable.app",
+              url: "https://prepareamerica.com",
             },
             maximumAttendeeCapacity: 300,
             isAccessibleForFree: false,

@@ -1,5 +1,5 @@
-export const SITE_URL = "https://hail-hub-connect.lovable.app";
-export const SITE_NAME = "ClaimStore Briefing Room";
+export const SITE_URL = "https://prepareamerica.com";
+export const SITE_NAME = "PrepareAmerica";
 
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

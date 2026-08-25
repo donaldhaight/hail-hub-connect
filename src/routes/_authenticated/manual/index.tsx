@@ -78,6 +78,7 @@ function ManualIndex() {
             instructions for everything behind this login.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/50">
+            <span className="border border-paper/25 px-2 py-1">PrepareAmerica</span>
             <span className="border border-paper/25 px-2 py-1">First Pass Edition</span>
             <span className="border border-paper/25 px-2 py-1">C1 · Confidential</span>
             <span className="border border-paper/25 px-2 py-1">Not an offering</span>
