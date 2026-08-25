@@ -375,7 +375,7 @@ function CapacityDisplay() {
     load().then(setState).catch(() => {});
   }, [load]);
 
-  if (!state) return <span className="text-muted-foreground">300 seats — private</span>;
+  if (!state) return <span className="text-muted-foreground">{DELEGATE_CAPACITY} delegates — private</span>;
 
   return (
     <span>
