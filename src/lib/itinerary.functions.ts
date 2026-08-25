@@ -10,6 +10,9 @@ const itemSchema = z.object({
   description: z.string().trim().max(2000).optional().default(""),
   location: z.string().trim().max(200).optional().default(""),
   isPublished: z.coerce.boolean().default(true),
+  segmentType: z.enum(["opening", "reveal", "announcement", "invitation", "performance", "closing", "segment"]).default("segment"),
+  speaker: z.string().trim().max(200).optional().default(""),
+  durationMinutes: z.coerce.number().int().min(0).max(999).default(0),
 });
 
 async function assertFounder(ctx: { supabase: any; userId: string }) {
