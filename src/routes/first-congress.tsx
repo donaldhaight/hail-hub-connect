@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { getTicketView } from "@/lib/ticket.functions";
-import { listPublishedItinerary } from "@/lib/attendee.functions";
+import { getBroadcastState, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
 import { routeHead } from "@/lib/site";
 import {
   FIRST_CONGRESS,
@@ -21,7 +21,8 @@ const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Ticket holders o
 export const Route = createFileRoute("/first-congress")({
   validateSearch: (s: Record<string, unknown>) => {
     const t = typeof s.t === "string" ? s.t : undefined;
-    return t ? { t } : {};
+    const rehearse = s.rehearse === "true" || s.rehearse === true;
+    return t ? { t, rehearse } : { rehearse };
   },
   head: () => {
     const base = routeHead({ title: TITLE, description: DESC, path: "/first-congress" });
@@ -54,37 +55,94 @@ function useCountdown() {
   };
 }
 
+function StreamEmbed({
+  provider,
+  streamId,
+  embedUrl,
+  replayUrl,
+  fallback,
+  ended,
+}: {
+  provider: string;
+  streamId: string | null;
+  embedUrl: string | null;
+  replayUrl: string | null;
+  fallback: string;
+  ended: boolean;
+}) {
+  const src = ended ? replayUrl || embedUrl : embedUrl || buildEmbedUrl(provider, streamId);
+  if (!src) {
+    return (
+      <div className="flex aspect-video w-full items-center justify-center border border-dashed border-border bg-muted/30 px-6 text-center">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-silver">{fallback}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="relative aspect-video w-full border border-border bg-black">
+      <iframe
+        src={src}
+        title="First Congress stream"
+        className="absolute inset-0 h-full w-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
+    </div>
+  );
+}
+
+function buildEmbedUrl(provider: string, streamId: string | null) {
+  if (!streamId) return null;
+  if (provider === "youtube") return `https://www.youtube.com/embed/${streamId}?autoplay=1&rel=0`;
+  if (provider === "vimeo") return `https://player.vimeo.com/video/${streamId}?autoplay=1`;
+  return null;
+}
+
 function FirstCongressPage() {
-  const { t } = Route.useSearch();
-  const load = useServerFn(getTicketView);
-  const listItin = useServerFn(listPublishedItinerary);
+  const { t, rehearse } = Route.useSearch();
+  const loadTicket = useServerFn(getTicketView);
+  const loadBroadcast = useServerFn(getBroadcastState);
+  const verifyRehearsal = useServerFn(verifyFounderForRehearsal);
   const clock = useCountdown();
 
-  const { data, isLoading } = useQuery({
+  const { data: broadcast, isLoading: broadcastLoading } = useQuery({
+    queryKey: ["broadcast-state"],
+    queryFn: () => loadBroadcast(),
+  });
+
+  const { data: ticket, isLoading: ticketLoading } = useQuery({
     queryKey: ["ticket", t],
-    queryFn: () => load({ data: { credential: t as string } }),
+    queryFn: () => loadTicket({ data: { credential: t as string } }),
     enabled: Boolean(t),
     retry: false,
   });
 
-  const { data: itin } = useQuery({
-    queryKey: ["itinerary-public"],
-    queryFn: () => listItin(),
-    enabled: Boolean(data?.ok),
+  const { data: rehearsal } = useQuery({
+    queryKey: ["broadcast-rehearsal"],
+    queryFn: () => verifyRehearsal(),
+    enabled: Boolean(rehearse),
+    retry: false,
   });
 
-  if (!t) return <Locked reason="no_credential" />;
-  if (isLoading) {
+  const loading = broadcastLoading || ticketLoading;
+  const state = broadcast?.config?.state ?? "scheduled";
+  const isRehearsingFounder = state === "rehearsing" && rehearsal?.ok;
+  const showStream = state === "live" || state === "ended" || isRehearsingFounder;
+  const stakeholder = ticket?.ok && ticket.tier === "stakeholder";
+
+  if (loading) {
     return (
       <PageShell>
         <PageHeader eyebrow="First Congress" title="Checking your ticket…" confidentiality="C1" />
       </PageShell>
     );
   }
-  if (!data?.ok) return <Locked reason={data?.reason ?? "not_found"} />;
 
-  const tier = TICKET_TIERS.find((x) => x.id === data.tier);
-  const stakeholder = data.tier === "stakeholder";
+  if (!t) return <Locked reason="no_credential" />;
+  if (!ticket?.ok) return <Locked reason={ticket?.reason ?? "not_found"} />;
+
+  const tier = TICKET_TIERS.find((x) => x.id === ticket.tier);
+  const statusLabel = isRehearsingFounder ? "Rehearsal" : state === "live" ? "In session" : state === "ended" ? "Ended" : "Scheduled";
 
   return (
     <PageShell>
@@ -93,62 +151,91 @@ function FirstCongressPage() {
         title="The First Congress."
         lede={`${FIRST_CONGRESS.dateLabel}. Streamed to ticket holders. A reveal, an announcement, and an invitation.`}
         confidentiality="C1"
-        status={clock?.live ? "In session" : "Scheduled"}
+        status={statusLabel}
       />
 
-      <Section number="01" title={clock?.live ? "In session" : "Time to session"}>
-        {clock === null ? (
-          <p className="font-mono text-sm text-silver">—</p>
-        ) : clock.live ? (
-          <Prose>
-            <p>
-              The session is open. If the stream has not yet appeared below,
-              hold this page — it will not require a reload.
-            </p>
-          </Prose>
-        ) : (
-          <div className="flex flex-wrap gap-8">
-            {[
-              ["Days", clock.days],
-              ["Hours", clock.hours],
-              ["Minutes", clock.minutes],
-              ["Seconds", clock.seconds],
-            ].map(([label, value]) => (
-              <div key={String(label)}>
-                <div className="font-serif text-5xl tabular-nums text-ink">
-                  {String(value).padStart(2, "0")}
+      {isRehearsingFounder ? (
+        <div className="fixed inset-x-0 top-0 z-50 bg-amber-500 text-center text-[10px] font-mono uppercase tracking-[0.22em] text-white py-1">
+          Rehearsal mode — founders only
+        </div>
+      ) : null}
+
+      <Section number="01" title={state === "live" ? "In session" : state === "ended" ? "Replay" : "Time to session"}>
+        {state === "scheduled" ? (
+          clock === null ? (
+            <p className="font-mono text-sm text-silver">—</p>
+          ) : clock.live ? (
+            <Prose>
+              <p>The session date has arrived. The stream will appear here as soon as the convener opens it.</p>
+            </Prose>
+          ) : (
+            <div className="flex flex-wrap gap-8">
+              {[
+                ["Days", clock.days],
+                ["Hours", clock.hours],
+                ["Minutes", clock.minutes],
+                ["Seconds", clock.seconds],
+              ].map(([label, value]) => (
+                <div key={String(label)}>
+                  <div className="font-serif text-5xl tabular-nums text-ink">
+                    {String(value).padStart(2, "0")}
+                  </div>
+                  <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                    {label}
+                  </div>
                 </div>
-                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-                  {label}
-                </div>
+              ))}
+            </div>
+          )
+        ) : null}
+
+        {showStream ? (
+          <div className="mt-6">
+            <StreamEmbed
+              provider={broadcast?.config?.provider ?? "youtube"}
+              streamId={broadcast?.config?.stream_id ?? null}
+              embedUrl={broadcast?.config?.embed_url ?? null}
+              replayUrl={broadcast?.config?.replay_url ?? null}
+              fallback={broadcast?.config?.fallback_message ?? "The stream will appear here when the session opens."}
+              ended={state === "ended"}
+            />
+            {state === "live" ? (
+              <div className="mt-3 inline-flex items-center gap-2 border border-red-600 bg-red-600 px-2 py-1 text-[10px] font-mono uppercase tracking-[0.14em] text-white">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
+                Live
               </div>
-            ))}
+            ) : null}
+          </div>
+        ) : (
+          <div className="mt-6 flex aspect-video w-full items-center justify-center border border-dashed border-border bg-muted/30">
+            <p className="px-6 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-silver">
+              {broadcast?.config?.fallback_message ?? `Stream opens ${FIRST_CONGRESS.dateLabel}`}
+            </p>
           </div>
         )}
-
-        <div className="mt-10 flex aspect-video w-full items-center justify-center border border-dashed border-border bg-muted/30">
-          <p className="px-6 text-center font-mono text-[11px] uppercase tracking-[0.22em] text-silver">
-            {clock?.live ? "Stream" : `Stream opens ${FIRST_CONGRESS.dateLabel}`}
-          </p>
-        </div>
       </Section>
 
       <Section number="02" title="Run of show">
-        {itin?.rows?.length ? (
+        {broadcast?.segments?.length ? (
           <div className="divide-y divide-border border border-border">
-            {itin.rows.map((r) => (
+            {broadcast.segments.map((r: any) => (
               <div key={r.id} className="bg-card p-4">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy">
-                  {r.time_label}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-navy">{r.time_label}</span>
+                  {r.segment_type && r.segment_type !== "segment" ? (
+                    <span className="border border-border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-muted-foreground">
+                      {r.segment_type}
+                    </span>
+                  ) : null}
+                  {r.duration_minutes ? (
+                    <span className="text-[10px] text-muted-foreground">{r.duration_minutes} min</span>
+                  ) : null}
                 </div>
                 <div className="mt-1 font-serif text-lg text-ink">{r.title}</div>
-                {r.description ? (
-                  <p className="mt-1 text-sm text-muted-foreground">{r.description}</p>
-                ) : null}
+                {r.speaker ? <p className="text-xs text-muted-foreground">{r.speaker}</p> : null}
+                {r.description ? <p className="mt-1 text-sm text-muted-foreground">{r.description}</p> : null}
                 {r.location ? (
-                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
-                    {r.location}
-                  </p>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-silver">{r.location}</p>
                 ) : null}
               </div>
             ))}
@@ -163,9 +250,8 @@ function FirstCongressPage() {
       <Section number="03" title="Read before the session">
         <Prose>
           <p>
-            The Congress points at one document. The Owner's Manual of{" "}
-            {CONVENER} carries the architecture, the seven stakeholder groups,
-            the invitation ladder, and the season ladder in full.
+            The Congress points at one document. The Owner's Manual of {CONVENER} carries the architecture, the seven
+            stakeholder groups, the invitation ladder, and the season ladder in full.
           </p>
           <p>
             <Link to="/manual" className="underline">
@@ -175,43 +261,54 @@ function FirstCongressPage() {
         </Prose>
       </Section>
 
-      <Section number="04" title="What follows">
+      <Section number="04" title={state === "ended" ? "What follows now" : "What follows"}>
         <Prose>
-          {stakeholder ? (
+          {state === "ended" ? (
+            stakeholder ? (
+              <p>
+                The First Congress has ended. Your Stakeholder tier carries a standing right to a delegate seat at the
+                Second Congress — {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE}. The convener will send your seat
+                confirmation directly. No application is required of you.
+              </p>
+            ) : (
+              <>
+                <p>
+                  The First Congress has ended. Ticket holders may now apply for an invitation to the Second Congress —{" "}
+                  {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE}, three hundred delegates convened in person. A ticket is
+                  not a delegate seat, and application does not imply admission.
+                </p>
+                <p>
+                  <Link to="/prepare-america" className="underline">
+                    Apply for an invitation
+                  </Link>
+                </p>
+              </>
+            )
+          ) : stakeholder ? (
             <p>
-              Your tier carries a standing right to a delegate seat at the
-              Second Congress — {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE}.
-              The convener will send your seat confirmation directly after the
-              broadcast. No application is required of you.
+              Your tier carries a standing right to a delegate seat at the Second Congress — {SECOND_CONGRESS.dateLabel},
+              {CONGRESS_VENUE}. The convener will send your seat confirmation directly after the broadcast. No application
+              is required of you.
             </p>
           ) : (
             <p>
-              After the broadcast, holders may apply for an invitation to the
-              Second Congress — {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE},
-              three hundred delegates convened in person. A ticket is not a
-              delegate seat, and application does not imply admission.
+              After the broadcast, holders may apply for an invitation to the Second Congress — {SECOND_CONGRESS.dateLabel},
+              {CONGRESS_VENUE}, three hundred delegates convened in person. A ticket is not a delegate seat, and
+              application does not imply admission.
             </p>
           )}
           <p>
-            Delegates carry into Season One, which opens {SEASON_ONE.dateLabel}{" "}
-            on an operating platform that already exists. The handoff
-            instructions are issued with the seat confirmation.
+            Delegates carry into Season One, which opens {SEASON_ONE.dateLabel} on an operating platform that already
+            exists. The handoff instructions are issued with the seat confirmation.
           </p>
-          {stakeholder ? null : (
-            <p>
-              <Link to="/prepare-america" className="underline">
-                Apply for an invitation
-              </Link>
-            </p>
-          )}
         </Prose>
       </Section>
 
       <Section number="05" title="Terms of this page">
         <Prose>
           <p>
-            Your credential is your admission. Do not post or forward this link.
-            Nothing here is a security, an offering, or a transaction.
+            Your credential is your admission. Do not post or forward this link. Nothing here is a security, an offering,
+            or a transaction.
           </p>
         </Prose>
       </Section>
