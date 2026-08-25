@@ -77,16 +77,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ClaimStore Briefing Room — Private industry briefing" },
+      { title: "PrepareAmerica — If we can fix the insurance restoration market" },
       {
         name: "description",
         content:
-          "A private briefing room for the RRCA restructuring and the ClaimStore proof of concept for the insurance-restoration market. Circulated to referred insiders only.",
+          "PrepareAmerica is the convening of United Stakeholders of America LLC: the RRCA restructuring and the ClaimStore proof of concept, reviewed in the open by a private group of 300.",
       },
       { name: "author", content: "United Stakeholders of America LLC" },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "ClaimStore Briefing Room" },
+      { property: "og:site_name", content: "PrepareAmerica" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#1a1c2e" },
     ],
@@ -107,10 +107,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "United Stakeholders of America LLC",
-          alternateName: "ClaimStore Briefing Room",
-          url: "https://hail-hub-connect.lovable.app",
+          alternateName: "PrepareAmerica",
+          url: "https://prepareamerica.com",
           description:
-            "Convener of the ClaimStore Briefing Room and the PrepareAmerica Conference.",
+            "Convener of the PrepareAmerica Conference and the ClaimStore proof of concept for the insurance-restoration market.",
         }),
       },
     ],
