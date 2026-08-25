@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PageShell } from "@/components/briefing/PageShell";
 import { Meta, type TruthClass, type ConfidentialityClass } from "@/components/briefing/Badges";
 import { getManualChapter, updateManualChapter } from "@/lib/manual.functions";
+import { ManualEvidence } from "@/components/briefing/ManualEvidence";
 import {
   GlossaryParagraph,
   type GlossaryTerm,
