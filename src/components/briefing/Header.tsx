@@ -8,7 +8,7 @@ const NAV = [
   { to: "/why-prepare-america", label: "The Thesis" },
   { to: "/briefing", label: "The Case Study" },
   { to: "/architecture", label: "The Architecture" },
-  { to: "/prepare-america", label: "The Conference" },
+  { to: "/prepare-america", label: "The Congress" },
   { to: "/founder", label: "Founder" },
 ] as const;
 

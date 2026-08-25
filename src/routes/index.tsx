@@ -1,23 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
+import {
+  FIRST_CONGRESS,
+  SECOND_CONGRESS,
+  SEASON_ONE,
+  CONGRESS_VENUE,
+  DELEGATE_CAPACITY,
+  CONVENER,
+} from "@/content/calendar";
 
 const TITLE = "If we can fix the Insurance Restoration Market, we can fix the Government of the United States of America.";
 const DESC =
-  "PrepareAmerica Conference · November 1, 2026 · Gratitude Ranch, Flower Mound, Texas. A private convening to review the ClaimStore proof of concept in the open.";
+  `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
+const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PrepareAmerica · November 1, 2026" },
+      { title: OG_TITLE },
       { name: "description", content: DESC },
-      { property: "og:title", content: "PrepareAmerica · November 1, 2026" },
+      { property: "og:title", content: OG_TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://prepareamerica.com/" },
       { property: "og:site_name", content: "PrepareAmerica" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PrepareAmerica · November 1, 2026" },
+      { name: "twitter:title", content: OG_TITLE },
       { name: "twitter:description", content: DESC },
     ],
     links: [{ rel: "canonical", href: "https://prepareamerica.com/" }],
@@ -46,16 +55,17 @@ function Index() {
             {TITLE}
           </h1>
           <p className="mt-8 max-w-[58ch] text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
-            The first annual <span className="text-ink">PrepareAmerica Conference</span>.
-            Three hundred industry executives, counsel, capital, and government advisors.
-            One day to review the ClaimStore proof of concept in the open.
+            On {FIRST_CONGRESS.dateLabel} we convene{" "}
+            <span className="text-ink">the First Congress</span> — streamed,
+            not gathered. A reveal, an announcement, and an invitation.
+            You need an invitation to receive the invitation.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               to="/prepare-america"
               className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
             >
-              Attend PrepareAmerica
+              Request a Ticket
               <span aria-hidden="true">→</span>
             </Link>
             <Link
@@ -68,37 +78,56 @@ function Index() {
         </div>
       </section>
 
-      {/* Conference details */}
+      {/* The two congresses */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <div className="mb-10">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-              The Convening
+              Two Congresses
             </div>
-            <h2 className="mt-3 max-w-[24ch] font-serif text-3xl text-ink md:text-4xl">
-              November 1, 2026 · Gratitude Ranch, Flower Mound, Texas
+            <h2 className="mt-3 max-w-[26ch] font-serif text-3xl text-ink md:text-4xl">
+              One is announced. One is convened.
             </h2>
           </div>
-          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-px bg-border md:grid-cols-2">
+            {[FIRST_CONGRESS, SECOND_CONGRESS].map((c) => (
+              <article key={c.id} className="bg-background p-8">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                  {c.mode === "streamed" ? "Streamed" : "Convened"}
+                </div>
+                <h3 className="mt-3 font-serif text-2xl text-ink">{c.label}</h3>
+                <p className="mt-1 font-serif text-xl text-navy">{c.dateLabel}</p>
+                <p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">
+                  {c.purpose}
+                </p>
+              </article>
+            ))}
+          </div>
+          <dl className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Date</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">November 1, 2026</dd>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Reveal</dt>
+              <dd className="mt-2 font-serif text-2xl text-ink">{FIRST_CONGRESS.dateLabel}</dd>
             </div>
             <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Location</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">Gratitude Ranch, Flower Mound, Texas</dd>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Convening</dt>
+              <dd className="mt-2 font-serif text-2xl text-ink">{CONGRESS_VENUE}</dd>
             </div>
             <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">300 seats · private</dd>
+              <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Delegates</dt>
+              <dd className="mt-2 font-serif text-2xl text-ink">{DELEGATE_CAPACITY} · private</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Convener</dt>
-              <dd className="mt-2 font-serif text-2xl text-ink">United Stakeholders of America LLC</dd>
+              <dd className="mt-2 font-serif text-2xl text-ink">{CONVENER}</dd>
             </div>
           </dl>
+          <p className="mt-8 max-w-[62ch] text-sm text-muted-foreground">
+            {SEASON_ONE.label} follows the Second Congress and runs{" "}
+            {SEASON_ONE.dateLabel} — short by design.
+          </p>
         </div>
       </section>
+
 
       {/* Central proposition pull-quote */}
       <section className="border-b border-border">
@@ -209,7 +238,7 @@ function Index() {
                 to="/prepare-america"
                 className="inline-flex w-full items-center justify-between border border-ink bg-ink px-5 py-4 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
               >
-                Attend PrepareAmerica
+                Request a Ticket
                 <span aria-hidden="true">→</span>
               </Link>
               <Link

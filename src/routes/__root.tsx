@@ -110,7 +110,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           alternateName: "PrepareAmerica",
           url: "https://prepareamerica.com",
           description:
-            "Convener of the PrepareAmerica Conference and the ClaimStore proof of concept for the insurance-restoration market.",
+            "Convener of the PrepareAmerica Congresses and the ClaimStore proof of concept for the insurance-restoration market.",
+
         }),
       },
     ],

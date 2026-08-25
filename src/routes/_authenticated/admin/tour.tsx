@@ -42,7 +42,7 @@ const ACTS: Act[] = [
       { src: shotIndustry, path: "/industry-problem", title: "Industry Problem", body: "The macro case for restructuring — 25+ years of first-hand pattern recognition compressed into a diagnostic dossier." },
       { src: shotPOC, path: "/proof-of-concept", title: "Proof of Concept", body: "ClaimExpress as the working precedent. Anchors credibility before the vision expands." },
       { src: shotVision, path: "/vision", title: "Vision", body: "The Diller-style rollup: ClaimStore, ClaimsBank, ClaimLoan, ClaimCoin as an integrated capital and lead network for the insurance-restoration market." },
-      { src: shotPrepare, path: "/prepare-america", title: "PrepareAmerica Conference", body: "The convening event — Nov 1, 2026, Gratitude Ranch, Flower Mound TX. Live seat counter and application form driving the funnel." },
+      { src: shotPrepare, path: "/prepare-america", title: "The First Congress", body: "The streamed reveal on Nov 1, 2026, and the ticket request form that feeds the invitation ladder toward the convened Second Congress." },
       { src: shotFounder, path: "/founder", title: "Founder Statement", body: "The narrative voice. Signals sole ownership, right to pivot, and the DH method of morphing established patterns into the ClaimStore scheme." },
       { src: shotInvestors, path: "/investors", title: "For Investors", body: "Constituency-specific landing page: rollup thesis, capital stack, and where venture dollars fit inside a foundry structure." },
       { src: shotPolicy, path: "/policy", title: "For Policy & Government", body: "A standardized disaster-recovery protocol written for think tanks, agencies, and elected officials — not for operators." },

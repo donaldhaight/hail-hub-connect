@@ -27,6 +27,7 @@ import { Route as ArchitectureRouteImport } from './routes/architecture'
 import { Route as BRouteRouteImport } from './routes/b/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TicketCredentialRouteImport } from './routes/ticket.$credential'
 import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as BUnitedStakeholdersRouteImport } from './routes/b/united-stakeholders'
@@ -42,6 +43,7 @@ import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenti
 import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
+import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
 import { Route as AuthenticatedAdminInviteRouteImport } from './routes/_authenticated/admin/invite'
@@ -139,6 +141,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TicketCredentialRoute = TicketCredentialRouteImport.update({
+  id: '/ticket/$credential',
+  path: '/ticket/$credential',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrepareAmericaConfirmedRoute = PrepareAmericaConfirmedRouteImport.update({
   id: '/confirmed',
   path: '/confirmed',
@@ -218,6 +225,12 @@ const AuthenticatedAdminTourRoute = AuthenticatedAdminTourRouteImport.update({
   path: '/admin/tour',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminTicketsRoute =
+  AuthenticatedAdminTicketsRouteImport.update({
+    id: '/admin/tickets',
+    path: '/admin/tickets',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminSignalsRoute =
   AuthenticatedAdminSignalsRouteImport.update({
     id: '/admin/signals',
@@ -285,12 +298,14 @@ export interface FileRoutesByFullPath {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
+  '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -326,12 +341,14 @@ export interface FileRoutesByTo {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
+  '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -369,12 +386,14 @@ export interface FileRoutesById {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
+  '/ticket/$credential': typeof TicketCredentialRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -412,12 +431,14 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
+    | '/ticket/$credential'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
     | '/admin/invite'
     | '/admin/reads'
     | '/admin/signals'
+    | '/admin/tickets'
     | '/admin/tour'
     | '/insider/refer'
     | '/manual/$slug'
@@ -453,12 +474,14 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
+    | '/ticket/$credential'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
     | '/admin/invite'
     | '/admin/reads'
     | '/admin/signals'
+    | '/admin/tickets'
     | '/admin/tour'
     | '/insider/refer'
     | '/manual/$slug'
@@ -495,12 +518,14 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/prepare-america/confirmed'
+    | '/ticket/$credential'
     | '/_authenticated/admin/digest'
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/inbox'
     | '/_authenticated/admin/invite'
     | '/_authenticated/admin/reads'
     | '/_authenticated/admin/signals'
+    | '/_authenticated/admin/tickets'
     | '/_authenticated/admin/tour'
     | '/_authenticated/insider/refer'
     | '/_authenticated/manual/$slug'
@@ -530,6 +555,7 @@ export interface RootRouteChildren {
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
   WhyRrcaRoute: typeof WhyRrcaRoute
   InsiderAcceptRoute: typeof InsiderAcceptRoute
+  TicketCredentialRoute: typeof TicketCredentialRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -660,6 +686,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ticket/$credential': {
+      id: '/ticket/$credential'
+      path: '/ticket/$credential'
+      fullPath: '/ticket/$credential'
+      preLoaderRoute: typeof TicketCredentialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/prepare-america/confirmed': {
       id: '/prepare-america/confirmed'
       path: '/confirmed'
@@ -765,6 +798,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTourRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/tickets': {
+      id: '/_authenticated/admin/tickets'
+      path: '/admin/tickets'
+      fullPath: '/admin/tickets'
+      preLoaderRoute: typeof AuthenticatedAdminTicketsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/signals': {
       id: '/_authenticated/admin/signals'
       path: '/admin/signals'
@@ -824,6 +864,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInviteRoute: typeof AuthenticatedAdminInviteRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
+  AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
@@ -840,6 +881,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminInviteRoute: AuthenticatedAdminInviteRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
+  AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
@@ -907,6 +949,7 @@ const rootRouteChildren: RootRouteChildren = {
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
   WhyRrcaRoute: WhyRrcaRoute,
   InsiderAcceptRoute: InsiderAcceptRoute,
+  TicketCredentialRoute: TicketCredentialRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

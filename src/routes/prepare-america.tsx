@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { z } from "zod";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
 import {
@@ -12,10 +11,18 @@ import {
 import { submitConferenceApplication } from "@/lib/briefing.functions";
 import { getPublicConferenceStatus } from "@/lib/conference.functions";
 import { routeHead } from "@/lib/site";
+import {
+  FIRST_CONGRESS,
+  SECOND_CONGRESS,
+  SEASON_ONE,
+  CONGRESS_VENUE,
+  DELEGATE_CAPACITY,
+  CONVENER,
+  TICKET_TIERS,
+} from "@/content/calendar";
 
-const TITLE = "PrepareAmerica Conference";
-const DESC =
-  "The first annual PrepareAmerica Conference. 300 seats. Private. Gratitude Ranch, Flower Mound, Texas. November 1, 2026.";
+const TITLE = "The First Congress";
+const DESC = `The First Congress of PrepareAmerica. ${FIRST_CONGRESS.dateLabel}, streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
 
 export const Route = createFileRoute("/prepare-america")({
   head: () => {
@@ -28,27 +35,20 @@ export const Route = createFileRoute("/prepare-america")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "PrepareAmerica Conference 2026",
+            name: "PrepareAmerica · The First Congress",
             description: DESC,
-            startDate: "2026-11-01",
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+            startDate: FIRST_CONGRESS.opensOn,
+            eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
             eventStatus: "https://schema.org/EventScheduled",
             location: {
-              "@type": "Place",
-              name: "Gratitude Ranch",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Flower Mound",
-                addressRegion: "TX",
-                addressCountry: "US",
-              },
+              "@type": "VirtualLocation",
+              url: "https://prepareamerica.com/prepare-america",
             },
             organizer: {
               "@type": "Organization",
-              name: "United Stakeholders of America LLC",
+              name: CONVENER,
               url: "https://prepareamerica.com",
             },
-            maximumAttendeeCapacity: 300,
             isAccessibleForFree: false,
           }),
         },
@@ -65,35 +65,96 @@ function PrepareAmerica() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Convening"
-        title="PrepareAmerica · The first annual convening."
-        lede="A private convening of 300 industry executives, counsel, capital, and government advisors. Held once per year to review the ClaimStore proof of concept in the open."
+        eyebrow="The First Congress"
+        title="You need an invitation to receive the invitation."
+        lede={`On ${FIRST_CONGRESS.dateLabel} the First Congress is streamed to ticket holders. It is a reveal, an announcement, and an invitation to the Second Congress — where three hundred delegates convene in person.`}
         confidentiality="C0"
-        status="Invitation Only"
+        status="Ticketed · Invitation Only"
       />
 
-      <Section number="01" title="The details">
+      <Section number="01" title="The ladder">
+        <ol className="divide-y divide-border border-y border-border">
+          {[
+            ["Referral", "Someone already inside puts your name forward."],
+            ["Ticket", `Access to the First Congress stream on ${FIRST_CONGRESS.dateLabel}.`],
+            ["Invitation", `An invitation to the Second Congress, ${SECOND_CONGRESS.dateLabel}.`],
+            ["Delegate seat", `One of ${DELEGATE_CAPACITY} seats at ${CONGRESS_VENUE}.`],
+            ["Season One", `Participation in the operating season, ${SEASON_ONE.dateLabel}.`],
+          ].map(([label, note], i) => (
+            <li key={label} className="grid grid-cols-12 items-baseline gap-6 py-6">
+              <span className="col-span-2 font-mono text-xs text-silver md:col-span-1">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="col-span-10 font-medium text-ink md:col-span-3">{label}</span>
+              <span className="col-span-12 text-sm text-muted-foreground md:col-span-8">
+                {note}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section number="02" title="The two congresses">
         <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Date</dt>
-            <dd className="mt-2 font-serif text-2xl text-ink">November 1, 2026</dd>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">First Congress</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink">
+              {FIRST_CONGRESS.dateLabel} · streamed
+            </dd>
           </div>
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Location</dt>
-            <dd className="mt-2 font-serif text-2xl text-ink">Gratitude Ranch, Flower Mound, Texas</dd>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Second Congress</dt>
+            <dd className="mt-2 font-serif text-2xl text-ink">
+              {SECOND_CONGRESS.dateLabel} · {CONGRESS_VENUE}
+            </dd>
           </div>
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</dt>
+            <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Delegates</dt>
             <dd className="mt-2 font-serif text-2xl text-ink"><CapacityDisplay /></dd>
           </div>
           <div>
             <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Convener</dt>
-            <dd className="mt-2 font-serif text-2xl text-ink">United Stakeholders of America LLC</dd>
+            <dd className="mt-2 font-serif text-2xl text-ink">{CONVENER}</dd>
           </div>
         </dl>
       </Section>
 
-      <Section number="02" title="Who is invited">
+      <Section number="03" title="Ticket tiers">
+        <div className="grid gap-px bg-border sm:grid-cols-2">
+          {TICKET_TIERS.map((tier) => (
+            <div key={tier.id} className="bg-background p-6">
+              <div className="font-serif text-2xl text-ink">{tier.label}</div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {tier.grants}
+              </p>
+              <dl className="mt-5 space-y-2 text-xs text-muted-foreground">
+                <div className="flex justify-between gap-4">
+                  <dt className="font-mono uppercase tracking-[0.18em] text-silver">Term</dt>
+                  <dd className="text-right text-ink">{tier.term}</dd>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <dt className="font-mono uppercase tracking-[0.18em] text-silver">Seat right</dt>
+                  <dd className="text-right text-ink">{tier.seatRight ? "Standing" : "None"}</dd>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <dt className="font-mono uppercase tracking-[0.18em] text-silver">Transfer</dt>
+                  <dd className="text-right text-ink">
+                    {tier.transferable === "with-approval" ? "With convener approval" : "Not transferable"}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          ))}
+        </div>
+        <Prose>
+          <p className="mt-6">
+            Tiers describe what a holder is granted. Nothing here is priced,
+            sold, or offered. Tiers are assigned by the convener on review.
+          </p>
+        </Prose>
+      </Section>
+
+      <Section number="04" title="Who is invited">
         <Prose>
           <ul className="ml-5 list-disc space-y-1.5">
             <li>C-level industry executives from insurance, restoration, and construction</li>
@@ -106,32 +167,31 @@ function PrepareAmerica() {
         </Prose>
       </Section>
 
-      <Section number="03" title="What will be presented">
+      <Section number="05" title="What will be presented">
         <Prose>
           <p>
             The RRCA case study, the current state of the ClaimExpress
             Protocol design, the entity and governance architecture of
-            United Stakeholders of America, and the proposed sponsorship
-            pathways for ClaimStore.
+            United Stakeholders of America, and the shape of Season One.
           </p>
           <p>
             All material will be presented with truth-classification labels.
-            Nothing at the convening will be sold, transacted, or publicly
+            Nothing at the Congress will be sold, transacted, or publicly
             offered.
           </p>
         </Prose>
       </Section>
 
-      <Section number="04" title="Apply for an invitation">
+      <Section number="06" title="Request a ticket">
         <div className="grid gap-10 md:grid-cols-12">
           <aside className="md:col-span-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
               How review works
             </div>
             <ol className="mt-4 space-y-4 text-sm text-muted-foreground">
-              <li><span className="mr-2 font-mono text-ink">01</span>The convener personally reviews every application.</li>
-              <li><span className="mr-2 font-mono text-ink">02</span>Confirmed attendees receive a private invitation with logistics and access to the qualified-insider room.</li>
-              <li><span className="mr-2 font-mono text-ink">03</span>Seating is not first-come-first-served.</li>
+              <li><span className="mr-2 font-mono text-ink">01</span>The convener personally reviews every request.</li>
+              <li><span className="mr-2 font-mono text-ink">02</span>Approved holders receive a ticket credential for the stream and access to the qualified-insider room.</li>
+              <li><span className="mr-2 font-mono text-ink">03</span>Tickets are not first-come-first-served, and a ticket is not a delegate seat.</li>
             </ol>
             <div className="mt-8"><Meta status="No transaction · No offering" /></div>
           </aside>
@@ -153,6 +213,7 @@ function PrepareAmerica() {
     </PageShell>
   );
 }
+
 
 function SubmittedNotice({ already }: { already: boolean }) {
   return (
@@ -314,7 +375,7 @@ function CapacityDisplay() {
     load().then(setState).catch(() => {});
   }, [load]);
 
-  if (!state) return <span className="text-muted-foreground">300 seats — private</span>;
+  if (!state) return <span className="text-muted-foreground">{DELEGATE_CAPACITY} delegates — private</span>;
 
   return (
     <span>

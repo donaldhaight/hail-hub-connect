@@ -14,8 +14,9 @@ import { routeHead } from "@/lib/site";
 
 const search = z.object({ t: z.string().uuid().optional() });
 
-const TITLE = "Confirmed Attendee";
-const DESC = "Your private page for the PrepareAmerica Conference — November 1, 2026.";
+const TITLE = "Confirmed Delegate";
+const DESC = "Your private page for the Second Congress — Super Bowl weekend 2027, Gratitude Ranch.";
+
 
 export const Route = createFileRoute("/prepare-america/confirmed")({
   validateSearch: (s) => search.parse(s),
@@ -38,7 +39,7 @@ function Confirmed() {
         <PageHeader
           eyebrow="Private"
           title="This page needs your invitation link."
-          lede="Confirmed attendees receive a personal link with an access token. Open it from your invitation email."
+          lede="Confirmed delegates receive a personal link with an access token. Open it from your invitation email."
           confidentiality="C1"
         />
         <Section number="01" title="No token">
@@ -94,9 +95,10 @@ function ConfirmedLoaded({ token }: { token: string }) {
   return (
     <PageShell>
       <PageHeader
-        eyebrow={`Confirmed · ${data.name ?? "Attendee"}`}
+        eyebrow={`Confirmed · ${data.name ?? "Delegate"}`}
         title="You are confirmed."
-        lede="November 1, 2026 · Gratitude Ranch, Flower Mound, Texas. This page is yours — update your logistics as anything changes."
+        lede="The Second Congress · Super Bowl weekend 2027 · Gratitude Ranch, Flower Mound, Texas. This page is yours — update your logistics as anything changes."
+
         confidentiality="C1"
         status={data.seatStatus === "confirmed" ? "Seat Confirmed" : `Seat: ${data.seatStatus}`}
       />
