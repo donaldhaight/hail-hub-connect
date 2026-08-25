@@ -17,8 +17,13 @@ import {
 import {
   LAYERS,
   LAYER_LABEL,
+  LAYER_GUIDE,
   TRIAGE_STATES,
   TRIAGE_LABEL,
+  PROTOCOL_DOC,
+  PROTOCOL_LEDE,
+  PROTOCOL_DIAGRAM,
+  PROTOCOL_STEPS,
   type Layer,
   type TriageState,
 } from "@/content/intake";
@@ -62,6 +67,7 @@ function IntakePage() {
   const loadTargets = useServerFn(getFilingTargets);
   const doSearch = useServerFn(searchCorpus);
 
+  const [protocolOpen, setProtocolOpen] = useState(false);
   const [items, setItems] = useState<IntakeRow[] | null>(null);
   const [map, setMap] = useState<MapSummary | null>(null);
   const [state, setState] = useState<"all" | TriageState>("all");
@@ -184,6 +190,55 @@ function IntakePage() {
         >
           ← Console
         </Link>
+
+        {/* How this lane works */}
+        <div className="mt-6 border border-border">
+          <button
+            type="button"
+            onClick={() => setProtocolOpen((v) => !v)}
+            className="flex w-full items-center justify-between px-4 py-3 text-left"
+          >
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+              How this lane works — the working protocol
+            </span>
+            <span className="font-mono text-[10px] text-silver">{protocolOpen ? "−" : "+"}</span>
+          </button>
+          {protocolOpen ? (
+            <div className="border-t border-border px-4 py-5">
+              <p className="max-w-3xl font-serif text-sm leading-relaxed text-ink">{PROTOCOL_LEDE}</p>
+
+              <pre className="mt-4 overflow-x-auto border border-border bg-background/60 p-4 font-mono text-[10px] leading-relaxed text-silver">
+                {PROTOCOL_DIAGRAM}
+              </pre>
+
+              <div className="mt-5 grid gap-px border border-border bg-border sm:grid-cols-2">
+                {LAYERS.map((l) => (
+                  <div key={l} className="bg-background px-4 py-3">
+                    <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-silver">
+                      {LAYER_LABEL[l]}
+                    </div>
+                    <p className="mt-1 text-xs leading-relaxed text-ink/80">{LAYER_GUIDE[l]}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 grid gap-px border border-border bg-border sm:grid-cols-2">
+                {PROTOCOL_STEPS.map((s) => (
+                  <div key={s.title} className="bg-background px-4 py-3">
+                    <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-silver">{s.title}</div>
+                    <p className="mt-1 text-xs leading-relaxed text-ink/80">{s.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-silver">
+                Full protocol: {PROTOCOL_DOC}
+              </p>
+            </div>
+          ) : null}
+        </div>
+
+
 
         {/* Archive map */}
         <div className="mt-6 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
