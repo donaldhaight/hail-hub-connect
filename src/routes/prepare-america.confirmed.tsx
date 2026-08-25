@@ -14,8 +14,9 @@ import { routeHead } from "@/lib/site";
 
 const search = z.object({ t: z.string().uuid().optional() });
 
-const TITLE = "Confirmed Attendee";
-const DESC = "Your private page for the PrepareAmerica Conference — November 1, 2026.";
+const TITLE = "Confirmed Delegate";
+const DESC = "Your private page for the Second Congress — Super Bowl weekend 2027, Gratitude Ranch.";
+
 
 export const Route = createFileRoute("/prepare-america/confirmed")({
   validateSearch: (s) => search.parse(s),
@@ -38,7 +39,7 @@ function Confirmed() {
         <PageHeader
           eyebrow="Private"
           title="This page needs your invitation link."
-          lede="Confirmed attendees receive a personal link with an access token. Open it from your invitation email."
+          lede="Confirmed delegates receive a personal link with an access token. Open it from your invitation email."
           confidentiality="C1"
         />
         <Section number="01" title="No token">

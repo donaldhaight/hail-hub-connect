@@ -85,12 +85,13 @@ function PolicyPage() {
         <Prose>
           <p>
             Government think tanks, state insurance departments, and
-            disaster-recovery agencies are invited to observe the 11-1-2026{" "}
-            <Link to="/prepare-america">PrepareAmerica Conference</Link>{" "}
+            disaster-recovery agencies are invited to request a ticket to the
+            11-1-2026 <Link to="/prepare-america">First Congress</Link>{" "}
             and to <Link to="/request-briefing">request a private briefing</Link>.
             Access is individual and logged; nothing here is a lobbying
             position or a proposal for public funding.
           </p>
+
         </Prose>
       </Section>
     </PageShell>

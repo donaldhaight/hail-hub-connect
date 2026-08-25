@@ -54,10 +54,12 @@ function InvestorsPage() {
               capital) → ClaimCoin (settlement rail).
             </li>
             <li>
-              <strong>Convening event.</strong> The 11-1-2026 PrepareAmerica
-              Conference at Gratitude Ranch qualifies the first 300
-              stakeholders in one room.
+              <strong>Two Congresses.</strong> The First Congress is streamed
+              on 11-1-2026 to reveal and invite; the Second Congress convenes
+              300 delegates at Gratitude Ranch on Super Bowl weekend 2027 to
+              ratify Season One.
             </li>
+
             <li>
               <strong>Founder domain depth.</strong> 25+ years in insurance
               restoration; multiple prior attempts inform the current
