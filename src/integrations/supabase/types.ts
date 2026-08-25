@@ -94,6 +94,78 @@ export type Database = {
         }
         Relationships: []
       }
+      broadcast_checklist: {
+        Row: {
+          checked_at: string | null
+          checked_by: string | null
+          created_at: string
+          id: string
+          item_key: string
+          label: string
+          updated_at: string
+        }
+        Insert: {
+          checked_at?: string | null
+          checked_by?: string | null
+          created_at?: string
+          id?: string
+          item_key: string
+          label: string
+          updated_at?: string
+        }
+        Update: {
+          checked_at?: string | null
+          checked_by?: string | null
+          created_at?: string
+          id?: string
+          item_key?: string
+          label?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      broadcast_config: {
+        Row: {
+          embed_url: string | null
+          ended_at: string | null
+          fallback_message: string
+          id: string
+          provider: string
+          replay_url: string | null
+          started_at: string | null
+          state: string
+          stream_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          embed_url?: string | null
+          ended_at?: string | null
+          fallback_message?: string
+          id?: string
+          provider?: string
+          replay_url?: string | null
+          started_at?: string | null
+          state?: string
+          stream_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          embed_url?: string | null
+          ended_at?: string | null
+          fallback_message?: string
+          id?: string
+          provider?: string
+          replay_url?: string | null
+          started_at?: string | null
+          state?: string
+          stream_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       conference_applications: {
         Row: {
           access_token: string
@@ -190,10 +262,13 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          duration_minutes: number | null
           id: string
           is_published: boolean
           location: string | null
           position: number
+          segment_type: string | null
+          speaker: string | null
           time_label: string
           title: string
           updated_at: string
@@ -201,10 +276,13 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
+          duration_minutes?: number | null
           id?: string
           is_published?: boolean
           location?: string | null
           position?: number
+          segment_type?: string | null
+          speaker?: string | null
           time_label: string
           title: string
           updated_at?: string
@@ -212,10 +290,13 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
+          duration_minutes?: number | null
           id?: string
           is_published?: boolean
           location?: string | null
           position?: number
+          segment_type?: string | null
+          speaker?: string | null
           time_label?: string
           title?: string
           updated_at?: string
