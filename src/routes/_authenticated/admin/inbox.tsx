@@ -1343,18 +1343,20 @@ function ItineraryEditor() {
         <table className="w-full text-sm">
           <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
             <tr>
-              <th className="p-3 w-16">#</th>
+              <th className="p-3 w-12">#</th>
               <th className="p-3">Time</th>
               <th className="p-3">Title</th>
-              <th className="p-3">Status</th>
-              <th className="p-3 w-24"></th>
+              <th className="p-3">Type</th>
+              <th className="p-3">Speaker</th>
+              <th className="p-3 w-20">Status</th>
+              <th className="p-3 w-20"></th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+              <tr><td colSpan={7} className="p-6 text-center text-silver">Loading…</td></tr>
             ) : items.length === 0 ? (
-              <tr><td colSpan={5} className="p-6 text-center text-silver">No items yet.</td></tr>
+              <tr><td colSpan={7} className="p-6 text-center text-silver">No items yet.</td></tr>
             ) : items.map((r) => (
               <tr key={r.id} className={`border-t border-border ${draft.id === r.id ? "bg-muted/60" : ""}`}>
                 <td className="p-3 font-mono text-xs text-silver">{r.position}</td>
@@ -1364,7 +1366,18 @@ function ItineraryEditor() {
                     {r.title}
                   </button>
                   {r.location ? <div className="text-xs text-muted-foreground">{r.location}</div> : null}
+                  {r.duration_minutes ? <div className="text-xs text-muted-foreground">{r.duration_minutes} min</div> : null}
                 </td>
+                <td className="p-3">
+                  {r.segment_type && r.segment_type !== "segment" ? (
+                    <span className="border border-border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-muted-foreground">
+                      {r.segment_type}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-silver">—</span>
+                  )}
+                </td>
+                <td className="p-3 text-xs text-ink">{r.speaker ?? <span className="text-silver">—</span>}</td>
                 <td className="p-3">
                   <button
                     onClick={() => togglePublished(r)}
