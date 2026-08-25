@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { getFounderDigest } from "@/lib/dossier.functions";
 import { getMyRoles } from "@/lib/inbox.functions";
+import { getLadderFunnel } from "@/lib/ticket.functions";
 import { DOSSIERS_BY_SLUG } from "@/content/dossiers";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 
@@ -27,15 +28,22 @@ function DigestPage() {
   const [digest, setDigest] = useState<Digest | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [funnel, setFunnel] = useState<Awaited<ReturnType<typeof getLadderFunnel>> | null>(null);
 
   const myRoles = useServerFn(getMyRoles);
   const load = useServerFn(getFounderDigest);
+  const loadFunnel = useServerFn(getLadderFunnel);
 
   useEffect(() => {
     myRoles()
       .then((r) => setAuthorized(r.roles.includes("founder_admin")))
       .catch(() => setAuthorized(false));
   }, [myRoles]);
+
+  useEffect(() => {
+    if (!authorized) return;
+    loadFunnel().then(setFunnel).catch(() => setFunnel(null));
+  }, [authorized, loadFunnel]);
 
   useEffect(() => {
     if (!authorized) return;
@@ -136,7 +144,7 @@ function DigestPage() {
       <PageHeader
         eyebrow="Founder Digest"
         title="Everything that moved."
-        lede="Reverse-chronological. Briefing intake, PrepareAmerica applications, insider messages, invitations redeemed, and re-engagement from previously dormant insiders — one column."
+        lede="Reverse-chronological. Briefing intake, Congress applications, insider messages, invitations redeemed, and re-engagement from previously dormant insiders — one column."
         confidentiality="C2"
       />
       <section className="mx-auto max-w-4xl px-6 py-8">
@@ -152,6 +160,7 @@ function DigestPage() {
           ))}
           <div className="ml-auto flex items-center gap-2">
             <a href="/admin/inbox" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Inbox</a>
+            <a href="/admin/tickets" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Tickets</a>
             <a href="/admin/signals" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Signals</a>
             <a href="/admin/reads" className="border border-border px-3 py-1.5 text-xs text-muted-foreground hover:border-navy">Read heatmap</a>
           </div>
@@ -165,6 +174,25 @@ function DigestPage() {
           <div className="p-16 text-center text-silver">Loading…</div>
         ) : (
           <div className="space-y-10">
+            {funnel ? (
+              <div>
+                <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                  Invitation ladder
+                </div>
+                <div className="grid gap-3 border border-border bg-card p-4 sm:grid-cols-3 lg:grid-cols-6">
+                  <Metric label="Referrals" value={funnel.referrals} />
+                  <Metric label="Requests" value={funnel.requests} />
+                  <Metric label="Tickets issued" value={funnel.ticketsIssued} />
+                  <Metric label="Stakeholder tier" value={funnel.ticketsStakeholder} />
+                  <Metric label="Invitations redeemed" value={funnel.invitationsRedeemed} />
+                  <Metric label="Delegate seats" value={funnel.seatsConfirmed} />
+                </div>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+                  Referral → Ticket (First Congress) → Invitation → Delegate seat (Second Congress)
+                </p>
+              </div>
+            ) : null}
+
             {digest?.referralMomentum ? (
               <div>
                 <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Referral momentum</div>

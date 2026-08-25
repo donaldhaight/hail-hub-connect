@@ -80,3 +80,39 @@ export const listTickets = createServerFn({ method: "GET" })
     if (error) throw new Error("Failed to load tickets");
     return { rows: data ?? [] };
   });
+
+/** Founder-only: counts at each rung of the invitation ladder. */
+export const getLadderFunnel = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertFounder } = await import("./conference.server");
+    await assertFounder(context);
+
+    const [apps, referrals, invitations] = await Promise.all([
+      supabaseAdmin
+        .from("conference_applications")
+        .select("ticket_status, ticket_tier, seat_status"),
+      supabaseAdmin.from("insider_referrals").select("status"),
+      supabaseAdmin.from("insider_invitations").select("status"),
+    ]);
+
+    const rows = apps.data ?? [];
+    const count = (fn: (r: (typeof rows)[number]) => boolean) => rows.filter(fn).length;
+
+    return {
+      referrals: (referrals.data ?? []).length,
+      referralsAccepted: (referrals.data ?? []).filter((r) => r.status === "accepted").length,
+      requests: rows.length,
+      ticketsIssued: count((r) => r.ticket_status === "approved"),
+      ticketsObserver: count((r) => r.ticket_status === "approved" && r.ticket_tier === "observer"),
+      ticketsStakeholder: count(
+        (r) => r.ticket_status === "approved" && r.ticket_tier === "stakeholder",
+      ),
+      ticketsDeclined: count((r) => r.ticket_status === "declined"),
+      invitationsSent: (invitations.data ?? []).length,
+      invitationsRedeemed: (invitations.data ?? []).filter((i) => i.status === "redeemed").length,
+      seatsConfirmed: count((r) => r.seat_status === "confirmed"),
+      seatsWaitlisted: count((r) => r.seat_status === "waitlisted"),
+    };
+  });

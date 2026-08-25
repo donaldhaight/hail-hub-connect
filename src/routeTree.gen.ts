@@ -21,6 +21,7 @@ import { Route as PolicyRouteImport } from './routes/policy'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
+import { Route as FirstCongressRouteImport } from './routes/first-congress'
 import { Route as BriefingRouteImport } from './routes/briefing'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
@@ -110,6 +111,11 @@ const IndustryProblemRoute = IndustryProblemRouteImport.update({
 const FounderRoute = FounderRouteImport.update({
   id: '/founder',
   path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FirstCongressRoute = FirstCongressRouteImport.update({
+  id: '/first-congress',
+  path: '/first-congress',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BriefingRoute = BriefingRouteImport.update({
@@ -277,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
+  '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -320,6 +327,7 @@ export interface FileRoutesByTo {
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
+  '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -365,6 +373,7 @@ export interface FileRoutesById {
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
+  '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
@@ -410,6 +419,7 @@ export interface FileRouteTypes {
     | '/architecture'
     | '/auth'
     | '/briefing'
+    | '/first-congress'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -453,6 +463,7 @@ export interface FileRouteTypes {
     | '/architecture'
     | '/auth'
     | '/briefing'
+    | '/first-congress'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -497,6 +508,7 @@ export interface FileRouteTypes {
     | '/architecture'
     | '/auth'
     | '/briefing'
+    | '/first-congress'
     | '/founder'
     | '/industry-problem'
     | '/investors'
@@ -542,6 +554,7 @@ export interface RootRouteChildren {
   ArchitectureRoute: typeof ArchitectureRoute
   AuthRoute: typeof AuthRoute
   BriefingRoute: typeof BriefingRoute
+  FirstCongressRoute: typeof FirstCongressRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
   InvestorsRoute: typeof InvestorsRoute
@@ -642,6 +655,13 @@ declare module '@tanstack/react-router' {
       path: '/founder'
       fullPath: '/founder'
       preLoaderRoute: typeof FounderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/first-congress': {
+      id: '/first-congress'
+      path: '/first-congress'
+      fullPath: '/first-congress'
+      preLoaderRoute: typeof FirstCongressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/briefing': {
@@ -936,6 +956,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArchitectureRoute: ArchitectureRoute,
   AuthRoute: AuthRoute,
   BriefingRoute: BriefingRoute,
+  FirstCongressRoute: FirstCongressRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
   InvestorsRoute: InvestorsRoute,
