@@ -1276,6 +1276,9 @@ function ItineraryEditor() {
           description: draft.description,
           location: draft.location,
           isPublished: draft.is_published,
+          segmentType: draft.segment_type,
+          speaker: draft.speaker,
+          durationMinutes: draft.duration_minutes,
         },
       });
       setDraft(emptyDraft);
