@@ -20,11 +20,10 @@ const TITLE = "The First Congress";
 const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Ticket holders only.`;
 
 export const Route = createFileRoute("/first-congress")({
-  validateSearch: (s: Record<string, unknown>) => {
-    const t = typeof s.t === "string" ? s.t : undefined;
-    const rehearse = s.rehearse === "true" || s.rehearse === true;
-    return t ? { t, rehearse } : { rehearse };
-  },
+  validateSearch: z.object({
+    t: z.string().optional(),
+    rehearse: z.union([z.boolean(), z.literal("true")]).optional().catch(undefined),
+  }),
   head: () => {
     const base = routeHead({ title: TITLE, description: DESC, path: "/first-congress" });
     return {
