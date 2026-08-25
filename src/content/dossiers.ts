@@ -126,20 +126,26 @@ ClaimStore is that spine.`,
     storyOrder: 5,
     title: "PrepareAmerica Conference — Agenda & Attendees",
     summary:
-      "The private convening on 11-01-2026. Draft agenda, invited categories, and the presentation order of the working artifacts.",
+      "The two congresses. The streamed reveal on 11-01-2026, the convened ratification on Super Bowl weekend 2027, and the presentation order of the working artifacts.",
     confidentiality: "C2",
     truthDefault: "DECISION",
     sections: [
       {
-        heading: "The convening",
+        heading: "The First Congress",
         truth: "DECISION",
-        body: `Sunday, November 1, 2026 · Gratitude Ranch, Flower Mound, TX · 300 invited principals. Private, non-transferable invitations. Presentation order follows the dossier index above.`,
+        body: `Sunday, November 1, 2026 · streamed to ticket holders. A reveal, an announcement, and an invitation — you need an invitation to receive the invitation. Presentation order follows the dossier index above.`,
       },
       {
-        heading: "Attendee categories",
+        heading: "The Second Congress",
+        truth: "DECISION",
+        body: `Super Bowl weekend 2027 · Gratitude Ranch, Flower Mound, TX · 300 delegates convened in person to ratify Season One. Private, non-transferable invitations issued to First Congress ticket holders.`,
+      },
+      {
+        heading: "Delegate categories",
         truth: "ASSERTION",
         body: `C-level insurance and restoration operators. Institutional and family-office capital. Contractors with balance sheet. Government and think-tank observers. Legal and regulatory counsel.`,
       },
+
       {
         heading: "Open logistics",
         truth: "OPEN",
