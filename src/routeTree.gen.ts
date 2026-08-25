@@ -40,6 +40,7 @@ import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenticated/manual/print'
 import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
@@ -210,6 +211,11 @@ const AuthenticatedInsiderIndexRoute =
     path: '/insider/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedManualPrintRoute =
   AuthenticatedManualPrintRouteImport.update({
     id: '/manual/print',
@@ -325,6 +331,7 @@ export interface FileRoutesByFullPath {
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/manual/': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -370,6 +377,7 @@ export interface FileRoutesByTo {
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/manual': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -417,6 +425,7 @@ export interface FileRoutesById {
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/_authenticated/manual/print': typeof AuthenticatedManualPrintRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/manual/': typeof AuthenticatedManualIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -464,6 +473,7 @@ export interface FileRouteTypes {
     | '/insider/refer'
     | '/manual/$slug'
     | '/manual/print'
+    | '/admin/'
     | '/insider/'
     | '/manual/'
     | '/insider/dossier/$slug'
@@ -509,6 +519,7 @@ export interface FileRouteTypes {
     | '/insider/refer'
     | '/manual/$slug'
     | '/manual/print'
+    | '/admin'
     | '/insider'
     | '/manual'
     | '/insider/dossier/$slug'
@@ -555,6 +566,7 @@ export interface FileRouteTypes {
     | '/_authenticated/insider/refer'
     | '/_authenticated/manual/$slug'
     | '/_authenticated/manual/print'
+    | '/_authenticated/admin/'
     | '/_authenticated/insider/'
     | '/_authenticated/manual/'
     | '/_authenticated/insider/dossier/$slug'
@@ -803,6 +815,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manual/print': {
       id: '/_authenticated/manual/print'
       path: '/manual/print'
@@ -910,6 +929,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
   AuthenticatedManualPrintRoute: typeof AuthenticatedManualPrintRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedManualIndexRoute: typeof AuthenticatedManualIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
@@ -928,6 +948,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
   AuthenticatedManualPrintRoute: AuthenticatedManualPrintRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedManualIndexRoute: AuthenticatedManualIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
