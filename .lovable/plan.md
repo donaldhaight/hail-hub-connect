@@ -153,14 +153,49 @@ Work:
 - Add a post-broadcast CTA: apply for invitation to the Second Congress.
 - Include the handoff to the Season 1 operating platform for delegates who advance.
 
+### Sprint 2.5 — The Seat License model (structure now, transact later)
+
+The NFL PSL is the closest existing analogue to the invitation ladder, and the research is unambiguous about both why it works and how it fails.
+
+**What the pattern actually is.** A PSL is a one-time, transferable license that confers the *right to buy* a seat — it is not the seat and not the ticket. Owners sell it before the asset exists, which is what makes it capital formation rather than revenue.
+
+| Precedent | Raised | Against |
+|-----------|--------|---------|
+| Raiders / Allegiant Stadium (2020) | $549M net | $250M projected — sold out pre-opening |
+| Giants & Jets / MetLife (2008) | $360M | >20% of a $1.6B project |
+| 49ers / Levi's Stadium (2012) | ~$500M projected | tiered $2K–$80K by level |
+| Rams / SoFi (2020) | up to $100K per seat | rights run through 2068 |
+| Panthers / Charlotte (1996) | ~$125M of $150M | the original; bank financing was contingent on it |
+
+Three mechanics worth copying:
+- **Pre-sale is the point.** Allegiant securitized PSL receivables into a Delaware trust to collateralize construction debt. Capital arrived before the stadium did.
+- **Tiers price position, not just admission.** Higher tiers bundle transferability, term length, and priority access to non-core events.
+- **The license is an asset.** Official resale marketplaces exist. Transferability is what makes it feel like ownership rather than a fee.
+
+Three failure modes to design against:
+- **Default.** ~7,000 Falcons holders walked away; $42.9M in cumulative defaults. Payment plans on a non-liquid asset are fragile.
+- **Value collapse.** Panthers PSLs traded well below face two decades on. Resale value tracks performance and scarcity, and neither is guaranteed.
+- **Reputational inversion.** Max Muhleman, who invented the PSL for the Panthers, later disowned it: it began as a loyalty reward and degraded into cash extraction from a captive base. Our version must stay closer to the original intent, because our holders are not captive — they are referred.
+
+Work (modeling only — no transaction surface before 11-1):
+- Extend the ticket schema to carry a `tier` field from the outset, so tiering is a data property rather than a later migration.
+- Define at least two tiers in `src/content/calendar.ts` alongside the season data. Proposed starting shape, subject to founder decision:
+  - **Observer** — access to the First Congress stream. No seat right.
+  - **Stakeholder** — stream access plus a standing right to a Second Congress seat and to seats in subsequent seasons. Transferable with convener approval.
+- Model the right, not the payment: what each tier grants, its term, whether it is transferable, and whether it carries priority in later seasons.
+- Document the model in the Owner's Manual chapter on the season ladder, with the NFL precedent cited as the pattern and the Falcons/Panthers outcomes cited as the guardrail.
+- Truth-label: the NFL precedent is **FACT**; our tier structure is **DECISION**; any projected raise is **HYPOTHESIS**.
+- **No pricing, no payment rail, no offering language on any surface.** The site models the instrument; it does not sell it.
+
 ## Out of scope for this plan
 
 - Physical venue logistics for the Winter Meeting (hotel, catering, itinerary) — belongs to the Second Congress.
-- Sponsorship instruments (PSL tiers) — explicitly out of scope before 11-1.
+- **Selling** seat licenses: pricing, payment processing, or any offering language. Sprint 2.5 models the structure only.
 - Final Agenda2028 ratification text.
 - Public marketing, blog, newsletter, social cadence — forbidden by the silence doctrine.
 - Building or replacing the Season 1 operating platform. It exists; this site links to it.
 - Any public mention of ICO / IPO / liquidity-event framing.
+
 
 ## Success criteria
 
@@ -176,9 +211,13 @@ Work:
 
 1. **Does the Siteforum platform get named publicly, or only to insiders?** Naming a twenty-year-old hosting partner is either a credibility asset or a modernity liability depending on the audience.
 2. **Where exactly does the handoff happen?** A delegate who advances past the Second Congress lands on the Season 1 platform — that link, and what it looks like on the way in, is unspecified.
-3. **How many tickets to the First Congress?** Still open from `docs/STRATEGY.md`.
+3. **How many tickets to the First Congress?** Still open from `docs/STRATEGY.md`. The PSL research sharpens this: scarcity is what gives the license resale value, and the Panthers' erosion shows an oversized initial cohort is hard to undo.
+4. **How many tiers, and what does each grant?** Two is the minimum that makes tiering meaningful. The real question is what the top tier confers beyond access — a standing seat right, a governance vote, or priority in Season 2 and 3.
+5. **Is a seat license transferable, and on what terms?** Transferability is what made PSLs feel like ownership, and it is also what created the secondary market that later embarrassed the Panthers. Convener-approved transfer is the middle path.
+6. **Is the license ever priced?** The NFL model is a cash instrument. Ours could instead be earned through referral and contribution, with the license as recognition rather than purchase. This is the fork that decides whether we inherit the PSL's capital advantages or its reputational baggage.
 
 ## First step
 
 Begin with Sprint 2.0 and 2.0a together: the copy pass across public routes, on top of the calendar module so the corrected dates land in one place rather than twelve.
+
 
