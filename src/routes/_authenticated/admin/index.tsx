@@ -27,7 +27,7 @@ const SURFACES = [
   { to: "/admin/reads", label: "Read Heatmap", note: "Section-level dwell and read confirmation." },
   { to: "/admin/edits", label: "Edit Log", note: "Audit trail of corpus changes." },
   { to: "/admin/evidence", label: "Evidence Index", note: "Every dated artifact behind the manual and the dossiers." },
-  { to: "/admin/intake", label: "Intake Lane", note: "Drop documents and links before they're filed. Search the whole corpus." },
+  { to: "/admin/intake", label: "Intake Lane", note: "Drop documents and links before they're filed. Search the whole corpus. Working protocol lives here." },
   { to: "/admin/lab", label: "Concept Lab", note: "Side tracks explored in the open, adopted into the backlog when they converge." },
   { to: "/admin/tour", label: "Tour", note: "Narrated walkthrough of every private surface." },
   { to: "/manual", label: "Owner's Manual", note: "The governing document, editable in place." },
