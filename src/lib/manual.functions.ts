@@ -25,7 +25,7 @@ async function assertFounder(ctx: { supabase: any; userId: string }) {
 }
 
 const CHAPTER_COLUMNS =
-  "id, slug, part, position, number_label, title, subtitle, truth, confidentiality, body, updated_at";
+  "id, slug, part, position, number_label, title, subtitle, truth, confidentiality, body, draft_status, pull_quote, provenance_note, updated_at";
 
 export const listManualChapters = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -66,7 +66,11 @@ export const getManualChapter = createServerFn({ method: "GET" })
       .from("manual_chapters")
       .select("slug, title, position")
       .order("position", { ascending: true });
-    return { chapter: rows ?? null, nav: nav ?? [] };
+    const { data: terms } = await context.supabase
+      .from("manual_glossary")
+      .select("id, term, definition, see_also")
+      .order("term", { ascending: true });
+    return { chapter: rows ?? null, nav: nav ?? [], terms: terms ?? [] };
   });
 
 const updateSchema = z.object({
@@ -78,6 +82,9 @@ const updateSchema = z.object({
     .optional(),
   confidentiality: z.enum(["C0", "C1", "C2", "C3", "C4"]).optional(),
   body: z.string().max(40000).optional(),
+  draft_status: z.enum(["outline", "drafting", "review", "final"]).optional(),
+  pull_quote: z.string().max(400).nullable().optional(),
+  provenance_note: z.string().max(600).nullable().optional(),
 });
 
 export const updateManualChapter = createServerFn({ method: "POST" })
