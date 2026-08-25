@@ -25,8 +25,21 @@ Brand logos and design imagery are the one exception: those are product assets, 
 | PDFs, decks, filings, 2008–2014 archive | private storage bucket, signed URLs | insiders / founder-only per item |
 | Word, Excel, Keynote, anything not web-native | uploaded as-is **and** a generated PDF or text preview | insiders |
 | Google Docs / Drive / external URLs | link artifacts with a captured title, date, and a warning if access is not public | insiders |
+| YouTube / Vimeo video, NotebookLM audio overviews, screen recordings | media artifacts, played in-app in our own player | insiders |
 
 Nothing external is trusted to stay alive. Any Google Doc or third-party link we depend on gets a snapshot (PDF or text extract) stored alongside it, so the book never breaks because someone changed a sharing setting.
+
+## Video, audio, and the Media Room — yes, and it belongs here
+
+You are right that it was not in the plan, and right that it is huge. NotebookLM audio overviews, Gemini-generated explainers, YouTube walkthroughs, and screen recordings are the highest-conversion asset we have for a C-level reader who will not read 47 chapters. They are also the hardest to keep coordinated, which is exactly the argument for treating them as artifacts under the same model rather than as links pasted into prose.
+
+Three things get built:
+
+1. **Media artifacts.** Video and audio become a kind alongside file and link: a YouTube/Vimeo URL, an uploaded MP4/MP3, or a NotebookLM audio overview. Each carries duration, a poster image, a transcript, and the same date/provenance/truth/confidentiality fields as everything else. Transcripts make video searchable and quotable — a video with no transcript is invisible to a reader who is skimming.
+2. **A player, not an embed dump.** One in-app player component used everywhere: chapter media, dossier media, and the Media Room. Remembers your position, tracks watch percentage per insider (so the signals dashboard shows who watched what and where they dropped), and shows the transcript beside the video with click-to-seek.
+3. **The Media Room / slideshow player.** A curated, ordered playlist surface: a sequence of media plus still figures plus pull quotes, played end to end with auto-advance, chapter markers, and a narration track. This is the "sell themselves on the vision" tool — you hand someone a link, they press play, and the argument runs in order without you in the room. Playlists are built and reordered by you in the founder view, can be scoped (investor cut, contractor cut, think-tank cut, delegate cut), and each has its own share credential like the ticket pages.
+
+Coordination is the real deliverable: one registry where every video, audio piece, document, and figure is listed with what it proves and where it appears, so nothing lives only in your Drive and nothing on the site points at a dead upload.
 
 ## What gets built
 
@@ -47,7 +60,9 @@ Your preferred rhythm holds: one document at a time. You upload, I read it, writ
 - **Now (3.2b-1):** manual attachments + provenance line + evidence index. Pure build, no writing from you.
 - **Then (3.2b-2):** inline figures and the lightbox, plus screenshot capture of the current private screens for use as figures.
 - **Then (3.2b-3):** link snapshots and document text extraction.
-- **Later (3.2d):** exhibits in the print edition.
+- **Then (3.2b-4):** media artifacts and the in-app player with transcripts and watch tracking.
+- **Then (3.2b-5):** the Media Room — curated playlists, auto-advance slideshow, audience cuts, shareable credentials.
+- **Later (3.2d):** exhibits in the print edition; media appears there as a captioned still plus a QR/short link.
 
 ## Technical notes
 
@@ -57,7 +72,10 @@ Your preferred rhythm holds: one document at a time. You upload, I read it, writ
 - Figures use a `[[figure:<attachment-id>]]` marker resolved at render time inside the existing prose renderer, so chapter bodies stay plain text and editable.
 - Text extraction runs at upload for PDFs; Office formats are converted server-side to text where possible and otherwise stored with a manual summary field.
 - Brand/UI imagery continues to live in `src/assets` and is imported directly; it never enters the artifact tables.
+- Media adds `kind = 'video' | 'audio'` plus `provider`, `duration_seconds`, `poster_path`, and `transcript` columns; hosted video stays on YouTube/Vimeo (we do not pay to serve video), uploaded audio and short recordings go to the private bucket.
+- Watch progress lands in a `media_progress` table keyed by user and artifact, feeding the existing signals dashboard the same way dwell time already does.
+- Playlists: `media_playlists` and `media_playlist_items` (ordered, mixed media/figure/quote), with a share credential mirroring the `/ticket/$credential` pattern.
 
 ## Out of scope
 
-Public access to any artifact, image editing in-browser, video, and OCR of scanned handwriting.
+Public access to any artifact, in-browser image or video editing, self-hosted video streaming, AI-generated narration, and OCR of scanned handwriting.
