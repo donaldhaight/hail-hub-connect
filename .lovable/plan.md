@@ -211,9 +211,13 @@ Work (modeling only — no transaction surface before 11-1):
 
 1. **Does the Siteforum platform get named publicly, or only to insiders?** Naming a twenty-year-old hosting partner is either a credibility asset or a modernity liability depending on the audience.
 2. **Where exactly does the handoff happen?** A delegate who advances past the Second Congress lands on the Season 1 platform — that link, and what it looks like on the way in, is unspecified.
-3. **How many tickets to the First Congress?** Still open from `docs/STRATEGY.md`.
+3. **How many tickets to the First Congress?** Still open from `docs/STRATEGY.md`. The PSL research sharpens this: scarcity is what gives the license resale value, and the Panthers' erosion shows an oversized initial cohort is hard to undo.
+4. **How many tiers, and what does each grant?** Two is the minimum that makes tiering meaningful. The real question is what the top tier confers beyond access — a standing seat right, a governance vote, or priority in Season 2 and 3.
+5. **Is a seat license transferable, and on what terms?** Transferability is what made PSLs feel like ownership, and it is also what created the secondary market that later embarrassed the Panthers. Convener-approved transfer is the middle path.
+6. **Is the license ever priced?** The NFL model is a cash instrument. Ours could instead be earned through referral and contribution, with the license as recognition rather than purchase. This is the fork that decides whether we inherit the PSL's capital advantages or its reputational baggage.
 
 ## First step
 
 Begin with Sprint 2.0 and 2.0a together: the copy pass across public routes, on top of the calendar module so the corrected dates land in one place rather than twelve.
+
 
