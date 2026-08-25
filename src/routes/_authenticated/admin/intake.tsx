@@ -67,6 +67,7 @@ function IntakePage() {
   const loadTargets = useServerFn(getFilingTargets);
   const doSearch = useServerFn(searchCorpus);
 
+  const [protocolOpen, setProtocolOpen] = useState(false);
   const [items, setItems] = useState<IntakeRow[] | null>(null);
   const [map, setMap] = useState<MapSummary | null>(null);
   const [state, setState] = useState<"all" | TriageState>("all");
