@@ -32,7 +32,7 @@ export const Route = createFileRoute("/first-congress")({
   component: FirstCongressPage,
 });
 
-const START = new Date(`${FIRST_CONGRESS.opens}T00:00:00Z`).getTime();
+const START = new Date(`${FIRST_CONGRESS.opensOn ?? "2026-11-01"}T00:00:00Z`).getTime();
 
 function useCountdown() {
   const [now, setNow] = useState<number | null>(null);
