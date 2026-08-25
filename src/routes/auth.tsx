@@ -11,7 +11,7 @@ const DESC = "Private access to the ClaimStore founder inbox.";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: TITLE },

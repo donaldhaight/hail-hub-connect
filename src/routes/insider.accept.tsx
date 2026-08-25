@@ -13,7 +13,7 @@ export const Route = createFileRoute("/insider/accept")({
   validateSearch: (s) => z.object({ token: z.string().uuid().optional() }).parse(s),
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: TITLE },

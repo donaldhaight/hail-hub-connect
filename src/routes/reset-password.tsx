@@ -9,7 +9,7 @@ const DESC = "Complete your password reset for the ClaimStore Briefing Room.";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: TITLE },

@@ -34,12 +34,12 @@ export function renderTemplate(t: EmailTemplate): { subject: string; text: strin
     case "applicant_auto_reply":
       return {
         subject: "Your briefing request has been received",
-        text: `${t.name},\n\nThank you for your request. It is reviewed by the founder personally. If a briefing is appropriate you will hear from us within seven business days.\n\n— ClaimStore Briefing Room\n\nConfidential Working Concept — Not an Offering.`,
+        text: `${t.name},\n\nThank you for your request. It is reviewed by the founder personally. If a briefing is appropriate you will hear from us within seven business days.\n\n— PrepareAmerica\n\nConfidential Working Concept — Not an Offering.`,
       };
     case "insider_invitation":
       return {
-        subject: "Qualified insider access — ClaimStore Briefing Room",
-        text: `${t.name},\n\nYou have been invited to the Qualified Insider Room. This single-use link expires ${t.expiresAt}.\n\n${t.acceptUrl}\n\nSign in with this email to activate access.\n\n— ClaimStore Briefing Room\n\nConfidential Working Concept — Not an Offering.`,
+        subject: "Qualified insider access — PrepareAmerica",
+        text: `${t.name},\n\nYou have been invited to the Qualified Insider Room. This single-use link expires ${t.expiresAt}.\n\n${t.acceptUrl}\n\nSign in with this email to activate access.\n\n— PrepareAmerica\n\nConfidential Working Concept — Not an Offering.`,
       };
     case "founder_new_insider_message":
       return {
@@ -60,13 +60,13 @@ export function renderTemplate(t: EmailTemplate): { subject: string; text: strin
           "",
           t.body,
           "",
-          `— ClaimStore Briefing Room`,
+          `— PrepareAmerica`,
         ].join("\n"),
       };
     case "conference_seat_confirmed":
       return {
         subject: `Your seat is confirmed — PrepareAmerica 2026`,
-        text: `${t.name},\n\nYour seat${t.seats > 1 ? `s (${t.seats})` : ""} for PrepareAmerica 2026 on ${t.eventDate} at ${t.venue} ${t.seats > 1 ? "are" : "is"} confirmed.\n\nWe will send logistics details as the convening approaches.\n\n— ClaimStore Briefing Room\n\nConfidential Working Concept — Not an Offering.`,
+        text: `${t.name},\n\nYour seat${t.seats > 1 ? `s (${t.seats})` : ""} for PrepareAmerica 2026 on ${t.eventDate} at ${t.venue} ${t.seats > 1 ? "are" : "is"} confirmed.\n\nWe will send logistics details as the convening approaches.\n\n— PrepareAmerica\n\nConfidential Working Concept — Not an Offering.`,
       };
   }
 }

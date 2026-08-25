@@ -20,7 +20,7 @@ const DESC = "An annotated walkthrough of every surface built in Phase 0 of the 
 export const Route = createFileRoute("/_authenticated/admin/tour")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
       { name: "robots", content: "noindex, nofollow" },
     ],
