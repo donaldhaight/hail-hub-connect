@@ -10,7 +10,15 @@ import {
   type ConfidentialityClass,
 } from "@/components/briefing/Badges";
 import { listManualChapters, listManualGlossary } from "@/lib/manual.functions";
-import { SHIELD_URL, PART_TITLES, type ManualChapter } from "@/content/manual";
+import {
+  SHIELD_URL,
+  PART_TITLES,
+  DRAFT_STATUS_LABEL,
+  readingMinutes,
+  wordCount,
+  isWritten,
+  type ManualChapter,
+} from "@/content/manual";
 
 export const Route = createFileRoute("/_authenticated/manual/")({
   beforeLoad: async () => {
@@ -54,6 +62,13 @@ function ManualIndex() {
   }, [loadChapters, loadGlossary]);
 
   const parts = Array.from(new Set(chapters.map((c) => c.part)));
+  const total = chapters.length;
+  const finalCount = chapters.filter((c) => c.draft_status === "final").length;
+  const startedCount = chapters.filter((c) => isWritten(c.draft_status)).length;
+  const totalWords = chapters.reduce((sum, c) => sum + wordCount(c.body), 0);
+  const totalMinutes = chapters.reduce((sum, c) => sum + readingMinutes(c.body), 0);
+  const pct = total > 0 ? Math.round((finalCount / total) * 100) : 0;
+  const startedPct = total > 0 ? Math.round((startedCount / total) * 100) : 0;
 
   return (
     <PageShell>
@@ -93,6 +108,41 @@ function ManualIndex() {
           </div>
         </div>
       </section>
+
+      {/* Progress */}
+      {total > 0 ? (
+        <section className="border-b border-border bg-muted/40">
+          <div className="mx-auto max-w-6xl px-6 py-10">
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-silver">
+                State of the manuscript
+              </div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+                {totalWords.toLocaleString()} words · {totalMinutes} min total read
+              </div>
+            </div>
+            <div className="mt-5 h-2 w-full bg-border">
+              <div className="relative h-2 w-full">
+                <div
+                  className="absolute left-0 top-0 h-2 bg-silver/60"
+                  style={{ width: `${startedPct}%` }}
+                />
+                <div
+                  className="absolute left-0 top-0 h-2 bg-navy"
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              <span className="text-ink">
+                {finalCount} of {total} chapters final
+              </span>{" "}
+              ({pct}%). {startedCount} past outline stage. The rest stand as a
+              promised table of contents.
+            </p>
+          </div>
+        </section>
+      ) : null}
 
       {/* Table of contents */}
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
@@ -136,6 +186,18 @@ function ManualIndex() {
                           ) : null}
                         </span>
                         <span className="flex shrink-0 items-center gap-2">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-silver">
+                            {readingMinutes(c.body)} min
+                          </span>
+                          <span
+                            className={
+                              c.draft_status === "final"
+                                ? "border border-navy px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-navy"
+                                : "border border-silver/50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-silver"
+                            }
+                          >
+                            {DRAFT_STATUS_LABEL[c.draft_status] ?? c.draft_status}
+                          </span>
                           <TruthChip value={c.truth as TruthClass} />
                           <ConfidentialityChip value={c.confidentiality as ConfidentialityClass} />
                         </span>
