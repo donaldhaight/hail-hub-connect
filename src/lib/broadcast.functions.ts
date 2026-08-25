@@ -119,7 +119,13 @@ export const transitionBroadcastState = createServerFn({ method: "POST" })
     await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const now = new Date().toISOString();
-    const update: Record<string, any> = { state: data.state, updated_at: now, updated_by: context.userId };
+    const update: {
+      state: string;
+      updated_at: string;
+      updated_by: string;
+      started_at?: string;
+      ended_at?: string;
+    } = { state: data.state, updated_at: now, updated_by: context.userId };
     if (data.state === "live") update.started_at = now;
     if (data.state === "ended") update.ended_at = now;
     const { error } = await supabaseAdmin.from("broadcast_config").update(update).eq("id", "default");
