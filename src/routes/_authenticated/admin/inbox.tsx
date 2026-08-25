@@ -1226,6 +1226,9 @@ function ItineraryEditor() {
     description: "",
     location: "",
     is_published: true,
+    segment_type: "segment",
+    speaker: "",
+    duration_minutes: 0,
   };
   const [draft, setDraft] = useState<{
     id: string;
@@ -1235,6 +1238,9 @@ function ItineraryEditor() {
     description: string;
     location: string;
     is_published: boolean;
+    segment_type: string;
+    speaker: string;
+    duration_minutes: number;
   }>(emptyDraft);
 
   async function refresh() {
