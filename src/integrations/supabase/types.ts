@@ -903,10 +903,13 @@ export type Database = {
           body: string
           confidentiality: string
           created_at: string
+          draft_status: string
           id: string
           number_label: string | null
           part: string
           position: number
+          provenance_note: string | null
+          pull_quote: string | null
           slug: string
           subtitle: string | null
           title: string
@@ -917,10 +920,13 @@ export type Database = {
           body?: string
           confidentiality?: string
           created_at?: string
+          draft_status?: string
           id?: string
           number_label?: string | null
           part: string
           position: number
+          provenance_note?: string | null
+          pull_quote?: string | null
           slug: string
           subtitle?: string | null
           title: string
@@ -931,10 +937,13 @@ export type Database = {
           body?: string
           confidentiality?: string
           created_at?: string
+          draft_status?: string
           id?: string
           number_label?: string | null
           part?: string
           position?: number
+          provenance_note?: string | null
+          pull_quote?: string | null
           slug?: string
           subtitle?: string | null
           title?: string
