@@ -64,7 +64,7 @@ export const getManualChapter = createServerFn({ method: "GET" })
     if (error) throw new Error("Failed to load the chapter");
     const { data: nav } = await context.supabase
       .from("manual_chapters")
-      .select("slug, title, position")
+      .select("slug, title, position, part")
       .order("position", { ascending: true });
     const { data: terms } = await context.supabase
       .from("manual_glossary")

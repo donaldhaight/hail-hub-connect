@@ -45,7 +45,7 @@ export const Route = createFileRoute("/_authenticated/manual/$slug")({
   component: ManualChapterPage,
 });
 
-type NavItem = { slug: string; title: string; position: number };
+type NavItem = { slug: string; title: string; position: number; part: string };
 
 function ManualChapterPage() {
   const { slug } = Route.useParams();
@@ -79,7 +79,7 @@ function ManualChapterPage() {
   const index = nav.findIndex((n) => n.slug === slug);
   const prev = index > 0 ? nav[index - 1] : null;
   const next = index >= 0 && index < nav.length - 1 ? nav[index + 1] : null;
-  const partNav = nav.filter((n) => partBySlug[n.slug] === chapter?.part);
+  const partNav = chapter ? nav.filter((n) => n.part === chapter.part) : [];
 
   async function onSave() {
     if (!draft) return;
