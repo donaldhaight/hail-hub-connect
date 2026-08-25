@@ -72,7 +72,7 @@ export const listPublishedItinerary = createServerFn({ method: "GET" }).handler(
   const sb = publicClient();
   const { data, error } = await sb
     .from("conference_itinerary_items")
-    .select("id, position, time_label, title, description, location")
+    .select("id, position, time_label, title, description, location, segment_type, speaker, duration_minutes")
     .eq("is_published", true)
     .order("position", { ascending: true })
     .order("time_label", { ascending: true });
