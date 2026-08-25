@@ -104,8 +104,9 @@ Work:
   4. The seven stakeholder groups
   5. The architecture (Human Blockchain / Three-Layer Reveal)
   6. The two congresses and the invitation ladder
-  7. The ClaimStore proof of concept
-  8. Glossary
+  7. The season ladder and the two-track platform strategy
+  8. The ClaimStore proof of concept
+  9. Glossary
 - Ensure every chapter carries truth labels and confidentiality classes.
 - Add a print/PDF-ready view of the full manual.
 
@@ -115,8 +116,9 @@ The founder inbox currently manages "conference applications." Reframe it to man
 
 Work:
 - Rename admin concepts from "conference seat" to "ticket" and "invitation."
-- Add status transitions: `pending` → `approved (ticket)` → `invited (February seat)` → `confirmed seat`.
+- Add status transitions: `pending` → `approved (ticket)` → `invited (milestone seat)` → `confirmed seat`.
 - Add a 300-delegate cap for the Second Congress with waitlist logic.
+- Tag every record with its season, so Season 2 reuses the same machinery without a rebuild.
 - Update `/admin/inbox`, `/admin/signals`, and `/admin/digest` to report on tickets, invitations, and confirmed delegates.
 
 ### Sprint 2.4 — First Congress broadcast landing page
@@ -127,22 +129,34 @@ Work:
 - Build `/first-congress` (or `/congress/first`) protected by ticket credential or authenticated access.
 - Include stream embed placeholder, run-of-show, and link to the Owner's Manual.
 - Add a post-broadcast CTA: apply for invitation to the Second Congress.
+- Include the handoff to the Season 1 operating platform for delegates who advance.
 
 ## Out of scope for this plan
 
-- Physical venue logistics for February (hotel, catering, itinerary) — belongs to the Second Congress.
+- Physical venue logistics for the Winter Meeting (hotel, catering, itinerary) — belongs to the Second Congress.
 - Sponsorship instruments (PSL tiers) — explicitly out of scope before 11-1.
 - Final Agenda2028 ratification text.
 - Public marketing, blog, newsletter, social cadence — forbidden by the silence doctrine.
+- Building or replacing the Season 1 operating platform. It exists; this site links to it.
+- Any public mention of ICO / IPO / liquidity-event framing.
 
 ## Success criteria
 
-1. A signed-out visitor to `prepareamerica.com` sees a streamed First Congress on 11-1-2026 and a convened Second Congress on 02-14-2027 — never a single physical "conference" on 11-1.
+1. A signed-out visitor to `prepareamerica.com` sees a streamed First Congress on 11-1-2026 and a convened Second Congress on Super Bowl weekend 2027 — never a single physical "conference" on 11-1.
 2. A referred applicant can request and receive a ticket to the stream.
 3. The Owner's Manual is readable behind authentication with a complete table of contents.
 4. The founder can triage applicants into tickets, then tickets into invitations, then invitations into confirmed seats.
 5. All schema and copy use the vocabulary in `docs/STRATEGY.md`.
+6. No date appears in a component. Every date renders from `src/content/calendar.ts`, and TBD milestones render as "Super Bowl weekend."
+7. No public surface mentions Season 2, Season 3, the election cycle, or a liquidity event.
+
+## Open questions carried forward
+
+1. **Does the Siteforum platform get named publicly, or only to insiders?** Naming a twenty-year-old hosting partner is either a credibility asset or a modernity liability depending on the audience.
+2. **Where exactly does the handoff happen?** A delegate who advances past the Second Congress lands on the Season 1 platform — that link, and what it looks like on the way in, is unspecified.
+3. **How many tickets to the First Congress?** Still open from `docs/STRATEGY.md`.
 
 ## First step
 
-Begin with Sprint 2.0: a copy pass across the public routes. It is the fastest risk reduction and unblocks the later sprints.
+Begin with Sprint 2.0 and 2.0a together: the copy pass across public routes, on top of the calendar module so the corrected dates land in one place rather than twelve.
+
