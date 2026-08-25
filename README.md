@@ -8,7 +8,7 @@
 
 ## What this is
 
-ClaimStore Briefing Room is the understated temporary front door for a larger strategy: restructure the Roofing & Reconstruction Contractors of America (RRCA) as the first operating proof of concept for a proposed transaction and coordination layer for the insurance-restoration market.
+PrepareAmerica is the understated temporary front door for a larger strategy: restructure the Roofing & Reconstruction Contractors of America (RRCA) as the first operating proof of concept for a proposed transaction and coordination layer for the insurance-restoration market.
 
 The site is designed to:
 
