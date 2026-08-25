@@ -1433,6 +1433,39 @@ function ItineraryEditor() {
           />
         </label>
         <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Segment type</span>
+          <select
+            value={draft.segment_type}
+            onChange={(e) => setDraft({ ...draft, segment_type: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          >
+            <option value="segment">Segment</option>
+            <option value="opening">Opening</option>
+            <option value="reveal">Reveal</option>
+            <option value="announcement">Announcement</option>
+            <option value="invitation">Invitation</option>
+            <option value="performance">Performance</option>
+            <option value="closing">Closing</option>
+          </select>
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Speaker / presenter</span>
+          <input
+            value={draft.speaker}
+            onChange={(e) => setDraft({ ...draft, speaker: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Duration (minutes)</span>
+          <input
+            type="number"
+            value={draft.duration_minutes}
+            onChange={(e) => setDraft({ ...draft, duration_minutes: Number(e.target.value) || 0 })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
           <span className="font-mono uppercase tracking-[0.14em] text-silver">Description</span>
           <textarea
             rows={4}
