@@ -9,16 +9,18 @@ const DESC =
 export const Route = createFileRoute("/briefing")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — ClaimStore Briefing Room` },
+      { title: `${TITLE} — PrepareAmerica` },
       { name: "description", content: DESC },
-      { property: "og:title", content: "ClaimStore Briefing Room" },
+      { property: "og:title", content: "The ClaimStore Briefing — PrepareAmerica" },
       { property: "og:description", content: DESC },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://hail-hub-connect.lovable.app/briefing" },
-      { name: "twitter:title", content: "ClaimStore Briefing Room" },
+      { property: "og:type", content: "article" },
+      { property: "og:url", content: "https://prepareamerica.com/briefing" },
+      { property: "og:site_name", content: "PrepareAmerica" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "The ClaimStore Briefing — PrepareAmerica" },
       { name: "twitter:description", content: DESC },
     ],
-    links: [{ rel: "canonical", href: "https://hail-hub-connect.lovable.app/briefing" }],
+    links: [{ rel: "canonical", href: "https://prepareamerica.com/briefing" }],
   }),
   component: Briefing,
 });
