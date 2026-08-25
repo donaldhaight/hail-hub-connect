@@ -95,9 +95,10 @@ function ConfirmedLoaded({ token }: { token: string }) {
   return (
     <PageShell>
       <PageHeader
-        eyebrow={`Confirmed · ${data.name ?? "Attendee"}`}
+        eyebrow={`Confirmed · ${data.name ?? "Delegate"}`}
         title="You are confirmed."
-        lede="November 1, 2026 · Gratitude Ranch, Flower Mound, Texas. This page is yours — update your logistics as anything changes."
+        lede="The Second Congress · Super Bowl weekend 2027 · Gratitude Ranch, Flower Mound, Texas. This page is yours — update your logistics as anything changes."
+
         confidentiality="C1"
         status={data.seatStatus === "confirmed" ? "Seat Confirmed" : `Seat: ${data.seatStatus}`}
       />
