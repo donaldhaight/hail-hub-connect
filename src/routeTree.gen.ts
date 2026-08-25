@@ -51,6 +51,7 @@ import { Route as AuthenticatedAdminInviteRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authenticated/admin/edits'
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
+import { Route as AuthenticatedAdminBroadcastRouteImport } from './routes/_authenticated/admin/broadcast'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
@@ -270,6 +271,12 @@ const AuthenticatedAdminDigestRoute =
     path: '/admin/digest',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminBroadcastRoute =
+  AuthenticatedAdminBroadcastRouteImport.update({
+    id: '/admin/broadcast',
+    path: '/admin/broadcast',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedInsiderDossierSlugRoute =
   AuthenticatedInsiderDossierSlugRouteImport.update({
     id: '/insider/dossier/$slug',
@@ -306,6 +313,7 @@ export interface FileRoutesByFullPath {
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
+  '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -350,6 +358,7 @@ export interface FileRoutesByTo {
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
+  '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -396,6 +405,7 @@ export interface FileRoutesById {
   '/insider/accept': typeof InsiderAcceptRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
+  '/_authenticated/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
+    | '/admin/broadcast'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
@@ -486,6 +497,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
+    | '/admin/broadcast'
     | '/admin/digest'
     | '/admin/edits'
     | '/admin/inbox'
@@ -531,6 +543,7 @@ export interface FileRouteTypes {
     | '/insider/accept'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
+    | '/_authenticated/admin/broadcast'
     | '/_authenticated/admin/digest'
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/inbox'
@@ -867,6 +880,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminDigestRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/broadcast': {
+      id: '/_authenticated/admin/broadcast'
+      path: '/admin/broadcast'
+      fullPath: '/admin/broadcast'
+      preLoaderRoute: typeof AuthenticatedAdminBroadcastRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/insider/dossier/$slug': {
       id: '/_authenticated/insider/dossier/$slug'
       path: '/insider/dossier/$slug'
@@ -878,6 +898,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
@@ -895,6 +916,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,

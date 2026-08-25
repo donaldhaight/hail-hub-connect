@@ -1204,6 +1204,9 @@ type ItineraryRow = {
   description: string | null;
   location: string | null;
   is_published: boolean;
+  segment_type: string | null;
+  speaker: string | null;
+  duration_minutes: number | null;
 };
 
 function ItineraryEditor() {
@@ -1223,6 +1226,9 @@ function ItineraryEditor() {
     description: "",
     location: "",
     is_published: true,
+    segment_type: "segment",
+    speaker: "",
+    duration_minutes: 0,
   };
   const [draft, setDraft] = useState<{
     id: string;
@@ -1232,6 +1238,9 @@ function ItineraryEditor() {
     description: string;
     location: string;
     is_published: boolean;
+    segment_type: string;
+    speaker: string;
+    duration_minutes: number;
   }>(emptyDraft);
 
   async function refresh() {
@@ -1267,6 +1276,9 @@ function ItineraryEditor() {
           description: draft.description,
           location: draft.location,
           isPublished: draft.is_published,
+          segmentType: draft.segment_type,
+          speaker: draft.speaker,
+          durationMinutes: draft.duration_minutes,
         },
       });
       setDraft(emptyDraft);
@@ -1288,6 +1300,9 @@ function ItineraryEditor() {
           description: row.description ?? "",
           location: row.location ?? "",
           isPublished: !row.is_published,
+          segmentType: row.segment_type ?? "segment",
+          speaker: row.speaker ?? "",
+          durationMinutes: row.duration_minutes ?? 0,
         },
       });
       await refresh();
@@ -1316,6 +1331,9 @@ function ItineraryEditor() {
       description: row.description ?? "",
       location: row.location ?? "",
       is_published: row.is_published,
+      segment_type: row.segment_type ?? "segment",
+      speaker: row.speaker ?? "",
+      duration_minutes: row.duration_minutes ?? 0,
     });
   }
 
@@ -1325,18 +1343,20 @@ function ItineraryEditor() {
         <table className="w-full text-sm">
           <thead className="bg-muted text-left text-[10px] font-mono uppercase tracking-[0.14em] text-silver">
             <tr>
-              <th className="p-3 w-16">#</th>
+              <th className="p-3 w-12">#</th>
               <th className="p-3">Time</th>
               <th className="p-3">Title</th>
-              <th className="p-3">Status</th>
-              <th className="p-3 w-24"></th>
+              <th className="p-3">Type</th>
+              <th className="p-3">Speaker</th>
+              <th className="p-3 w-20">Status</th>
+              <th className="p-3 w-20"></th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={5} className="p-6 text-center text-silver">Loading…</td></tr>
+              <tr><td colSpan={7} className="p-6 text-center text-silver">Loading…</td></tr>
             ) : items.length === 0 ? (
-              <tr><td colSpan={5} className="p-6 text-center text-silver">No items yet.</td></tr>
+              <tr><td colSpan={7} className="p-6 text-center text-silver">No items yet.</td></tr>
             ) : items.map((r) => (
               <tr key={r.id} className={`border-t border-border ${draft.id === r.id ? "bg-muted/60" : ""}`}>
                 <td className="p-3 font-mono text-xs text-silver">{r.position}</td>
@@ -1346,7 +1366,18 @@ function ItineraryEditor() {
                     {r.title}
                   </button>
                   {r.location ? <div className="text-xs text-muted-foreground">{r.location}</div> : null}
+                  {r.duration_minutes ? <div className="text-xs text-muted-foreground">{r.duration_minutes} min</div> : null}
                 </td>
+                <td className="p-3">
+                  {r.segment_type && r.segment_type !== "segment" ? (
+                    <span className="border border-border px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-[0.14em] text-muted-foreground">
+                      {r.segment_type}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-silver">—</span>
+                  )}
+                </td>
+                <td className="p-3 text-xs text-ink">{r.speaker ?? <span className="text-silver">—</span>}</td>
                 <td className="p-3">
                   <button
                     onClick={() => togglePublished(r)}
@@ -1411,6 +1442,39 @@ function ItineraryEditor() {
           <input
             value={draft.location}
             onChange={(e) => setDraft({ ...draft, location: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Segment type</span>
+          <select
+            value={draft.segment_type}
+            onChange={(e) => setDraft({ ...draft, segment_type: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          >
+            <option value="segment">Segment</option>
+            <option value="opening">Opening</option>
+            <option value="reveal">Reveal</option>
+            <option value="announcement">Announcement</option>
+            <option value="invitation">Invitation</option>
+            <option value="performance">Performance</option>
+            <option value="closing">Closing</option>
+          </select>
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Speaker / presenter</span>
+          <input
+            value={draft.speaker}
+            onChange={(e) => setDraft({ ...draft, speaker: e.target.value })}
+            className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
+          />
+        </label>
+        <label className="block text-xs">
+          <span className="font-mono uppercase tracking-[0.14em] text-silver">Duration (minutes)</span>
+          <input
+            type="number"
+            value={draft.duration_minutes}
+            onChange={(e) => setDraft({ ...draft, duration_minutes: Number(e.target.value) || 0 })}
             className="mt-1 w-full border border-border bg-paper px-2 py-1.5 text-sm text-ink focus:border-navy focus:outline-none"
           />
         </label>
