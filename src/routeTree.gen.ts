@@ -50,6 +50,7 @@ import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
 import { Route as AuthenticatedAdminInviteRouteImport } from './routes/_authenticated/admin/invite'
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
+import { Route as AuthenticatedAdminEvidenceRouteImport } from './routes/_authenticated/admin/evidence'
 import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authenticated/admin/edits'
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
 import { Route as AuthenticatedAdminBroadcastRouteImport } from './routes/_authenticated/admin/broadcast'
@@ -266,6 +267,12 @@ const AuthenticatedAdminInboxRoute = AuthenticatedAdminInboxRouteImport.update({
   path: '/admin/inbox',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminEvidenceRoute =
+  AuthenticatedAdminEvidenceRouteImport.update({
+    id: '/admin/evidence',
+    path: '/admin/evidence',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminEditsRoute = AuthenticatedAdminEditsRouteImport.update({
   id: '/admin/edits',
   path: '/admin/edits',
@@ -322,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
@@ -368,6 +376,7 @@ export interface FileRoutesByTo {
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
@@ -416,6 +425,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
+  '/_authenticated/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
   '/_authenticated/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
@@ -464,6 +474,7 @@ export interface FileRouteTypes {
     | '/admin/broadcast'
     | '/admin/digest'
     | '/admin/edits'
+    | '/admin/evidence'
     | '/admin/inbox'
     | '/admin/invite'
     | '/admin/reads'
@@ -510,6 +521,7 @@ export interface FileRouteTypes {
     | '/admin/broadcast'
     | '/admin/digest'
     | '/admin/edits'
+    | '/admin/evidence'
     | '/admin/inbox'
     | '/admin/invite'
     | '/admin/reads'
@@ -557,6 +569,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/broadcast'
     | '/_authenticated/admin/digest'
     | '/_authenticated/admin/edits'
+    | '/_authenticated/admin/evidence'
     | '/_authenticated/admin/inbox'
     | '/_authenticated/admin/invite'
     | '/_authenticated/admin/reads'
@@ -885,6 +898,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInboxRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/evidence': {
+      id: '/_authenticated/admin/evidence'
+      path: '/admin/evidence'
+      fullPath: '/admin/evidence'
+      preLoaderRoute: typeof AuthenticatedAdminEvidenceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/edits': {
       id: '/_authenticated/admin/edits'
       path: '/admin/edits'
@@ -920,6 +940,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
+  AuthenticatedAdminEvidenceRoute: typeof AuthenticatedAdminEvidenceRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
   AuthenticatedAdminInviteRoute: typeof AuthenticatedAdminInviteRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
@@ -939,6 +960,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
+  AuthenticatedAdminEvidenceRoute: AuthenticatedAdminEvidenceRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,
   AuthenticatedAdminInviteRoute: AuthenticatedAdminInviteRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,

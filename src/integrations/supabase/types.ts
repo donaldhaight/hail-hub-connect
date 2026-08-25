@@ -470,9 +470,12 @@ export type Database = {
           is_published: boolean
           kind: string
           mime_type: string | null
+          original_date: string | null
           position: number
           section_id: string | null
+          significance: string | null
           size_bytes: number | null
+          source_label: string | null
           storage_path: string | null
           title: string
           updated_at: string
@@ -487,9 +490,12 @@ export type Database = {
           is_published?: boolean
           kind: string
           mime_type?: string | null
+          original_date?: string | null
           position?: number
           section_id?: string | null
+          significance?: string | null
           size_bytes?: number | null
+          source_label?: string | null
           storage_path?: string | null
           title: string
           updated_at?: string
@@ -504,9 +510,12 @@ export type Database = {
           is_published?: boolean
           kind?: string
           mime_type?: string | null
+          original_date?: string | null
           position?: number
           section_id?: string | null
+          significance?: string | null
           size_bytes?: number | null
+          source_label?: string | null
           storage_path?: string | null
           title?: string
           updated_at?: string
@@ -897,6 +906,98 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      manual_attachment_opens: {
+        Row: {
+          attachment_id: string
+          chapter_slug: string
+          id: string
+          opened_at: string
+          user_id: string
+        }
+        Insert: {
+          attachment_id: string
+          chapter_slug: string
+          id?: string
+          opened_at?: string
+          user_id: string
+        }
+        Update: {
+          attachment_id?: string
+          chapter_slug?: string
+          id?: string
+          opened_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "manual_attachment_opens_attachment_id_fkey"
+            columns: ["attachment_id"]
+            isOneToOne: false
+            referencedRelation: "manual_attachments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      manual_attachments: {
+        Row: {
+          chapter_slug: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          external_url: string | null
+          id: string
+          is_published: boolean
+          kind: string
+          mime_type: string | null
+          original_date: string | null
+          position: number
+          significance: string | null
+          size_bytes: number | null
+          source_label: string | null
+          storage_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          chapter_slug: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          kind: string
+          mime_type?: string | null
+          original_date?: string | null
+          position?: number
+          significance?: string | null
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          chapter_slug?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          kind?: string
+          mime_type?: string | null
+          original_date?: string | null
+          position?: number
+          significance?: string | null
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       manual_chapters: {
         Row: {
