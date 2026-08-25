@@ -38,7 +38,7 @@ async function assertFounder(ctx: { supabase: any; userId: string }) {
 export const getBroadcastState = createServerFn({ method: "GET" }).handler(async () => {
   const sb = publicClient();
   const [{ data: config, error: configErr }, { data: segments, error: segErr }] = await Promise.all([
-    sb.from("broadcast_config").select("provider, stream_id, embed_url, replay_url, fallback_message, state, started_at, ended_at").eq("id", "default").single(),
+    sb.from("broadcast_config").select("provider, stream_id, embed_url, replay_url, fallback_message, state, started_at, ended_at").eq("id", "default").maybeSingle(),
     sb
       .from("conference_itinerary_items")
       .select("id, position, time_label, title, description, location, segment_type, speaker, duration_minutes")
@@ -70,7 +70,7 @@ export const getBroadcastConfig = createServerFn({ method: "GET" })
     await assertFounder(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [{ data: config, error: configErr }, { data: checklist, error: checkErr }] = await Promise.all([
-      supabaseAdmin.from("broadcast_config").select("*").eq("id", "default").single(),
+      supabaseAdmin.from("broadcast_config").select("*").eq("id", "default").maybeSingle(),
       supabaseAdmin.from("broadcast_checklist").select("*").order("item_key", { ascending: true }),
     ]);
     if (configErr) throw new Error(configErr.message || "Failed to load config");
