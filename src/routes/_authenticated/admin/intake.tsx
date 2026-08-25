@@ -17,8 +17,13 @@ import {
 import {
   LAYERS,
   LAYER_LABEL,
+  LAYER_GUIDE,
   TRIAGE_STATES,
   TRIAGE_LABEL,
+  PROTOCOL_DOC,
+  PROTOCOL_LEDE,
+  PROTOCOL_DIAGRAM,
+  PROTOCOL_STEPS,
   type Layer,
   type TriageState,
 } from "@/content/intake";
