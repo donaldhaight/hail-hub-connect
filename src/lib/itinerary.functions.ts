@@ -30,7 +30,7 @@ export const listItineraryItems = createServerFn({ method: "GET" })
     await assertFounder(context);
     const { data, error } = await context.supabase
       .from("conference_itinerary_items")
-      .select("id, position, time_label, title, description, location, is_published, updated_at")
+      .select("id, position, time_label, title, description, location, is_published, segment_type, speaker, duration_minutes, updated_at")
       .order("position", { ascending: true });
     if (error) throw new Error(error.message);
     return { rows: data ?? [] };
@@ -48,6 +48,9 @@ export const upsertItineraryItem = createServerFn({ method: "POST" })
       description: data.description || null,
       location: data.location || null,
       is_published: data.isPublished,
+      segment_type: data.segmentType,
+      speaker: data.speaker || null,
+      duration_minutes: data.durationMinutes,
     };
     if (data.id) {
       const { error } = await context.supabase
