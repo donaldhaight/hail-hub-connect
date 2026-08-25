@@ -15,7 +15,7 @@ import shotRequest from "@/assets/tour/capture-request-briefing.png";
 import shotAuth from "@/assets/tour/access-auth.png";
 
 const TITLE = "Application Tour";
-const DESC = "An annotated walkthrough of every surface built in Phase 0 of the ClaimStore Briefing Room.";
+const DESC = "An annotated walkthrough of every surface built in Phase 0 of the PrepareAmerica briefing room.";
 
 export const Route = createFileRoute("/_authenticated/admin/tour")({
   head: () => ({

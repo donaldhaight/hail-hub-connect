@@ -1,8 +1,8 @@
-# ClaimStore Briefing Room
+# PrepareAmerica — United Stakeholders of America LLC
 
 > A private front door and qualified-insider room for the RRCA restructuring and the ClaimStore proof of concept.
 
-**Live preview:** [https://hail-hub-connect.lovable.app](https://hail-hub-connect.lovable.app)
+**Live preview:** [https://prepareamerica.com](https://prepareamerica.com)
 
 **Milestone:** Sprint 0.14 complete. The public front door, founder inbox, insider dossier room, conference seat management, and attendee experience are all functional.
 

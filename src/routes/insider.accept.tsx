@@ -7,7 +7,7 @@ import { redeemInsiderInvitation } from "@/lib/insider.functions";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 
 const TITLE = "Insider Access";
-const DESC = "Redeem your qualified-insider invitation to the ClaimStore Briefing Room.";
+const DESC = "Redeem your qualified-insider invitation to the PrepareAmerica briefing room.";
 
 export const Route = createFileRoute("/insider/accept")({
   validateSearch: (s) => z.object({ token: z.string().uuid().optional() }).parse(s),
