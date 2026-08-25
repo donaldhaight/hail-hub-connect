@@ -252,6 +252,89 @@ export type Database = {
         }
         Relationships: []
       }
+      concept_track_notes: {
+        Row: {
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          position: number
+          resolved: boolean
+          track_id: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          position?: number
+          resolved?: boolean
+          track_id: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          position?: number
+          resolved?: boolean
+          track_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "concept_track_notes_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "concept_tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      concept_tracks: {
+        Row: {
+          brief: string
+          created_at: string
+          created_by: string | null
+          id: string
+          layers: string[]
+          name: string
+          position: number
+          slug: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          brief?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          layers?: string[]
+          name: string
+          position?: number
+          slug: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          brief?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          layers?: string[]
+          name?: string
+          position?: number
+          slug?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       conference_applications: {
         Row: {
           access_token: string
@@ -466,9 +549,11 @@ export type Database = {
           description: string | null
           dossier_slug: string
           external_url: string | null
+          extracted_text: string | null
           id: string
           is_published: boolean
           kind: string
+          layers: string[]
           mime_type: string | null
           original_date: string | null
           position: number
@@ -486,9 +571,11 @@ export type Database = {
           description?: string | null
           dossier_slug: string
           external_url?: string | null
+          extracted_text?: string | null
           id?: string
           is_published?: boolean
           kind: string
+          layers?: string[]
           mime_type?: string | null
           original_date?: string | null
           position?: number
@@ -506,9 +593,11 @@ export type Database = {
           description?: string | null
           dossier_slug?: string
           external_url?: string | null
+          extracted_text?: string | null
           id?: string
           is_published?: boolean
           kind?: string
+          layers?: string[]
           mime_type?: string | null
           original_date?: string | null
           position?: number
@@ -907,6 +996,69 @@ export type Database = {
           },
         ]
       }
+      intake_items: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          external_url: string | null
+          extracted_text: string | null
+          filed_as: string | null
+          filed_ref: string | null
+          id: string
+          kind: string
+          layers: string[]
+          mime_type: string | null
+          notes: string | null
+          original_date: string | null
+          size_bytes: number | null
+          source_label: string | null
+          storage_path: string | null
+          title: string
+          triage_state: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          external_url?: string | null
+          extracted_text?: string | null
+          filed_as?: string | null
+          filed_ref?: string | null
+          id?: string
+          kind?: string
+          layers?: string[]
+          mime_type?: string | null
+          notes?: string | null
+          original_date?: string | null
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title: string
+          triage_state?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          external_url?: string | null
+          extracted_text?: string | null
+          filed_as?: string | null
+          filed_ref?: string | null
+          id?: string
+          kind?: string
+          layers?: string[]
+          mime_type?: string | null
+          notes?: string | null
+          original_date?: string | null
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title?: string
+          triage_state?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       manual_attachment_opens: {
         Row: {
           attachment_id: string
@@ -946,9 +1098,11 @@ export type Database = {
           created_by: string | null
           description: string | null
           external_url: string | null
+          extracted_text: string | null
           id: string
           is_published: boolean
           kind: string
+          layers: string[]
           mime_type: string | null
           original_date: string | null
           position: number
@@ -965,9 +1119,11 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           external_url?: string | null
+          extracted_text?: string | null
           id?: string
           is_published?: boolean
           kind: string
+          layers?: string[]
           mime_type?: string | null
           original_date?: string | null
           position?: number
@@ -984,9 +1140,11 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           external_url?: string | null
+          extracted_text?: string | null
           id?: string
           is_published?: boolean
           kind?: string
+          layers?: string[]
           mime_type?: string | null
           original_date?: string | null
           position?: number
