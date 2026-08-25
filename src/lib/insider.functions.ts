@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { sendEmail } from "./email";
+import { SECOND_CONGRESS, CONGRESS_VENUE } from "@/content/calendar";
 
 async function assertFounder(ctx: { supabase: any; userId: string }) {
   const { data, error } = await ctx.supabase.rpc("has_role", {
@@ -168,8 +169,8 @@ export const grantInsiderAccessFromConference = createServerFn({ method: "POST" 
         to: app.email,
         name: app.name,
         seats: requestedSeats,
-        eventDate: "November 1, 2026",
-        venue: "Gratitude Ranch, Flower Mound, Texas",
+        eventDate: SECOND_CONGRESS.dateLabel,
+        venue: CONGRESS_VENUE,
       }).catch(() => {});
     }
 
