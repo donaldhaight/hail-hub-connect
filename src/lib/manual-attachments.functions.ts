@@ -49,8 +49,8 @@ const COLUMNS =
   "id, chapter_slug, kind, storage_path, external_url, title, description, original_date, source_label, significance, mime_type, size_bytes, is_published, position, created_at, updated_at";
 
 export const listManualAttachments = createServerFn({ method: "POST" })
-  .validator((d: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(d))
   .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(d))
   .handler(async ({ context, data }) => {
     const roles = await assertInsider(context);
     const isFounder = roles.has("founder_admin");
@@ -84,8 +84,8 @@ const upsertSchema = z.object({
 });
 
 export const upsertManualAttachment = createServerFn({ method: "POST" })
-  .validator((d: unknown) => upsertSchema.parse(d))
   .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => upsertSchema.parse(d))
   .handler(async ({ context, data }) => {
     await assertFounder(context);
     if (data.kind === "file" && !data.storagePath) throw new Error("File artifacts require a storage path");
@@ -127,8 +127,8 @@ export const upsertManualAttachment = createServerFn({ method: "POST" })
   });
 
 export const deleteManualAttachment = createServerFn({ method: "POST" })
-  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
     await assertFounder(context);
     const { data: row } = await context.supabase
@@ -146,8 +146,8 @@ export const deleteManualAttachment = createServerFn({ method: "POST" })
   });
 
 export const getManualAttachmentUrl = createServerFn({ method: "POST" })
-  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
     const roles = await assertInsider(context);
     const isFounder = roles.has("founder_admin");
