@@ -178,7 +178,7 @@ function Inbox() {
               Briefing Requests
             </TabBtn>
             <TabBtn active={tab === "conference"} onClick={() => { setTab("conference"); setStatus(""); setSelected(null); }}>
-              PrepareAmerica Applications
+              Congress Applications
             </TabBtn>
             <TabBtn active={tab === "invitations"} onClick={() => { setTab("invitations"); setStatus(""); setSelected(null); }}>
               Invitations
@@ -203,6 +203,7 @@ function Inbox() {
             >
               Invite someone
             </Link>
+            <a href="/admin/tickets" className="text-xs text-muted-foreground hover:text-ink">Ticket ledger →</a>
             <a href="/admin/signals" className="text-xs text-muted-foreground hover:text-ink">Signals →</a>
             <a href="/admin/reads" className="text-xs text-muted-foreground hover:text-ink">Read heatmap →</a>
             <button onClick={signOut} className="text-xs text-silver hover:text-ink">Sign out</button>
@@ -213,9 +214,9 @@ function Inbox() {
           <div className="mb-4 border border-border bg-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Capacity</div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Second Congress capacity</div>
                 <div className="mt-1 text-sm text-ink">
-                  {capacity.confirmed} of {capacity.total} seats confirmed
+                  {capacity.confirmed} of {capacity.total} delegate seats confirmed
                   {capacity.waitlisted > 0 ? ` · ${capacity.waitlisted} waitlisted` : ""}
                   {capacity.available > 0 ? ` · ${capacity.available} available` : " · sold out"}
                 </div>
@@ -455,9 +456,9 @@ function Inbox() {
                 </thead>
                 <tbody>
                   {loading ? (
-                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">Loading…</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 7 : 5} className="p-6 text-center text-silver">Loading…</td></tr>
                   ) : rows.length === 0 ? (
-                    <tr><td colSpan={tab === "conference" ? 6 : 5} className="p-6 text-center text-silver">No records.</td></tr>
+                    <tr><td colSpan={tab === "conference" ? 7 : 5} className="p-6 text-center text-silver">No records.</td></tr>
                   ) : rows.map((r) => (
                     <tr
                       key={r.id}
@@ -468,6 +469,13 @@ function Inbox() {
                       <td className="p-3 text-ink">{r.name}</td>
                       <td className="p-3 text-muted-foreground">{r.organization}</td>
                       <td className="p-3 text-xs text-muted-foreground">{r.interest}</td>
+                      {tab === "conference" ? (
+                        <td className="p-3 text-xs font-mono uppercase text-muted-foreground">
+                          {r.ticket_status && r.ticket_status !== "pending"
+                            ? `${r.ticket_tier ?? "observer"} · ${r.ticket_status}`
+                            : "—"}
+                        </td>
+                      ) : null}
                       {tab === "conference" ? (
                         <td className="p-3 text-xs font-mono text-muted-foreground">
                           {1 + (r.plus_ones ?? 0)}
