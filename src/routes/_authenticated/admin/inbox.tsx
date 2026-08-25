@@ -1300,6 +1300,9 @@ function ItineraryEditor() {
           description: row.description ?? "",
           location: row.location ?? "",
           isPublished: !row.is_published,
+          segmentType: row.segment_type ?? "segment",
+          speaker: row.speaker ?? "",
+          durationMinutes: row.duration_minutes ?? 0,
         },
       });
       await refresh();
