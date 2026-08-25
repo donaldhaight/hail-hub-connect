@@ -38,6 +38,7 @@ The dev server starts at `http://localhost:8080`.
 
 ## Project documentation
 
+- [`docs/STRATEGY.md`](docs/STRATEGY.md) — the governing strategy memo: timeline, the two congresses, brand architecture, vocabulary, and marketing posture.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system map, routes, auth, and data model.
 - [`docs/SPRINTS.md`](docs/SPRINTS.md) — sprint-by-sprint history from 0.1 through 0.14.
 - [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — living requirements backlog.
