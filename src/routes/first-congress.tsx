@@ -99,7 +99,9 @@ function buildEmbedUrl(provider: string, streamId: string | null) {
 }
 
 function FirstCongressPage() {
-  const { t, rehearse } = Route.useSearch();
+  const search = Route.useSearch();
+  const t = search.t;
+  const rehearse = search.rehearse === true || search.rehearse === "true";
   const loadTicket = useServerFn(getTicketView);
   const loadBroadcast = useServerFn(getBroadcastState);
   const verifyRehearsal = useServerFn(verifyFounderForRehearsal);
