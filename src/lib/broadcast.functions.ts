@@ -138,6 +138,14 @@ const toggleCheckSchema = z.object({
   checked: z.coerce.boolean(),
 });
 
+/** Founder-only: verify the caller so the public broadcast page can render rehearsal mode. */
+export const verifyFounderForRehearsal = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertFounder(context);
+    return { ok: true };
+  });
+
 /** Founder-only: mark a production checklist item complete/incomplete. */
 export const toggleBroadcastChecklist = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
