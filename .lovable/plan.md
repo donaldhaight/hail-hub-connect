@@ -5,10 +5,20 @@
 `docs/STRATEGY.md` (25 Aug 2026) corrects the project from a single physical convening on 11-1-2026 to a **Two Congress** structure:
 
 - **First Congress — 1 November 2026, streamed.** Reveal, announce, invite. Ticketed, not open.
-- **Second Congress — 14 February 2027, convened.** Physical, 300 delegates, Super Bowl weekend.
-- **Owners Meeting — recurring annually from 14 February 2028.**
+- **Second Congress — Super Bowl weekend 2027 (14 February 2027), convened.** Physical, 300 delegates.
+- **Winter Meeting — recurring annually on Super Bowl weekend.**
 
 The live site, however, still depicts the old model: "PrepareAmerica Conference," "Attend PrepareAmerica," 300 seats at Gratitude Ranch on 11-1. That is now the largest credibility risk.
+
+## Founder notations (added at approval)
+
+Three corrections that reshape parts of this plan:
+
+**1. The 11-1 dates are a season ladder, not a one-off.** 11-1-2026, 11-1-2027, and 11-1-2028 are intentional — each opens a Season, and the ladder runs to the 2028 presidential election, where an ICO / IPO / liquidity-event milestone is imagined. The site must be able to express Season 1, Season 2, Season 3 as a structure, not just a single event.
+
+**2. Season 1 runs on the original Siteforum codebase.** The platform for Season 1 already exists — developed, hosted, and managed by the original Siteforum.com team. This is the risk story: between Day 1 (11-1-2026) and the 2-14-2027 milestone, there is virtually no build risk, because the operating platform is already live. Years 1 and 2 are founder-dictated on the proven codebase while the Board and Dev Team build the successor platform in parallel. This site does not need to become the operating platform — it needs to be the front door that hands qualified people to it.
+
+**3. Winter Meeting dates float with Super Bowl weekend.** Never hardcode 2-14 as a recurring date. Compute or configure per year: 2027 = 14 February; later years TBD and must not be asserted until the NFL schedule is published.
 
 ## Goal
 
@@ -17,6 +27,7 @@ Bring every public surface, URL, schema, and admin workflow into alignment with 
 ```text
 Referral → Ticket to the stream → Invitation to the Congress → Seat
 ```
+
 
 ## Sprints
 
