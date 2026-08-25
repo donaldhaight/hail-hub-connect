@@ -6,10 +6,19 @@ import { PageShell } from "@/components/briefing/PageShell";
 import { Meta, type TruthClass, type ConfidentialityClass } from "@/components/briefing/Badges";
 import { getManualChapter, updateManualChapter } from "@/lib/manual.functions";
 import {
+  GlossaryParagraph,
+  type GlossaryTerm,
+} from "@/components/briefing/GlossaryProse";
+import {
   PART_TITLES,
   TRUTH_OPTIONS,
   CONFIDENTIALITY_OPTIONS,
+  DRAFT_STATUS_OPTIONS,
+  DRAFT_STATUS_LABEL,
+  readingMinutes,
+  wordCount,
   toParagraphs,
+  type DraftStatus,
   type ManualChapter,
 } from "@/content/manual";
 
