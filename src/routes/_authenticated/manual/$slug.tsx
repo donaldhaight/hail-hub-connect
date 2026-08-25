@@ -337,6 +337,7 @@ function ManualChapterPage() {
                       <GlossaryParagraph key={i} text={p} terms={terms} />
                     ))}
                   </div>
+                  <ManualEvidence slug={slug} isFounder={isFounder} />
                 </div>
               </div>
             )}
