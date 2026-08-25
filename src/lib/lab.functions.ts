@@ -1,13 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { LAYERS } from "@/lib/intake.functions";
-
-export const TRACK_STATUSES = ["exploring", "converging", "adopted", "retired"] as const;
-export type TrackStatus = (typeof TRACK_STATUSES)[number];
-
-export const NOTE_KINDS = ["note", "question", "decision"] as const;
-export type NoteKind = (typeof NOTE_KINDS)[number];
+import { LAYERS, TRACK_STATUSES, NOTE_KINDS, type TrackStatus, type NoteKind } from "@/content/intake";
 
 async function assertFounder(ctx: { supabase: any; userId: string }) {
   const { data, error } = await ctx.supabase.rpc("has_role", {
