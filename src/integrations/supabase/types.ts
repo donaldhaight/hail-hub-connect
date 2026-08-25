@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      backlog_comments: {
+        Row: {
+          author_id: string | null
+          author_kind: string
+          body: string
+          created_at: string
+          id: string
+          item_id: string
+        }
+        Insert: {
+          author_id?: string | null
+          author_kind?: string
+          body: string
+          created_at?: string
+          id?: string
+          item_id: string
+        }
+        Update: {
+          author_id?: string | null
+          author_kind?: string
+          body?: string
+          created_at?: string
+          id?: string
+          item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backlog_comments_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "backlog_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      backlog_items: {
+        Row: {
+          build_requested_at: string | null
+          build_requested_by: string | null
+          category: string
+          created_at: string
+          created_by: string | null
+          detail: string
+          id: string
+          position: number
+          priority: number
+          sprint_label: string | null
+          status: string
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          build_requested_at?: string | null
+          build_requested_by?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          detail?: string
+          id?: string
+          position?: number
+          priority?: number
+          sprint_label?: string | null
+          status?: string
+          summary?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          build_requested_at?: string | null
+          build_requested_by?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          detail?: string
+          id?: string
+          position?: number
+          priority?: number
+          sprint_label?: string | null
+          status?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       briefing_request_events: {
         Row: {
           action: string

@@ -83,6 +83,14 @@ export function Header() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           {signedIn ? (
             <>
+              {isFounder ? (
+                <Link
+                  to="/admin"
+                  className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"
+                >
+                  Console
+                </Link>
+              ) : null}
               <Link
                 to="/manual"
                 className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
@@ -188,6 +196,18 @@ export function Header() {
               </li>
               {signedIn ? (
                 <>
+                  {isFounder ? (
+                    <li>
+                      <Link
+                        to="/admin"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
+                      >
+                        Console
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </li>
+                  ) : null}
                   <li>
                     <Link
                       to="/manual"
