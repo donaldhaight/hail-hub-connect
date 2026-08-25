@@ -60,7 +60,9 @@ Your preferred rhythm holds: one document at a time. You upload, I read it, writ
 - **Now (3.2b-1):** manual attachments + provenance line + evidence index. Pure build, no writing from you.
 - **Then (3.2b-2):** inline figures and the lightbox, plus screenshot capture of the current private screens for use as figures.
 - **Then (3.2b-3):** link snapshots and document text extraction.
-- **Later (3.2d):** exhibits in the print edition.
+- **Then (3.2b-4):** media artifacts and the in-app player with transcripts and watch tracking.
+- **Then (3.2b-5):** the Media Room — curated playlists, auto-advance slideshow, audience cuts, shareable credentials.
+- **Later (3.2d):** exhibits in the print edition; media appears there as a captioned still plus a QR/short link.
 
 ## Technical notes
 
