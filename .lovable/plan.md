@@ -75,15 +75,19 @@ Work:
 - Create `src/content/calendar.ts` exporting a typed season list:
 
 ```text
-Season 1   opens 11-01-2026   milestone  Super Bowl weekend 2027 (02-14-2027)
-Season 2   opens 11-01-2027   milestone  Super Bowl weekend 2028 (date TBD)
-Season 3   opens 11-01-2028   milestone  2028 presidential election cycle
-                                          imagined ICO / IPO / liquidity event
+First Congress    11-01-2026   streamed     reveal, announce, invite to Second Congress
+Second Congress   Super Bowl weekend 2027   convened     300 delegates; ratify Season 1
+Season 1          03-01-2027 → 09-30-2027   quasi-beta   short, intentional, on Siteforum platform
+Owners Meeting    Super Bowl weekend 2028   convened     ratify rule changes for Season 2
+Season 2          after 02-2028 Owners Meeting   quasi-beta   rule-changed second beta
+Owners Meeting    Super Bowl weekend 2029   convened     ratify Season 3
+Season 3          after 02-2029 Owners Meeting   launch       fully fueled and vetted
 ```
 
-- Each entry carries: season number, opening date (fixed 11-1), milestone label, milestone date or `"TBD"`, and a public/private visibility flag.
-- Winter Meeting dates are **data, never prose**. Any surface showing a milestone date reads it from this module, and renders "Super Bowl weekend" when the date is TBD.
-- Only Season 1 is publicly visible at launch. Seasons 2 and 3 exist in the module and surface behind auth, so the decade horizon is legible to insiders without being marketed.
+- Each entry carries: season number, opening date, closing date (if any), milestone label, milestone date or `"TBD"`, phase (`beta` | `launch`), and a public/private visibility flag.
+- The First Congress is **not** a season; it is the invitation mechanism that feeds the Second Congress.
+- Winter Meeting / Owners Meeting dates are **data, never prose**. Any surface showing a milestone date reads it from this module, and renders "Super Bowl weekend" when the date is TBD.
+- Only Season 1 and the First Congress are publicly visible at launch. Seasons 2 and 3, and the 2028/2029 milestones, exist in the module and surface behind auth, so the decade horizon is legible to insiders without being marketed.
 - The election-cycle and liquidity-event framing is **C3 / HYPOTHESIS** — insider surfaces only, never public copy, never in metadata.
 
 ### Sprint 2.0b — The Season 1 platform story
@@ -92,10 +96,11 @@ The strongest fact in the project is that Season 1 does not need to be built.
 
 Work:
 - Add a section to the insider room and the Owner's Manual stating plainly: the Season 1 operating platform already exists, developed and hosted by the original Siteforum team, and has an operating history.
-- Frame it as the risk answer for capital: Day 1 to the Season 1 milestone carries execution risk, not build risk.
+- Frame Season 1 as a short, intentional quasi-beta: 1 March 2027 through September 2027. It is the risk answer for capital — the period from Day 1 to the Season 1 milestone carries execution risk, not build risk.
 - State the two-track structure: the founder dictates Seasons 1 and 2 on the proven codebase while the Board and Dev Team build the successor platform in parallel.
 - Truth-label it: the existence of the codebase is **FACT**; the two-track governance structure is **DECISION**; the successor platform timeline is **HYPOTHESIS**.
 - Public surfaces get none of this by name. The front door's job is unchanged: hand qualified people to the platform, not describe it.
+
 
 
 ### Sprint 2.1 — Ticket mechanism for the First Congress
