@@ -238,7 +238,7 @@ function Index() {
                 to="/prepare-america"
                 className="inline-flex w-full items-center justify-between border border-ink bg-ink px-5 py-4 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
               >
-                Attend PrepareAmerica
+                Request a Ticket
                 <span aria-hidden="true">→</span>
               </Link>
               <Link
