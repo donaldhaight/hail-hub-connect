@@ -1204,6 +1204,9 @@ type ItineraryRow = {
   description: string | null;
   location: string | null;
   is_published: boolean;
+  segment_type: string | null;
+  speaker: string | null;
+  duration_minutes: number | null;
 };
 
 function ItineraryEditor() {
