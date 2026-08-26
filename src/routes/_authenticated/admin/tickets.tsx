@@ -9,7 +9,7 @@ import { TICKET_TIERS, FIRST_CONGRESS } from "@/content/calendar";
 export const Route = createFileRoute("/_authenticated/admin/tickets")({
   head: () => ({
     meta: [
-      { title: "Ticket Ledger — PrepareAmerica" },
+      { title: "Invitation Ledger — PrepareAmerica" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -26,6 +26,8 @@ type Row = {
   ticket_status: string;
   ticket_credential: string;
   seat_status: string;
+  delegate_seat_status: string;
+  second_congress_credential: string;
   season_id: string;
   created_at: string;
 };
@@ -102,9 +104,9 @@ function TicketsPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Ticket Ledger"
+        eyebrow="Invitation Ledger"
         title="The invitation ladder."
-        lede={`Referral → ticket to the First Congress (${FIRST_CONGRESS.dateLabel}) → invitation to the Second Congress → delegate seat → Season One. Assign a tier, then issue.`}
+        lede={`Referral → invitation to the First Congress (${FIRST_CONGRESS.dateLabel}) → invitation to the Second Congress → delegate seat → Season One. Assign a tier, then issue.`}
         confidentiality="C2"
       />
       <section className="mx-auto max-w-5xl px-6 py-8">
@@ -138,7 +140,7 @@ function TicketsPage() {
         ) : (
           <div className="divide-y divide-border border border-border">
             {visible.map((r) => {
-              const url = `/ticket/${r.ticket_credential}`;
+              const url = `/invitation/${r.ticket_credential}`;
               return (
                 <div key={r.id} className="bg-card p-4">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -149,9 +151,14 @@ function TicketsPage() {
                         {r.title ? ` · ${r.title}` : ""} · {r.email}
                       </div>
                     </div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-navy">
-                      {r.ticket_status}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-navy">
+                        {r.ticket_status}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+                        {r.delegate_seat_status}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -206,7 +213,7 @@ function TicketsPage() {
                         }}
                         className="border border-border px-3 py-1 text-xs text-muted-foreground hover:border-navy"
                       >
-                        {copied === r.id ? "Copied" : "Copy ticket link"}
+                        {copied === r.id ? "Copied" : "Copy invitation link"}
                       </button>
                     </div>
                   ) : null}

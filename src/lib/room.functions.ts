@@ -61,6 +61,19 @@ export type SavedViewRow = {
   created_at: string;
 };
 
+export type DemoScriptRow = {
+  id: string;
+  position: number;
+  prompt: string;
+  lens: string;
+  scenario_slug: string;
+  layout: string;
+  speaking_note: string;
+  truth_label: string;
+  created_at: string;
+  updated_at: string;
+};
+
 const SCENARIO_COLUMNS =
   "id, slug, name, peril, event_date, region, note, is_production, clock_steps, position";
 const VARIABLE_COLUMNS =
@@ -150,4 +163,19 @@ export const deleteRoomView = createServerFn({ method: "POST" })
     const { error } = await context.supabase.from("room_saved_views").delete().eq("id", data.id);
     if (error) throw new Error(error.message || "Failed to delete the view");
     return { ok: true };
+  });
+
+const DEMO_SCRIPT_COLUMNS =
+  "id, position, prompt, lens, scenario_slug, layout, speaking_note, truth_label, created_at, updated_at";
+
+/** The founder's run-of-show for the One Prompt Event. Ordered beats. */
+export const getDemoScript = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase
+      .from("room_demo_script")
+      .select(DEMO_SCRIPT_COLUMNS)
+      .order("position", { ascending: true });
+    if (error) throw new Error("Failed to load demo script");
+    return { beats: (data ?? []) as DemoScriptRow[] };
   });

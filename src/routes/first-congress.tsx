@@ -138,7 +138,7 @@ function FirstCongressPage() {
     retry: false,
   });
 
-  const loading = broadcastLoading || ticketLoading;
+  const loading = broadcastLoading || ticketLoading || timeLoading;
   const state = broadcast?.config?.state ?? "scheduled";
   const isRehearsingFounder = state === "rehearsing" && rehearsal?.ok;
   const showStream = state === "live" || state === "ended" || isRehearsingFounder;

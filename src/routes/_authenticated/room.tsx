@@ -6,11 +6,14 @@ import {
   getScenarioSignals,
   saveRoomView,
   deleteRoomView,
+  getDemoScript,
   type ScenarioRow,
   type VariableRow,
   type SignalRow,
   type SavedViewRow,
+  type DemoScriptRow,
 } from "@/lib/room.functions";
+import { getMyRoles } from "@/lib/inbox.functions";
 import { LENSES, LAYOUTS, getLens, formatValue, resolvePrompt, type Layout, type Lens } from "@/content/room";
 import { PageShell } from "@/components/briefing/PageShell";
 
@@ -36,6 +39,8 @@ function RoomPage() {
   const loadSignals = useServerFn(getScenarioSignals);
   const saveView = useServerFn(saveRoomView);
   const removeView = useServerFn(deleteRoomView);
+  const loadDemo = useServerFn(getDemoScript);
+  const myRoles = useServerFn(getMyRoles);
 
   const [scenarios, setScenarios] = useState<ScenarioRow[]>([]);
   const [variables, setVariables] = useState<VariableRow[]>([]);
@@ -57,6 +62,12 @@ function RoomPage() {
   const [viewName, setViewName] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const [isFounder, setIsFounder] = useState(false);
+  const [demoMode, setDemoMode] = useState(false);
+  const [demoScript, setDemoScript] = useState<DemoScriptRow[]>([]);
+  const [demoIndex, setDemoIndex] = useState(0);
+  const [demoLoading, setDemoLoading] = useState(false);
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -77,6 +88,50 @@ function RoomPage() {
       cancelled = true;
     };
   }, [loadFrame]);
+
+  useEffect(() => {
+    myRoles()
+      .then((r) => setIsFounder(r.roles.includes("founder_admin")))
+      .catch(() => setIsFounder(false));
+  }, [myRoles]);
+
+  const applyBeat = useCallback((beat: DemoScriptRow | undefined) => {
+    if (!beat) return;
+    if (beat.lens) setLens(beat.lens as Lens);
+    if (beat.scenario_slug) setScenarioSlug(beat.scenario_slug);
+    if (beat.layout) setLayout(beat.layout as Layout);
+    setQ("");
+    setMinConfidence(0);
+    setStep(0);
+    setPrompt(beat.prompt);
+    setPromptEcho([`beat ${beat.position} · ${beat.truth_label}`]);
+  }, []);
+
+  useEffect(() => {
+    if (!demoMode) return;
+    applyBeat(demoScript[demoIndex]);
+  }, [demoMode, demoIndex, demoScript, applyBeat]);
+
+  async function enterDemo() {
+    setDemoLoading(true);
+    try {
+      const res = await loadDemo();
+      setDemoScript(res.beats);
+      setDemoMode(true);
+      setDemoIndex(0);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load demo script");
+    } finally {
+      setDemoLoading(false);
+    }
+  }
+
+  function exitDemo() {
+    setDemoMode(false);
+    setDemoIndex(0);
+    setPrompt("");
+    setPromptEcho([]);
+  }
 
   const scenario = useMemo(
     () => scenarios.find((s) => s.slug === scenarioSlug) ?? scenarios[0],
@@ -233,12 +288,28 @@ function RoomPage() {
               >
                 {scenario?.is_production ? "Production data" : "Scenario data — not production"}
               </span>
-              <Link
-                to="/admin/ledger"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
-              >
-                Efficiency ledger →
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/admin/ledger"
+                  className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+                >
+                  Efficiency ledger →
+                </Link>
+                {isFounder ? (
+                  <button
+                    type="button"
+                    disabled={demoLoading}
+                    onClick={() => (demoMode ? exitDemo() : enterDemo())}
+                    className={`border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] disabled:opacity-50 ${
+                      demoMode
+                        ? "border-burgundy text-burgundy hover:bg-burgundy hover:text-paper"
+                        : "border-navy text-navy hover:bg-navy hover:text-paper"
+                    }`}
+                  >
+                    {demoMode ? "Exit demo" : demoLoading ? "Loading script…" : "Demo mode"}
+                  </button>
+                ) : null}
+              </div>
             </div>
           </div>
 
@@ -246,17 +317,19 @@ function RoomPage() {
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <input
               value={prompt}
+              disabled={demoMode}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") applyPrompt();
               }}
               placeholder="One prompt — e.g. “show me the money in Harris County after the hurricane”"
-              className="min-w-[18rem] flex-1 border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-navy"
+              className="min-w-[18rem] flex-1 border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-navy disabled:opacity-40"
             />
             <button
               type="button"
+              disabled={demoMode}
               onClick={applyPrompt}
-              className="border border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
+              className="border border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy disabled:opacity-40"
             >
               Drive it
             </button>
@@ -265,6 +338,47 @@ function RoomPage() {
             <p className="mt-2 font-mono text-[11px] text-silver">
               read as: {promptEcho.join(" · ")}
             </p>
+          ) : null}
+
+          {demoMode && demoScript[demoIndex] ? (
+            <div className="mt-6 border border-navy bg-navy/[0.03] p-4">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-navy">
+                    Demo beat {demoIndex + 1} / {demoScript.length} · {demoScript[demoIndex].truth_label}
+                  </div>
+                  <p className="mt-1 font-serif text-lg text-ink">{demoScript[demoIndex].prompt}</p>
+                  <p className="mt-2 max-w-[70ch] text-sm text-muted-foreground">
+                    {demoScript[demoIndex].speaking_note}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    disabled={demoIndex === 0}
+                    onClick={() => setDemoIndex((i) => i - 1)}
+                    className="border border-border bg-background px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink hover:border-navy disabled:opacity-40"
+                  >
+                    ← Prev
+                  </button>
+                  <button
+                    type="button"
+                    disabled={demoIndex >= demoScript.length - 1}
+                    onClick={() => setDemoIndex((i) => i + 1)}
+                    className="border border-ink bg-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-paper hover:bg-navy hover:border-navy disabled:opacity-40"
+                  >
+                    Next →
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDemoIndex(0)}
+                    className="border border-border bg-background px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground hover:border-navy"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
           ) : null}
         </div>
       </div>
@@ -276,8 +390,9 @@ function RoomPage() {
             <button
               key={l.lens}
               type="button"
+              disabled={demoMode}
               onClick={() => setLens(l.lens)}
-              className={`whitespace-nowrap border-b-2 px-3 py-3 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors ${
+              className={`whitespace-nowrap border-b-2 px-3 py-3 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors disabled:opacity-40 ${
                 lens === l.lens
                   ? "border-navy text-ink"
                   : "border-transparent text-muted-foreground hover:text-ink"
@@ -294,11 +409,12 @@ function RoomPage() {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
           <select
             value={scenarioSlug}
+            disabled={demoMode}
             onChange={(e) => {
               setScenarioSlug(e.target.value);
               setStep(0);
             }}
-            className="border border-border bg-background px-2 py-1.5 text-[13px] text-ink"
+            className="border border-border bg-background px-2 py-1.5 text-[13px] text-ink disabled:opacity-40"
           >
             {scenarios.map((s) => (
               <option key={s.id} value={s.slug}>
@@ -352,8 +468,9 @@ function RoomPage() {
               <button
                 key={l}
                 type="button"
+                disabled={demoMode}
                 onClick={() => setLayout(l)}
-                className={`border px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] ${
+                className={`border px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] disabled:opacity-40 ${
                   layout === l ? "border-navy text-navy" : "border-border text-muted-foreground hover:text-ink"
                 }`}
               >
