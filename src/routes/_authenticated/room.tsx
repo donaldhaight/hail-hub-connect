@@ -89,6 +89,50 @@ function RoomPage() {
     };
   }, [loadFrame]);
 
+  useEffect(() => {
+    myRoles()
+      .then((r) => setIsFounder(r.roles.includes("founder_admin")))
+      .catch(() => setIsFounder(false));
+  }, [myRoles]);
+
+  const applyBeat = useCallback((beat: DemoScriptRow | undefined) => {
+    if (!beat) return;
+    if (beat.lens) setLens(beat.lens as Lens);
+    if (beat.scenario_slug) setScenarioSlug(beat.scenario_slug);
+    if (beat.layout) setLayout(beat.layout as Layout);
+    setQ("");
+    setMinConfidence(0);
+    setStep(0);
+    setPrompt(beat.prompt);
+    setPromptEcho([`beat ${beat.position} · ${beat.truth_label}`]);
+  }, []);
+
+  useEffect(() => {
+    if (!demoMode) return;
+    applyBeat(demoScript[demoIndex]);
+  }, [demoMode, demoIndex, demoScript, applyBeat]);
+
+  async function enterDemo() {
+    setDemoLoading(true);
+    try {
+      const res = await loadDemo();
+      setDemoScript(res.beats);
+      setDemoMode(true);
+      setDemoIndex(0);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load demo script");
+    } finally {
+      setDemoLoading(false);
+    }
+  }
+
+  function exitDemo() {
+    setDemoMode(false);
+    setDemoIndex(0);
+    setPrompt("");
+    setPromptEcho([]);
+  }
+
   const scenario = useMemo(
     () => scenarios.find((s) => s.slug === scenarioSlug) ?? scenarios[0],
     [scenarios, scenarioSlug],
