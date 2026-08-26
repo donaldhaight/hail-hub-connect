@@ -1268,6 +1268,252 @@ export type Database = {
         }
         Relationships: []
       }
+      room_saved_views: {
+        Row: {
+          created_at: string
+          id: string
+          layout: string
+          lens: string
+          name: string
+          owner_id: string
+          query: Json
+          shared: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          layout?: string
+          lens?: string
+          name: string
+          owner_id: string
+          query?: Json
+          shared?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          layout?: string
+          lens?: string
+          name?: string
+          owner_id?: string
+          query?: Json
+          shared?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      room_scenarios: {
+        Row: {
+          clock_steps: number
+          created_at: string
+          event_date: string
+          id: string
+          is_production: boolean
+          name: string
+          note: string
+          peril: string
+          position: number
+          region: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          clock_steps?: number
+          created_at?: string
+          event_date: string
+          id?: string
+          is_production?: boolean
+          name: string
+          note?: string
+          peril: string
+          position?: number
+          region: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          clock_steps?: number
+          created_at?: string
+          event_date?: string
+          id?: string
+          is_production?: boolean
+          name?: string
+          note?: string
+          peril?: string
+          position?: number
+          region?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      room_signals: {
+        Row: {
+          clock_step: number
+          confidence: number
+          county: string
+          created_at: string
+          id: string
+          observed_at: string
+          provenance: string
+          scenario_id: string
+          state: string
+          value: number
+          variable_key: string
+        }
+        Insert: {
+          clock_step?: number
+          confidence?: number
+          county: string
+          created_at?: string
+          id?: string
+          observed_at?: string
+          provenance?: string
+          scenario_id: string
+          state: string
+          value?: number
+          variable_key: string
+        }
+        Update: {
+          clock_step?: number
+          confidence?: number
+          county?: string
+          created_at?: string
+          id?: string
+          observed_at?: string
+          provenance?: string
+          scenario_id?: string
+          state?: string
+          value?: number
+          variable_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_signals_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "room_scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_signals_variable_key_fkey"
+            columns: ["variable_key"]
+            isOneToOne: false
+            referencedRelation: "room_variables"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      room_variables: {
+        Row: {
+          cadence: string
+          confidentiality: string
+          created_at: string
+          definition: string
+          headline: boolean
+          id: string
+          key: string
+          name: string
+          position: number
+          source: string
+          stakeholder: string
+          truth_label: string
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          cadence?: string
+          confidentiality?: string
+          created_at?: string
+          definition?: string
+          headline?: boolean
+          id?: string
+          key: string
+          name: string
+          position?: number
+          source?: string
+          stakeholder: string
+          truth_label?: string
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          cadence?: string
+          confidentiality?: string
+          created_at?: string
+          definition?: string
+          headline?: boolean
+          id?: string
+          key?: string
+          name?: string
+          position?: number
+          source?: string
+          stakeholder?: string
+          truth_label?: string
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      task_ledger: {
+        Row: {
+          act_cost: number
+          act_hours: number
+          actor: string
+          created_at: string
+          created_by: string | null
+          est_cost: number
+          est_hours: number
+          id: string
+          note: string
+          occurred_on: string
+          outcome: string
+          rework: number
+          sprint_label: string | null
+          task_class: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          act_cost?: number
+          act_hours?: number
+          actor?: string
+          created_at?: string
+          created_by?: string | null
+          est_cost?: number
+          est_hours?: number
+          id?: string
+          note?: string
+          occurred_on?: string
+          outcome?: string
+          rework?: number
+          sprint_label?: string | null
+          task_class?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          act_cost?: number
+          act_hours?: number
+          actor?: string
+          created_at?: string
+          created_by?: string | null
+          est_cost?: number
+          est_hours?: number
+          id?: string
+          note?: string
+          occurred_on?: string
+          outcome?: string
+          rework?: number
+          sprint_label?: string | null
+          task_class?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
