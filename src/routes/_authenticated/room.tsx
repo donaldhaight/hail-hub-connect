@@ -14,8 +14,25 @@ import {
   type DemoScriptRow,
 } from "@/lib/room.functions";
 import { getMyRoles } from "@/lib/inbox.functions";
+import {
+  getEconomicsFrame,
+  type AssumptionRow,
+  type ProgramCostRow,
+  type CanvassRow,
+  type MissionTrackRow,
+} from "@/lib/economics.functions";
 import { LENSES, LAYOUTS, getLens, formatValue, resolvePrompt, type Layout, type Lens } from "@/content/room";
 import { PageShell } from "@/components/briefing/PageShell";
+import { EconomicsPanel } from "@/components/room/EconomicsPanel";
+import { CanvassPanel } from "@/components/room/CanvassPanel";
+
+type Surface = "signals" | "economics" | "canvass";
+
+const SURFACES: Array<{ key: Surface; label: string }> = [
+  { key: "signals", label: "Signals" },
+  { key: "economics", label: "Economics" },
+  { key: "canvass", label: "Canvass" },
+];
 
 export const Route = createFileRoute("/_authenticated/room")({
   head: () => ({
@@ -67,6 +84,36 @@ function RoomPage() {
   const [demoScript, setDemoScript] = useState<DemoScriptRow[]>([]);
   const [demoIndex, setDemoIndex] = useState(0);
   const [demoLoading, setDemoLoading] = useState(false);
+
+  const loadEconomics = useServerFn(getEconomicsFrame);
+  const [surface, setSurface] = useState<Surface>("signals");
+  const [econLoaded, setEconLoaded] = useState(false);
+  const [econLoading, setEconLoading] = useState(false);
+  const [assumptions, setAssumptions] = useState<AssumptionRow[]>([]);
+  const [programCosts, setProgramCosts] = useState<ProgramCostRow[]>([]);
+  const [canvass, setCanvass] = useState<CanvassRow[]>([]);
+  const [tracks, setTracks] = useState<MissionTrackRow[]>([]);
+
+  const econRequested = useRef(false);
+  useEffect(() => {
+    if (surface === "signals" || econRequested.current) return;
+    econRequested.current = true;
+    setEconLoading(true);
+    loadEconomics()
+      .then((res) => {
+        setAssumptions(res.assumptions);
+        setProgramCosts(res.costs);
+        setCanvass(res.canvass);
+        setTracks(res.tracks);
+        setEconLoaded(true);
+      })
+      .catch((e) => {
+        econRequested.current = false;
+        setError(e instanceof Error ? e.message : "Failed to load the economics engine");
+      })
+      .finally(() => setEconLoading(false));
+  }, [surface, loadEconomics]);
+
 
   useEffect(() => {
     let cancelled = false;
@@ -195,6 +242,21 @@ function RoomPage() {
       .filter((s) => Boolean(s.variable))
       .sort((a, b) => b.value - a.value);
   }, [signals, step, lensConfig, minConfidence, q, varByKey]);
+
+  /** Roofs impacted at the current clock step — the footprint the economics ladder starts from. */
+  const roofsImpacted = useMemo(
+    () =>
+      signals
+        .filter((s) => s.clock_step === step && s.variable_key === "roofs_impacted")
+        .reduce((acc, s) => acc + Number(s.value), 0),
+    [signals, step],
+  );
+
+  const activeCounties = useMemo(
+    () => Array.from(new Set(signals.map((s) => s.county))),
+    [signals],
+  );
+
 
   const counters = useMemo(() => {
     return lensConfig.variables.map((key) => {
@@ -383,7 +445,29 @@ function RoomPage() {
         </div>
       </div>
 
+      {/* Surface switcher */}
+      <div className="border-b border-border bg-background">
+        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-2 sm:px-6">
+          {SURFACES.map((s) => (
+            <button
+              key={s.key}
+              type="button"
+              disabled={demoMode && s.key !== "signals"}
+              onClick={() => setSurface(s.key)}
+              className={`whitespace-nowrap border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] disabled:opacity-40 ${
+                surface === s.key
+                  ? "border-ink bg-ink text-paper"
+                  : "border-border text-muted-foreground hover:text-ink"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Lens switcher */}
+      {surface === "signals" ? (
       <div className="border-b border-border">
         <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 sm:px-6">
           {LENSES.map((l) => (
@@ -403,8 +487,10 @@ function RoomPage() {
           ))}
         </div>
       </div>
+      ) : null}
 
       {/* Query bar */}
+      {surface === "signals" ? (
       <div className="border-b border-border bg-background">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
           <select
@@ -480,8 +566,10 @@ function RoomPage() {
           </div>
         </div>
       </div>
+      ) : null}
 
       {/* Counters */}
+      {surface === "signals" ? (
       <div className="border-b border-border bg-ink/[0.02]">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 py-4 sm:px-6 md:grid-cols-4">
           <Counter label="Counties in view" value={String(countiesTouched)} sub="distinct" />
@@ -495,13 +583,31 @@ function RoomPage() {
           ))}
         </div>
       </div>
+      ) : null}
 
       {/* Body */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         {error ? (
           <p className="mb-4 border border-burgundy/40 bg-burgundy/5 px-3 py-2 text-sm text-burgundy">{error}</p>
         ) : null}
-        {loading ? (
+        {surface === "economics" ? (
+          econLoading ? (
+            <p className="text-sm text-muted-foreground">Loading the economics engine…</p>
+          ) : (
+            <EconomicsPanel
+              scenarioName={scenario?.name ?? "the scenario"}
+              roofsImpacted={roofsImpacted}
+              assumptions={assumptions}
+              costs={programCosts}
+            />
+          )
+        ) : surface === "canvass" ? (
+          econLoading ? (
+            <p className="text-sm text-muted-foreground">Loading public coverage…</p>
+          ) : (
+            <CanvassPanel canvass={canvass} tracks={tracks} activeCounties={activeCounties} />
+          )
+        ) : loading ? (
           <p className="text-sm text-muted-foreground">Opening the room…</p>
         ) : rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">
