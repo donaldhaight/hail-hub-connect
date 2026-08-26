@@ -2,9 +2,10 @@
 
 > A private front door and qualified-insider room for the RRCA restructuring and the ClaimStore proof of concept.
 
-**Live preview:** [https://prepareamerica.com](https://prepareamerica.com)
+**Live site:** [https://hail-hub-connect.lovable.app](https://hail-hub-connect.lovable.app)  
+**Custom domain (pending DNS):** [https://prepareamerica.com](https://prepareamerica.com)
 
-**Milestone:** Sprint 0.14 complete. The public front door, founder inbox, insider dossier room, conference seat management, and attendee experience are all functional.
+**Milestone:** Sprint 2.5 complete. The public front door, founder inbox, insider dossier room, conference seat management, attendee experience, Situation Room, and First Congress demo mode are all functional and deployed.
 
 ## What this is
 
@@ -16,6 +17,7 @@ The site is designed to:
 2. Let the founder privately review, triage, and invite qualified insiders.
 3. Give those insiders a labeled, versioned dossier room where they can read, question, and redline the working concept.
 4. Manage the 11-1-2026 PrepareAmerica Conference — 300 seats, private, at Gratitude Ranch in Flower Mound, Texas.
+5. Host the Situation Room, where delegates can drive a live demo of the Human Blockchain coordination model.
 
 ## Run locally
 
@@ -41,7 +43,7 @@ The dev server starts at `http://localhost:8080`.
 - [`docs/PROTOCOL.md`](docs/PROTOCOL.md) — **how we work**: how material enters the archive, how it is annotated and filed, and how it becomes strategy, architecture, and code.
 - [`docs/STRATEGY.md`](docs/STRATEGY.md) — the governing strategy memo: timeline, the two congresses, brand architecture, vocabulary, and marketing posture.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system map, routes, auth, and data model.
-- [`docs/SPRINTS.md`](docs/SPRINTS.md) — sprint-by-sprint history from 0.1 through 0.14.
+- [`docs/SPRINTS.md`](docs/SPRINTS.md) — sprint-by-sprint history from 0.1 through 2.5.
 - [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — living requirements backlog.
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — architecture and product decisions.
 - [`.lovable/plan.md`](.lovable/plan.md) — current plan and next credible moves.
@@ -52,6 +54,12 @@ The dev server starts at `http://localhost:8080`.
 - **Truth labels are load-bearing.** All claims inside the insider room are classified as FACT, ASSERTION, DECISION, HYPOTHESIS, SIMULATION, or OPEN.
 - **Email is stubbed until a sender domain is verified.** Invitation and notification emails are implemented as no-op stubs pending domain setup.
 
+## Founder sign-in
+
+- **Email:** `Donald.Haight@rrcausa.com`
+- **Password:** `ClaimStore2026!`
+- **Sign-in route:** `/auth`
+
 ## GitHub connection
 
-This project is intended to be connected to a GitHub repository for backup, collaboration, and portability. If the repository is not yet linked, connect it from the Lovable editor: **Plus (+) → GitHub → Connect project**.
+This project is intended to be connected to a GitHub repository for backup, collaboration, and portability. If the repository is not yet linked, connect it from the Lovable editor: **Plus (+) → GitHub → Connect project**. Suggested repository name: `prepareamerica`.
