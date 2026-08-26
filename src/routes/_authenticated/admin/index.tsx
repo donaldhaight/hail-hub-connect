@@ -19,6 +19,7 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 
 const SURFACES = [
   { to: "/room", label: "Situation Room", note: "The drivable console — seven lenses, scenario replay, every number traceable to a provenance card." },
+  { to: "/admin/economics", label: "Economics Assumptions", note: "Edit the weather-track variables, bands, truth labels, and sources that power the Room's ladder." },
   { to: "/admin/ledger", label: "Task Ledger", note: "Human and agent efficiency ratings, and the 10% variance rule made visible." },
   { to: "/admin/inbox", label: "Inbox", note: "Triage requests, applications, invitations, and the run of show." },
   { to: "/admin/tickets", label: "Ticket Ledger", note: "Assign tiers and issue First Congress credentials." },
