@@ -35,6 +35,7 @@ export const PART_TITLES: Record<string, string> = {
   III: "Part III — The Convening",
   IV: "Part IV — The Functionality Manual",
   V: "Part V — The Phases",
+  saga: "Part VI — The Saga",
   appendix: "Appendices — The Archive",
   back: "Back matter",
 };
