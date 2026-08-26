@@ -407,11 +407,12 @@ function RoomPage() {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
           <select
             value={scenarioSlug}
+            disabled={demoMode}
             onChange={(e) => {
               setScenarioSlug(e.target.value);
               setStep(0);
             }}
-            className="border border-border bg-background px-2 py-1.5 text-[13px] text-ink"
+            className="border border-border bg-background px-2 py-1.5 text-[13px] text-ink disabled:opacity-40"
           >
             {scenarios.map((s) => (
               <option key={s.id} value={s.slug}>
