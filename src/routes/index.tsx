@@ -65,7 +65,7 @@ function Index() {
               to="/prepare-america"
               className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
             >
-              Request a Ticket
+              Request an Invitation
               <span aria-hidden="true">→</span>
             </Link>
             <Link
