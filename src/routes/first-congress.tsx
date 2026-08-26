@@ -151,7 +151,7 @@ function FirstCongressPage() {
       <PageHeader
         eyebrow={`${CONVENER} · ${tier?.label ?? "Observer"}`}
         title="The First Congress."
-        lede={`${FIRST_CONGRESS.dateLabel}. Streamed to ticket holders. A reveal, an announcement, and an invitation.`}
+        lede={`${FIRST_CONGRESS.dateLabel}. Streamed to invitation holders. A reveal, an announcement, and an invitation.`}
         confidentiality="C1"
         status={statusLabel}
       />
