@@ -17,7 +17,7 @@ import {
 } from "@/content/calendar";
 
 const TITLE = "The First Congress";
-const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Ticket holders only.`;
+const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Invitation holders only.`;
 
 export const Route = createFileRoute("/first-congress")({
   validateSearch: z.object({
