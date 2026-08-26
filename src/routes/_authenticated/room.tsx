@@ -388,8 +388,9 @@ function RoomPage() {
             <button
               key={l.lens}
               type="button"
+              disabled={demoMode}
               onClick={() => setLens(l.lens)}
-              className={`whitespace-nowrap border-b-2 px-3 py-3 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors ${
+              className={`whitespace-nowrap border-b-2 px-3 py-3 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors disabled:opacity-40 ${
                 lens === l.lens
                   ? "border-navy text-ink"
                   : "border-transparent text-muted-foreground hover:text-ink"
