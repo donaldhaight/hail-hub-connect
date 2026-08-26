@@ -344,6 +344,7 @@ export type Database = {
           confirmed_at: string | null
           context: string | null
           created_at: string
+          delegate_seat_status: string
           dietary_restrictions: string | null
           email: string
           hotel_needed: boolean
@@ -356,6 +357,7 @@ export type Database = {
           plus_ones: number
           season_id: string
           seat_status: string
+          second_congress_credential: string
           status: string
           ticket_credential: string
           ticket_status: string
@@ -371,6 +373,7 @@ export type Database = {
           confirmed_at?: string | null
           context?: string | null
           created_at?: string
+          delegate_seat_status?: string
           dietary_restrictions?: string | null
           email: string
           hotel_needed?: boolean
@@ -383,6 +386,7 @@ export type Database = {
           plus_ones?: number
           season_id?: string
           seat_status?: string
+          second_congress_credential?: string
           status?: string
           ticket_credential?: string
           ticket_status?: string
@@ -398,6 +402,7 @@ export type Database = {
           confirmed_at?: string | null
           context?: string | null
           created_at?: string
+          delegate_seat_status?: string
           dietary_restrictions?: string | null
           email?: string
           hotel_needed?: boolean
@@ -410,6 +415,7 @@ export type Database = {
           plus_ones?: number
           season_id?: string
           seat_status?: string
+          second_congress_credential?: string
           status?: string
           ticket_credential?: string
           ticket_status?: string
@@ -1264,6 +1270,45 @@ export type Database = {
           id?: string
           see_also?: string | null
           term?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      room_demo_script: {
+        Row: {
+          created_at: string
+          id: string
+          layout: string | null
+          lens: string | null
+          position: number
+          prompt: string
+          scenario_slug: string | null
+          speaking_note: string | null
+          truth_label: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          layout?: string | null
+          lens?: string | null
+          position: number
+          prompt: string
+          scenario_slug?: string | null
+          speaking_note?: string | null
+          truth_label?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          layout?: string | null
+          lens?: string | null
+          position?: number
+          prompt?: string
+          scenario_slug?: string | null
+          speaking_note?: string | null
+          truth_label?: string
           updated_at?: string
         }
         Relationships: []
