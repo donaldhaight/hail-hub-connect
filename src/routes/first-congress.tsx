@@ -326,17 +326,17 @@ function Locked({ reason }: { reason: string }) {
         title="This session is closed to you."
         lede={
           reason === "not_approved"
-            ? "Your request is on file but no ticket has been issued yet."
-            : "The First Congress is streamed to ticket holders. Open this page from the link in your ticket."
+            ? "Your request is on file but no invitation has been issued yet."
+            : "The First Congress is streamed to invitation holders. Open this page from the link in your invitation."
         }
         confidentiality="C1"
       />
-      <Section number="01" title="How to obtain a ticket">
+      <Section number="01" title="How to obtain an invitation">
         <Prose>
           <p>
-            Tickets are issued by the convener to referred and qualified names.{" "}
+            Invitations are issued by the convener to referred and qualified names.{" "}
             <Link to="/prepare-america" className="underline">
-              Request a ticket
+              Request an invitation
             </Link>
             .
           </p>
