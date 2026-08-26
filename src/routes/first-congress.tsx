@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { getTicketView } from "@/lib/ticket.functions";
-import { getBroadcastState, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
+import { getBroadcastState, getServerTime, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
 import { routeHead } from "@/lib/site";
 import {
   FIRST_CONGRESS,
