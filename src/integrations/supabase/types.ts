@@ -252,6 +252,60 @@ export type Database = {
         }
         Relationships: []
       }
+      canvass_coverage: {
+        Row: {
+          county: string
+          created_at: string
+          cycles_covered: number
+          earliest_cycle: number
+          households: number
+          id: string
+          latest_cycle: number
+          precincts: number
+          records: number
+          registered_voters: number
+          source: string
+          state: string
+          truth_label: string
+          turnout_rate: number
+          updated_at: string
+        }
+        Insert: {
+          county: string
+          created_at?: string
+          cycles_covered?: number
+          earliest_cycle?: number
+          households?: number
+          id?: string
+          latest_cycle?: number
+          precincts?: number
+          records?: number
+          registered_voters?: number
+          source?: string
+          state: string
+          truth_label?: string
+          turnout_rate?: number
+          updated_at?: string
+        }
+        Update: {
+          county?: string
+          created_at?: string
+          cycles_covered?: number
+          earliest_cycle?: number
+          households?: number
+          id?: string
+          latest_cycle?: number
+          precincts?: number
+          records?: number
+          registered_voters?: number
+          source?: string
+          state?: string
+          truth_label?: string
+          turnout_rate?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       concept_track_notes: {
         Row: {
           body: string
@@ -850,6 +904,57 @@ export type Database = {
         }
         Relationships: []
       }
+      economics_assumptions: {
+        Row: {
+          base: number
+          created_at: string
+          definition: string
+          high: number
+          id: string
+          key: string
+          label: string
+          low: number
+          position: number
+          source: string
+          stage: string
+          truth_label: string
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          base?: number
+          created_at?: string
+          definition?: string
+          high?: number
+          id?: string
+          key: string
+          label: string
+          low?: number
+          position?: number
+          source?: string
+          stage: string
+          truth_label?: string
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          base?: number
+          created_at?: string
+          definition?: string
+          high?: number
+          id?: string
+          key?: string
+          label?: string
+          low?: number
+          position?: number
+          source?: string
+          stage?: string
+          truth_label?: string
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       insider_access_log: {
         Row: {
           dossier_slug: string
@@ -1270,6 +1375,87 @@ export type Database = {
           id?: string
           see_also?: string | null
           term?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mission_tracks: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          name: string
+          note: string
+          position: number
+          purpose: string
+          slug: string
+          status: string
+          truth_label: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          name: string
+          note?: string
+          position?: number
+          purpose?: string
+          slug: string
+          status?: string
+          truth_label?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          name?: string
+          note?: string
+          position?: number
+          purpose?: string
+          slug?: string
+          status?: string
+          truth_label?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      program_costs: {
+        Row: {
+          act_amount: number
+          category: string
+          created_at: string
+          est_amount: number
+          id: string
+          label: string
+          note: string
+          position: number
+          recurring: boolean
+          updated_at: string
+        }
+        Insert: {
+          act_amount?: number
+          category: string
+          created_at?: string
+          est_amount?: number
+          id?: string
+          label: string
+          note?: string
+          position?: number
+          recurring?: boolean
+          updated_at?: string
+        }
+        Update: {
+          act_amount?: number
+          category?: string
+          created_at?: string
+          est_amount?: number
+          id?: string
+          label?: string
+          note?: string
+          position?: number
+          recurring?: boolean
           updated_at?: string
         }
         Relationships: []
