@@ -36,13 +36,13 @@ export const Route = createFileRoute("/first-congress")({
 
 const START = new Date(`${FIRST_CONGRESS.opensOn ?? "2026-11-01"}T00:00:00Z`).getTime();
 
-function useCountdown() {
+function useCountdown(serverOffsetMs = 0) {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
-    setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 1000);
+    setNow(Date.now() + serverOffsetMs);
+    const id = setInterval(() => setNow(Date.now() + serverOffsetMs), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [serverOffsetMs]);
   if (now === null) return null;
   const ms = START - now;
   if (ms <= 0) return { live: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
