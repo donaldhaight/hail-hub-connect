@@ -1,69 +1,81 @@
-# Kimosabe: the Interested User seam
+# Kimosabe: the front door to the Human Blockchain
 
-A separate route tree in this project. Zero changes to PrepareAmerica. A link to the Kimosabe home page can be dropped anywhere — email, badge, the Situation Room, a cold hand-off at Gratitude Ranch — and the page knows who arrived.
+Kimosabe is not one of the apps. It is the branded chat surface every app opens into and returns from — MarketApp, BooksForge, MusicApp, MovieApp, MyGPT.TV. One conversation, one file, one memory across all of them. That shared memory is what makes it a Human Blockchain rather than five products with a common login.
 
-## The inversion
+Built as a separate route tree in this project. Zero changes to PrepareAmerica. The link can be dropped anywhere and still work.
 
-PrepareAmerica assumes identity, then grants access. Kimosabe grants access, then accumulates identity.
+## The access model — proposed, pending correction
 
-Everyone arrives as an **Interested User**. No email, no phone, no form. On first touch the system mints an opaque device anchor (browser storage plus a signed cookie) and opens a file. Every gesture after that sharpens the file. The person is real to the system before they have told it anything.
+The Siteforum/ClaimExpress model has not been narrated yet, so this is a working reconstruction, not a claim about the 2014 system. It is built to be replaced field-for-field once the real model is on the table. Nothing downstream assumes it is right.
+
+Three layers, each answering a different question:
 
 ```text
-arrival ──► anchor minted ──► file opens (empty, high uncertainty)
-   │
-   ├─ carried a credential?  → merge with what PrepareAmerica already knows
-   ├─ signed in?             → merge with the account
-   └─ nothing?               → still a file; still remembered
-                    │
-                    ▼
-        Trojan horses raise resolution over time
+GROUP   ── who you belong to        (org, crew, chapter, territory)
+ROLE    ── what you are             (rep, crew chief, adjuster, counsel, investor)
+GRANT   ── what that lets you touch (module + record + territory)
 ```
 
-## The Trojan horses
+- A person may hold several group memberships; each carries its own role. Grants accumulate — the union, never the intersection.
+- A role is a permission bundle wearing a job title. The title is what the user sees; the bundle is what the system enforces.
+- Access is filtered on all three grains at once: which screens you can open, which records inside them are yours, and which geography you are scoped to.
+- **Certification** is the act of a role being granted. It is never self-asserted. Someone with standing certifies it, and the certification is recorded with who, when, and on what evidence.
 
-Each is a capability genuinely worth having. The disclosure is a side effect of the user wanting the tool, never a gate in front of it.
+PrepareAmerica's nine role tags today are not this model — only two are enforced anywhere, and one person holds one. There is nothing to contradict. Clean slate.
 
-| Capability | What it teaches us |
-| --- | --- |
-| Show me my roof | property, geography, ownership posture |
-| Run my numbers | operator scale — crew size, claim volume |
-| Watch this county | territory and intent, plus a reason to reach them they asked for |
-| Save this / take it with me | the first voluntary contact detail, on their initiative |
+## The Interested User routine
 
-Nobody fills out a profile. The profile assembles itself.
+**Arrival.** Everyone starts as an Interested User. No signup, no email, no phone. An opaque anchor is minted (browser storage plus signed cookie) and a file opens. Kimosabe already knows something: the link that carried them, the region, the device, the hour.
 
-## Inference, not just storage
+**Intuition.** Chat UI means Kimosabe moves first, and the opening move is a read, not a question. *"You came in from a roofing link in Tarrant County."* Being read correctly disarms. Being read slightly wrong is better — they correct it, and the correction is the first thing they teach it.
 
-The file holds observations, and each carries a value, a provenance, and a confidence — the same discipline as the Situation Room's signals. Derived traits ("contractor with money", "capital", "counsel") are computed with a confidence score and are always traceable to the gestures that produced them.
+**Trojan horses.** Each app is a capability worth having whose use happens to raise resolution on the file:
 
-Kimosabe is the Situation Room pointed at one human instead of one storm.
+| App | What it gives them | What it teaches us |
+| --- | --- | --- |
+| MarketApp | run my numbers, watch my county, show me my roof | scale, territory, trade role |
+| BooksForge.AI | make me something | what they care about, how they think |
+| MusicApp.AI / MovieApp.AI | the cultural races | taste — and eyes off the canvass track |
+| MyGPT.TV | a channel of their own | what they want to be seen as |
 
-## The recognition moment
+Nobody fills out a profile. The profile assembles itself. Every observation carries a value, a provenance, and a confidence — the same discipline as the Situation Room's signals. Derived traits ("contractor with money", "capital", "counsel") are computed, scored, and always traceable to the gestures that produced them.
 
-At first real recognition Kimosabe says so out loud: *"I remembered you."* Quietly proud rather than covert. This is a deliberate posture decision — it turns a persistence mechanism into the demo's best moment and keeps the room's counsel comfortable.
+**Recognition.** At the first real return, Kimosabe says it out loud: *"I remembered you."* Quietly proud rather than covert. This is a deliberate posture decision — it turns a persistence mechanism into the best moment in the demo, and keeps the room's counsel comfortable.
 
-## Sequencing — Siteforum first
+**The turn.** At some point the Interested User stops browsing and wants standing — to transact rather than observe. Kimosabe hands them to MarketApp for the ledger-wallet. This is the moment the anonymous file must become a certified identity holding a role.
 
-No Kimosabe code gets written until the 2014 ClaimExpress/Siteforum architecture is on the table. Kimosabe's data shapes must be a compatible dialect of Season 1's object model, not a parallel invention.
+```text
+Interested User ──► horses raise resolution ──► asks for standing
+                                                      │
+                                                      ▼
+                                      MarketApp: ledger-wallet opened
+                                                      │
+                                                      ▼
+                              certification requested ──► founder review ──► role granted
+```
 
-Order of work:
+Nobody self-certifies. Every certification request lands in a founder queue with the whole accumulated file attached — every gesture, every inference, every confidence score. The vetting decision is made against evidence the person generated themselves without ever being interviewed.
 
-1. **Narration intake.** Founder narrates Siteforum, starting with the user record — what it knows about a person, its fields, the states a person moves through. Then the lead lifecycle (origination → targeting → capture → distribution → offer → follow-up), then the surrounding nouns. Captured as a living architecture document in the archive and filed to the Intake Lane as it comes in.
-2. **Dialect map.** A written mapping from Siteforum's user record and lead objects to the Kimosabe file and to what PrepareAmerica already holds. This is the artifact that prevents rework.
-3. **Kimosabe shell.** Route tree, anchor minting, credential resolution, the recognition moment. No horses yet.
-4. **First Trojan horse.** One capability, end to end, proving the resolution loop.
-5. **Remaining horses**, then the founder-side view of the accumulating files.
+## Build order
+
+1. **Kimosabe shell** — route tree, anchor minting, credential resolution, the recognition moment. No horses yet.
+2. **The file** — observations, derived traits with confidence, and the merge rule for when an anonymous file later attaches to a credential or account (claimed, never duplicated; merge recorded).
+3. **MarketApp handoff** — the standing request, the ledger-wallet stub, and the certification queue with the file attached.
+4. **First Trojan horse** — one MarketApp capability end to end, proving the resolution loop.
+5. **Remaining horses**, then the founder-side view of accumulating files.
+
+Step 3 is the one that binds to Siteforum. When the real group/role/certification model arrives, it replaces the proposed model above and steps 1–2 are unaffected — the file does not care what roles exist.
 
 ## Technical notes
 
-- Kimosabe lives at its own path in `src/routes/`, with its own resolver rather than the `_authenticated` gate. The gate fails closed; Kimosabe fails open into the ritual.
-- The anchor is an opaque server-signed identifier; the browser never holds anything meaningful about the person.
-- New tables for the anonymous file, its observations, and derived traits — anonymous rows are writable by unauthenticated visitors only through narrow server functions, never directly. Founder-only read.
-- Merging: when an anonymous file later attaches to a credential or an account, the file is claimed rather than duplicated, and the merge is recorded.
-- Nothing in `src/routes/` outside the Kimosabe tree changes. The link is just a link.
+- Kimosabe lives at its own path under `src/routes/`, with its own resolver rather than the `_authenticated` gate. That gate fails closed; Kimosabe fails open into the ritual.
+- The anchor is server-signed and opaque; the browser never holds anything meaningful about the person.
+- New tables for the file, its observations, derived traits, and certification requests. Anonymous rows are written only through narrow server functions, never directly from the client. Founder-only read.
+- Groups, roles, and grants are data, not hardcoded checks, so the model can be swapped when Siteforum's is known.
+- Nothing outside the Kimosabe route tree changes.
 
-## Open — waiting on the founder
+## Still open
 
-- The Siteforum user record and lead lifecycle (blocking steps 2 onward).
-- Which Trojan horse goes first.
-- Whether the nine role tags become one field inside the Kimosabe file or stay a separate PrepareAmerica concern.
+- The actual Siteforum/ClaimExpress group, role, and certification model — replaces the proposed section above.
+- Which Trojan horse ships first.
+- What the ledger-wallet holds at Season 1 grain.
