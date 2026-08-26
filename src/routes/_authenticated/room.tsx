@@ -6,11 +6,14 @@ import {
   getScenarioSignals,
   saveRoomView,
   deleteRoomView,
+  getDemoScript,
   type ScenarioRow,
   type VariableRow,
   type SignalRow,
   type SavedViewRow,
+  type DemoScriptRow,
 } from "@/lib/room.functions";
+import { getMyRoles } from "@/lib/inbox.functions";
 import { LENSES, LAYOUTS, getLens, formatValue, resolvePrompt, type Layout, type Lens } from "@/content/room";
 import { PageShell } from "@/components/briefing/PageShell";
 
