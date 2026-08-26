@@ -151,3 +151,4 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Built Demo Mode in `/room` so the founder can step through a scripted Hurricane Beryl run-of-show with automated lens and layout switching.
 - Fixed credential validation on `/invitation/$credential` so malformed links render a graceful "not open" page instead of a runtime error.
 - Tightened SECURITY DEFINER grants: only `has_role` and `redeem_insider_invitation` remain executable by authenticated users by design.
+- Renamed the GitHub backup repository from `hail-hub-connect` to `prepareamerica` and updated `README.md` with the new clone URL.
