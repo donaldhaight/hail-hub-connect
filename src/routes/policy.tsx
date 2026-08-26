@@ -85,7 +85,7 @@ function PolicyPage() {
         <Prose>
           <p>
             Government think tanks, state insurance departments, and
-            disaster-recovery agencies are invited to request a ticket to the
+            disaster-recovery agencies are invited to request an invitation to the
             11-1-2026 <Link to="/prepare-america">First Congress</Link>{" "}
             and to <Link to="/request-briefing">request a private briefing</Link>.
             Access is individual and logged; nothing here is a lobbying

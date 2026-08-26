@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { getTicketView } from "@/lib/ticket.functions";
-import { getBroadcastState, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
+import { getBroadcastState, getServerTime, verifyFounderForRehearsal } from "@/lib/broadcast.functions";
 import { routeHead } from "@/lib/site";
 import {
   FIRST_CONGRESS,
@@ -17,7 +17,7 @@ import {
 } from "@/content/calendar";
 
 const TITLE = "The First Congress";
-const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Ticket holders only.`;
+const DESC = `A streamed reveal on ${FIRST_CONGRESS.dateLabel}. Invitation holders only.`;
 
 export const Route = createFileRoute("/first-congress")({
   validateSearch: z.object({
@@ -36,13 +36,13 @@ export const Route = createFileRoute("/first-congress")({
 
 const START = new Date(`${FIRST_CONGRESS.opensOn ?? "2026-11-01"}T00:00:00Z`).getTime();
 
-function useCountdown() {
+function useCountdown(serverOffsetMs = 0) {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
-    setNow(Date.now());
-    const id = setInterval(() => setNow(Date.now()), 1000);
+    setNow(Date.now() + serverOffsetMs);
+    const id = setInterval(() => setNow(Date.now() + serverOffsetMs), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [serverOffsetMs]);
   if (now === null) return null;
   const ms = START - now;
   if (ms <= 0) return { live: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -104,8 +104,20 @@ function FirstCongressPage() {
   const rehearse = search.rehearse === true || search.rehearse === "true";
   const loadTicket = useServerFn(getTicketView);
   const loadBroadcast = useServerFn(getBroadcastState);
+  const loadServerTime = useServerFn(getServerTime);
   const verifyRehearsal = useServerFn(verifyFounderForRehearsal);
-  const clock = useCountdown();
+
+  const { data: serverTime, isLoading: timeLoading } = useQuery({
+    queryKey: ["server-time"],
+    queryFn: () => loadServerTime(),
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  const serverOffsetMs = serverTime
+    ? new Date(serverTime.serverTime).getTime() - Date.now()
+    : 0;
+  const clock = useCountdown(serverOffsetMs);
 
   const { data: broadcast, isLoading: broadcastLoading } = useQuery({
     queryKey: ["broadcast-state"],
@@ -135,7 +147,7 @@ function FirstCongressPage() {
   if (loading) {
     return (
       <PageShell>
-        <PageHeader eyebrow="First Congress" title="Checking your ticket…" confidentiality="C1" />
+        <PageHeader eyebrow="First Congress" title="Checking your invitation…" confidentiality="C1" />
       </PageShell>
     );
   }
@@ -151,7 +163,7 @@ function FirstCongressPage() {
       <PageHeader
         eyebrow={`${CONVENER} · ${tier?.label ?? "Observer"}`}
         title="The First Congress."
-        lede={`${FIRST_CONGRESS.dateLabel}. Streamed to ticket holders. A reveal, an announcement, and an invitation.`}
+        lede={`${FIRST_CONGRESS.dateLabel}. Streamed to invitation holders. A reveal, an announcement, and an invitation.`}
         confidentiality="C1"
         status={statusLabel}
       />
@@ -275,8 +287,8 @@ function FirstCongressPage() {
             ) : (
               <>
                 <p>
-                  The First Congress has ended. Ticket holders may now apply for an invitation to the Second Congress —{" "}
-                  {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE}, three hundred delegates convened in person. A ticket is
+                  The First Congress has ended. Invitation holders may now apply for a delegate seat at the Second Congress —{" "}
+                  {SECOND_CONGRESS.dateLabel}, {CONGRESS_VENUE}, three hundred delegates convened in person. An invitation is
                   not a delegate seat, and application does not imply admission.
                 </p>
                 <p>
@@ -294,8 +306,8 @@ function FirstCongressPage() {
             </p>
           ) : (
             <p>
-              After the broadcast, holders may apply for an invitation to the Second Congress — {SECOND_CONGRESS.dateLabel},
-              {CONGRESS_VENUE}, three hundred delegates convened in person. A ticket is not a delegate seat, and
+              After the broadcast, holders may apply for a delegate seat at the Second Congress — {SECOND_CONGRESS.dateLabel},
+              {CONGRESS_VENUE}, three hundred delegates convened in person. An invitation is not a delegate seat, and
               application does not imply admission.
             </p>
           )}
@@ -326,17 +338,17 @@ function Locked({ reason }: { reason: string }) {
         title="This session is closed to you."
         lede={
           reason === "not_approved"
-            ? "Your request is on file but no ticket has been issued yet."
-            : "The First Congress is streamed to ticket holders. Open this page from the link in your ticket."
+            ? "Your request is on file but no invitation has been issued yet."
+            : "The First Congress is streamed to invitation holders. Open this page from the link in your invitation."
         }
         confidentiality="C1"
       />
-      <Section number="01" title="How to obtain a ticket">
+      <Section number="01" title="How to obtain an invitation">
         <Prose>
           <p>
-            Tickets are issued by the convener to referred and qualified names.{" "}
+            Invitations are issued by the convener to referred and qualified names.{" "}
             <Link to="/prepare-america" className="underline">
-              Request a ticket
+              Request an invitation
             </Link>
             .
           </p>

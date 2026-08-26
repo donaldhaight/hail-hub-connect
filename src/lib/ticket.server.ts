@@ -32,4 +32,6 @@ export interface TicketView {
   tier?: string;
   seasonId?: string;
   seatStatus?: string;
+  delegateSeatStatus?: string;
+  secondCongressCredential?: string;
 }

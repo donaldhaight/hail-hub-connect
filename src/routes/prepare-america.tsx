@@ -22,7 +22,7 @@ import {
 } from "@/content/calendar";
 
 const TITLE = "The First Congress";
-const DESC = `The First Congress of PrepareAmerica. ${FIRST_CONGRESS.dateLabel}, streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
+const DESC = `The First Congress of PrepareAmerica. ${FIRST_CONGRESS.dateLabel}, streamed to invitation holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
 
 export const Route = createFileRoute("/prepare-america")({
   head: () => {
@@ -67,18 +67,18 @@ function PrepareAmerica() {
       <PageHeader
         eyebrow="The First Congress"
         title="You need an invitation to receive the invitation."
-        lede={`On ${FIRST_CONGRESS.dateLabel} the First Congress is streamed to ticket holders. It is a reveal, an announcement, and an invitation to the Second Congress — where three hundred delegates convene in person.`}
+        lede={`On ${FIRST_CONGRESS.dateLabel} the First Congress is streamed to invitation holders. It is a reveal, an announcement, and an invitation to the Second Congress — where three hundred delegates convene in person.`}
         confidentiality="C0"
-        status="Ticketed · Invitation Only"
+        status="Invitation Only"
       />
 
       <Section number="01" title="The ladder">
         <ol className="divide-y divide-border border-y border-border">
           {[
             ["Referral", "Someone already inside puts your name forward."],
-            ["Ticket", `Access to the First Congress stream on ${FIRST_CONGRESS.dateLabel}.`],
-            ["Invitation", `An invitation to the Second Congress, ${SECOND_CONGRESS.dateLabel}.`],
-            ["Delegate seat", `One of ${DELEGATE_CAPACITY} seats at ${CONGRESS_VENUE}.`],
+            ["First-Congress Invitation", `Access to the streamed event on ${FIRST_CONGRESS.dateLabel}.`],
+            ["Second-Congress Invitation", `An invitation to the convened Second Congress, ${SECOND_CONGRESS.dateLabel}.`],
+            ["Delegate Seat", `One of ${DELEGATE_CAPACITY} seats at ${CONGRESS_VENUE}.`],
             ["Season One", `Participation in the operating season, ${SEASON_ONE.dateLabel}.`],
           ].map(([label, note], i) => (
             <li key={label} className="grid grid-cols-12 items-baseline gap-6 py-6">
@@ -119,7 +119,7 @@ function PrepareAmerica() {
         </dl>
       </Section>
 
-      <Section number="03" title="Ticket tiers">
+      <Section number="03" title="Admission tiers">
         <div className="grid gap-px bg-border sm:grid-cols-2">
           {TICKET_TIERS.map((tier) => (
             <div key={tier.id} className="bg-background p-6">
@@ -182,7 +182,7 @@ function PrepareAmerica() {
         </Prose>
       </Section>
 
-      <Section number="06" title="Request a ticket">
+      <Section number="06" title="Request an invitation">
         <div className="grid gap-10 md:grid-cols-12">
           <aside className="md:col-span-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
@@ -190,8 +190,8 @@ function PrepareAmerica() {
             </div>
             <ol className="mt-4 space-y-4 text-sm text-muted-foreground">
               <li><span className="mr-2 font-mono text-ink">01</span>The convener personally reviews every request.</li>
-              <li><span className="mr-2 font-mono text-ink">02</span>Approved holders receive a ticket credential for the stream and access to the qualified-insider room.</li>
-              <li><span className="mr-2 font-mono text-ink">03</span>Tickets are not first-come-first-served, and a ticket is not a delegate seat.</li>
+              <li><span className="mr-2 font-mono text-ink">02</span>Approved holders receive an invitation credential for the stream and access to the qualified-insider room.</li>
+              <li><span className="mr-2 font-mono text-ink">03</span>Invitations are not first-come-first-served, and an invitation is not a delegate seat.</li>
             </ol>
             <div className="mt-8"><Meta status="No transaction · No offering" /></div>
           </aside>

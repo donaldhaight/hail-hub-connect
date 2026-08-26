@@ -34,6 +34,11 @@ async function assertFounder(ctx: { supabase: any; userId: string }) {
   if (!data) throw new Error("Forbidden");
 }
 
+/** Public: the server's current UTC timestamp for resilient countdowns. */
+export const getServerTime = createServerFn({ method: "GET" }).handler(async () => {
+  return { serverTime: new Date().toISOString() };
+});
+
 /** Public: the current broadcast state and published run of show. */
 export const getBroadcastState = createServerFn({ method: "GET" }).handler(async () => {
   const sb = publicClient();

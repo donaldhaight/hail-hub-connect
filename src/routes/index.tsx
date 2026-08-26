@@ -12,7 +12,7 @@ import {
 
 const TITLE = "If we can fix the Insurance Restoration Market, we can fix the Government of the United States of America.";
 const DESC =
-  `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
+  `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to invitation holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
 const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
 
 export const Route = createFileRoute("/")({
@@ -65,7 +65,7 @@ function Index() {
               to="/prepare-america"
               className="inline-flex items-center justify-center gap-2 border border-ink bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
             >
-              Request a Ticket
+              Request an Invitation
               <span aria-hidden="true">→</span>
             </Link>
             <Link
@@ -238,7 +238,7 @@ function Index() {
                 to="/prepare-america"
                 className="inline-flex w-full items-center justify-between border border-ink bg-ink px-5 py-4 text-sm font-medium text-paper transition-colors hover:bg-navy hover:border-navy"
               >
-                Request a Ticket
+                Request an Invitation
                 <span aria-hidden="true">→</span>
               </Link>
               <Link

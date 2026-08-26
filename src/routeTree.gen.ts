@@ -30,6 +30,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TicketCredentialRouteImport } from './routes/ticket.$credential'
 import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
+import { Route as InvitationCredentialRouteImport } from './routes/invitation.$credential'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as BUnitedStakeholdersRouteImport } from './routes/b/united-stakeholders'
 import { Route as BSelfinsurityRouteImport } from './routes/b/selfinsurity'
@@ -163,6 +164,11 @@ const PrepareAmericaConfirmedRoute = PrepareAmericaConfirmedRouteImport.update({
   id: '/confirmed',
   path: '/confirmed',
   getParentRoute: () => PrepareAmericaRoute,
+} as any)
+const InvitationCredentialRoute = InvitationCredentialRouteImport.update({
+  id: '/invitation/$credential',
+  path: '/invitation/$credential',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const InsiderAcceptRoute = InsiderAcceptRouteImport.update({
   id: '/insider/accept',
@@ -351,6 +357,7 @@ export interface FileRoutesByFullPath {
   '/b/selfinsurity': typeof BSelfinsurityRoute
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/invitation/$credential': typeof InvitationCredentialRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -402,6 +409,7 @@ export interface FileRoutesByTo {
   '/b/selfinsurity': typeof BSelfinsurityRoute
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/invitation/$credential': typeof InvitationCredentialRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -455,6 +463,7 @@ export interface FileRoutesById {
   '/b/selfinsurity': typeof BSelfinsurityRoute
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
+  '/invitation/$credential': typeof InvitationCredentialRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/_authenticated/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -508,6 +517,7 @@ export interface FileRouteTypes {
     | '/b/selfinsurity'
     | '/b/united-stakeholders'
     | '/insider/accept'
+    | '/invitation/$credential'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/admin/broadcast'
@@ -559,6 +569,7 @@ export interface FileRouteTypes {
     | '/b/selfinsurity'
     | '/b/united-stakeholders'
     | '/insider/accept'
+    | '/invitation/$credential'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/admin/broadcast'
@@ -611,6 +622,7 @@ export interface FileRouteTypes {
     | '/b/selfinsurity'
     | '/b/united-stakeholders'
     | '/insider/accept'
+    | '/invitation/$credential'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/_authenticated/admin/broadcast'
@@ -656,6 +668,7 @@ export interface RootRouteChildren {
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
   WhyRrcaRoute: typeof WhyRrcaRoute
   InsiderAcceptRoute: typeof InsiderAcceptRoute
+  InvitationCredentialRoute: typeof InvitationCredentialRoute
   TicketCredentialRoute: typeof TicketCredentialRoute
 }
 
@@ -807,6 +820,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/prepare-america/confirmed'
       preLoaderRoute: typeof PrepareAmericaConfirmedRouteImport
       parentRoute: typeof PrepareAmericaRoute
+    }
+    '/invitation/$credential': {
+      id: '/invitation/$credential'
+      path: '/invitation/$credential'
+      fullPath: '/invitation/$credential'
+      preLoaderRoute: typeof InvitationCredentialRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/insider/accept': {
       id: '/insider/accept'
@@ -1121,6 +1141,7 @@ const rootRouteChildren: RootRouteChildren = {
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
   WhyRrcaRoute: WhyRrcaRoute,
   InsiderAcceptRoute: InsiderAcceptRoute,
+  InvitationCredentialRoute: InvitationCredentialRoute,
   TicketCredentialRoute: TicketCredentialRoute,
 }
 export const routeTree = rootRouteImport
