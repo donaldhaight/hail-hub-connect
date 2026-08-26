@@ -1,62 +1,45 @@
-# The Corpus Lands — Ingesting the Human Blockchain OKF Bundle
+# Act 1 — The Turn Is Ruled, Holding for Drops Two and Three
 
-You dropped the whole thing. 34 documents, two registers of decisions and open questions, a 157,801-word ClaimStore synthesis, an agent instruction file, and a roadmap that already knows what it doesn't have. This is the first real test of the Intake Lane, and it arrives at scale.
+Posture: receive and hold. Two more messages inbound. This note records what is now settled so the next session doesn't relitigate it.
 
-## What I read
+## Settled: the corpus is stashed, not ingested
 
-The bundle is `human-blockchain-operating-system` v0.2 — a Docusaurus + Open Knowledge Format package. Its authority order is the same one we operate under here: your current narrated intention first, approved decisions second, working software third, the brief fourth, the historical corpus last. That means this repo does not overrule what we've built; it supplies it.
+The Human Blockchain OKF bundle (v0.2, 34 documents plus a 157,801-word ClaimStore synthesis) has been read. It is evidence and creative supply, not canon — its own authority order says so, and it matches ours: your current narrated intention first, the historical corpus last.
 
-Highest-value contents, by what they unlock:
+When we execute the ingestion, it goes like this and no other way:
 
-- `docs/50-execution/` — `backlog-user-stories.md` (2,372 lines), `api-event-schema.md`, `data-dictionary-field-naming.md`, `developer-agent-handoff.md`, `mvp-demo-requirements.md`. This is a Phase Zero build spec that already exists.
-- `docs/20-product/` — data model master, MVP ERD, entity/role/designation matrix, screen inventory and UX flow, ClaimExpress protocol, Need-to-Done addendum, master glossary.
-- `docs/40-market/one-prompt-event-package.md` and `founding-sponsor-position-book.md` — the 11-1 event and the PSL/sponsor model, already written down.
-- `docs/90-registers/` — decisions, assumptions and variables, risks and review gates, source register. Named open questions, not vibes.
-- `sources/ChatGPT-2-ClaimStore-Vision-Requirements-*.md` — the 1.2 MB origin synthesis behind all of it.
+- Preserved unchanged at `docs/corpus/hbos-v0.2/` with a source card recording origin repo, upload date, file count, and hash.
+- Registered into the Intake Lane, one row per document: execution and product docs as `requirements`, continuity brief and market docs as `business`, the ChatGPT synthesis as `wildcard` pending extraction.
+- Reconciled against what we've already built, in `docs/RECONCILIATION.md` — built / gap / conflict — with each conflict becoming a dated ADR.
 
-## The contradiction worth flagging first
+Not adopted: the bundle's Docusaurus stack. This project stays TanStack Start. The bundle enters as corpus, not as a second site.
 
-Two live descriptions of the same program now exist: this repo's Stage 0–6 roadmap (ingestion engine first, Phase Zero platform at Stage 6) and our Season/Congress ladder with the One Prompt Event on 11-1-2026. They are compatible but not identical, and the naming diverges — Quantum Dashboard survives in the repo where we retired it publicly in favor of The Human Blockchain. Reconciling those two roadmaps into one is the real work, not the file copying.
+## Settled: the dramatic turn of Act 1
 
-## Plan
+Act 1 turns on the founder removing himself from the middle of his own architecture.
 
-### Step 1 — Preserve and register (no interpretation)
+For twenty-five years the neutrality principle survived every pivot, every failed consortium, every technology that arrived not quite ready — and the whole apparatus had a single point of failure sitting at its center: one man holding the companies, domains, legal theories, workflows, carrier relationships, and crews together by memory and force of will. He built a machine designed to survive his exit around a seat only he could occupy.
 
-- Copy the bundle into `docs/corpus/hbos-v0.2/` unchanged, minus git metadata and `node_modules`/lockfiles.
-- Add a source card at `docs/corpus/hbos-v0.2/SOURCE.md`: origin repo, upload date, file count, hash, and the authority note that this is retrievable evidence, not canon.
-- Register each of the 34 documents as an Intake Lane item with title, layer(s), a one-line "what it proves," and triage state. Product and execution docs land as `requirements`; the continuity brief and market docs as `business`; the ChatGPT synthesis as `wildcard` pending extraction.
+Kimosabe was never a company. It was a job description.
 
-### Step 2 — Read and annotate the eleven that matter
+The Turn is the moment that becomes visible and, for the first time, solvable — not because AI arrived, but because AI arriving revealed what the founder had actually been doing all along, and made the seat transferable.
 
-Full read, with annotations recorded in the lane, of: master continuity brief, current-state, master roadmap, backlog user stories, mvp demo requirements, data model master, mvp ERD, entity/role/designation matrix, screen inventory, one prompt event package, and the three registers.
+## Consequences now in force
 
-Output is one document — `docs/RECONCILIATION.md` — with three tables:
+1. **Reveal order is confirmed and load-bearing.** Foundation → Tech → Legal → Insurance → Banking → Construction → Center. Six functions the market visibly needs, then the seventh that nobody names because it's usually a person in a truck. The center is revealed last because the center is the reveal.
 
-1. **Already built here** — repo requirement mapped to the route/table that satisfies it.
-2. **Gap** — repo requirement with no counterpart in this codebase.
-3. **Conflict** — repo says X, our standing decisions say Y, with a recommendation for each.
+2. **`src/content/brands.ts` is already right and stays.** Kimosabe as "a fixed role, not interchangeable, in the founding period" now reads as intentional: the center is fixed *during* the founding period precisely because it is being vacated.
 
-### Step 3 — Fold into the live instruments
+3. **11-1-2026 is a demonstration, not a conference.** If the integration function is transferable, the founder cannot be the one presenting. The room has to watch the system answer a prompt that was not pre-loaded, with the founder as the one person not touching the keyboard. That constrains the staging, the broadcast, and the build — and it is a harder, better scene than a keynote.
 
-- `docs/REQUIREMENTS.md` absorbs the gaps as new epics, each tagged with its corpus source path.
-- The Project Backlog board gets the Phase Zero items as cards, priced under the standing rule: human hours, agent hours, materials, labor, turnkey bid, equipment, other expenses.
-- `docs/DECISIONS.md` records each conflict resolution as a dated ADR — including a formal ruling on Quantum Dashboard vs. The Human Blockchain.
-- The registers' open questions become open questions in the lane, addressed to you, not silently resolved by me.
+## Open — waiting on drops two and three
 
-### Step 4 — Extract the synthesis
+- The seven groups' backstories in reveal order (partially landed; ChatGPT's mapping accepted as the function-to-brand spine).
+- The dated scene: the specific moment, with a real storm, name, or loss in it.
+- The pivots since 2008 in order, and what each taught.
+- What literally happens in the room on 11-1 — who speaks, what is asked, what appears, what a person walks out holding.
+- Act 2's first sprint, so it can be priced: human hours, agent hours, materials, labor, turnkey bid, equipment, other expenses.
 
-The 157k-word ClaimStore synthesis gets chunked and indexed into the corpus search that already spans intake, manual, and dossiers — so a question asked in the Concept Lab can retrieve the 2026 origin passage that answers it.
+## Not in scope of this note
 
-## What this is not
-
-Not a rebuild. Not adopting the repo's Docusaurus stack — this project stays TanStack Start; the bundle enters as corpus, not as a second site. No schema changes beyond intake rows unless Step 2 proves one is needed, and that comes back to you as a priced sprint before it's built.
-
-## Technical notes
-
-- Copy excludes `.git`, `package-lock.json`, and `node_modules`; markdown, `okf.yaml`, and `manifest.json` come in as-is.
-- Intake registration runs as a one-time seeded migration with literal INSERTs so the lane is populated on first load, not on page render.
-- The corpus search index reuses the existing search path; no new provider.
-
-## Decision needed
-
-Confirm the sequence, and tell me one thing: when Step 2 finds a conflict between what that repo says and what we've decided here since, does the newer decision here win by default — or do you want each one surfaced for your ruling?
+No writing to the manual, no schema changes, no corpus copy. Those wait for "Proceed as you recommend" after the third drop lands.
