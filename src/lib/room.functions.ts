@@ -61,6 +61,19 @@ export type SavedViewRow = {
   created_at: string;
 };
 
+export type DemoScriptRow = {
+  id: string;
+  position: number;
+  prompt: string;
+  lens: string;
+  scenario_slug: string;
+  layout: string;
+  speaking_note: string;
+  truth_label: string;
+  created_at: string;
+  updated_at: string;
+};
+
 const SCENARIO_COLUMNS =
   "id, slug, name, peril, event_date, region, note, is_production, clock_steps, position";
 const VARIABLE_COLUMNS =
