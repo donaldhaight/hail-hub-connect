@@ -12,7 +12,7 @@ import {
 
 const TITLE = "If we can fix the Insurance Restoration Market, we can fix the Government of the United States of America.";
 const DESC =
-  `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
+  `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to invitation holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
 const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
 
 export const Route = createFileRoute("/")({
