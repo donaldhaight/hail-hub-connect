@@ -38,6 +38,7 @@ import { Route as BMarketApplicationsRouteImport } from './routes/b/market-appli
 import { Route as BKimosabeRouteImport } from './routes/b/kimosabe'
 import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
+import { Route as AuthenticatedRoomRouteImport } from './routes/_authenticated/room'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -202,6 +203,11 @@ const BBuddyClaimRoute = BBuddyClaimRouteImport.update({
   path: '/buddy-claim',
   getParentRoute: () => BRouteRoute,
 } as any)
+const AuthenticatedRoomRoute = AuthenticatedRoomRouteImport.update({
+  id: '/room',
+  path: '/room',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedManualIndexRoute =
   AuthenticatedManualIndexRouteImport.update({
     id: '/manual/',
@@ -329,6 +335,7 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -378,6 +385,7 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -429,6 +437,7 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/_authenticated/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -480,6 +489,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -529,6 +539,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -579,6 +590,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/_authenticated/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -839,6 +851,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BBuddyClaimRouteImport
       parentRoute: typeof BRouteRoute
     }
+    '/_authenticated/room': {
+      id: '/_authenticated/room'
+      path: '/room'
+      fullPath: '/room'
+      preLoaderRoute: typeof AuthenticatedRoomRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manual/': {
       id: '/_authenticated/manual/'
       path: '/manual'
@@ -976,6 +995,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
@@ -998,6 +1018,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
