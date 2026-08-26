@@ -164,3 +164,18 @@ export const deleteRoomView = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message || "Failed to delete the view");
     return { ok: true };
   });
+
+const DEMO_SCRIPT_COLUMNS =
+  "id, position, prompt, lens, scenario_slug, layout, speaking_note, truth_label, created_at, updated_at";
+
+/** The founder's run-of-show for the One Prompt Event. Ordered beats. */
+export const getDemoScript = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase
+      .from("room_demo_script")
+      .select(DEMO_SCRIPT_COLUMNS)
+      .order("position", { ascending: true });
+    if (error) throw new Error("Failed to load demo script");
+    return { beats: (data ?? []) as DemoScriptRow[] };
+  });
