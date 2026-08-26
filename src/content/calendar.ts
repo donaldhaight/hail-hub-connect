@@ -185,7 +185,7 @@ export const TICKET_TIERS: TicketTier[] = [
   {
     id: "observer",
     label: "Observer",
-    grants: "Access to the First Congress stream.",
+    grants: "Admission to the First Congress stream.",
     seatRight: false,
     transferable: "no",
     term: "The First Congress only.",
@@ -194,7 +194,7 @@ export const TICKET_TIERS: TicketTier[] = [
     id: "stakeholder",
     label: "Stakeholder",
     grants:
-      "Access to the First Congress stream, plus a standing right to a delegate seat at the Second Congress and priority in subsequent seasons.",
+      "Admission to the First Congress stream, plus a standing right to a delegate seat at the Second Congress and priority in subsequent seasons.",
     seatRight: true,
     transferable: "with-approval",
     term: "Standing through Season Three.",
