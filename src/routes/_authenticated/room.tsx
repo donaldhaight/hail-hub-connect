@@ -145,7 +145,9 @@ function RoomPage() {
     return lensConfig.variables.map((key) => {
       const v = varByKey.get(key);
       const subset = rows.filter((r) => r.variable_key === key);
-      const total = subset.reduce((acc, r) => acc + Number(r.value), 0);
+      const sum = subset.reduce((acc, r) => acc + Number(r.value), 0);
+      // An index is averaged across counties; everything else totals.
+      const total = v?.unit === "index" && subset.length ? sum / subset.length : sum;
       const conf = subset.length
         ? subset.reduce((acc, r) => acc + Number(r.confidence), 0) / subset.length
         : 0;
