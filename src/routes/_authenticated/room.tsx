@@ -288,12 +288,28 @@ function RoomPage() {
               >
                 {scenario?.is_production ? "Production data" : "Scenario data — not production"}
               </span>
-              <Link
-                to="/admin/ledger"
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
-              >
-                Efficiency ledger →
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/admin/ledger"
+                  className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground hover:text-ink"
+                >
+                  Efficiency ledger →
+                </Link>
+                {isFounder ? (
+                  <button
+                    type="button"
+                    disabled={demoLoading}
+                    onClick={() => (demoMode ? exitDemo() : enterDemo())}
+                    className={`border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] disabled:opacity-50 ${
+                      demoMode
+                        ? "border-burgundy text-burgundy hover:bg-burgundy hover:text-paper"
+                        : "border-navy text-navy hover:bg-navy hover:text-paper"
+                    }`}
+                  >
+                    {demoMode ? "Exit demo" : demoLoading ? "Loading script…" : "Demo mode"}
+                  </button>
+                ) : null}
+              </div>
             </div>
           </div>
 
