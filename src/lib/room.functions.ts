@@ -43,13 +43,20 @@ export type SignalRow = {
   provenance: string;
 };
 
+export type ViewQuery = {
+  scenario?: string;
+  q?: string;
+  minConfidence?: number;
+  step?: number;
+};
+
 export type SavedViewRow = {
   id: string;
   owner_id: string;
   name: string;
   lens: string;
   layout: string;
-  query: Record<string, unknown>;
+  query: ViewQuery;
   shared: boolean;
   created_at: string;
 };
@@ -107,7 +114,14 @@ export const saveRoomView = createServerFn({ method: "POST" })
         name: z.string().min(1).max(80),
         lens: z.string().min(1).max(40),
         layout: z.string().min(1).max(20),
-        query: z.record(z.string(), z.unknown()).default({}),
+        query: z
+          .object({
+            scenario: z.string().optional(),
+            q: z.string().optional(),
+            minConfidence: z.number().optional(),
+            step: z.number().optional(),
+          })
+          .default({}),
         shared: z.boolean().default(true),
       })
       .parse(d),
@@ -120,7 +134,7 @@ export const saveRoomView = createServerFn({ method: "POST" })
         name: data.name,
         lens: data.lens,
         layout: data.layout,
-        query: data.query,
+        query: data.query as Record<string, never>,
         shared: data.shared,
       })
       .select(VIEW_COLUMNS)
