@@ -22,7 +22,7 @@ import {
 } from "@/content/calendar";
 
 const TITLE = "The First Congress";
-const DESC = `The First Congress of PrepareAmerica. ${FIRST_CONGRESS.dateLabel}, streamed to ticket holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
+const DESC = `The First Congress of PrepareAmerica. ${FIRST_CONGRESS.dateLabel}, streamed to invitation holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
 
 export const Route = createFileRoute("/prepare-america")({
   head: () => {
