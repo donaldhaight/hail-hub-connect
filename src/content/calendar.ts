@@ -54,7 +54,7 @@ export const LADDER: LadderEntry[] = [
     mode: "streamed",
     phase: "invitation",
     purpose:
-      "Reveal, announce, and invite. Streamed to ticket holders. You need an invitation to receive the invitation.",
+      "Reveal, announce, and invite. Streamed to invitation holders. You need an invitation to receive the invitation.",
     visibility: "public",
   },
   {
