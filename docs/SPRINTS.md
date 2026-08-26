@@ -141,3 +141,13 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Overhauled `getFounderDigest` with most-engaged insiders, referral momentum, and sections that need work.
 - Built `/admin/reads` with a per-dossier section-by-insider heatmap and attachment engagement table.
 - Expanded `/admin/signals` with a referral funnel dashboard and read-depth columns.
+
+## Sprint 2.5 — Demo Mode & Invitation Ladder
+
+**Goal:** Harden the First Congress demo and make the invitation surface founder-operable.
+
+- Renamed public-facing "ticket" language to "invitation" and "delegate seat" while preserving credential-gated links.
+- Hardened the `/first-congress` countdown with server-side time synchronization.
+- Built Demo Mode in `/room` so the founder can step through a scripted Hurricane Beryl run-of-show with automated lens and layout switching.
+- Fixed credential validation on `/invitation/$credential` so malformed links render a graceful "not open" page instead of a runtime error.
+- Tightened SECURITY DEFINER grants: only `has_role` and `redeem_insider_invitation` remain executable by authenticated users by design.
