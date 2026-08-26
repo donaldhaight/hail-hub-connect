@@ -92,6 +92,12 @@ export function Header() {
                 </Link>
               ) : null}
               <Link
+                to="/room"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
+              >
+                Room
+              </Link>
+              <Link
                 to="/manual"
                 className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
@@ -208,6 +214,16 @@ export function Header() {
                       </Link>
                     </li>
                   ) : null}
+                  <li>
+                    <Link
+                      to="/room"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
+                    >
+                      Situation Room
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
                   <li>
                     <Link
                       to="/manual"
