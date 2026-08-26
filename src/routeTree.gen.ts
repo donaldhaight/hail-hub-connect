@@ -57,6 +57,7 @@ import { Route as AuthenticatedAdminIntakeRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminInboxRouteImport } from './routes/_authenticated/admin/inbox'
 import { Route as AuthenticatedAdminEvidenceRouteImport } from './routes/_authenticated/admin/evidence'
 import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authenticated/admin/edits'
+import { Route as AuthenticatedAdminEconomicsRouteImport } from './routes/_authenticated/admin/economics'
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
 import { Route as AuthenticatedAdminBroadcastRouteImport } from './routes/_authenticated/admin/broadcast'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
@@ -310,6 +311,12 @@ const AuthenticatedAdminEditsRoute = AuthenticatedAdminEditsRouteImport.update({
   path: '/admin/edits',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminEconomicsRoute =
+  AuthenticatedAdminEconomicsRouteImport.update({
+    id: '/admin/economics',
+    path: '/admin/economics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminDigestRoute =
   AuthenticatedAdminDigestRouteImport.update({
     id: '/admin/digest',
@@ -362,6 +369,7 @@ export interface FileRoutesByFullPath {
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
+  '/admin/economics': typeof AuthenticatedAdminEconomicsRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -414,6 +422,7 @@ export interface FileRoutesByTo {
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/admin/digest': typeof AuthenticatedAdminDigestRoute
+  '/admin/economics': typeof AuthenticatedAdminEconomicsRoute
   '/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -468,6 +477,7 @@ export interface FileRoutesById {
   '/ticket/$credential': typeof TicketCredentialRoute
   '/_authenticated/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
   '/_authenticated/admin/digest': typeof AuthenticatedAdminDigestRoute
+  '/_authenticated/admin/economics': typeof AuthenticatedAdminEconomicsRoute
   '/_authenticated/admin/edits': typeof AuthenticatedAdminEditsRoute
   '/_authenticated/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/_authenticated/admin/inbox': typeof AuthenticatedAdminInboxRoute
@@ -522,6 +532,7 @@ export interface FileRouteTypes {
     | '/ticket/$credential'
     | '/admin/broadcast'
     | '/admin/digest'
+    | '/admin/economics'
     | '/admin/edits'
     | '/admin/evidence'
     | '/admin/inbox'
@@ -574,6 +585,7 @@ export interface FileRouteTypes {
     | '/ticket/$credential'
     | '/admin/broadcast'
     | '/admin/digest'
+    | '/admin/economics'
     | '/admin/edits'
     | '/admin/evidence'
     | '/admin/inbox'
@@ -627,6 +639,7 @@ export interface FileRouteTypes {
     | '/ticket/$credential'
     | '/_authenticated/admin/broadcast'
     | '/_authenticated/admin/digest'
+    | '/_authenticated/admin/economics'
     | '/_authenticated/admin/edits'
     | '/_authenticated/admin/evidence'
     | '/_authenticated/admin/inbox'
@@ -1010,6 +1023,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminEditsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/economics': {
+      id: '/_authenticated/admin/economics'
+      path: '/admin/economics'
+      fullPath: '/admin/economics'
+      preLoaderRoute: typeof AuthenticatedAdminEconomicsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/digest': {
       id: '/_authenticated/admin/digest'
       path: '/admin/digest'
@@ -1038,6 +1058,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
+  AuthenticatedAdminEconomicsRoute: typeof AuthenticatedAdminEconomicsRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
   AuthenticatedAdminEvidenceRoute: typeof AuthenticatedAdminEvidenceRoute
   AuthenticatedAdminInboxRoute: typeof AuthenticatedAdminInboxRoute
@@ -1062,6 +1083,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
+  AuthenticatedAdminEconomicsRoute: AuthenticatedAdminEconomicsRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
   AuthenticatedAdminEvidenceRoute: AuthenticatedAdminEvidenceRoute,
   AuthenticatedAdminInboxRoute: AuthenticatedAdminInboxRoute,

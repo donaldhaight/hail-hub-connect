@@ -108,15 +108,27 @@ async function assertFounder(ctx: { supabase: any; userId: string }) {
   if (!data) throw new Error("Forbidden");
 }
 
+const assumptionSchema = z.object({
+  key: z.string().min(1),
+  stage: z.string().min(1),
+  label: z.string().min(1),
+  definition: z.string().min(1),
+  unit: z.string().min(1),
+  low: z.number().nonnegative(),
+  base: z.number().nonnegative(),
+  high: z.number().nonnegative(),
+  truth_label: z.string().min(1),
+  source: z.string().min(1),
+  position: z.number().int(),
+});
+
 export const updateAssumption = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((d: unknown) =>
     z
       .object({
         id: z.string().uuid(),
-        low: z.number().nonnegative(),
-        base: z.number().nonnegative(),
-        high: z.number().nonnegative(),
+        ...assumptionSchema.shape,
       })
       .parse(d),
   )
@@ -131,4 +143,28 @@ export const updateAssumption = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message || "Failed to update the assumption");
     return { row: row as AssumptionRow };
+  });
+
+export const createAssumption = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => assumptionSchema.parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { data: row, error } = await context.supabase
+      .from("economics_assumptions")
+      .insert(data)
+      .select(ASSUMPTION_COLUMNS)
+      .single();
+    if (error) throw new Error(error.message || "Failed to create the assumption");
+    return { row: row as AssumptionRow };
+  });
+
+export const deleteAssumption = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .handler(async ({ context, data }) => {
+    await assertFounder(context);
+    const { error } = await context.supabase.from("economics_assumptions").delete().eq("id", data.id);
+    if (error) throw new Error(error.message || "Failed to delete the assumption");
+    return { ok: true };
   });
