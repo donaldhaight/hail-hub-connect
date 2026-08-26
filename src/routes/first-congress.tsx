@@ -135,7 +135,7 @@ function FirstCongressPage() {
   if (loading) {
     return (
       <PageShell>
-        <PageHeader eyebrow="First Congress" title="Checking your ticket…" confidentiality="C1" />
+        <PageHeader eyebrow="First Congress" title="Checking your invitation…" confidentiality="C1" />
       </PageShell>
     );
   }
