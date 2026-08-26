@@ -294,8 +294,8 @@ function FirstCongressPage() {
             </p>
           ) : (
             <p>
-              After the broadcast, holders may apply for an invitation to the Second Congress — {SECOND_CONGRESS.dateLabel},
-              {CONGRESS_VENUE}, three hundred delegates convened in person. A ticket is not a delegate seat, and
+              After the broadcast, holders may apply for a delegate seat at the Second Congress — {SECOND_CONGRESS.dateLabel},
+              {CONGRESS_VENUE}, three hundred delegates convened in person. An invitation is not a delegate seat, and
               application does not imply admission.
             </p>
           )}
