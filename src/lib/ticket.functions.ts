@@ -10,8 +10,7 @@ import type { TicketView } from "./ticket.server";
 export const getTicketView = createServerFn({ method: "GET" })
   .validator((d: unknown) => z.object({ credential: z.string().uuid() }).parse(d))
   .handler(async ({ data }) => {
-    const { publicClient } = await import("./ticket.server");
-    const sb = publicClient();
+    const { supabaseAdmin: sb } = await import("@/integrations/supabase/client.server");
     const { data: result, error } = await sb.rpc("get_ticket_view", {
       _credential: data.credential,
     });
