@@ -152,3 +152,12 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Fixed credential validation on `/invitation/$credential` so malformed links render a graceful "not open" page instead of a runtime error.
 - Tightened SECURITY DEFINER grants: only `has_role` and `redeem_insider_invitation` remain executable by authenticated users by design.
 - Renamed the GitHub backup repository from `hail-hub-connect` to `prepareamerica` and updated `README.md` with the new clone URL.
+
+## Sprint 2.7 — File the Work, Ship It, Write the Story
+
+**Goal:** Get every outstanding decision into the master backlog, verify the app end to end, ship, and bring the manuscript current with what has actually been built.
+
+- Filed six new backlog items: the economics bands the founder still owes, the pricing-to-Task-Ledger wire, the default slider position against the addressable cap, canvass expansion beyond Texas, the cultural races/canon/seasons as mission tracks, and the Act 2 writing thread.
+- Added Part VI — The Saga to the Owner's Manual with five chapters: *The Treasure Chest*, *The Turn*, *What Happens in the Room*, *Two Tracks*, and *Act Two — If You Can Bill It, You Can Build It*. Appendices and back matter shifted behind it.
+- Verification pass: typecheck clean; sixteen public routes returned 200 signed out; ten private surfaces (`/admin`, `/room`, `/admin/economics`, `/admin/ledger`, `/admin/inbox`, `/admin/intake`, `/admin/evidence`, `/admin/lab`, `/insider`, `/manual`) loaded authorized with zero console errors.
+- Database linter: only the two intentional SECURITY DEFINER grants (`has_role`, `redeem_insider_invitation`) remain, as recorded in security memory.
