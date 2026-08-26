@@ -26,6 +26,8 @@ type Row = {
   ticket_status: string;
   ticket_credential: string;
   seat_status: string;
+  delegate_seat_status: string;
+  second_congress_credential: string;
   season_id: string;
   created_at: string;
 };
