@@ -76,9 +76,9 @@ function PrepareAmerica() {
         <ol className="divide-y divide-border border-y border-border">
           {[
             ["Referral", "Someone already inside puts your name forward."],
-            ["Ticket", `Access to the First Congress stream on ${FIRST_CONGRESS.dateLabel}.`],
-            ["Invitation", `An invitation to the Second Congress, ${SECOND_CONGRESS.dateLabel}.`],
-            ["Delegate seat", `One of ${DELEGATE_CAPACITY} seats at ${CONGRESS_VENUE}.`],
+            ["First-Congress Invitation", `Access to the streamed event on ${FIRST_CONGRESS.dateLabel}.`],
+            ["Second-Congress Invitation", `An invitation to the convened Second Congress, ${SECOND_CONGRESS.dateLabel}.`],
+            ["Delegate Seat", `One of ${DELEGATE_CAPACITY} seats at ${CONGRESS_VENUE}.`],
             ["Season One", `Participation in the operating season, ${SEASON_ONE.dateLabel}.`],
           ].map(([label, note], i) => (
             <li key={label} className="grid grid-cols-12 items-baseline gap-6 py-6">
