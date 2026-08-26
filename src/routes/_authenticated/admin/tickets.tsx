@@ -9,7 +9,7 @@ import { TICKET_TIERS, FIRST_CONGRESS } from "@/content/calendar";
 export const Route = createFileRoute("/_authenticated/admin/tickets")({
   head: () => ({
     meta: [
-      { title: "Ticket Ledger — PrepareAmerica" },
+      { title: "Invitation Ledger — PrepareAmerica" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
