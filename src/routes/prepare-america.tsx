@@ -67,9 +67,9 @@ function PrepareAmerica() {
       <PageHeader
         eyebrow="The First Congress"
         title="You need an invitation to receive the invitation."
-        lede={`On ${FIRST_CONGRESS.dateLabel} the First Congress is streamed to ticket holders. It is a reveal, an announcement, and an invitation to the Second Congress — where three hundred delegates convene in person.`}
+        lede={`On ${FIRST_CONGRESS.dateLabel} the First Congress is streamed to invitation holders. It is a reveal, an announcement, and an invitation to the Second Congress — where three hundred delegates convene in person.`}
         confidentiality="C0"
-        status="Ticketed · Invitation Only"
+        status="Invitation Only"
       />
 
       <Section number="01" title="The ladder">
