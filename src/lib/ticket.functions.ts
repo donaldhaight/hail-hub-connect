@@ -71,7 +71,7 @@ export const issueTicket = createServerFn({ method: "POST" })
     };
   });
 
-/** Founder-only: ticket ledger for the invitation ladder. */
+/** Founder-only: invitation and seat ledger for the ladder. */
 export const listTickets = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
@@ -82,11 +82,11 @@ export const listTickets = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("conference_applications")
       .select(
-        "id, name, email, organization, title, ticket_tier, ticket_status, ticket_credential, seat_status, season_id, created_at",
+        "id, name, email, organization, title, ticket_tier, ticket_status, ticket_credential, seat_status, delegate_seat_status, second_congress_credential, season_id, created_at",
       )
       .order("created_at", { ascending: false })
       .limit(500);
-    if (error) throw new Error("Failed to load tickets");
+    if (error) throw new Error("Failed to load invitations");
     return { rows: data ?? [] };
   });
 
