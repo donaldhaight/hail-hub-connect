@@ -337,6 +337,47 @@ function RoomPage() {
               read as: {promptEcho.join(" · ")}
             </p>
           ) : null}
+
+          {demoMode && demoScript[demoIndex] ? (
+            <div className="mt-6 border border-navy bg-navy/[0.03] p-4">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-navy">
+                    Demo beat {demoIndex + 1} / {demoScript.length} · {demoScript[demoIndex].truth_label}
+                  </div>
+                  <p className="mt-1 font-serif text-lg text-ink">{demoScript[demoIndex].prompt}</p>
+                  <p className="mt-2 max-w-[70ch] text-sm text-muted-foreground">
+                    {demoScript[demoIndex].speaking_note}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    disabled={demoIndex === 0}
+                    onClick={() => setDemoIndex((i) => i - 1)}
+                    className="border border-border bg-background px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink hover:border-navy disabled:opacity-40"
+                  >
+                    ← Prev
+                  </button>
+                  <button
+                    type="button"
+                    disabled={demoIndex >= demoScript.length - 1}
+                    onClick={() => setDemoIndex((i) => i + 1)}
+                    className="border border-ink bg-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-paper hover:bg-navy hover:border-navy disabled:opacity-40"
+                  >
+                    Next →
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDemoIndex(0)}
+                    className="border border-border bg-background px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground hover:border-navy"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
