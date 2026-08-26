@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { InvitationPage } from "@/components/invitation/InvitationPage";
-import { routeHead } from "@/lib/seo";
+import { routeHead } from "@/lib/site";
 import { FIRST_CONGRESS } from "@/content/calendar";
 
 const TITLE = "Your Invitation";
