@@ -7,15 +7,21 @@ import type { TicketView } from "./ticket.server";
  * Open a ticket by its credential. The credential IS the authentication —
  * the database function refuses anything that is not an approved ticket.
  */
+const uuidRegex =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export const getTicketView = createServerFn({ method: "GET" })
-  .validator((d: unknown) => z.object({ credential: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ credential: z.string().trim().max(64) }).parse(d))
   .handler(async ({ data }) => {
+    if (!uuidRegex.test(data.credential)) {
+      return { ok: false, reason: "invalid_credential" } as TicketView;
+    }
     const { supabaseAdmin: sb } = await import("@/integrations/supabase/client.server");
     const { data: result, error } = await sb.rpc("get_ticket_view", {
       _credential: data.credential,
     });
     if (error) throw new Error(error.message || "Failed to load ticket");
-    return result as unknown as TicketView;
+    return (result as unknown as TicketView) ?? ({ ok: false, reason: "not_found" } as TicketView);
   });
 
 const issueSchema = z.object({
