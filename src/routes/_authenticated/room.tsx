@@ -317,17 +317,19 @@ function RoomPage() {
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <input
               value={prompt}
+              disabled={demoMode}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") applyPrompt();
               }}
               placeholder="One prompt — e.g. “show me the money in Harris County after the hurricane”"
-              className="min-w-[18rem] flex-1 border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-navy"
+              className="min-w-[18rem] flex-1 border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-navy disabled:opacity-40"
             />
             <button
               type="button"
+              disabled={demoMode}
               onClick={applyPrompt}
-              className="border border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy"
+              className="border border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper hover:bg-navy hover:border-navy disabled:opacity-40"
             >
               Drive it
             </button>
