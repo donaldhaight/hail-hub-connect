@@ -466,8 +466,9 @@ function RoomPage() {
               <button
                 key={l}
                 type="button"
+                disabled={demoMode}
                 onClick={() => setLayout(l)}
-                className={`border px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] ${
+                className={`border px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] disabled:opacity-40 ${
                   layout === l ? "border-navy text-navy" : "border-border text-muted-foreground hover:text-ink"
                 }`}
               >
