@@ -39,6 +39,8 @@ function RoomPage() {
   const loadSignals = useServerFn(getScenarioSignals);
   const saveView = useServerFn(saveRoomView);
   const removeView = useServerFn(deleteRoomView);
+  const loadDemo = useServerFn(getDemoScript);
+  const myRoles = useServerFn(getMyRoles);
 
   const [scenarios, setScenarios] = useState<ScenarioRow[]>([]);
   const [variables, setVariables] = useState<VariableRow[]>([]);
@@ -59,6 +61,12 @@ function RoomPage() {
   const [inspect, setInspect] = useState<Row | null>(null);
   const [viewName, setViewName] = useState("");
   const [busy, setBusy] = useState(false);
+
+  const [isFounder, setIsFounder] = useState(false);
+  const [demoMode, setDemoMode] = useState(false);
+  const [demoScript, setDemoScript] = useState<DemoScriptRow[]>([]);
+  const [demoIndex, setDemoIndex] = useState(0);
+  const [demoLoading, setDemoLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
