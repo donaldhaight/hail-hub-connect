@@ -38,6 +38,7 @@ import { Route as BMarketApplicationsRouteImport } from './routes/b/market-appli
 import { Route as BKimosabeRouteImport } from './routes/b/kimosabe'
 import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
+import { Route as AuthenticatedRoomRouteImport } from './routes/_authenticated/room'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -48,6 +49,7 @@ import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
+import { Route as AuthenticatedAdminLedgerRouteImport } from './routes/_authenticated/admin/ledger'
 import { Route as AuthenticatedAdminLabRouteImport } from './routes/_authenticated/admin/lab'
 import { Route as AuthenticatedAdminInviteRouteImport } from './routes/_authenticated/admin/invite'
 import { Route as AuthenticatedAdminIntakeRouteImport } from './routes/_authenticated/admin/intake'
@@ -202,6 +204,11 @@ const BBuddyClaimRoute = BBuddyClaimRouteImport.update({
   path: '/buddy-claim',
   getParentRoute: () => BRouteRoute,
 } as any)
+const AuthenticatedRoomRoute = AuthenticatedRoomRouteImport.update({
+  id: '/room',
+  path: '/room',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedManualIndexRoute =
   AuthenticatedManualIndexRouteImport.update({
     id: '/manual/',
@@ -258,6 +265,12 @@ const AuthenticatedAdminReadsRoute = AuthenticatedAdminReadsRouteImport.update({
   path: '/admin/reads',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminLedgerRoute =
+  AuthenticatedAdminLedgerRouteImport.update({
+    id: '/admin/ledger',
+    path: '/admin/ledger',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminLabRoute = AuthenticatedAdminLabRouteImport.update({
   id: '/admin/lab',
   path: '/admin/lab',
@@ -329,6 +342,7 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -347,6 +361,7 @@ export interface FileRoutesByFullPath {
   '/admin/intake': typeof AuthenticatedAdminIntakeRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/lab': typeof AuthenticatedAdminLabRoute
+  '/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
@@ -378,6 +393,7 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -396,6 +412,7 @@ export interface FileRoutesByTo {
   '/admin/intake': typeof AuthenticatedAdminIntakeRoute
   '/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/admin/lab': typeof AuthenticatedAdminLabRoute
+  '/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
@@ -429,6 +446,7 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/_authenticated/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
   '/b/kimosabe': typeof BKimosabeRoute
@@ -447,6 +465,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/intake': typeof AuthenticatedAdminIntakeRoute
   '/_authenticated/admin/invite': typeof AuthenticatedAdminInviteRoute
   '/_authenticated/admin/lab': typeof AuthenticatedAdminLabRoute
+  '/_authenticated/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
@@ -480,6 +499,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -498,6 +518,7 @@ export interface FileRouteTypes {
     | '/admin/intake'
     | '/admin/invite'
     | '/admin/lab'
+    | '/admin/ledger'
     | '/admin/reads'
     | '/admin/signals'
     | '/admin/tickets'
@@ -529,6 +550,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -547,6 +569,7 @@ export interface FileRouteTypes {
     | '/admin/intake'
     | '/admin/invite'
     | '/admin/lab'
+    | '/admin/ledger'
     | '/admin/reads'
     | '/admin/signals'
     | '/admin/tickets'
@@ -579,6 +602,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/_authenticated/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
     | '/b/kimosabe'
@@ -597,6 +621,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/intake'
     | '/_authenticated/admin/invite'
     | '/_authenticated/admin/lab'
+    | '/_authenticated/admin/ledger'
     | '/_authenticated/admin/reads'
     | '/_authenticated/admin/signals'
     | '/_authenticated/admin/tickets'
@@ -839,6 +864,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BBuddyClaimRouteImport
       parentRoute: typeof BRouteRoute
     }
+    '/_authenticated/room': {
+      id: '/_authenticated/room'
+      path: '/room'
+      fullPath: '/room'
+      preLoaderRoute: typeof AuthenticatedRoomRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manual/': {
       id: '/_authenticated/manual/'
       path: '/manual'
@@ -909,6 +941,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminReadsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/ledger': {
+      id: '/_authenticated/admin/ledger'
+      path: '/admin/ledger'
+      fullPath: '/admin/ledger'
+      preLoaderRoute: typeof AuthenticatedAdminLedgerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/lab': {
       id: '/_authenticated/admin/lab'
       path: '/admin/lab'
@@ -976,6 +1015,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
   AuthenticatedAdminEditsRoute: typeof AuthenticatedAdminEditsRoute
@@ -984,6 +1024,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminIntakeRoute: typeof AuthenticatedAdminIntakeRoute
   AuthenticatedAdminInviteRoute: typeof AuthenticatedAdminInviteRoute
   AuthenticatedAdminLabRoute: typeof AuthenticatedAdminLabRoute
+  AuthenticatedAdminLedgerRoute: typeof AuthenticatedAdminLedgerRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
@@ -998,6 +1039,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
   AuthenticatedAdminEditsRoute: AuthenticatedAdminEditsRoute,
@@ -1006,6 +1048,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminIntakeRoute: AuthenticatedAdminIntakeRoute,
   AuthenticatedAdminInviteRoute: AuthenticatedAdminInviteRoute,
   AuthenticatedAdminLabRoute: AuthenticatedAdminLabRoute,
+  AuthenticatedAdminLedgerRoute: AuthenticatedAdminLedgerRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
