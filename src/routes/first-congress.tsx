@@ -104,8 +104,20 @@ function FirstCongressPage() {
   const rehearse = search.rehearse === true || search.rehearse === "true";
   const loadTicket = useServerFn(getTicketView);
   const loadBroadcast = useServerFn(getBroadcastState);
+  const loadServerTime = useServerFn(getServerTime);
   const verifyRehearsal = useServerFn(verifyFounderForRehearsal);
-  const clock = useCountdown();
+
+  const { data: serverTime, isLoading: timeLoading } = useQuery({
+    queryKey: ["server-time"],
+    queryFn: () => loadServerTime(),
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  const serverOffsetMs = serverTime
+    ? new Date(serverTime.serverTime).getTime() - Date.now()
+    : 0;
+  const clock = useCountdown(serverOffsetMs);
 
   const { data: broadcast, isLoading: broadcastLoading } = useQuery({
     queryKey: ["broadcast-state"],
