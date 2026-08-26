@@ -22,8 +22,8 @@ The site is designed to:
 ## Run locally
 
 ```sh
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/donaldhaight/prepareamerica.git
+cd prepareamerica
 npm i
 npm run dev
 ```
@@ -62,4 +62,7 @@ The dev server starts at `http://localhost:8080`.
 
 ## GitHub connection
 
-This project is intended to be connected to a GitHub repository for backup, collaboration, and portability. If the repository is not yet linked, connect it from the Lovable editor: **Plus (+) → GitHub → Connect project**. Suggested repository name: `prepareamerica`.
+This project is synced to GitHub for backup, collaboration, and portability:
+**https://github.com/donaldhaight/prepareamerica.git**
+
+The repository was originally created as `hail-hub-connect` and renamed to `prepareamerica` to match the mission brand. If the sync URL ever needs to be refreshed, update it in the Lovable editor under **Settings → Git**.
