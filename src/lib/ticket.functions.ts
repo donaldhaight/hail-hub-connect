@@ -34,15 +34,23 @@ export const issueTicket = createServerFn({ method: "POST" })
     const { assertFounder } = await import("./conference.server");
     await assertFounder(context);
 
+    const delegateSeatStatus =
+      data.status === "approved" && data.tier === "stakeholder"
+        ? "invited"
+        : data.status === "declined"
+          ? "declined"
+          : "not_issued";
+
     const { data: row, error } = await supabaseAdmin
       .from("conference_applications")
       .update({
         ticket_tier: data.tier,
         ticket_status: data.status,
+        delegate_seat_status: delegateSeatStatus,
         updated_at: new Date().toISOString(),
       })
       .eq("id", data.id)
-      .select("id, ticket_credential, ticket_tier, ticket_status")
+      .select("id, ticket_credential, ticket_tier, ticket_status, delegate_seat_status, second_congress_credential")
       .single();
     if (error || !row) throw new Error(error?.message || "Failed to issue ticket");
 
@@ -50,7 +58,7 @@ export const issueTicket = createServerFn({ method: "POST" })
       application_id: data.id,
       actor_id: context.userId,
       action: `ticket:${data.status}`,
-      note: data.note ?? `tier=${data.tier}`,
+      note: data.note ?? `tier=${data.tier};delegate_seat=${delegateSeatStatus}`,
     });
 
     return {
@@ -58,6 +66,8 @@ export const issueTicket = createServerFn({ method: "POST" })
       credential: row.ticket_credential,
       tier: row.ticket_tier,
       status: row.ticket_status,
+      delegateSeatStatus: row.delegate_seat_status,
+      secondCongressCredential: row.second_congress_credential,
     };
   });
 
