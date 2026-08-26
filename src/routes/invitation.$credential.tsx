@@ -7,9 +7,7 @@ const TITLE = "Your Invitation";
 const DESC = `Your invitation to the First Congress — ${FIRST_CONGRESS.dateLabel}.`;
 
 export const Route = createFileRoute("/invitation/$credential")({
-  head: () => ({
-    meta: routeHead({ title: TITLE, description: DESC, path: "/invitation" }),
-  }),
+  head: () => routeHead({ title: TITLE, description: DESC, path: "/invitation" }),
   component: InvitationRoute,
 });
 
