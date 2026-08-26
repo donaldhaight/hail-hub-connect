@@ -182,7 +182,7 @@ function PrepareAmerica() {
         </Prose>
       </Section>
 
-      <Section number="06" title="Request a ticket">
+      <Section number="06" title="Request an invitation">
         <div className="grid gap-10 md:grid-cols-12">
           <aside className="md:col-span-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
@@ -190,8 +190,8 @@ function PrepareAmerica() {
             </div>
             <ol className="mt-4 space-y-4 text-sm text-muted-foreground">
               <li><span className="mr-2 font-mono text-ink">01</span>The convener personally reviews every request.</li>
-              <li><span className="mr-2 font-mono text-ink">02</span>Approved holders receive a ticket credential for the stream and access to the qualified-insider room.</li>
-              <li><span className="mr-2 font-mono text-ink">03</span>Tickets are not first-come-first-served, and a ticket is not a delegate seat.</li>
+              <li><span className="mr-2 font-mono text-ink">02</span>Approved holders receive an invitation credential for the stream and access to the qualified-insider room.</li>
+              <li><span className="mr-2 font-mono text-ink">03</span>Invitations are not first-come-first-served, and an invitation is not a delegate seat.</li>
             </ol>
             <div className="mt-8"><Meta status="No transaction · No offering" /></div>
           </aside>
