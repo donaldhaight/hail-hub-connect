@@ -119,7 +119,7 @@ function PrepareAmerica() {
         </dl>
       </Section>
 
-      <Section number="03" title="Ticket tiers">
+      <Section number="03" title="Admission tiers">
         <div className="grid gap-px bg-border sm:grid-cols-2">
           {TICKET_TIERS.map((tier) => (
             <div key={tier.id} className="bg-background p-6">
