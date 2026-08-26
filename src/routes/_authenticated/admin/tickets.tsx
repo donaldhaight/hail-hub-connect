@@ -104,9 +104,9 @@ function TicketsPage() {
   return (
     <PageShell>
       <PageHeader
-        eyebrow="Ticket Ledger"
+        eyebrow="Invitation Ledger"
         title="The invitation ladder."
-        lede={`Referral → ticket to the First Congress (${FIRST_CONGRESS.dateLabel}) → invitation to the Second Congress → delegate seat → Season One. Assign a tier, then issue.`}
+        lede={`Referral → invitation to the First Congress (${FIRST_CONGRESS.dateLabel}) → invitation to the Second Congress → delegate seat → Season One. Assign a tier, then issue.`}
         confidentiality="C2"
       />
       <section className="mx-auto max-w-5xl px-6 py-8">
