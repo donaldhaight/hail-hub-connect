@@ -49,6 +49,7 @@ export const updateAttendeeDetails = createServerFn({ method: "POST" })
   });
 
 export const listPublishedItinerary = createServerFn({ method: "GET" }).handler(async () => {
+  const { publicClient } = await import("./ticket.server");
   const sb = publicClient();
   const { data, error } = await sb
     .from("conference_itinerary_items")
