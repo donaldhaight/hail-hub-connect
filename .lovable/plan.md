@@ -6,6 +6,7 @@
 - **Demo scope:** sales motion and management motion stitched end-to-end, not one or the other.
 - **Legacy vs new:** roughly 80% legacy Siteforum/ClaimExpress flow, 20% new architecture needed for the ledger and the room.
 - **Perspective model:** all users can view from every perspective, but the default view and the exact switch rules need more thought.
+- **Two surfaces:** the founder/operator back-office (storm targeting, ghost profiles, outreach automation) is separate from the Group/Role-facing demo on 11-1-2026. The back-office is not live for the event and is not visible to all Groups/Roles.
 
 ## What the founder will provide
 
@@ -15,6 +16,7 @@
 2. The default perspective rule when a user lands in the room.
 3. The campaign arc — whether Hurricane Beryl is the demo scenario or a placeholder.
 4. The ledger entries that must be visible end-to-end.
+5. The boundary between the **public/Group-visible demo** and the **founder/operator back-office** (storm targeting, ghost Property Owner profiles, measurement reports, good-better-best offers, multi-channel outreach, ISR motivation).
 
 ## Next move
 
@@ -24,5 +26,6 @@ Hold all build and manuscript work until the notes arrive. Once they land, synth
 - The room views and demo beats.
 - The ledger entries and token movements.
 - The manuscript chapters (likely Part VI Saga) that record the decisions as DECISION or FACT.
+- A clear redaction map: which surfaces are visible to which Groups/Roles, and which are founder/operator-only.
 
 No code changes until then.
