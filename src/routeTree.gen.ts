@@ -18,6 +18,7 @@ import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
 import { Route as PolicyRouteImport } from './routes/policy'
+import { Route as KimosabeRouteImport } from './routes/kimosabe'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
@@ -40,6 +41,7 @@ import { Route as BKimosabeRouteImport } from './routes/b/kimosabe'
 import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
 import { Route as AuthenticatedRoomRouteImport } from './routes/_authenticated/room'
+import { Route as AuthenticatedLedgerRouteImport } from './routes/_authenticated/ledger'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -105,6 +107,11 @@ const PrepareAmericaRoute = PrepareAmericaRouteImport.update({
 const PolicyRoute = PolicyRouteImport.update({
   id: '/policy',
   path: '/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KimosabeRoute = KimosabeRouteImport.update({
+  id: '/kimosabe',
+  path: '/kimosabe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvestorsRoute = InvestorsRouteImport.update({
@@ -214,6 +221,11 @@ const BBuddyClaimRoute = BBuddyClaimRouteImport.update({
 const AuthenticatedRoomRoute = AuthenticatedRoomRouteImport.update({
   id: '/room',
   path: '/room',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLedgerRoute = AuthenticatedLedgerRouteImport.update({
+  id: '/ledger',
+  path: '/ledger',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedManualIndexRoute =
@@ -346,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -355,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
@@ -399,6 +413,7 @@ export interface FileRoutesByTo {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -408,6 +423,7 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
@@ -454,6 +470,7 @@ export interface FileRoutesById {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -463,6 +480,7 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/_authenticated/ledger': typeof AuthenticatedLedgerRoute
   '/_authenticated/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
   '/b/claimstore': typeof BClaimstoreRoute
@@ -509,6 +527,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -518,6 +537,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/ledger'
     | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
@@ -562,6 +582,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -571,6 +592,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/ledger'
     | '/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
@@ -616,6 +638,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -625,6 +648,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/_authenticated/ledger'
     | '/_authenticated/room'
     | '/b/buddy-claim'
     | '/b/claimstore'
@@ -671,6 +695,7 @@ export interface RootRouteChildren {
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
   InvestorsRoute: typeof InvestorsRoute
+  KimosabeRoute: typeof KimosabeRoute
   PolicyRoute: typeof PolicyRoute
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
@@ -748,6 +773,13 @@ declare module '@tanstack/react-router' {
       path: '/policy'
       fullPath: '/policy'
       preLoaderRoute: typeof PolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kimosabe': {
+      id: '/kimosabe'
+      path: '/kimosabe'
+      fullPath: '/kimosabe'
+      preLoaderRoute: typeof KimosabeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/investors': {
@@ -904,6 +936,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRoomRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ledger': {
+      id: '/_authenticated/ledger'
+      path: '/ledger'
+      fullPath: '/ledger'
+      preLoaderRoute: typeof AuthenticatedLedgerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manual/': {
       id: '/_authenticated/manual/'
       path: '/manual'
@@ -1055,6 +1094,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedLedgerRoute: typeof AuthenticatedLedgerRoute
   AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
   AuthenticatedAdminDigestRoute: typeof AuthenticatedAdminDigestRoute
@@ -1080,6 +1120,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedLedgerRoute: AuthenticatedLedgerRoute,
   AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
   AuthenticatedAdminDigestRoute: AuthenticatedAdminDigestRoute,
@@ -1153,6 +1194,7 @@ const rootRouteChildren: RootRouteChildren = {
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
   InvestorsRoute: InvestorsRoute,
+  KimosabeRoute: KimosabeRoute,
   PolicyRoute: PolicyRoute,
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
