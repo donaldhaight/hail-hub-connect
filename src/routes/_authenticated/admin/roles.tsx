@@ -5,9 +5,11 @@ import { PageShell, PageHeader, Section } from "@/components/briefing/PageShell"
 import { routeHead } from "@/lib/site";
 import {
   grantRoleToRequest,
+  grantSeedTokens,
   listRoleRequests,
   type RoleRequestRow,
 } from "@/lib/roles.functions";
+
 import { listRoleCatalog } from "@/lib/roles.functions";
 import { roleLabel } from "@/lib/roles";
 import type { RoleCatalogRow } from "@/lib/roles";
