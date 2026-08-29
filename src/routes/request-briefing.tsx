@@ -1,14 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
 import {
   INTERESTS,
+  REQUESTABLE_ROLES,
   briefingRequestSchema,
   type BriefingRequestInput,
 } from "@/lib/briefing.schemas";
+
 import { submitBriefingRequest } from "@/lib/briefing.functions";
 import { routeHead } from "@/lib/site";
 
@@ -113,6 +115,14 @@ function BriefingForm({
   const [errors, setErrors] = useState<Partial<Record<keyof BriefingRequestInput, string>>>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // The Interested User file travels with the request when they came via Kimosabe.
+  const [anchor, setAnchor] = useState("");
+
+  useEffect(() => {
+    setAnchor(window.localStorage.getItem("kimosabe.anchor") ?? "");
+  }, []);
+
+
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -208,6 +218,35 @@ function BriefingForm({
       </fieldset>
 
       <div>
+        <label
+          htmlFor="requestedRole"
+          className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"
+        >
+          Stakeholder Group requested (optional)
+        </label>
+        <select
+          id="requestedRole"
+          name="requestedRole"
+          defaultValue=""
+          className="mt-2 block w-full border border-border bg-card px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+        >
+          <option value="">No preference — you decide</option>
+          {REQUESTABLE_ROLES.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.label}
+            </option>
+          ))}
+        </select>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Roles are granted by the founder personally. Nobody self-certifies.
+        </p>
+      </div>
+
+      <input type="hidden" name="anchor" value={anchor} />
+
+      <div>
+
+
         <label
           htmlFor="context"
           className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"

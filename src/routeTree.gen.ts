@@ -13,6 +13,7 @@ import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
 import { Route as WhyPrepareAmericaRouteImport } from './routes/why-prepare-america'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RolesRouteImport } from './routes/roles'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
@@ -51,6 +52,7 @@ import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
+import { Route as AuthenticatedAdminRolesRouteImport } from './routes/_authenticated/admin/roles'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
 import { Route as AuthenticatedAdminLedgerRouteImport } from './routes/_authenticated/admin/ledger'
 import { Route as AuthenticatedAdminLabRouteImport } from './routes/_authenticated/admin/lab'
@@ -82,6 +84,11 @@ const VisionRoute = VisionRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RolesRoute = RolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -279,6 +286,11 @@ const AuthenticatedAdminSignalsRoute =
     path: '/admin/signals',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminRolesRoute = AuthenticatedAdminRolesRouteImport.update({
+  id: '/admin/roles',
+  path: '/admin/roles',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminReadsRoute = AuthenticatedAdminReadsRouteImport.update({
   id: '/admin/reads',
   path: '/admin/reads',
@@ -364,6 +376,7 @@ export interface FileRoutesByFullPath {
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roles': typeof RolesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -392,6 +405,7 @@ export interface FileRoutesByFullPath {
   '/admin/lab': typeof AuthenticatedAdminLabRoute
   '/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
+  '/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -419,6 +433,7 @@ export interface FileRoutesByTo {
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roles': typeof RolesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -447,6 +462,7 @@ export interface FileRoutesByTo {
   '/admin/lab': typeof AuthenticatedAdminLabRoute
   '/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
+  '/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -476,6 +492,7 @@ export interface FileRoutesById {
   '/proof-of-concept': typeof ProofOfConceptRoute
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/roles': typeof RolesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -504,6 +521,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/lab': typeof AuthenticatedAdminLabRoute
   '/_authenticated/admin/ledger': typeof AuthenticatedAdminLedgerRoute
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
+  '/_authenticated/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
@@ -533,6 +551,7 @@ export interface FileRouteTypes {
     | '/proof-of-concept'
     | '/request-briefing'
     | '/reset-password'
+    | '/roles'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -561,6 +580,7 @@ export interface FileRouteTypes {
     | '/admin/lab'
     | '/admin/ledger'
     | '/admin/reads'
+    | '/admin/roles'
     | '/admin/signals'
     | '/admin/tickets'
     | '/admin/tour'
@@ -588,6 +608,7 @@ export interface FileRouteTypes {
     | '/proof-of-concept'
     | '/request-briefing'
     | '/reset-password'
+    | '/roles'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -616,6 +637,7 @@ export interface FileRouteTypes {
     | '/admin/lab'
     | '/admin/ledger'
     | '/admin/reads'
+    | '/admin/roles'
     | '/admin/signals'
     | '/admin/tickets'
     | '/admin/tour'
@@ -644,6 +666,7 @@ export interface FileRouteTypes {
     | '/proof-of-concept'
     | '/request-briefing'
     | '/reset-password'
+    | '/roles'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -672,6 +695,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/lab'
     | '/_authenticated/admin/ledger'
     | '/_authenticated/admin/reads'
+    | '/_authenticated/admin/roles'
     | '/_authenticated/admin/signals'
     | '/_authenticated/admin/tickets'
     | '/_authenticated/admin/tour'
@@ -701,6 +725,7 @@ export interface RootRouteChildren {
   ProofOfConceptRoute: typeof ProofOfConceptRoute
   RequestBriefingRoute: typeof RequestBriefingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RolesRoute: typeof RolesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
@@ -738,6 +763,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roles': {
+      id: '/roles'
+      path: '/roles'
+      fullPath: '/roles'
+      preLoaderRoute: typeof RolesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -1006,6 +1038,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSignalsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/roles': {
+      id: '/_authenticated/admin/roles'
+      path: '/admin/roles'
+      fullPath: '/admin/roles'
+      preLoaderRoute: typeof AuthenticatedAdminRolesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/reads': {
       id: '/_authenticated/admin/reads'
       path: '/admin/reads'
@@ -1107,6 +1146,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminLabRoute: typeof AuthenticatedAdminLabRoute
   AuthenticatedAdminLedgerRoute: typeof AuthenticatedAdminLedgerRoute
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
+  AuthenticatedAdminRolesRoute: typeof AuthenticatedAdminRolesRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
@@ -1133,6 +1173,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminLabRoute: AuthenticatedAdminLabRoute,
   AuthenticatedAdminLedgerRoute: AuthenticatedAdminLedgerRoute,
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
+  AuthenticatedAdminRolesRoute: AuthenticatedAdminRolesRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
@@ -1200,6 +1241,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProofOfConceptRoute: ProofOfConceptRoute,
   RequestBriefingRoute: RequestBriefingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RolesRoute: RolesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,

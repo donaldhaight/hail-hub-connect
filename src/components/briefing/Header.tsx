@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { QuantumSwitcher } from "./QuantumSwitcher";
+import { RoleSwitcher } from "./RoleSwitcher";
 
 const NAV = [
   { to: "/why-prepare-america", label: "The Thesis" },
   { to: "/briefing", label: "The Case Study" },
   { to: "/architecture", label: "The Architecture" },
+  { to: "/roles", label: "Roles" },
   { to: "/prepare-america", label: "The Congress" },
   { to: "/founder", label: "Founder" },
 ] as const;
+
 
 export function Header() {
   const navigate = useNavigate();
@@ -83,7 +86,9 @@ export function Header() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           {signedIn ? (
             <>
+              <RoleSwitcher />
               {isFounder ? (
+
                 <Link
                   to="/admin"
                   className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"

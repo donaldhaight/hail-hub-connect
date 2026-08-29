@@ -36,10 +36,13 @@ export const submitBriefingRequest = createServerFn({ method: "POST" })
       organization: data.organization.trim(),
       title: data.title.trim(),
       interest: data.interest,
+      requested_role: data.requestedRole ?? null,
+      anchor: data.anchor ?? null,
       context: data.context?.trim() || null,
       acknowledged: true,
       status: "pending" as const,
     };
+
 
     const { data: row, error: insertError } = await supabaseAdmin
       .from("briefing_requests")

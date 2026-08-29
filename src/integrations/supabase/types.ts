@@ -138,42 +138,57 @@ export type Database = {
       briefing_requests: {
         Row: {
           acknowledged: boolean
+          anchor: string | null
           context: string | null
           created_at: string
           email: string
+          granted_at: string | null
+          granted_by: string | null
+          granted_role: string | null
           id: string
           interest: string
           internal_notes: string | null
           name: string
           organization: string
+          requested_role: string | null
           status: string
           title: string
           updated_at: string
         }
         Insert: {
           acknowledged?: boolean
+          anchor?: string | null
           context?: string | null
           created_at?: string
           email: string
+          granted_at?: string | null
+          granted_by?: string | null
+          granted_role?: string | null
           id?: string
           interest: string
           internal_notes?: string | null
           name: string
           organization: string
+          requested_role?: string | null
           status?: string
           title: string
           updated_at?: string
         }
         Update: {
           acknowledged?: boolean
+          anchor?: string | null
           context?: string | null
           created_at?: string
           email?: string
+          granted_at?: string | null
+          granted_by?: string | null
+          granted_role?: string | null
           id?: string
           interest?: string
           internal_notes?: string | null
           name?: string
           organization?: string
+          requested_role?: string | null
           status?: string
           title?: string
           updated_at?: string
@@ -1604,6 +1619,189 @@ export type Database = {
         }
         Relationships: []
       }
+      role_catalog: {
+        Row: {
+          axis: string
+          certifiable: boolean
+          created_at: string
+          detail: string
+          fee_jbk: number
+          is_active: boolean
+          key: string
+          name: string
+          position: number
+          requestable: boolean
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          axis?: string
+          certifiable?: boolean
+          created_at?: string
+          detail?: string
+          fee_jbk?: number
+          is_active?: boolean
+          key: string
+          name: string
+          position?: number
+          requestable?: boolean
+          summary?: string
+          updated_at?: string
+        }
+        Update: {
+          axis?: string
+          certifiable?: boolean
+          created_at?: string
+          detail?: string
+          fee_jbk?: number
+          is_active?: boolean
+          key?: string
+          name?: string
+          position?: number
+          requestable?: boolean
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      role_enrollments: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          fee_amount: number
+          fee_paid_at: string | null
+          id: string
+          role_key: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          fee_amount?: number
+          fee_paid_at?: string | null
+          id?: string
+          role_key: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          fee_amount?: number
+          fee_paid_at?: string | null
+          id?: string
+          role_key?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_enrollments_role_key_fkey"
+            columns: ["role_key"]
+            isOneToOne: false
+            referencedRelation: "role_catalog"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      role_modules: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          position: number
+          quiz_answer: number
+          quiz_options: string[]
+          quiz_question: string
+          role_key: string
+          summary: string
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          position: number
+          quiz_answer?: number
+          quiz_options?: string[]
+          quiz_question: string
+          role_key: string
+          summary?: string
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          position?: number
+          quiz_answer?: number
+          quiz_options?: string[]
+          quiz_question?: string
+          role_key?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_modules_role_key_fkey"
+            columns: ["role_key"]
+            isOneToOne: false
+            referencedRelation: "role_catalog"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      role_progress: {
+        Row: {
+          attempts: number
+          created_at: string
+          id: string
+          module_id: string
+          passed_at: string
+          role_key: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          module_id: string
+          passed_at?: string
+          role_key: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          module_id?: string
+          passed_at?: string
+          role_key?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_progress_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "role_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       room_demo_script: {
         Row: {
           created_at: string
@@ -1944,6 +2142,16 @@ export type Database = {
         | "specialist_advisor"
         | "system_auditor"
         | "qualified_insider"
+        | "interested_user"
+        | "industry_observer"
+        | "venture_tech"
+        | "systems_tech"
+        | "legal_tech"
+        | "insure_tech"
+        | "fin_tech"
+        | "construction_management"
+        | "business_development"
+        | "isr"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2081,6 +2289,16 @@ export const Constants = {
         "specialist_advisor",
         "system_auditor",
         "qualified_insider",
+        "interested_user",
+        "industry_observer",
+        "venture_tech",
+        "systems_tech",
+        "legal_tech",
+        "insure_tech",
+        "fin_tech",
+        "construction_management",
+        "business_development",
+        "isr",
       ],
     },
   },

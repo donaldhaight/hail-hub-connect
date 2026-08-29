@@ -11,6 +11,20 @@ export const INTERESTS = [
 
 export type InterestId = (typeof INTERESTS)[number]["id"];
 
+/** The Stakeholder Groups a person may request. Interested User is never requested. */
+export const REQUESTABLE_ROLES = [
+  { id: "industry_observer", label: "Industry Observer" },
+  { id: "venture_tech", label: "VentureTech" },
+  { id: "systems_tech", label: "SystemsTech" },
+  { id: "legal_tech", label: "LegalTech" },
+  { id: "insure_tech", label: "InsureTech" },
+  { id: "fin_tech", label: "FinTech" },
+  { id: "construction_management", label: "Construction Management" },
+  { id: "business_development", label: "Business Development" },
+] as const;
+
+export type RequestableRoleId = (typeof REQUESTABLE_ROLES)[number]["id"];
+
 export const briefingRequestSchema = z.object({
   name: z.string().trim().min(1, "Full name is required").max(120),
   email: z.string().trim().email("Enter a valid email address").max(255),
@@ -20,11 +34,30 @@ export const briefingRequestSchema = z.object({
     ["investor", "sponsor", "partner", "counsel", "advisor", "prepare-america"],
     { message: "Select a primary interest" },
   ),
+  requestedRole: z
+    .enum([
+      "industry_observer",
+      "venture_tech",
+      "systems_tech",
+      "legal_tech",
+      "insure_tech",
+      "fin_tech",
+      "construction_management",
+      "business_development",
+    ])
+    .optional(),
+  anchor: z
+    .string()
+    .optional()
+    .transform((v) =>
+      v && /^[0-9a-f-]{36}$/i.test(v) ? v : undefined,
+    ),
   context: z.string().trim().max(1500).optional(),
   acknowledged: z.literal("on", { message: "You must acknowledge the disclaimer" }),
 });
 
 export type BriefingRequestInput = z.infer<typeof briefingRequestSchema>;
+
 
 export const CONFERENCE_CATEGORIES = [
   { id: "executive", label: "C-level industry executive" },
