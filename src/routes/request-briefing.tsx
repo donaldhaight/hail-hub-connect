@@ -115,6 +115,14 @@ function BriefingForm({
   const [errors, setErrors] = useState<Partial<Record<keyof BriefingRequestInput, string>>>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // The Interested User file travels with the request when they came via Kimosabe.
+  const [anchor, setAnchor] = useState("");
+
+  useEffect(() => {
+    setAnchor(window.localStorage.getItem("kimosabe.anchor") ?? "");
+  }, []);
+
+
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
