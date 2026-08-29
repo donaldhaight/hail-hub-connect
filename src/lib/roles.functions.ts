@@ -357,3 +357,34 @@ export const listMyRoleTags = createServerFn({ method: "GET" })
     if (error) throw new Error("Failed to load your roles");
     return { roles: (data ?? []).map((r) => r.role as string) };
   });
+
+/** Founder-only: seed a signed-in person's MarketApp wallet so fees can move. */
+export const grantSeedTokens = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) =>
+    z.object({ email: z.string().email(), amount: z.number().positive().max(100000) }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { ensureUserWallet } = await import("@/lib/wallet.server");
+
+    const { data: list } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+    const user = (list?.users ?? []).find(
+      (u) => (u.email ?? "").toLowerCase() === data.email.toLowerCase(),
+    );
+    if (!user) throw new Error("No account with that email");
+
+    const wallet = await ensureUserWallet(supabaseAdmin, user.id);
+    const { error } = await supabaseAdmin.from("ledger_entries").insert({
+      wallet_id: wallet.id,
+      token_code: PLATFORM_TOKEN,
+      direction: "credit",
+      amount: data.amount,
+      reason: "granted:seed",
+      ref: `founder:${context.userId}`,
+      memo: "Seed grant from the founder.",
+    });
+    if (error) throw new Error("Failed to post the seed grant");
+    return { ok: true as const };
+  });
