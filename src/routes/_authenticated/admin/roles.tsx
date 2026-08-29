@@ -186,3 +186,60 @@ function GrantControl({
     </div>
   );
 }
+
+function SeedGrant() {
+  const seed = useServerFn(grantSeedTokens);
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState(500);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function submit() {
+    setBusy(true);
+    setMsg(null);
+    try {
+      await seed({ data: { email, amount } });
+      setMsg(`Seeded ${amount} JBK to ${email}. The entry is permanent.`);
+    } catch {
+      setMsg("The seed grant could not be posted.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="max-w-xl space-y-3">
+      <p className="text-sm text-muted-foreground">
+        A certification fee has to come from somewhere. Seeding credits a signed-in
+        person's MarketApp wallet with a permanent, append-only ledger entry.
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="person@example.com"
+          className="min-w-[16rem] flex-1 border border-border bg-card px-3 py-2 text-sm text-ink focus:outline-none focus:ring-1 focus:ring-navy"
+        />
+        <input
+          type="number"
+          min={1}
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+          className="w-28 border border-border bg-card px-3 py-2 text-sm text-ink focus:outline-none focus:ring-1 focus:ring-navy"
+        />
+        <button
+          type="button"
+          disabled={busy || !email}
+          onClick={submit}
+          className="border border-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-background disabled:opacity-40"
+        >
+          Seed JBK
+        </button>
+      </div>
+      {msg ? (
+        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-silver">{msg}</p>
+      ) : null}
+    </div>
+  );
+}
