@@ -138,7 +138,12 @@ function AdminRoles() {
           </table>
         </div>
       </Section>
+
+      <Section number="02" title="Seed a MarketApp wallet">
+        <SeedGrant />
+      </Section>
     </PageShell>
+
   );
 }
 
