@@ -1170,6 +1170,150 @@ export type Database = {
         }
         Relationships: []
       }
+      ledger_entries: {
+        Row: {
+          amount: number
+          counterparty_wallet_id: string | null
+          created_at: string
+          direction: string
+          id: string
+          memo: string
+          occurred_at: string
+          reason: string
+          ref: string
+          token_code: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          counterparty_wallet_id?: string | null
+          created_at?: string
+          direction: string
+          id?: string
+          memo?: string
+          occurred_at?: string
+          reason: string
+          ref?: string
+          token_code: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          counterparty_wallet_id?: string | null
+          created_at?: string
+          direction?: string
+          id?: string
+          memo?: string
+          occurred_at?: string
+          reason?: string
+          ref?: string
+          token_code?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_counterparty_wallet_id_fkey"
+            columns: ["counterparty_wallet_id"]
+            isOneToOne: false
+            referencedRelation: "ledger_wallets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_entries_token_code_fkey"
+            columns: ["token_code"]
+            isOneToOne: false
+            referencedRelation: "ledger_tokens"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "ledger_entries_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "ledger_wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ledger_tokens: {
+        Row: {
+          code: string
+          created_at: string
+          is_active: boolean
+          name: string
+          peg_note: string
+          peg_usd: number
+          position: number
+          symbol: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          is_active?: boolean
+          name: string
+          peg_note?: string
+          peg_usd?: number
+          position?: number
+          symbol: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          is_active?: boolean
+          name?: string
+          peg_note?: string
+          peg_usd?: number
+          position?: number
+          symbol?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ledger_wallets: {
+        Row: {
+          anchor: string | null
+          claimed_at: string | null
+          claimed_from: string | null
+          created_at: string
+          id: string
+          kind: string
+          label: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          anchor?: string | null
+          claimed_at?: string | null
+          claimed_from?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          label?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          anchor?: string | null
+          claimed_at?: string | null
+          claimed_from?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          label?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_wallets_claimed_from_fkey"
+            columns: ["claimed_from"]
+            isOneToOne: false
+            referencedRelation: "ledger_wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       manual_attachment_opens: {
         Row: {
           attachment_id: string
