@@ -18,6 +18,7 @@ import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
 import { Route as PolicyRouteImport } from './routes/policy'
+import { Route as KimosabeRouteImport } from './routes/kimosabe'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
@@ -105,6 +106,11 @@ const PrepareAmericaRoute = PrepareAmericaRouteImport.update({
 const PolicyRoute = PolicyRouteImport.update({
   id: '/policy',
   path: '/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KimosabeRoute = KimosabeRouteImport.update({
+  id: '/kimosabe',
+  path: '/kimosabe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InvestorsRoute = InvestorsRouteImport.update({
@@ -346,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -399,6 +406,7 @@ export interface FileRoutesByTo {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -454,6 +462,7 @@ export interface FileRoutesById {
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
+  '/kimosabe': typeof KimosabeRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -509,6 +518,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -562,6 +572,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -616,6 +627,7 @@ export interface FileRouteTypes {
     | '/founder'
     | '/industry-problem'
     | '/investors'
+    | '/kimosabe'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -671,6 +683,7 @@ export interface RootRouteChildren {
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
   InvestorsRoute: typeof InvestorsRoute
+  KimosabeRoute: typeof KimosabeRoute
   PolicyRoute: typeof PolicyRoute
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
@@ -748,6 +761,13 @@ declare module '@tanstack/react-router' {
       path: '/policy'
       fullPath: '/policy'
       preLoaderRoute: typeof PolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kimosabe': {
+      id: '/kimosabe'
+      path: '/kimosabe'
+      fullPath: '/kimosabe'
+      preLoaderRoute: typeof KimosabeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/investors': {
@@ -1153,6 +1173,7 @@ const rootRouteChildren: RootRouteChildren = {
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,
   InvestorsRoute: InvestorsRoute,
+  KimosabeRoute: KimosabeRoute,
   PolicyRoute: PolicyRoute,
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
