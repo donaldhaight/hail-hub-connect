@@ -94,7 +94,6 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 - Surfaces: `/kimosabe` (public Interested User wallet and its ledger) and `/ledger` (founder/insider feed across all wallets).
 
 
-
 ### Access pattern
 - Public reads use a narrow publishable Supabase client (`src/lib/attendee.functions.ts`).
 - Authenticated server functions use `requireSupabaseAuth` middleware and the user's own RLS context.
