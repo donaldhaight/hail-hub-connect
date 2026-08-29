@@ -22,6 +22,8 @@ const SURFACES = [
   { to: "/admin/economics", label: "Economics Assumptions", note: "Edit the weather-track variables, bands, truth labels, and sources that power the Room's ladder." },
   { to: "/admin/ledger", label: "Task Ledger", note: "Human and agent efficiency ratings, and the 10% variance rule made visible." },
   { to: "/admin/inbox", label: "Inbox", note: "Triage requests, applications, invitations, and the run of show." },
+  { to: "/admin/roles", label: "Role Grants", note: "The access queue — the role requested, the file they arrived with, and the role you grant." },
+
   { to: "/admin/tickets", label: "Ticket Ledger", note: "Assign tiers and issue First Congress credentials." },
   { to: "/admin/broadcast", label: "Broadcast", note: "Stream config, state machine, and the pre-event checklist." },
   { to: "/admin/invite", label: "Invitations", note: "Issue and revoke qualified insider tokens." },
