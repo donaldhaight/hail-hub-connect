@@ -183,9 +183,9 @@ export function Header() {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-border bg-background xl:hidden"
+          className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-t border-border bg-background xl:hidden"
         >
-          <nav aria-label="Mobile" className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+          <nav aria-label="Mobile" className="mx-auto max-w-6xl px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6">
             <ul className="divide-y divide-border">
               {NAV.map((item) => (
                 <li key={item.to}>
