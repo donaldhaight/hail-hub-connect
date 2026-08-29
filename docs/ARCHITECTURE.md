@@ -84,7 +84,15 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 
 ### Invitations and itinerary
 - `insider_invitations` — single-use tokens linking to a briefing request, conference application, direct seed, or approved referral.
-- `conference_itinerary_items` — agenda entries; public read for published items, full CRUD for founder admin.
+
+### Platform ledger
+- `ledger_tokens` — JBK (JoeBack) and ClaimCoin with pegged value, peg note, and active flag. Pegs are data, so a change is auditable.
+- `ledger_wallets` — one wallet per holder. `kind = 'interested_user'` wallets belong to an anonymous device anchor; `kind = 'marketapp'` wallets belong to a certified user. `claimed_at`/`claimed_from` record the attachment.
+- `ledger_entries` — append-only. Database triggers reject every UPDATE and DELETE and validate direction/amount. Balances are always summed from entries, never stored.
+- Writes happen only through server functions using the service-role client; the browser never proposes an amount. Read access is founder admin, qualified insider, or the wallet's own user.
+- Surfaces: `/kimosabe` (public Interested User wallet and its ledger) and `/ledger` (founder/insider feed across all wallets).
+
+
 
 ### Access pattern
 - Public reads use a narrow publishable Supabase client (`src/lib/attendee.functions.ts`).
