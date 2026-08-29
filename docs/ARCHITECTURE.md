@@ -111,6 +111,8 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 - `src/lib/section-reads.functions.ts` — section-level dwell tracking and read-heatmap aggregation.
 - `src/lib/attachments.functions.ts` — attachment CRUD, signed URLs, and open analytics.
 - `src/lib/referrals.functions.ts` — referral submission, founder triage, and funnel analytics.
+- `src/lib/wallet.functions.ts` — Interested User wallet resolution, earns, entry payment, the claim/merge, and the founder ledger feed. Helpers in `src/lib/wallet.server.ts`; the earn schedule and entry price in `src/lib/wallet.schedule.ts`.
+
 
 ## Public API and webhooks
 
