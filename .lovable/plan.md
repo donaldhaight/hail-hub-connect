@@ -1,81 +1,91 @@
-# Kimosabe: the front door to the Human Blockchain
+# The Ledger Spine: Interested User wallet, JBK, and the first role
 
-Kimosabe is not one of the apps. It is the branded chat surface every app opens into and returns from — MarketApp, BooksForge, MusicApp, MovieApp, MyGPT.TV. One conversation, one file, one memory across all of them. That shared memory is what makes it a Human Blockchain rather than five products with a common login.
+Your Siteforum narration closed the gap. Below is the answer to your token question, then the build order.
 
-Built as a separate route tree in this project. Zero changes to PrepareAmerica. The link can be dropped anywhere and still work.
+## Answer first: yes, Interested User is a role
 
-## The access model — proposed, pending correction
+Siteforum's model was roles, not groups — a matrix of roles, with groups added later only for geography and community. That maps cleanly:
 
-The Siteforum/ClaimExpress model has not been narrated yet, so this is a working reconstruction, not a claim about the 2014 system. It is built to be replaced field-for-field once the real model is on the table. Nothing downstream assumes it is right.
+- **Interested User** is a role. It is the only role that requires no certification and no verification, and it is provisioned automatically on arrival rather than by you.
+- It carries exactly one capability beyond browsing: **a ledger-wallet that can earn JBK and spend a portion of it on entry**. Earn-and-enter, nothing else. No transfers to other people, no external value.
+- Its wallet is a **holding account**, not an identity. When the person later certifies into a real role, the anonymous wallet is *claimed* — the same balance, the same history, now attached to a certified identity. Never duplicated, and the claim itself is a ledger entry.
+- Coinbase only enters at the MarketApp boundary, when a certified role exists. Before that the ledger is internal and self-contained.
 
-Three layers, each answering a different question:
+That gives you the thing you actually want on 11-01-2026: an anonymous person in the room can watch tokens move, in real time, on a live ledger, without an account.
 
-```text
-GROUP   ── who you belong to        (org, crew, chapter, territory)
-ROLE    ── what you are             (rep, crew chief, adjuster, counsel, investor)
-GRANT   ── what that lets you touch (module + record + territory)
-```
+## The ledger, at Phase 1 grain
 
-- A person may hold several group memberships; each carries its own role. Grants accumulate — the union, never the intersection.
-- A role is a permission bundle wearing a job title. The title is what the user sees; the bundle is what the system enforces.
-- Access is filtered on all three grains at once: which screens you can open, which records inside them are yours, and which geography you are scoped to.
-- **Certification** is the act of a role being granted. It is never self-asserted. Someone with standing certifies it, and the certification is recorded with who, when, and on what evidence.
-
-PrepareAmerica's nine role tags today are not this model — only two are enforced anywhere, and one person holds one. There is nothing to contradict. Clean slate.
-
-## The Interested User routine
-
-**Arrival.** Everyone starts as an Interested User. No signup, no email, no phone. An opaque anchor is minted (browser storage plus signed cookie) and a file opens. Kimosabe already knows something: the link that carried them, the region, the device, the hour.
-
-**Intuition.** Chat UI means Kimosabe moves first, and the opening move is a read, not a question. *"You came in from a roofing link in Tarrant County."* Being read correctly disarms. Being read slightly wrong is better — they correct it, and the correction is the first thing they teach it.
-
-**Trojan horses.** Each app is a capability worth having whose use happens to raise resolution on the file:
-
-| App | What it gives them | What it teaches us |
-| --- | --- | --- |
-| MarketApp | run my numbers, watch my county, show me my roof | scale, territory, trade role |
-| BooksForge.AI | make me something | what they care about, how they think |
-| MusicApp.AI / MovieApp.AI | the cultural races | taste — and eyes off the canvass track |
-| MyGPT.TV | a channel of their own | what they want to be seen as |
-
-Nobody fills out a profile. The profile assembles itself. Every observation carries a value, a provenance, and a confidence — the same discipline as the Situation Room's signals. Derived traits ("contractor with money", "capital", "counsel") are computed, scored, and always traceable to the gestures that produced them.
-
-**Recognition.** At the first real return, Kimosabe says it out loud: *"I remembered you."* Quietly proud rather than covert. This is a deliberate posture decision — it turns a persistence mechanism into the best moment in the demo, and keeps the room's counsel comfortable.
-
-**The turn.** At some point the Interested User stops browsing and wants standing — to transact rather than observe. Kimosabe hands them to MarketApp for the ledger-wallet. This is the moment the anonymous file must become a certified identity holding a role.
+One append-only ledger, double-entry, no deletes and no updates. Balances are always derived by summing entries — never stored and mutated.
 
 ```text
-Interested User ──► horses raise resolution ──► asks for standing
-                                                      │
-                                                      ▼
-                                      MarketApp: ledger-wallet opened
-                                                      │
-                                                      ▼
-                              certification requested ──► founder review ──► role granted
+WALLET   ── belongs to an anchor (anonymous) or a user (certified)
+ENTRY    ── wallet, token, amount, direction, reason, occurred_at, ref
+TOKEN    ── JBK | CLAIMCOIN, each with a pegged value recorded as data
 ```
 
-Nobody self-certifies. Every certification request lands in a founder queue with the whole accumulated file attached — every gesture, every inference, every confidence score. The vetting decision is made against evidence the person generated themselves without ever being interviewed.
+- Every entry names its **reason** (earned:share, earned:invite, spent:entry, claimed:merge, granted:seed) and its **ref** (what caused it).
+- Movement between the Interested User wallet and the MarketApp wallet is itself two entries, so the movement is visible as an event with a date and time — which is the demo.
+- Peg values live in a table, versioned, so a peg change is auditable rather than a code edit.
+- Nothing is written from the browser. All writes go through narrow server functions that decide the amounts; the client never proposes a balance.
+
+## Role provisioning — Siteforum's flow, kept
+
+Your 2008 flow was: request access with a chosen role → lands in a table → you review → you create the user and assign the role → system emails → verify → user lands on their role's App Home. We keep that spine and change only what has to change.
+
+```text
+Request Access (role chosen)  ──►  Founder queue (full file attached)
+                                            │
+                                            ▼
+                                   Role granted by you
+                                            │
+                                            ▼
+                        Role Store card ──► fee ──► 4 videos + quizzes ──► App Home
+```
+
+- **Nobody self-certifies.** The queue is yours alone, exactly as before.
+- **Phase 1 ships one certifiable role: ISR.** Fee, checkout, four videos each followed by a short quiz, then sign-in and App Home. Every other role stays request-only until you say otherwise.
+- Videos and quizzes are stored as data now so the future SiteBMS can own them later without a rewrite.
+- **Switch Role** is in the model from day one, because Kimosabe must know which role the person is currently wearing.
+
+## Role naming — realign now, while it is cheap
+
+The nine tags in the platform today are pre-Stakeholder-Group vocabulary, and only two are enforced anywhere. Realigning costs almost nothing at this moment and gets expensive the day a second role is enforced:
+
+```text
+Interested User · Industry Observer (tagged)
+VentureTech · SystemsTech · LegalTech · InsureTech · FinTech
+Construction Management · Business Development
+Founder Admin (retained)
+```
+
+Legacy operating roles from Siteforum — LC, ISR, PO, INSCO, IA — are **entity roles inside the MarketApp**, a separate axis from Stakeholder Groups. Keeping the two axes separate avoids the collision that made groups too complicated in 2008.
+
+## Kimosabe and the object grain
+
+Kimosabe attaches to the person, and reads the world through whichever role they are currently in. It does not cross roles. Anonymous, it sees the Interested User file and wallet. Certified and switched into ISR, it sees ISR tasks and the season clock. Same conversation, same memory, different permissions — that is the grain.
 
 ## Build order
 
-1. **Kimosabe shell** — route tree, anchor minting, credential resolution, the recognition moment. No horses yet.
-2. **The file** — observations, derived traits with confidence, and the merge rule for when an anonymous file later attaches to a credential or account (claimed, never duplicated; merge recorded).
-3. **MarketApp handoff** — the standing request, the ledger-wallet stub, and the certification queue with the file attached.
-4. **First Trojan horse** — one MarketApp capability end to end, proving the resolution loop.
-5. **Remaining horses**, then the founder-side view of accumulating files.
+1. **Ledger core** — wallets, append-only entries, tokens with pegs, derived balances, server-only writes.
+2. **Interested User role + wallet** — auto-provision on arrival, earn events, the entry spend, and the claim/merge rule.
+3. **Ledger surface** — a live view of entries moving, for Founder Admin and Qualified Insider, drivable in the room.
+4. **Request Access with role selection** into the founder queue, with the accumulated file attached.
+5. **Role Store + ISR certification** — card, fee, four videos with quizzes, App Home landing.
+6. **Switch Role + role-aware Kimosabe.**
 
-Step 3 is the one that binds to Siteforum. When the real group/role/certification model arrives, it replaces the proposed model above and steps 1–2 are unaffected — the file does not care what roles exist.
+Steps 1–3 stand alone and are the demonstrable piece. Steps 4–6 are the Siteforum flow re-expressed here.
 
-## Technical notes
+## The two-codebase question
 
-- Kimosabe lives at its own path under `src/routes/`, with its own resolver rather than the `_authenticated` gate. That gate fails closed; Kimosabe fails open into the ritual.
-- The anchor is server-signed and opaque; the browser never holds anything meaningful about the person.
-- New tables for the file, its observations, derived traits, and certification requests. Anonymous rows are written only through narrow server functions, never directly from the client. Founder-only read.
-- Groups, roles, and grants are data, not hardcoded checks, so the model can be swapped when Siteforum's is known.
-- Nothing outside the Kimosabe route tree changes.
+Codebase 1 is Siteforum running Season 1, due March 1 2027. Codebase 2 is this. They meet at the ledger: this platform holds the ledger of record for Founders and Sponsors, and Siteforum's Season 1 activity posts into it as entries. That is one integration surface instead of a merge, and it is why the ledger has to be right first.
+
+## On the multi-LLM stack
+
+This platform can call any model through one gateway, so OpenAI, Anthropic, Google and xAI models are available now without separate keys or accounts. Agent orchestration frameworks and per-role agents are a later phase — they need the role model and ledger underneath them to have anything to act on. I would not start them before step 6.
 
 ## Still open
 
-- The actual Siteforum/ClaimExpress group, role, and certification model — replaces the proposed section above.
-- Which Trojan horse ships first.
-- What the ledger-wallet holds at Season 1 grain.
+- Which entity operates Season 1.
+- Peg values for JBK and ClaimCoin.
+- The earn schedule: what an Interested User earns for sharing, inviting, participating, and the entry price.
+- Gamification — not yet designed; your six pages of notes likely speak to it.
