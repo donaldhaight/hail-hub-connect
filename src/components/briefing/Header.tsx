@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { QuantumSwitcher } from "./QuantumSwitcher";
+import { RoleSwitcher } from "./RoleSwitcher";
 
 const NAV = [
   { to: "/why-prepare-america", label: "The Thesis" },
   { to: "/briefing", label: "The Case Study" },
   { to: "/architecture", label: "The Architecture" },
+  { to: "/roles", label: "Roles" },
   { to: "/prepare-america", label: "The Congress" },
   { to: "/founder", label: "Founder" },
 ] as const;
+
 
 export function Header() {
   const navigate = useNavigate();
