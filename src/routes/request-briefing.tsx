@@ -209,6 +209,32 @@ function BriefingForm({
 
       <div>
         <label
+          htmlFor="requestedRole"
+          className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"
+        >
+          Stakeholder Group requested (optional)
+        </label>
+        <select
+          id="requestedRole"
+          name="requestedRole"
+          defaultValue=""
+          className="mt-2 block w-full border border-border bg-card px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
+        >
+          <option value="">No preference — you decide</option>
+          {REQUESTABLE_ROLES.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.label}
+            </option>
+          ))}
+        </select>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Roles are granted by the founder personally. Nobody self-certifies.
+        </p>
+      </div>
+
+      <input type="hidden" name="anchor" value={anchor} />
+
+        <label
           htmlFor="context"
           className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"
         >
