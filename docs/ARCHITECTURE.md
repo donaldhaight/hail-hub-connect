@@ -84,6 +84,7 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 
 ### Invitations and itinerary
 - `insider_invitations` — single-use tokens linking to a briefing request, conference application, direct seed, or approved referral.
+- `conference_itinerary_items` — agenda entries; public read for published items, full CRUD for founder admin.
 
 ### Platform ledger
 - `ledger_tokens` — JBK (JoeBack) and ClaimCoin with pegged value, peg note, and active flag. Pegs are data, so a change is auditable.
