@@ -50,6 +50,8 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenticated/manual/print'
 import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
+import { Route as AuthenticatedAppSearchRouteImport } from './routes/_authenticated/app/search'
+import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app/account'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
@@ -278,6 +280,16 @@ const AuthenticatedInsiderReferRoute =
     path: '/insider/refer',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAppSearchRoute = AuthenticatedAppSearchRouteImport.update({
+  id: '/app/search',
+  path: '/app/search',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppAccountRoute = AuthenticatedAppAccountRouteImport.update({
+  id: '/app/account',
+  path: '/app/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminTourRoute = AuthenticatedAdminTourRouteImport.update({
   id: '/admin/tour',
   path: '/admin/tour',
@@ -436,6 +448,8 @@ export interface FileRoutesByFullPath {
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
+  '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/search': typeof AuthenticatedAppSearchRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
@@ -497,6 +511,8 @@ export interface FileRoutesByTo {
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
+  '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/search': typeof AuthenticatedAppSearchRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
@@ -560,6 +576,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
   '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
+  '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
+  '/_authenticated/app/search': typeof AuthenticatedAppSearchRoute
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/_authenticated/manual/print': typeof AuthenticatedManualPrintRoute
@@ -623,6 +641,8 @@ export interface FileRouteTypes {
     | '/admin/signals'
     | '/admin/tickets'
     | '/admin/tour'
+    | '/app/account'
+    | '/app/search'
     | '/insider/refer'
     | '/manual/$slug'
     | '/manual/print'
@@ -684,6 +704,8 @@ export interface FileRouteTypes {
     | '/admin/signals'
     | '/admin/tickets'
     | '/admin/tour'
+    | '/app/account'
+    | '/app/search'
     | '/insider/refer'
     | '/manual/$slug'
     | '/manual/print'
@@ -746,6 +768,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/signals'
     | '/_authenticated/admin/tickets'
     | '/_authenticated/admin/tour'
+    | '/_authenticated/app/account'
+    | '/_authenticated/app/search'
     | '/_authenticated/insider/refer'
     | '/_authenticated/manual/$slug'
     | '/_authenticated/manual/print'
@@ -1074,6 +1098,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInsiderReferRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/search': {
+      id: '/_authenticated/app/search'
+      path: '/app/search'
+      fullPath: '/app/search'
+      preLoaderRoute: typeof AuthenticatedAppSearchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/account': {
+      id: '/_authenticated/app/account'
+      path: '/app/account'
+      fullPath: '/app/account'
+      preLoaderRoute: typeof AuthenticatedAppAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/tour': {
       id: '/_authenticated/admin/tour'
       path: '/admin/tour'
@@ -1229,6 +1267,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
   AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
+  AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
+  AuthenticatedAppSearchRoute: typeof AuthenticatedAppSearchRoute
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
   AuthenticatedManualPrintRoute: typeof AuthenticatedManualPrintRoute
@@ -1260,6 +1300,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
   AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
+  AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
+  AuthenticatedAppSearchRoute: AuthenticatedAppSearchRoute,
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
   AuthenticatedManualPrintRoute: AuthenticatedManualPrintRoute,
