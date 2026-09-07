@@ -47,13 +47,19 @@ function AdminRoles() {
       .catch(() => undefined);
   }, [refresh, catalog]);
 
-  async function doGrant(requestId: string, roleKey: string) {
+  async function doGrant(requestId: string, roleKey: string, invite = false) {
     if (!roleKey) return;
     setBusy(requestId);
     setNotice(null);
     try {
-      const res = await grant({ data: { requestId, roleKey } });
-      setNotice(res.appliedNow ? "Role granted and applied to their account." : "Role granted. It applies when they redeem their invitation.");
+      const res = await grant({ data: { requestId, roleKey, invite } });
+      setNotice(
+        res.appliedNow
+          ? "Role granted and applied to their account."
+          : res.invited
+            ? "Accepted. Their group is set and the invitation is on its way."
+            : "Role granted. It applies when they redeem their invitation.",
+      );
       refresh();
     } catch {
       setNotice("The grant could not be recorded.");
@@ -122,7 +128,7 @@ function AdminRoles() {
                       roles={roles}
                       preset={r.requested_role}
                       disabled={busy === r.id}
-                      onGrant={(key) => doGrant(r.id, key)}
+                      onGrant={(key, invite) => doGrant(r.id, key, invite)}
                     />
                   </td>
                 </tr>
@@ -156,7 +162,7 @@ function GrantControl({
   roles: RoleCatalogRow[];
   preset: string | null;
   disabled: boolean;
-  onGrant: (key: string) => void;
+  onGrant: (key: string, invite: boolean) => void;
 }) {
   const [key, setKey] = useState(preset ?? "");
 
@@ -178,10 +184,18 @@ function GrantControl({
       <button
         type="button"
         disabled={disabled || !key}
-        onClick={() => onGrant(key)}
+        onClick={() => onGrant(key, false)}
         className="border border-ink px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-background disabled:opacity-40"
       >
         Grant
+      </button>
+      <button
+        type="button"
+        disabled={disabled || !key}
+        onClick={() => onGrant(key, true)}
+        className="border border-navy bg-navy px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-background transition-opacity hover:opacity-90 disabled:opacity-40"
+      >
+        Accept &amp; invite
       </button>
     </div>
   );

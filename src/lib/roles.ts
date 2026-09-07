@@ -50,6 +50,8 @@ export const LEGACY_ROLE_LABELS: Record<string, string> = {
   specialist_advisor: "Specialist Advisor",
   system_auditor: "System Auditor",
   interested_user: "Interested User",
+  verified_member: "Verified Member",
+  lc: "Licensed Contractor (LC)",
   industry_observer: "Industry Observer",
   venture_tech: "VentureTech",
   systems_tech: "SystemsTech",

@@ -204,7 +204,96 @@ export const redeemInsiderInvitation = createServerFn({ method: "POST" })
       { _token: data.token },
     );
     if (error) throw new Error(error.message ?? "Redemption failed");
-    return result as { ok: boolean; reason?: string; already?: boolean; expected?: string };
+
+    const outcome = result as {
+      ok: boolean;
+      reason?: string;
+      already?: boolean;
+      expected?: string;
+      grantedRole?: string | null;
+    };
+
+    // The anonymous file is claimed, never copied: the holding wallet's balance
+    // moves once into the person's MarketApp wallet as two permanent entries.
+    if (outcome.ok && !outcome.already) {
+      try {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { buildWalletView, ensureUserWallet } = await import("@/lib/wallet.server");
+        const { PLATFORM_TOKEN } = await import("@/lib/wallet.schedule");
+
+        const { data: inv } = await supabaseAdmin
+          .from("insider_invitations")
+          .select("briefing_request_id")
+          .eq("token", data.token)
+          .maybeSingle();
+
+        if (inv?.briefing_request_id) {
+          const { data: req } = await supabaseAdmin
+            .from("briefing_requests")
+            .select("anchor")
+            .eq("id", inv.briefing_request_id)
+            .maybeSingle();
+
+          if (req?.anchor) {
+            const { data: holding } = await supabaseAdmin
+              .from("ledger_wallets")
+              .select("id, anchor, kind, label, claimed_at")
+              .eq("anchor", req.anchor)
+              .maybeSingle();
+
+            if (holding && !holding.claimed_at) {
+              const view = await buildWalletView(supabaseAdmin, holding as never);
+              const amount =
+                view.balances.find((b) => b.token_code === PLATFORM_TOKEN)?.amount ?? 0;
+              const target = await ensureUserWallet(supabaseAdmin, context.userId);
+
+              if (amount > 0) {
+                await supabaseAdmin.from("ledger_entries").insert([
+                  {
+                    wallet_id: holding.id,
+                    token_code: PLATFORM_TOKEN,
+                    direction: "debit",
+                    amount,
+                    reason: "claimed:merge",
+                    ref: `claim:${target.id}`,
+                    memo: "Holding wallet claimed into a MarketApp ledger-wallet.",
+                    counterparty_wallet_id: target.id,
+                  },
+                  {
+                    wallet_id: target.id,
+                    token_code: PLATFORM_TOKEN,
+                    direction: "credit",
+                    amount,
+                    reason: "claimed:merge",
+                    ref: `claim:${holding.id}`,
+                    memo: "Claimed from the Interested User holding wallet.",
+                    counterparty_wallet_id: holding.id,
+                  },
+                ]);
+              }
+
+              await supabaseAdmin
+                .from("ledger_wallets")
+                .update({
+                  claimed_at: new Date().toISOString(),
+                  claimed_from: holding.id,
+                  updated_at: new Date().toISOString(),
+                })
+                .eq("id", target.id);
+
+              await supabaseAdmin
+                .from("ledger_wallets")
+                .update({ claimed_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+                .eq("id", holding.id);
+            }
+          }
+        }
+      } catch {
+        // The claim is a courtesy on top of redemption; never block the door.
+      }
+    }
+
+    return outcome;
   });
 
 // ============================================================
