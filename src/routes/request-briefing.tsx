@@ -241,7 +241,8 @@ function BriefingForm({
           ))}
         </select>
         <p className="mt-2 text-xs text-muted-foreground">
-          Roles are granted by the founder personally. Nobody self-certifies.
+          Your group tells us where you fit. Access itself is granted by the founder
+          personally — nobody self-certifies.
         </p>
       </div>
 
