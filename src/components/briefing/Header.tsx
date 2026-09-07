@@ -18,28 +18,16 @@ const NAV = [
 export function Header() {
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
-  
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function checkAuth() {
       const { data: sessionData } = await supabase.auth.getSession();
-      const session = sessionData.session;
-      setSignedIn(!!session);
-      if (session) {
-        const { data: roles } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id);
-        setIsFounder((roles ?? []).some((r) => r.role === "founder_admin"));
-      } else {
-        setIsFounder(false);
-      }
+      setSignedIn(!!sessionData.session);
     }
     checkAuth();
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setSignedIn(!!session);
-      if (!session) setIsFounder(false);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
