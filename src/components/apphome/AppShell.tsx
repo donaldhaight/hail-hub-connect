@@ -16,7 +16,12 @@ const BASE_LINKS: AppNavLink[] = [
 /** Role-shaped nav contents — what the person holds shapes what they receive. */
 const ROLE_LINKS: Record<string, AppNavLink[]> = {
   founder_admin: [
-    { label: "Access queue", href: "/admin/roles" },
+    { label: "The Request Queue", href: "/admin/queue" },
+    { label: "Founder Console", href: "/admin" },
+    { label: "Inbox", href: "/admin/inbox" },
+    { label: "Invitations", href: "/admin/invite" },
+    { label: "Digest", href: "/admin/digest" },
+    { label: "Tour", href: "/admin/tour" },
     { label: "Platform ledger", href: "/ledger" },
     { label: "Broadcast control", href: "/admin/broadcast" },
     { label: "Situation Room", href: "/room" },
