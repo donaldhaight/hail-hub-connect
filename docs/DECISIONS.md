@@ -127,3 +127,16 @@ This document records load-bearing architecture and product decisions. Each entr
 - State machine: unseen → skimmed (any dwell) → read (≥10s dwell) → confirmed (explicit mark).
 - `/admin/reads` renders a heatmap; `/admin/signals` and `/admin/digest` roll up engagement scores and referral momentum.
 - All analytics are founder-only and gated by `founder_admin` role.
+
+## ADR-012: Hold the Quantum Dashboard; build the ISR/LC spine first
+
+**Decision:** Pause further build on the Quantum Dashboard / Situation Room at its current line and proceed with Independent Sales Rep and Licensed Contractor activation, plus the ClaimExpress protocol as an API/MCP surface.
+
+**Context:** Three findings converged. (1) The storm-targeting engine — kill zones, fringe ZIPs, carrier routes, ghost Property Owner profiles, generated offers, multi-channel outreach — is the trade secret that makes the network valuable; demonstrating it whole on 11-1-2026 would teach competitors how to rebuild it. (2) The Kimosabe Interested User ritual has no destination unless a real operating role waits on the other side. (3) RRCA's live need today is a staffed ISR corps and the LCs behind them, not a dashboard.
+
+**Consequences:**
+- Situation Room work is `deferred — held by ADR-012`. Nothing built is discarded; ISR/LC activity becomes a real signal source feeding the same variable registry.
+- ISR remains the first certifiable role; certification now lands in an ISR App Home with real work in it.
+- ClaimExpress is specified as a protocol (objects, states, events) before more UI is built on it, so ISRs and LCs can participate without abandoning their current systems.
+- The four-boundary redaction map (§11 of `docs/PROTOCOL.md`) governs what any demo may show.
+- The hold is lifted only by a superseding ADR.
