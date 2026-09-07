@@ -65,7 +65,9 @@ import { Route as AuthenticatedAdminEditsRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminEconomicsRouteImport } from './routes/_authenticated/admin/economics'
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
 import { Route as AuthenticatedAdminBroadcastRouteImport } from './routes/_authenticated/admin/broadcast'
+import { Route as AuthenticatedAppTasksIndexRouteImport } from './routes/_authenticated/app/tasks/index'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
+import { Route as AuthenticatedAppTasksTaskIdRouteImport } from './routes/_authenticated/app/tasks/$taskId'
 
 const WhyRrcaRoute = WhyRrcaRouteImport.update({
   id: '/why-rrca',
@@ -359,10 +361,22 @@ const AuthenticatedAdminBroadcastRoute =
     path: '/admin/broadcast',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAppTasksIndexRoute =
+  AuthenticatedAppTasksIndexRouteImport.update({
+    id: '/app/tasks/',
+    path: '/app/tasks/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedInsiderDossierSlugRoute =
   AuthenticatedInsiderDossierSlugRouteImport.update({
     id: '/insider/dossier/$slug',
     path: '/insider/dossier/$slug',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppTasksTaskIdRoute =
+  AuthenticatedAppTasksTaskIdRouteImport.update({
+    id: '/app/tasks/$taskId',
+    path: '/app/tasks/$taskId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -422,7 +436,9 @@ export interface FileRoutesByFullPath {
   '/app/': typeof AuthenticatedAppIndexRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/manual/': typeof AuthenticatedManualIndexRoute
+  '/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/app/tasks/': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -480,7 +496,9 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppIndexRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/manual': typeof AuthenticatedManualIndexRoute
+  '/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/app/tasks': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -540,7 +558,9 @@ export interface FileRoutesById {
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/manual/': typeof AuthenticatedManualIndexRoute
+  '/_authenticated/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/_authenticated/app/tasks/': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -600,7 +620,9 @@ export interface FileRouteTypes {
     | '/app/'
     | '/insider/'
     | '/manual/'
+    | '/app/tasks/$taskId'
     | '/insider/dossier/$slug'
+    | '/app/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -658,7 +680,9 @@ export interface FileRouteTypes {
     | '/app'
     | '/insider'
     | '/manual'
+    | '/app/tasks/$taskId'
     | '/insider/dossier/$slug'
+    | '/app/tasks'
   id:
     | '__root__'
     | '/'
@@ -717,7 +741,9 @@ export interface FileRouteTypes {
     | '/_authenticated/app/'
     | '/_authenticated/insider/'
     | '/_authenticated/manual/'
+    | '/_authenticated/app/tasks/$taskId'
     | '/_authenticated/insider/dossier/$slug'
+    | '/_authenticated/app/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1141,11 +1167,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminBroadcastRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/tasks/': {
+      id: '/_authenticated/app/tasks/'
+      path: '/app/tasks'
+      fullPath: '/app/tasks/'
+      preLoaderRoute: typeof AuthenticatedAppTasksIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/insider/dossier/$slug': {
       id: '/_authenticated/insider/dossier/$slug'
       path: '/insider/dossier/$slug'
       fullPath: '/insider/dossier/$slug'
       preLoaderRoute: typeof AuthenticatedInsiderDossierSlugRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/tasks/$taskId': {
+      id: '/_authenticated/app/tasks/$taskId'
+      path: '/app/tasks/$taskId'
+      fullPath: '/app/tasks/$taskId'
+      preLoaderRoute: typeof AuthenticatedAppTasksTaskIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -1176,7 +1216,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedManualIndexRoute: typeof AuthenticatedManualIndexRoute
+  AuthenticatedAppTasksTaskIdRoute: typeof AuthenticatedAppTasksTaskIdRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
+  AuthenticatedAppTasksIndexRoute: typeof AuthenticatedAppTasksIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -1204,7 +1246,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedManualIndexRoute: AuthenticatedManualIndexRoute,
+  AuthenticatedAppTasksTaskIdRoute: AuthenticatedAppTasksTaskIdRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
+  AuthenticatedAppTasksIndexRoute: AuthenticatedAppTasksIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
