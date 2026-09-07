@@ -222,15 +222,18 @@ function BriefingForm({
           htmlFor="requestedRole"
           className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver"
         >
-          Stakeholder Group requested (optional)
+          Which group do you belong to?
         </label>
         <select
           id="requestedRole"
           name="requestedRole"
           defaultValue=""
+          required
           className="mt-2 block w-full border border-border bg-card px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
         >
-          <option value="">No preference — you decide</option>
+          <option value="" disabled>
+            Choose your group…
+          </option>
           {REQUESTABLE_ROLES.map((r) => (
             <option key={r.id} value={r.id}>
               {r.label}
