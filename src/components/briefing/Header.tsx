@@ -18,28 +18,16 @@ const NAV = [
 export function Header() {
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
-  const [isFounder, setIsFounder] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function checkAuth() {
       const { data: sessionData } = await supabase.auth.getSession();
-      const session = sessionData.session;
-      setSignedIn(!!session);
-      if (session) {
-        const { data: roles } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id);
-        setIsFounder((roles ?? []).some((r) => r.role === "founder_admin"));
-      } else {
-        setIsFounder(false);
-      }
+      setSignedIn(!!sessionData.session);
     }
     checkAuth();
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setSignedIn(!!session);
-      if (!session) setIsFounder(false);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
@@ -93,53 +81,12 @@ export function Header() {
               >
                 Home
               </Link>
-              {isFounder ? (
-
-                <Link
-                  to="/admin"
-                  className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"
-                >
-                  Console
-                </Link>
-              ) : null}
-              <Link
-                to="/room"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
-              >
-                Room
-              </Link>
               <Link
                 to="/manual"
                 className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Manual
               </Link>
-              <Link
-                to="/admin/tour"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
-              >
-                Tour
-              </Link>
-              <Link
-                to="/admin/digest"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
-              >
-                Digest
-              </Link>
-              <Link
-                to="/admin/inbox"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
-              >
-                Inbox
-              </Link>
-              {isFounder ? (
-                <Link
-                  to="/admin/invite"
-                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper xl:inline"
-                >
-                  Invite
-                </Link>
-              ) : null}
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -223,28 +170,6 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
-                  {isFounder ? (
-                    <li>
-                      <Link
-                        to="/admin"
-                        onClick={() => setOpen(false)}
-                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
-                      >
-                        Console
-                        <span aria-hidden="true">→</span>
-                      </Link>
-                    </li>
-                  ) : null}
-                  <li>
-                    <Link
-                      to="/room"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Situation Room
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/manual"
@@ -255,48 +180,6 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to="/admin/tour"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Tour
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/digest"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Digest
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/inbox"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Inbox
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  {isFounder ? (
-                    <li>
-                      <Link
-                        to="/admin/invite"
-                        onClick={() => setOpen(false)}
-                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
-                      >
-                        Invite
-                        <span aria-hidden="true">→</span>
-                      </Link>
-                    </li>
-                  ) : null}
                   <li>
                     <button
                       type="button"

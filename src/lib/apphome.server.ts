@@ -149,8 +149,8 @@ export async function buildAppHome(
       detail:
         "Requests for invitations and briefings wait in one table. Accept, assign a Group and a role, and the invitation rides with the grant.",
       why: "Every person who arrives at the front door stops here. Nothing moves until you accept — that is the design, not a bottleneck to remove.",
-      action: "Open the access queue",
-      href: "/admin/roles",
+      action: "Open the request queue",
+      href: "/admin/queue",
       done: false,
       dismissible: true,
     });

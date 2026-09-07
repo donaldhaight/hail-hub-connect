@@ -240,6 +240,10 @@ export type RoleRequestRow = {
   context: string | null;
   created_at: string;
   wallet_jbk: number | null;
+  /** What has already happened to this human. */
+  invited_at: string | null;
+  redeemed_at: string | null;
+  seat_status: string | null;
 };
 
 export const listRoleRequests = createServerFn({ method: "GET" })
@@ -285,12 +289,67 @@ export const listRoleRequests = createServerFn({ method: "GET" })
       }
     }
 
+    // What has already happened to each human: invited, redeemed, seated.
+    const ids = (rows ?? []).map((r) => r.id);
+    const invited = new Map<string, string>();
+    const redeemed = new Map<string, string>();
+    const seats = new Map<string, string>();
+    if (ids.length) {
+      const { data: invs } = await supabaseAdmin
+        .from("insider_invitations")
+        .select("briefing_request_id, created_at, redeemed_at, status")
+        .in("briefing_request_id", ids);
+      for (const i of invs ?? []) {
+        const key = i.briefing_request_id;
+        if (!key) continue;
+        if (i.status !== "revoked" && !invited.has(key)) invited.set(key, i.created_at);
+        if (i.redeemed_at) redeemed.set(key, i.redeemed_at);
+      }
+
+      const { data: apps } = await supabaseAdmin
+        .from("conference_applications")
+        .select("briefing_request_id, seat_status")
+        .in("briefing_request_id", ids);
+      for (const a of apps ?? []) {
+        if (a.briefing_request_id) seats.set(a.briefing_request_id, a.seat_status);
+      }
+    }
+
     const out: RoleRequestRow[] = (rows ?? []).map((r) => ({
-      ...(r as Omit<RoleRequestRow, "wallet_jbk">),
+      ...(r as Omit<
+        RoleRequestRow,
+        "wallet_jbk" | "invited_at" | "redeemed_at" | "seat_status"
+      >),
       wallet_jbk: r.anchor ? (balances.get(r.anchor) ?? 0) : null,
+      invited_at: invited.get(r.id) ?? null,
+      redeemed_at: redeemed.get(r.id) ?? null,
+      seat_status: seats.get(r.id) ?? null,
     }));
 
     return { rows: out };
+  });
+
+/** Decline a request. Recorded as an event; nothing else happens to them. */
+export const declineRequest = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((d: unknown) => z.object({ requestId: z.string().uuid() }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertFounder(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { error } = await supabaseAdmin
+      .from("briefing_requests")
+      .update({ status: "declined", updated_at: new Date().toISOString() })
+      .eq("id", data.requestId);
+    if (error) throw new Error("Failed to record the decline");
+
+    await supabaseAdmin.from("briefing_request_events").insert({
+      briefing_request_id: data.requestId,
+      actor_id: context.userId,
+      action: "request:declined",
+    });
+
+    return { ok: true as const };
   });
 
 /** The founder grants a role. Nobody self-certifies into a Stakeholder Group. */
