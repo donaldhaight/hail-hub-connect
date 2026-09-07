@@ -83,6 +83,9 @@ Turning the archive into an asset register, and side concepts into a governed la
 | E-4 | The founder can see the shape of the archive. | Intake lane shows counts by triage state, layer, decade, and source. | shipped |
 | E-5 | The whole corpus is searchable from one box. | Search spans intake notes, manual chapters, and dossier sections. | shipped |
 | E-6 | Side concepts are explored without forking the project. | `/admin/lab` holds tracks with briefs, layer tags, notes/questions/decisions, and an adopt action that writes backlog items. | shipped |
+| E-7 | Uploaded documents are searchable by their text. | PDF/Office text extraction at upload populates `extracted_text`. | open |
+
+
 
 ## Epic 7 — ISR / LC activation
 
