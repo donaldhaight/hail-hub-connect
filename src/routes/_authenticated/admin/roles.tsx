@@ -128,7 +128,7 @@ function AdminRoles() {
                       roles={roles}
                       preset={r.requested_role}
                       disabled={busy === r.id}
-                      onGrant={(key) => doGrant(r.id, key)}
+                      onGrant={(key, invite) => doGrant(r.id, key, invite)}
                     />
                   </td>
                 </tr>
@@ -162,7 +162,7 @@ function GrantControl({
   roles: RoleCatalogRow[];
   preset: string | null;
   disabled: boolean;
-  onGrant: (key: string) => void;
+  onGrant: (key: string, invite: boolean) => void;
 }) {
   const [key, setKey] = useState(preset ?? "");
 
@@ -184,7 +184,7 @@ function GrantControl({
       <button
         type="button"
         disabled={disabled || !key}
-        onClick={() => onGrant(key)}
+        onClick={() => onGrant(key, false)}
         className="border border-ink px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-background disabled:opacity-40"
       >
         Grant
