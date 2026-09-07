@@ -189,6 +189,14 @@ function GrantControl({
       >
         Grant
       </button>
+      <button
+        type="button"
+        disabled={disabled || !key}
+        onClick={() => onGrant(key, true)}
+        className="border border-navy bg-navy px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-background transition-opacity hover:opacity-90 disabled:opacity-40"
+      >
+        Accept &amp; invite
+      </button>
     </div>
   );
 }
