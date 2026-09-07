@@ -93,53 +93,12 @@ export function Header() {
               >
                 Home
               </Link>
-              {isFounder ? (
-
-                <Link
-                  to="/admin"
-                  className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"
-                >
-                  Console
-                </Link>
-              ) : null}
-              <Link
-                to="/room"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
-              >
-                Room
-              </Link>
               <Link
                 to="/manual"
                 className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
               >
                 Manual
               </Link>
-              <Link
-                to="/admin/tour"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
-              >
-                Tour
-              </Link>
-              <Link
-                to="/admin/digest"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink  2xl:inline"
-              >
-                Digest
-              </Link>
-              <Link
-                to="/admin/inbox"
-                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-ink xl:inline"
-              >
-                Inbox
-              </Link>
-              {isFounder ? (
-                <Link
-                  to="/admin/invite"
-                  className="hidden border border-navy px-3 py-1.5 text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:bg-navy hover:text-paper xl:inline"
-                >
-                  Invite
-                </Link>
-              ) : null}
               <button
                 type="button"
                 onClick={handleSignOut}
