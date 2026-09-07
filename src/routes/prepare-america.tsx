@@ -1,14 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { PageShell, PageHeader, Section, Prose } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
-import {
-  CONFERENCE_CATEGORIES,
-  conferenceApplicationSchema,
-  type ConferenceApplicationInput,
-} from "@/lib/briefing.schemas";
-import { submitConferenceApplication } from "@/lib/briefing.functions";
+import { AccessRequestForm } from "@/components/access/AccessRequestForm";
 import { getPublicConferenceStatus } from "@/lib/conference.functions";
 import { routeHead } from "@/lib/site";
 import {
