@@ -86,7 +86,7 @@ export async function buildAppHome(
   const tasks: AppHomeTask[] = [];
 
   const hasStakeholderTag = roles.some(
-    (r) => !["interested_user", "isr", "lc", "founder_admin"].includes(r),
+    (r: string) => !["interested_user", "isr", "lc", "founder_admin"].includes(r),
   );
   if (!hasStakeholderTag && !isFounder) {
     tasks.push({
