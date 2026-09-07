@@ -373,3 +373,74 @@ see `docs/ARCHITECTURE.md` §"SAS A and SAS B" and ADR-013.
 - The legal shape and final name behind "Market Applications, TBD".
 - The 2008–2012 original business plans and their assumed legalities.
 - The economic model assigned to the origination funnels.
+
+---
+
+## 12. Why the Stakeholder Groups own the platform
+
+Added 2026-09-07. The structural reason the platform is organized as a federation of
+Stakeholder Groups rather than as a single vendor selling to insurance companies.
+
+### The capture risk
+
+Insurance companies would only accept a coordinated restoration platform if they
+controlled it. That is not malice; it is rational self-interest. Their priority is
+predictable loss costs, uniform documentation, and delegated liability. A platform
+owned by contractors reads as adverse selection waiting to happen.
+
+But if the insurers controlled the platform, two predictable outcomes followed:
+
+1. **Cost-plus clearinghouse.** Contractors would bid into a race to the bottom on
+   unit prices, with the platform extracting a toll for access to the claim stream.
+   The contractor side becomes undifferentiated labor, not a profession.
+2. **Uber claims.** Adjusters and claims managers would be disintermediated into
+   gig-style routing, measured by throughput rather than judgment. The claims side
+   becomes a dispatch board, not a profession.
+
+Either outcome captures the value without creating it. The platform would optimize
+for the party that owns it, and the party that owned it would be the one already
+holding the capital.
+
+### The barrier-to-entry move
+
+The counter-move was to build the platform and each Stakeholder Group in parallel,
+then sell the platform to the Groups rather than to the insurers. Each Group —
+Property Owner, Licensed Contractor, Independent Sales Rep, Insurance Company,
+Independent Adjuster, Supplier, Carrier — owns a piece of the record that none of
+the others can unilaterally rewrite.
+
+This is the same logic as the multi-startup / multi-codebase structure of 2008–2012:
+redundancy is not waste; it is the price of independence. When no single insurer,
+no single contractor rollup, and no single technology vendor can own the schema or
+the ledger, the platform becomes a commons with a credible referee rather than a
+captive marketplace.
+
+### The RRCA conflict of interest
+
+RRCA sits on the opportunity because it is both a construction-management operator
+and the originator of the platform design. That conflict is real, and it does not
+go away by being quiet about it. It has to be solved structurally.
+
+The Technology Anchor — Market Applications (TBD) — builds and stewards the stack
+but does not sell the funnel or take a cut of the projects. The spin-off —
+Kimosabe.ai — runs the front door and origination funnels but does not grade its
+own stack. The construction-management upside stays in its own lane, priced on the
+same terms as any other participant.
+
+That separation is what makes the platform insurable. Stakeholder Groups do not
+have to trust RRCA's goodwill; they have to trust the architecture.
+
+### What is being sold
+
+The crowd-facing offer is therefore not "buy a piece of RRCA's construction margin."
+It is:
+
+- **RRCA** as the first certifiable proof that the operating model works.
+- **The FinTech** as the protocol that denominates and settles value across the
+  Stakeholder Groups.
+- **Portions of the remaining Stakeholder Groups** to an invited crowd, on terms
+  that keep no single participant in control of the commons.
+
+This is ambitious, but it is grounded in a domain proof rather than a forecast.
+The question is not whether a platform can be built; it is whether the governance
+around it can stay clean while it scales.
