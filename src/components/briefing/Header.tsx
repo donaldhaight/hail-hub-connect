@@ -87,6 +87,12 @@ export function Header() {
           {signedIn ? (
             <>
               <RoleSwitcher />
+              <Link
+                to="/app"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"
+              >
+                Home
+              </Link>
               {isFounder ? (
 
                 <Link
@@ -207,6 +213,16 @@ export function Header() {
               </li>
               {signedIn ? (
                 <>
+                  <li>
+                    <Link
+                      to="/app"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
+                    >
+                      App Home
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
                   {isFounder ? (
                     <li>
                       <Link

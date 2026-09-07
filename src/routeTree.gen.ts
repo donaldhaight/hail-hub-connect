@@ -43,6 +43,7 @@ import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
 import { Route as AuthenticatedRoomRouteImport } from './routes/_authenticated/room'
 import { Route as AuthenticatedLedgerRouteImport } from './routes/_authenticated/ledger'
+import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -235,6 +236,11 @@ const AuthenticatedLedgerRoute = AuthenticatedLedgerRouteImport.update({
   path: '/ledger',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedManualIndexRoute =
   AuthenticatedManualIndexRouteImport.update({
     id: '/manual/',
@@ -381,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/app': typeof AuthenticatedAppRoute
   '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -438,6 +445,7 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/app': typeof AuthenticatedAppRoute
   '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -497,6 +505,7 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
+  '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/ledger': typeof AuthenticatedLedgerRoute
   '/_authenticated/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -556,6 +565,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/app'
     | '/ledger'
     | '/room'
     | '/b/buddy-claim'
@@ -613,6 +623,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/app'
     | '/ledger'
     | '/room'
     | '/b/buddy-claim'
@@ -671,6 +682,7 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
+    | '/_authenticated/app'
     | '/_authenticated/ledger'
     | '/_authenticated/room'
     | '/b/buddy-claim'
@@ -975,6 +987,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLedgerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app': {
+      id: '/_authenticated/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AuthenticatedAppRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/manual/': {
       id: '/_authenticated/manual/'
       path: '/manual'
@@ -1133,6 +1152,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedLedgerRoute: typeof AuthenticatedLedgerRoute
   AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
@@ -1160,6 +1180,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedLedgerRoute: AuthenticatedLedgerRoute,
   AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
