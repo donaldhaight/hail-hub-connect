@@ -85,12 +85,39 @@ Turning the archive into an asset register, and side concepts into a governed la
 | E-6 | Side concepts are explored without forking the project. | `/admin/lab` holds tracks with briefs, layer tags, notes/questions/decisions, and an adopt action that writes backlog items. | shipped |
 | E-7 | Uploaded documents are searchable by their text. | PDF/Office text extraction at upload populates `extracted_text`. | open |
 
+
+
+## Epic 7 — ISR / LC activation
+
+Turning the Interested User ritual into a staffed operating corps. Opened by ADR-012.
+
+| ID | Story | Acceptance criteria | Status |
+|----|-------|---------------------|--------|
+| R-1 | An Interested User can walk from Kimosabe into ISR certification without losing their wallet or history. | Anonymous wallet is claimed on certification; balance and entries carry over as a single `claimed:merge` entry. | open |
+| R-2 | A certified ISR lands in an App Home with real work in it. | ISR App Home lists the ISR's own book of work in ClaimExpress vocabulary, scoped to that ISR. | open |
+| R-3 | An ISR can see how and when they get paid. | Commission position per file, plus a ledger view of earned/pending/paid. | open |
+| R-4 | An LC can see and approve the work of their ISRs. | LC surface lists their ISRs, their files, and the approvals the LC owns; split lands on the LC side. | open |
+| R-5 | Field-level visibility differs by role. | A documented matrix of what ISR, LC, and Property Owner may each see of a file, enforced by RLS. | open |
+| R-6 | Nothing in band 3 is reachable from an operating role. | ISR/LC surfaces expose no targeting, ghost-profile, or outreach machinery. | open |
+
+## Epic 8 — ClaimExpress protocol (API / MCP)
+
+The contract that lets ISRs and LCs participate without abandoning their current systems. Opened by ADR-012.
+
+| ID | Story | Acceptance criteria | Status |
+|----|-------|---------------------|--------|
+| P-1 | The object model and state machine are specified before any UI is built on them. | `docs/CLAIMEXPRESS.md` lists every object, field, state, and legal transition, sourced from the legacy screens. | open |
+| P-2 | External systems can read and write scoped objects. | Versioned endpoints under `/api/public/claimexpress/*` with caller verification and Zod-validated payloads. | open |
+| P-3 | The protocol is callable by an agent. | An MCP surface exposes the same contract as tools, with the same authorization. | open |
+| P-4 | Every state transition is an event on the record. | Transitions append to an audit trail; no silent state edits. | open |
+| P-5 | The protocol reveals no targeting method. | Endpoint review confirms band 4 exposes objects and states only. | open |
+
 ## Deferred items
 
 These are intentionally not in the current build path.
 
+- **Quantum Dashboard / Situation Room expansion** — `deferred — held by ADR-012`. Current line is preserved; work resumes once the ISR/LC spine and the ClaimExpress protocol are in place.
+- **Storm targeting and outreach engine** — built, but band 3: founder/operator-only, never demoed whole.
 - **Applicant notification emails** — waiting on verified sender domain.
-- **Dossier attachments** — needs Supabase Storage bucket and file-type policy.
-- **Insider referrals** — product decision on whether this arms the right growth loop before 11-1.
-- **Section-level read receipts** — depends on richer access-log schema.
 - **Payments or sponsorship transactions** — explicitly out of scope for Phase 0.
+

@@ -193,3 +193,18 @@ The intake lane, the Concept Lab, and the evidence index are C4 throughout. Insi
 ---
 
 *This document is itself governed by the protocol. It is a DECISION, class C2, and it is revised when the way we work changes — not after.*
+
+---
+
+## 11. The four-boundary redaction map
+
+Adopted with ADR-012. Every surface, every demo script, and every route belongs to exactly one of these bands. When it is unclear which, it is treated as the more restricted one.
+
+| Band | Contains | Audience |
+|------|----------|----------|
+| **1. Public / Group-visible** | The room, the seven lenses, outcome data. What happened — never how targets were chosen. | Anyone in the room on 11-1-2026 |
+| **2. Operating (ISR / LC)** | An operator's own book of work, their files, their ledger, their commissions. | Scoped to that operator and their LC |
+| **3. Founder / operator-only** | Storm targeting, kill-zone and fringe tagging, carrier routes, ghost Property Owner profiles, measurement reports, good-better-best offer generation, outreach sequencing, ISR motivation mechanics. | `founder_admin` only; absent from every demo script |
+| **4. Protocol boundary** | ClaimExpress as API/MCP — the objects, states, and events an external system may call. | Published contract; no method, no data, no targeting logic |
+
+Band 3 is never demoed whole. Outputs of band 3 may appear in band 1 as outcomes; the method never does. Band 4 exists so ISRs and LCs can adopt the platform without a rip-and-replace of the systems they already run.
