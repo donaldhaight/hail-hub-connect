@@ -311,7 +311,7 @@ export const grantRoleToRequest = createServerFn({ method: "POST" })
 
     const { data: req } = await supabaseAdmin
       .from("briefing_requests")
-      .select("id, email")
+      .select("id, email, name")
       .eq("id", data.requestId)
       .maybeSingle();
     if (!req) throw new Error("Request not found");
@@ -349,7 +349,53 @@ export const grantRoleToRequest = createServerFn({ method: "POST" })
         .upsert({ user_id: uid, role: data.roleKey as never }, { onConflict: "user_id,role" });
     }
 
-    return { ok: true as const, appliedNow: !!uid };
+    // Accept and invite in one motion: the grant and the door open together.
+    let invited = false;
+    if (data.invite && !uid) {
+      const { sendEmail } = await import("./email");
+
+      await supabaseAdmin
+        .from("insider_invitations")
+        .update({
+          status: "revoked",
+          revoked_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+        .eq("briefing_request_id", req.id)
+        .is("redeemed_at", null)
+        .neq("status", "revoked");
+
+      const { data: inv, error: invErr } = await supabaseAdmin
+        .from("insider_invitations")
+        .insert({
+          source: "briefing",
+          briefing_request_id: req.id,
+          email: req.email,
+          full_name: req.name,
+          created_by: context.userId,
+        })
+        .select("id, token, expires_at")
+        .single();
+      if (invErr || !inv) throw new Error("Failed to create the invitation");
+
+      await supabaseAdmin.from("briefing_request_events").insert({
+        briefing_request_id: req.id,
+        actor_id: context.userId,
+        action: "role:granted",
+        note: `${data.roleKey} · invitation ${inv.id}`,
+      });
+
+      await sendEmail({
+        kind: "insider_invitation",
+        to: req.email,
+        name: req.name,
+        acceptUrl: `/insider/accept?token=${inv.token}`,
+        expiresAt: new Date(inv.expires_at).toISOString(),
+      });
+      invited = true;
+    }
+
+    return { ok: true as const, appliedNow: !!uid, invited };
   });
 
 /** Roles the signed-in person actually holds — the Switch Role source. */
