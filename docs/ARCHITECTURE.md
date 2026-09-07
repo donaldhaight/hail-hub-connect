@@ -177,3 +177,59 @@ technical convenience mutate an economic fact — is a defect, not a shortcut.
 Profit or non-profit; the legal shape behind "Market Applications, TBD"; the economic
 model assigned to the origination funnels. These are held open in the documents rather
 than assumed in the code.
+
+## SAS B and the Stakeholder-Group Stack
+
+The 2008–2012 strategy reframes how SAS A and SAS B relate to the seven Stakeholder
+Groups. The platform is not a product sold *to* insurance companies. It is a commons
+owned *by* the Groups, with the two administrations serving different halves of the
+same record.
+
+### The capture-prevention design
+
+Insurance companies would only accept a coordinated restoration platform if they
+controlled it. Control would turn it into a cost-plus clearinghouse on the
+contractor side and an "Uber claims" dispatch board on the claims side — valuable
+to the owner, extractive for everyone else.
+
+The defensive structure is federation:
+
+- Each Stakeholder Group has its own role, its own certification path, and its own
+  economic interest in the ledger.
+- No single Group can rewrite the schema, the identity spine, or the append-only record.
+- SAS A enforces this technically (permissions, releases, ledger write path).
+- SAS B enforces it commercially (pricing, counterparties, ownership instruments).
+
+### SAS A's role in the federation
+
+SAS A — owned by the Technology Anchor — is the neutral steward of the commons. It
+builds the stack, runs the identity and role systems, maintains the ledger machinery,
+and hosts the API/MCP surface. It does not set funnel prices, take project spreads,
+or favor one Group over another.
+
+This neutrality is what makes the ledger credible to watchers. SAS A writes events;
+it does not price them.
+
+### SAS B's role in the federation
+
+SAS B — owned by the business development spin-off and the eventual platform
+operating entity — runs the origination funnels, sets rung economics, manages
+counterparties, and handles the books. It prices the events that SAS A writes, but it
+cannot mutate the underlying record.
+
+SAS B is also where the crowd-facing instruments live: portions of Stakeholder
+Groups offered to an invited crowd, on terms that preserve the no-single-controller
+rule.
+
+### Where the ledger sits
+
+The append-only ledger is the shared record. It serves two purposes at once:
+
+1. **Operational trust.** Every movement of value or obligation between Groups is
+   timestamped, auditable, and immutable.
+2. **Watcher confidence.** Capital, government observers, and qualified insiders can
+   see that the platform's state changes are real and that no administration can
+   quietly rewrite them.
+
+SAS A writes the events through the ledger machinery. SAS B reads and prices them.
+Either side trying to do the other's job is a defect, not a shortcut.

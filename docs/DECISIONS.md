@@ -145,7 +145,25 @@ This document records load-bearing architecture and product decisions. Each entr
 
 **Decision:** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
 
-**Context:** The owner controls the entire opportunity, which removes the natural tension that normally keeps a platform's builder honest about its own economics. The blockchain precedent supplies the shape: Consensys to Ethereum, IOHK to Cardano — an anchor that builds and stewards without owning the funnel. The operating precedent is Siteforum GmbH's portal and development platform, where the development administration and the business administration were distinct systems over the same substrate. Kimosabe.ai has no revenue model of its own; anything it earns comes from the economic model assigned to lead and people origination funnels, which is exactly why it must not also be the Technology Anchor.
+**Context:** The owner controls the entire opportunity, which removes the natural tension that normally keeps a platform's builder honest about its own economics. The blockchain precedent supplies the shape: Consensys to Ethereum, IOHK to Cardano — an anchor that builds and stewards without owning the funnel. The operating precedent is Siteforum GmbH's portal and development platform, where the development administration and the business administration were distinct systems over the same substrate.
+
+The historical precedent is the 2008–2012 multi-startup, multi-codebase structure
+built around the Siteforum stack. Insurance companies would only accept a coordinated
+restoration platform if they controlled it, and control would have turned it into a
+cost-plus clearinghouse on the contractor side and an "Uber claims" dispatch board
+on the claims side. The counter-move was to build the platform and each Stakeholder
+Group in parallel and sell the platform to the Groups rather than to the insurers.
+The multi-startup / multi-codebase structure was not only legal posture; it was
+architectural redundancy that made the system too distributed for any single player
+to capture. While waiting for the market to catch up, the founder tracked blockchain
+ICOs, SPACs, crypto markets, and later LLM platforms as governance and funding models
+that could eventually host the same idea.
+
+Kimosabe.ai has no revenue model of its own; anything it earns comes from the economic
+model assigned to lead and people origination funnels, which is exactly why it must not
+also be the Technology Anchor. RRCA's position as both construction-management operator
+and platform originator creates a conflict of interest that the two-administration split
+is designed to solve structurally rather than obscure.
 
 **Consequences:**
 - SAS A owns stack, identity, permissions, releases, schema, ledger machinery, API/MCP, and the project record. It never owns pricing or funnel economics.
