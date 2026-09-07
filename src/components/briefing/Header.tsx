@@ -213,6 +213,16 @@ export function Header() {
               </li>
               {signedIn ? (
                 <>
+                  <li>
+                    <Link
+                      to="/app"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
+                    >
+                      App Home
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
                   {isFounder ? (
                     <li>
                       <Link
