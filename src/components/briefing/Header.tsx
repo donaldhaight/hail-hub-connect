@@ -18,7 +18,7 @@ const NAV = [
 export function Header() {
   const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState(false);
-  const [isFounder, setIsFounder] = useState(false);
+  
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
