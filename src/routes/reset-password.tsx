@@ -49,7 +49,7 @@ function ResetPasswordPage() {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
       setDone(true);
-      setTimeout(() => navigate({ to: "/admin/inbox" }), 900);
+      setTimeout(() => navigate({ to: "/app" }), 900);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not update password");
     } finally {

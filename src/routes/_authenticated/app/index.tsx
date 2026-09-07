@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, Circle } from "lucide-react";
 import { AppShell } from "@/components/apphome/AppShell";
+import { WelcomeCard } from "@/components/apphome/WelcomeCard";
 import { getAppHome, type AppHomeTask } from "@/lib/apphome.functions";
 import { listMyRoleTags } from "@/lib/roles.functions";
 import { KIMOSABE_FEED } from "@/lib/kimosabe-feed";
@@ -11,7 +12,7 @@ import { ACTIVE_ROLE_KEY, roleLabel } from "@/lib/roles";
 import { PLATFORM_TOKEN } from "@/lib/wallet.schedule";
 import { Meta } from "@/components/briefing/Badges";
 
-export const Route = createFileRoute("/_authenticated/app")({
+export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
     meta: [
       { title: "App Home — Kimosabe" },
@@ -68,12 +69,13 @@ function AppHomePage() {
   };
 
   const tasks: AppHomeTask[] = data?.tasks ?? [];
+  const open = tasks.filter((t) => !t.done);
   const visibleTasks = query
     ? tasks.filter(
         (t) =>
           (t.label + " " + t.detail).toLowerCase().includes(query.toLowerCase()),
       )
-    : tasks;
+    : open;
 
   const feed = KIMOSABE_FEED.filter((item) => {
     if (query && !(item.from + " " + item.body).toLowerCase().includes(query.toLowerCase()))
@@ -117,19 +119,37 @@ function AppHomePage() {
           </p>
         ) : null}
 
+        {data ? (
+          <WelcomeCard
+            identity={data.email}
+            roles={roles}
+            balance={data.balance}
+            walletClaimedAt={data.walletClaimedAt}
+          />
+        ) : null}
+
         {/* The toll booth: every workflow's tasks stop here first. */}
         <section aria-label="Tasks" className="mb-10">
-          <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
-            Tasks
+          <div className="mb-3 flex items-baseline justify-between">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+              Tasks
+            </div>
+            <Link
+              to="/app/tasks"
+              className="font-mono text-[10px] uppercase tracking-[0.18em] text-navy hover:underline"
+            >
+              All tasks ({tasks.length})
+            </Link>
           </div>
           {isLoading ? (
             <p className="text-sm text-muted-foreground">Loading tasks…</p>
           ) : visibleTasks.length ? (
             <div className="grid gap-3 md:grid-cols-2">
               {visibleTasks.map((t) => (
-                <a
+                <Link
                   key={t.id}
-                  href={t.href}
+                  to="/app/tasks/$taskId"
+                  params={{ taskId: t.id }}
                   className="group flex gap-3 border border-border p-5 transition-colors hover:border-navy"
                 >
                   {t.done ? (
@@ -143,7 +163,7 @@ function AppHomePage() {
                       {t.detail}
                     </span>
                   </span>
-                </a>
+                </Link>
               ))}
             </div>
           ) : (

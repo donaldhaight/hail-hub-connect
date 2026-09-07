@@ -44,7 +44,7 @@ function AcceptPage() {
       const r = await redeem({ data: { token } });
       if (r.ok) {
         setStatus("ok");
-        setTimeout(() => navigate({ to: "/insider" }), 800);
+        setTimeout(() => navigate({ to: "/app" }), 800);
         return;
       }
       setStatus("error");

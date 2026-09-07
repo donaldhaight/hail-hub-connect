@@ -198,5 +198,5 @@ async function redirectAfterAuth(navigate: ReturnType<typeof useNavigate>) {
   } catch {
     // ignore — non-fatal
   }
-  navigate({ to: "/admin/inbox" });
+  navigate({ to: "/app" });
 }
