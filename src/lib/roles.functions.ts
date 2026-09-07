@@ -240,6 +240,10 @@ export type RoleRequestRow = {
   context: string | null;
   created_at: string;
   wallet_jbk: number | null;
+  /** What has already happened to this human. */
+  invited_at: string | null;
+  redeemed_at: string | null;
+  seat_status: string | null;
 };
 
 export const listRoleRequests = createServerFn({ method: "GET" })
