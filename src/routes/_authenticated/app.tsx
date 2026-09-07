@@ -5,7 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, Circle } from "lucide-react";
 import { AppShell } from "@/components/apphome/AppShell";
 import { getAppHome, type AppHomeTask } from "@/lib/apphome.functions";
-import { listMyRoleTags, getCertification } from "@/lib/roles.functions";
+import { listMyRoleTags } from "@/lib/roles.functions";
 import { KIMOSABE_FEED } from "@/lib/kimosabe-feed";
 import { ACTIVE_ROLE_KEY, roleLabel } from "@/lib/roles";
 import { PLATFORM_TOKEN } from "@/lib/wallet.schedule";
