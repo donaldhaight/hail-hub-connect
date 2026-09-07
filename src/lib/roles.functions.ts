@@ -297,7 +297,13 @@ export const listRoleRequests = createServerFn({ method: "GET" })
 export const grantRoleToRequest = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((d: unknown) =>
-    z.object({ requestId: z.string().uuid(), roleKey: z.string().max(60) }).parse(d),
+    z
+      .object({
+        requestId: z.string().uuid(),
+        roleKey: z.string().max(60),
+        invite: z.boolean().optional().default(false),
+      })
+      .parse(d),
   )
   .handler(async ({ data, context }) => {
     await assertFounder(context);
