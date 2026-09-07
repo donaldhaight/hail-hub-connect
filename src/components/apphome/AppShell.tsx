@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, Search, Plus, X } from "lucide-react";
 import { roleLabel } from "@/lib/roles";
 
@@ -40,6 +40,16 @@ function linksForRoles(roles: string[]): AppNavLink[] {
   return out;
 }
 
+/** One honest line about what holding a role opens. */
+const ROLE_OPENS: Record<string, string> = {
+  founder_admin: "The queue, console, ledger, broadcast and Situation Room.",
+  isr: "The certification curriculum and the MarketApp, when it opens.",
+  lc: "Listed in the Role Store; opens when its course is written.",
+  qualified_insider: "The Situation Room and the insider dossiers.",
+  verified_member: "App Home, your wallet, and the open record.",
+  interested_user: "The front door and a wallet that earns before you sign up.",
+};
+
 const COMING_SOON_APPS = ["BooksForge", "MusicApp", "MovieApp", "MyGPT.TV"];
 
 /**
@@ -57,10 +67,13 @@ export function AppShell({
   roles: string[];
   activeRole: string | null;
   onSwitchRole: (role: string) => void;
-  onSearch: (q: string) => void;
+  /** Optional live filter for the page below; Enter always opens full search. */
+  onSearch?: (q: string) => void;
   children: ReactNode;
 }) {
+  const navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
+  const isFounder = roles.includes("founder_admin");
   const [newOpen, setNewOpen] = useState(false);
   const [roleOpen, setRoleOpen] = useState(false);
   const links = linksForRoles(roles);
@@ -109,7 +122,13 @@ export function AppShell({
             <input
               type="search"
               placeholder="Search your file"
-              onChange={(e) => onSearch(e.target.value)}
+              onChange={(e) => onSearch?.(e.target.value)}
+              onKeyDown={(e) => {
+                const q = e.currentTarget.value.trim();
+                if (e.key === "Enter" && q.length >= 2) {
+                  navigate({ to: "/app/search", search: { q } });
+                }
+              }}
               className="h-9 w-full border border-border bg-transparent pl-9 pr-3 text-sm text-ink placeholder:text-silver focus:border-navy focus:outline-none"
             />
           </div>
@@ -140,10 +159,19 @@ export function AppShell({
                 <Link
                   to="/roles"
                   onClick={() => setNewOpen(false)}
-                  className="block px-4 py-3 text-sm text-ink hover:bg-secondary"
+                  className={`block px-4 py-3 text-sm text-ink hover:bg-secondary ${isFounder ? "border-b border-border/60" : ""}`}
                 >
                   Start a certification
                 </Link>
+                {isFounder ? (
+                  <Link
+                    to="/admin/invite"
+                    onClick={() => setNewOpen(false)}
+                    className="block px-4 py-3 text-sm text-ink hover:bg-secondary"
+                  >
+                    Send an invitation
+                  </Link>
+                ) : null}
               </div>
             ) : null}
           </div>
@@ -175,11 +203,14 @@ export function AppShell({
                         onSwitchRole(r);
                         setRoleOpen(false);
                       }}
-                      className={`block w-full px-4 py-3 text-left text-sm transition-colors hover:bg-secondary ${
+                      className={`block w-full border-b border-border/60 px-4 py-3 text-left text-sm transition-colors last:border-b-0 hover:bg-secondary ${
                         r === activeRole ? "font-medium text-navy" : "text-ink"
                       }`}
                     >
-                      {roleLabel(r)}
+                      <span className="block">{roleLabel(r)}</span>
+                      <span className="mt-0.5 block text-xs leading-relaxed text-silver">
+                        {ROLE_OPENS[r] ?? "Opens what the founder has attached to it."}
+                      </span>
                     </button>
                   ))
                 ) : (
@@ -193,7 +224,7 @@ export function AppShell({
 
           {/* Account settings */}
           <Link
-            to="/ledger"
+            to="/app/account"
             className="hidden h-9 items-center border border-border px-3 font-mono text-[10px] uppercase tracking-[0.16em] text-silver transition-colors hover:border-navy hover:text-ink md:flex"
           >
             Account
