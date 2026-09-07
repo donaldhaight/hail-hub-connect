@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_task_states: {
+        Row: {
+          completed_at: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       backlog_comments: {
         Row: {
           author_id: string | null
