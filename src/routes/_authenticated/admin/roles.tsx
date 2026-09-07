@@ -47,13 +47,19 @@ function AdminRoles() {
       .catch(() => undefined);
   }, [refresh, catalog]);
 
-  async function doGrant(requestId: string, roleKey: string) {
+  async function doGrant(requestId: string, roleKey: string, invite = false) {
     if (!roleKey) return;
     setBusy(requestId);
     setNotice(null);
     try {
-      const res = await grant({ data: { requestId, roleKey } });
-      setNotice(res.appliedNow ? "Role granted and applied to their account." : "Role granted. It applies when they redeem their invitation.");
+      const res = await grant({ data: { requestId, roleKey, invite } });
+      setNotice(
+        res.appliedNow
+          ? "Role granted and applied to their account."
+          : res.invited
+            ? "Accepted. Their group is set and the invitation is on its way."
+            : "Role granted. It applies when they redeem their invitation.",
+      );
       refresh();
     } catch {
       setNotice("The grant could not be recorded.");
