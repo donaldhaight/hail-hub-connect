@@ -33,7 +33,7 @@ export function AppShell({
   const isFounder = roles.includes("founder_admin");
   const [newOpen, setNewOpen] = useState(false);
   const [roleOpen, setRoleOpen] = useState(false);
-  const links = linksForRoles(roles);
+  const links = doorsForRoles(roles);
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
