@@ -87,6 +87,12 @@ export function Header() {
           {signedIn ? (
             <>
               <RoleSwitcher />
+              <Link
+                to="/app"
+                className="hidden whitespace-nowrap text-[12px] font-mono uppercase tracking-[0.14em] text-navy hover:text-ink xl:inline"
+              >
+                Home
+              </Link>
               {isFounder ? (
 
                 <Link
