@@ -34,8 +34,8 @@ export const briefingRequestSchema = z.object({
     ["investor", "sponsor", "partner", "counsel", "advisor", "prepare-america"],
     { message: "Select a primary interest" },
   ),
-  requestedRole: z
-    .enum([
+  requestedRole: z.enum(
+    [
       "industry_observer",
       "venture_tech",
       "systems_tech",
@@ -44,8 +44,9 @@ export const briefingRequestSchema = z.object({
       "fin_tech",
       "construction_management",
       "business_development",
-    ])
-    .optional(),
+    ],
+    { message: "Choose the group you belong to" },
+  ),
   anchor: z
     .string()
     .optional()
