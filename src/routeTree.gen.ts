@@ -43,9 +43,9 @@ import { Route as BClaimstoreRouteImport } from './routes/b/claimstore'
 import { Route as BBuddyClaimRouteImport } from './routes/b/buddy-claim'
 import { Route as AuthenticatedRoomRouteImport } from './routes/_authenticated/room'
 import { Route as AuthenticatedLedgerRouteImport } from './routes/_authenticated/ledger'
-import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedManualIndexRouteImport } from './routes/_authenticated/manual/index'
 import { Route as AuthenticatedInsiderIndexRouteImport } from './routes/_authenticated/insider/index'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenticated/manual/print'
 import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
@@ -236,11 +236,6 @@ const AuthenticatedLedgerRoute = AuthenticatedLedgerRouteImport.update({
   path: '/ledger',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedManualIndexRoute =
   AuthenticatedManualIndexRouteImport.update({
     id: '/manual/',
@@ -253,6 +248,11 @@ const AuthenticatedInsiderIndexRoute =
     path: '/insider/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+  id: '/app/',
+  path: '/app/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -387,7 +387,6 @@ export interface FileRoutesByFullPath {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
-  '/app': typeof AuthenticatedAppRoute
   '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -420,6 +419,7 @@ export interface FileRoutesByFullPath {
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/app/': typeof AuthenticatedAppIndexRoute
   '/insider/': typeof AuthenticatedInsiderIndexRoute
   '/manual/': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -445,7 +445,6 @@ export interface FileRoutesByTo {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
-  '/app': typeof AuthenticatedAppRoute
   '/ledger': typeof AuthenticatedLedgerRoute
   '/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -478,6 +477,7 @@ export interface FileRoutesByTo {
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/manual/print': typeof AuthenticatedManualPrintRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/app': typeof AuthenticatedAppIndexRoute
   '/insider': typeof AuthenticatedInsiderIndexRoute
   '/manual': typeof AuthenticatedManualIndexRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -505,7 +505,6 @@ export interface FileRoutesById {
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
   '/why-rrca': typeof WhyRrcaRoute
-  '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/ledger': typeof AuthenticatedLedgerRoute
   '/_authenticated/room': typeof AuthenticatedRoomRoute
   '/b/buddy-claim': typeof BBuddyClaimRoute
@@ -538,6 +537,7 @@ export interface FileRoutesById {
   '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
   '/_authenticated/manual/print': typeof AuthenticatedManualPrintRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/insider/': typeof AuthenticatedInsiderIndexRoute
   '/_authenticated/manual/': typeof AuthenticatedManualIndexRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
@@ -565,7 +565,6 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
-    | '/app'
     | '/ledger'
     | '/room'
     | '/b/buddy-claim'
@@ -598,6 +597,7 @@ export interface FileRouteTypes {
     | '/manual/$slug'
     | '/manual/print'
     | '/admin/'
+    | '/app/'
     | '/insider/'
     | '/manual/'
     | '/insider/dossier/$slug'
@@ -623,7 +623,6 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
-    | '/app'
     | '/ledger'
     | '/room'
     | '/b/buddy-claim'
@@ -656,6 +655,7 @@ export interface FileRouteTypes {
     | '/manual/$slug'
     | '/manual/print'
     | '/admin'
+    | '/app'
     | '/insider'
     | '/manual'
     | '/insider/dossier/$slug'
@@ -682,7 +682,6 @@ export interface FileRouteTypes {
     | '/vision'
     | '/why-prepare-america'
     | '/why-rrca'
-    | '/_authenticated/app'
     | '/_authenticated/ledger'
     | '/_authenticated/room'
     | '/b/buddy-claim'
@@ -715,6 +714,7 @@ export interface FileRouteTypes {
     | '/_authenticated/manual/$slug'
     | '/_authenticated/manual/print'
     | '/_authenticated/admin/'
+    | '/_authenticated/app/'
     | '/_authenticated/insider/'
     | '/_authenticated/manual/'
     | '/_authenticated/insider/dossier/$slug'
@@ -987,13 +987,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLedgerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app': {
-      id: '/_authenticated/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AuthenticatedAppRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/manual/': {
       id: '/_authenticated/manual/'
       path: '/manual'
@@ -1006,6 +999,13 @@ declare module '@tanstack/react-router' {
       path: '/insider'
       fullPath: '/insider/'
       preLoaderRoute: typeof AuthenticatedInsiderIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
+      path: '/app'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/': {
@@ -1152,7 +1152,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedLedgerRoute: typeof AuthenticatedLedgerRoute
   AuthenticatedRoomRoute: typeof AuthenticatedRoomRoute
   AuthenticatedAdminBroadcastRoute: typeof AuthenticatedAdminBroadcastRoute
@@ -1174,13 +1173,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
   AuthenticatedManualPrintRoute: typeof AuthenticatedManualPrintRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedInsiderIndexRoute: typeof AuthenticatedInsiderIndexRoute
   AuthenticatedManualIndexRoute: typeof AuthenticatedManualIndexRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedLedgerRoute: AuthenticatedLedgerRoute,
   AuthenticatedRoomRoute: AuthenticatedRoomRoute,
   AuthenticatedAdminBroadcastRoute: AuthenticatedAdminBroadcastRoute,
@@ -1202,6 +1201,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
   AuthenticatedManualPrintRoute: AuthenticatedManualPrintRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedInsiderIndexRoute: AuthenticatedInsiderIndexRoute,
   AuthenticatedManualIndexRoute: AuthenticatedManualIndexRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
