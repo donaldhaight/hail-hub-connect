@@ -2,55 +2,12 @@ import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, Search, Plus, X } from "lucide-react";
 import { roleLabel } from "@/lib/roles";
+import { doorsForRoles, ROLE_OPENS, type AccessDoor } from "@/lib/access";
 
-export type AppNavLink = { label: string; href: string };
-
-/** Base links every signed-in person sees. */
-const BASE_LINKS: AppNavLink[] = [
-  { label: "App Home", href: "/app" },
-  { label: "Role Store", href: "/roles" },
-  { label: "Kimosabe front door", href: "/kimosabe" },
-  { label: "The Owner's Manual", href: "/manual" },
-];
-
-/** Role-shaped nav contents — what the person holds shapes what they receive. */
-const ROLE_LINKS: Record<string, AppNavLink[]> = {
-  founder_admin: [
-    { label: "The Request Queue", href: "/admin/queue" },
-    { label: "Founder Console", href: "/admin" },
-    { label: "Inbox", href: "/admin/inbox" },
-    { label: "Invitations", href: "/admin/invite" },
-    { label: "Digest", href: "/admin/digest" },
-    { label: "Tour", href: "/admin/tour" },
-    { label: "Platform ledger", href: "/ledger" },
-    { label: "Broadcast control", href: "/admin/broadcast" },
-    { label: "Situation Room", href: "/room" },
-  ],
-  isr: [{ label: "ISR certification", href: "/roles" }],
-  qualified_insider: [{ label: "Situation Room", href: "/room" }],
-};
-
-function linksForRoles(roles: string[]): AppNavLink[] {
-  const out = [...BASE_LINKS];
-  for (const r of roles) {
-    for (const l of ROLE_LINKS[r] ?? []) {
-      if (!out.some((o) => o.href === l.href)) out.push(l);
-    }
-  }
-  return out;
-}
-
-/** One honest line about what holding a role opens. */
-const ROLE_OPENS: Record<string, string> = {
-  founder_admin: "The queue, console, ledger, broadcast and Situation Room.",
-  isr: "The certification curriculum and the MarketApp, when it opens.",
-  lc: "Listed in the Role Store; opens when its course is written.",
-  qualified_insider: "The Situation Room and the insider dossiers.",
-  verified_member: "App Home, your wallet, and the open record.",
-  interested_user: "The front door and a wallet that earns before you sign up.",
-};
+export type AppNavLink = AccessDoor;
 
 const COMING_SOON_APPS = ["BooksForge", "MusicApp", "MovieApp", "MyGPT.TV"];
+
 
 /**
  * The App Home shell — desk-scale. One bar: nav menu upper left, search, New,
@@ -76,7 +33,7 @@ export function AppShell({
   const isFounder = roles.includes("founder_admin");
   const [newOpen, setNewOpen] = useState(false);
   const [roleOpen, setRoleOpen] = useState(false);
-  const links = linksForRoles(roles);
+  const links = doorsForRoles(roles);
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
