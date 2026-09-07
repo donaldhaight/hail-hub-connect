@@ -123,3 +123,57 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 ## Email
 
 Email templates and send stubs live in `src/lib/email.ts`. They are currently no-ops because no sender domain has been verified. Once a domain is connected through Lovable Cloud Email, the stubs can be activated without changing call sites.
+
+## SAS A and SAS B
+
+Added 2026-09-07. Formerly a single system referred to as **SiteBMS**, now deliberately
+two heads with one shared record. The lineage is the Siteforum GmbH portal and
+development platform, where the platform that built things and the business that ran
+them were distinct administrations over the same substrate.
+
+### SAS A — Technology and Project Administration
+
+Owned by the Technology Anchor (Market Applications, TBD).
+
+Owns: the stack and its environments, identity, roles and permissions, the release path,
+migrations and schema, the append-only ledger machinery, the API/MCP surface, the
+integration architecture, and the project record (sprints, offers, variance, HTER/ATER).
+
+Must never own: pricing, funnel economics, counterparty relationships, or the books.
+
+Answers: *can it be built, proven, and kept honest?*
+
+### SAS B — Business Administration
+
+Owned by the business development spin-off (Kimosabe.ai) and whatever operating entity
+ultimately runs the platform.
+
+Owns: the origination funnels for leads and people, pricing and the rung economics of
+the ladder, counterparties and agreements, sponsorship and seat rights, the books, and
+the profit/non-profit question.
+
+Must never own: schema, permissions, release authority, or the ledger's write path.
+
+Answers: *should it be sold, to whom, and at what price?*
+
+### Where they meet
+
+One record. Both administrations read the same append-only ledger and the same identity
+spine; neither can quietly rewrite the other's history. SAS A writes the events; SAS B
+prices them. Any surface that lets a business decision mutate technical state — or a
+technical convenience mutate an economic fact — is a defect, not a shortcut.
+
+```text
+   Market Applications            Kimosabe.ai
+   (Technology Anchor)         (BizDev spin-off)
+            |                          |
+          SAS A                      SAS B
+   stack / project             platform business
+            \____ one shared record ____/
+```
+
+### Unsettled
+
+Profit or non-profit; the legal shape behind "Market Applications, TBD"; the economic
+model assigned to the origination funnels. These are held open in the documents rather
+than assumed in the code.

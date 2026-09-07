@@ -140,3 +140,16 @@ This document records load-bearing architecture and product decisions. Each entr
 - ClaimExpress is specified as a protocol (objects, states, events) before more UI is built on it, so ISRs and LCs can participate without abandoning their current systems.
 - The four-boundary redaction map (§11 of `docs/PROTOCOL.md`) governs what any demo may show.
 - The hold is lifted only by a superseding ADR.
+
+## ADR-013: Split the administration system into SAS A and SAS B
+
+**Decision:** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
+
+**Context:** The owner controls the entire opportunity, which removes the natural tension that normally keeps a platform's builder honest about its own economics. The blockchain precedent supplies the shape: Consensys to Ethereum, IOHK to Cardano — an anchor that builds and stewards without owning the funnel. The operating precedent is Siteforum GmbH's portal and development platform, where the development administration and the business administration were distinct systems over the same substrate. Kimosabe.ai has no revenue model of its own; anything it earns comes from the economic model assigned to lead and people origination funnels, which is exactly why it must not also be the Technology Anchor.
+
+**Consequences:**
+- SAS A owns stack, identity, permissions, releases, schema, ledger machinery, API/MCP, and the project record. It never owns pricing or funnel economics.
+- SAS B owns funnels, pricing, rung economics, counterparties, seat rights, and the books. It never owns schema, permissions, release authority, or the ledger write path.
+- One append-only record serves both; SAS A writes events, SAS B prices them.
+- Kimosabe.ai is documented as a front door and spin-off, **not** a standalone business with its own revenue model. Earlier framing of Kimosabe as a business in itself is superseded.
+- Profit vs non-profit, the legal shape behind "Market Applications, TBD", the 2008–2012 original plans and their assumed legalities, and the funnel economic model are recorded as **unsettled** and must not be assumed in code.

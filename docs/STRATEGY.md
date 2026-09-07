@@ -340,3 +340,36 @@ Deliberately unresolved. Kept visible so they do not resolve themselves by defau
 | Date | Change |
 |------|--------|
 | 2026-08-25 | Initial memo. Corrected the 11-1-2026 timeline from single physical convening to two-congress structure; established the invitation ladder, mark usage, and vocabulary. |
+
+---
+
+## 11. The Technology Anchor and the Spin-Off
+
+Added 2026-09-07. Structure as stated by the owner; the surrounding history is still
+being described and is not yet written down here.
+
+Two entities sit under one owner, separated on purpose so that the party building the
+stack is not the party selling the funnel.
+
+**Market Applications (TBD)** is the **Technology Anchor**. It plays the role Consensys
+plays for Ethereum and IOHK plays for Cardano: it builds, stewards, and vouches for the
+platform. It does not originate leads and it does not take a cut of them.
+
+**Kimosabe.ai** is the **business development spin-off**. It is the front door, not the
+treasury. It has **no revenue model of its own** — whatever it earns is whatever economic
+model gets assigned to the lead and people origination funnels that pass through it.
+
+The separation is a conflict-of-interest firewall. The owner controls the whole
+opportunity, so the discipline has to be structural rather than adversarial: the anchor
+can be trusted about the technology precisely because it is not paid by the funnel, and
+the funnel can be priced honestly because it is not also grading its own stack.
+
+From that split fall the two administration systems, formerly one thing called SiteBMS —
+see `docs/ARCHITECTURE.md` §"SAS A and SAS B" and ADR-013.
+
+### Unsettled
+
+- Profit or non-profit for the platform business.
+- The legal shape and final name behind "Market Applications, TBD".
+- The 2008–2012 original business plans and their assumed legalities.
+- The economic model assigned to the origination funnels.
