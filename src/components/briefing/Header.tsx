@@ -182,28 +182,6 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
-                  {isFounder ? (
-                    <li>
-                      <Link
-                        to="/admin"
-                        onClick={() => setOpen(false)}
-                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
-                      >
-                        Console
-                        <span aria-hidden="true">→</span>
-                      </Link>
-                    </li>
-                  ) : null}
-                  <li>
-                    <Link
-                      to="/room"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Situation Room
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       to="/manual"
@@ -214,48 +192,6 @@ export function Header() {
                       <span aria-hidden="true">→</span>
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to="/admin/tour"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Tour
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/digest"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Digest
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/admin/inbox"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground"
-                    >
-                      Inbox
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                  {isFounder ? (
-                    <li>
-                      <Link
-                        to="/admin/invite"
-                        onClick={() => setOpen(false)}
-                        className="flex items-center justify-between py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-navy"
-                      >
-                        Invite
-                        <span aria-hidden="true">→</span>
-                      </Link>
-                    </li>
-                  ) : null}
                   <li>
                     <button
                       type="button"
