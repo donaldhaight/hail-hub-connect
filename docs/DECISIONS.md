@@ -270,3 +270,47 @@ Open before it can be adopted:
   closes the other.
 
 Nothing may be built on this until it is adopted as a decision.
+
+## ADR-018: The address-centred state machine
+
+**Decision:** Settled 2026-09-09 from the *RRCA SiteBMS — Minimum Records Requirement
+Handoff*. Three rules govern the operating record.
+
+1. **One record changes state; states do not create records.** The persistent Address
+   record and the persistent User identity continue through
+   `Prospect → Lead → Pending Project → Project → Warranty`. These are workflow states
+   or business labels on one continuing, address-centred record, not five objects.
+   "Warranty" is a placeholder name for the post-project state.
+2. **Complete Offer is an append-only snapshot.** Completing an Offer records a versioned
+   snapshot with date/time and acting source/actor. Later changes never erase a completed
+   offer; a record may carry many offers in its history. Offers stand on the same
+   never-rewritten footing as the ledger.
+3. **Provenance is locked at entry.** The source of the address and the source of the
+   user, their entry dates, and the person or system that created or activated the record
+   are preserved and not casually overwritten later in the workflow. Locks may bind even
+   the Licensed Contractor after the relevant event fires.
+
+Two scope rulings ride with it:
+
+- **Prospect is named but out of Phase 1.** A Prospect may eventually represent every
+  U.S. address; that capability does not exist and is not assumed. Records begin as Leads
+  today. *Claim Your Address*, bot protection, bulk activation and address ownership are
+  future work.
+- **The field-locking matrix is deliberately deferred.** Only the three minimum locks
+  above are in force.
+
+**Context:** The handoff is the first description of the operating model as a single
+continuing record with states, rather than a feature list. It supplies what ADR-015
+anticipated when it made Property the anchor: the states that anchor actually moves
+through, and the economics attached to them (Jobs, Job Orders, Other Charges).
+
+**Consequences:**
+- `docs/RECORDS-MODEL.md` holds the full requirement set, marked *requirements in
+  progress*; legacy ClaimExpress screens are reconciled against that document rather
+  than against the codebase, which contains none of these objects.
+- Narrower LC duties — production, estimating, collections — remain **assignments**, not
+  Stakeholder roles, per ADR-014. Data entry starts with LC Company Admin and ISR Admin.
+- Task generation shifts from onboarding tasks to `State + Need → Task` driven by real
+  operating events. That is a next-stage requirement, not built.
+- The locked work order is unchanged. Four questions (RECORDS-MODEL §12) and the
+  Connecticut inputs C16/C17/C24 gate the first migration.
