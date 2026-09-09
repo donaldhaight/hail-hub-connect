@@ -4,10 +4,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { Search } from "lucide-react";
 import { routeHead } from "@/lib/site";
 import { earnToken, payEntryFee, resolveWallet, type WalletView } from "@/lib/wallet.functions";
-import { EARN_SCHEDULE, PLATFORM_TOKEN, reasonLabel } from "@/lib/wallet.schedule";
+import {
+  EARN_SCHEDULE,
+  KIMOSABE_ANCHOR_KEY as ANCHOR_KEY,
+  PLATFORM_TOKEN,
+  reasonLabel,
+} from "@/lib/wallet.schedule";
 import { Meta } from "@/components/briefing/Badges";
-
-const ANCHOR_KEY = "kimosabe.anchor";
 
 export const Route = createFileRoute("/kimosabe")({
   head: () =>

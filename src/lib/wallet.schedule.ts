@@ -41,6 +41,13 @@ export const ENTRY_PRICE_JBK = 150;
 
 export const PLATFORM_TOKEN = "JBK";
 
+/**
+ * Where the browser remembers an anonymous file between visits. The front door
+ * writes it; the authenticated shell reads it once to claim the wallet, then
+ * clears it. Shared so the two ends can never drift apart.
+ */
+export const KIMOSABE_ANCHOR_KEY = "kimosabe.anchor";
+
 export const REASON_LABELS: Record<string, string> = {
   "earned:arrival": "Arrival",
   "earned:share": "Share",
