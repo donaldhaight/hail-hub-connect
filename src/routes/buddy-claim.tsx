@@ -3,9 +3,9 @@ import { FrontDoor } from "@/components/frontdoor/FrontDoor";
 import { getPersona } from "@/content/personas";
 import { routeHead } from "@/lib/site";
 
-const persona = getPersona("kimosabe");
+const persona = getPersona("buddy-claim");
 
-export const Route = createFileRoute("/kimosabe")({
+export const Route = createFileRoute("/buddy-claim")({
   head: () =>
     routeHead({
       title: persona.title,
@@ -13,9 +13,9 @@ export const Route = createFileRoute("/kimosabe")({
       path: persona.path,
       ogType: "website",
     }),
-  component: KimosabePage,
+  component: BuddyClaimPage,
 });
 
-function KimosabePage() {
+function BuddyClaimPage() {
   return <FrontDoor persona={persona} />;
 }
