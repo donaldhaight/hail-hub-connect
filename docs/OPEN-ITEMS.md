@@ -154,3 +154,17 @@ ISR onboarding, the ISR→LC connection, lead origination and assignment, and of
 completion all run through the Records layer. None of them is unblocked by naming these
 concepts; naming them ensures the object model is cut once, with the game, the program,
 the referral position, and the consumer surface already in view.
+
+## H. The SiteBMS minimum-records handoff (2026-09-09)
+
+RRCA's *Minimum Records Requirement Handoff* is recorded in full as
+`docs/RECORDS-MODEL.md` (marked *requirements in progress*) and its three settled rules
+as ADR-018. It adds A22–A28 and C26–C29 above.
+
+It does **not** move the locked work order. It is the operating-model input to the
+Records layer, and it supplies two more questions (C26, C27) that must be answered
+before the object model is cut, alongside the Connecticut inputs C16, C17 and C24.
+
+Legacy ClaimExpress / Siteforum screens, when supplied, are reconciled against
+`docs/RECORDS-MODEL.md` — the codebase holds none of these objects, so there is nothing
+there to compare them to.
