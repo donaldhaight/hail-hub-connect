@@ -143,7 +143,9 @@ This document records load-bearing architecture and product decisions. Each entr
 
 ## ADR-013: Split the administration system into SAS A and SAS B
 
-**Decision:** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
+**Status: superseded by ADR-014.** The "two administrations replace SiteBMS" framing below is retained for history. The corrected model is three things, not two: SAS A, SAS B, and SiteBMS as the Construction Management Group's own operating system.
+
+**Decision (original, now superseded):** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
 
 **Context:** The owner controls the entire opportunity, which removes the natural tension that normally keeps a platform's builder honest about its own economics. The blockchain precedent supplies the shape: Consensys to Ethereum, IOHK to Cardano — an anchor that builds and stewards without owning the funnel. The operating precedent is Siteforum GmbH's portal and development platform, where the development administration and the business administration were distinct systems over the same substrate.
 
@@ -171,3 +173,26 @@ is designed to solve structurally rather than obscure.
 - One append-only record serves both; SAS A writes events, SAS B prices them.
 - Kimosabe.ai is documented as a front door and spin-off, **not** a standalone business with its own revenue model. Earlier framing of Kimosabe as a business in itself is superseded.
 - Profit vs non-profit, the legal shape behind "Market Applications, TBD", the 2008–2012 original plans and their assumed legalities, and the funnel economic model are recorded as **unsettled** and must not be assumed in code.
+
+## ADR-014: Three administrations, not two — SAS A, SAS B, and SiteBMS
+
+**Decision:** Supersede ADR-013's central claim. SiteBMS is not replaced by SAS A and SAS B. The corrected model is:
+
+- **SAS A — Technology Administration.** Stack, environments, identity, permissions, schema, releases, ledger machinery, the API/MCP surface, and the technical record.
+- **SAS B — Platform / Human Blockchain Administration.** The stakeholder ecosystem: governance, groups, relationships, rules, assignments, platform-wide business controls, and shared market administration. Broader than ADR-013's "business administration" (pricing, funnels, books) — governance of the groups themselves belongs here.
+- **SiteBMS — the Construction Management Group's Business Management System.** The operating system used by whichever entity is assigned to manage the Construction Management Group. RRCA is the Founding Sponsor and first operator of that group, and therefore the first operator of the modern SiteBMS.
+
+Four operating decisions are settled with it:
+
+1. **Construction Manager is one operating role** — a single entity role alongside ISR and LC, not a family. Narrower duties (estimating, production, collections) are project assignments or company relationships, not separate roles.
+2. **SiteBMS lives inside this application, on the shared record** — an operating area of this app, not a separate surface reading through the API.
+3. **JobNimbus is the Phase 1 system of record for existing job and project data.** SiteBMS decides what must happen and records the events; where the two disagree about existing job data, JobNimbus wins during Phase 1.
+4. **Authority = Role + Company Relationship + Project Assignment.** All three must be true for an operating permission. Permissions become record-scoped, not menu-scoped.
+
+**Context:** The DH Method checkpoint (2026-09-09) corrected the record: the Siteforum-era precedent separated the portal administration, platform services, database administration, and development administration from the business-facing system RRCA actually operated — that fifth thing was the original SiteBMS. ADR-013 collapsed that distinction. The Draft Connecticut Agreement is the first live requirements source for the modern SiteBMS.
+
+**Consequences:**
+- ADR-013 remains in place as history, marked superseded; the strategy and architecture documents were corrected in the same pass.
+- Company and project assignment become first-class objects, because the authority rule cannot be expressed without them.
+- A stable identifier mapping between SiteBMS records and JobNimbus jobs, plus an explicit mirror-vs-reference field list, becomes required integration work.
+- The Records layer of the shared spine (companies, leads, opportunities, projects, claims, contracts, estimates, work orders, invoices, payments, commissions, approvals, evidence) is derived from the Connecticut Agreement and the live RRCA workflow — not invented.

@@ -124,52 +124,80 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 
 Email templates and send stubs live in `src/lib/email.ts`. They are currently no-ops because no sender domain has been verified. Once a domain is connected through Lovable Cloud Email, the stubs can be activated without changing call sites.
 
-## SAS A and SAS B
+## SAS A, SAS B, and SiteBMS
 
-Added 2026-09-07. Formerly a single system referred to as **SiteBMS**, now deliberately
-two heads with one shared record. The lineage is the Siteforum GmbH portal and
-development platform, where the platform that built things and the business that ran
-them were distinct administrations over the same substrate.
+Added 2026-09-07; corrected 2026-09-09 (ADR-014 supersedes ADR-013). Three distinct
+things over one shared record, not two. The lineage is the Siteforum GmbH portal and
+development platform, where the platform that built things, the platform administration
+that governed them, and the business system RRCA actually operated were separate.
 
-### SAS A — Technology and Project Administration
+### SAS A — Technology Administration
 
 Owned by the Technology Anchor (Market Applications, TBD).
 
 Owns: the stack and its environments, identity, roles and permissions, the release path,
 migrations and schema, the append-only ledger machinery, the API/MCP surface, the
-integration architecture, and the project record (sprints, offers, variance, HTER/ATER).
+integration architecture, and the technical record (sprints, offers, variance,
+HTER/ATER).
 
-Must never own: pricing, funnel economics, counterparty relationships, or the books.
+Must never own: group governance, funnel economics, counterparty relationships, or any
+Stakeholder Group's operating controls.
 
 Answers: *can it be built, proven, and kept honest?*
 
-### SAS B — Business Administration
+### SAS B — Platform / Human Blockchain Administration
 
-Owned by the business development spin-off (Kimosabe.ai) and whatever operating entity
-ultimately runs the platform.
+Owns: the stakeholder ecosystem — governance, groups, relationships, rules, assignments,
+platform-wide business controls, and shared market administration, including pricing and
+the rung economics of the ladder, counterparties, sponsorship and seat rights, and the
+profit/non-profit question.
 
-Owns: the origination funnels for leads and people, pricing and the rung economics of
-the ladder, counterparties and agreements, sponsorship and seat rights, the books, and
-the profit/non-profit question.
+Must never own: schema, permissions, release authority, the ledger's write path, or the
+operating controls of any single Stakeholder Group.
 
-Must never own: schema, permissions, release authority, or the ledger's write path.
+Answers: *who governs the platform, and on what terms?*
 
-Answers: *should it be sold, to whom, and at what price?*
+### SiteBMS — Construction Management Group Business Management System
+
+The operating system of the Construction Management Group, used by whichever entity is
+assigned to manage that group. **RRCA is the Founding Sponsor and first operator of the
+group, and therefore the first operator of the modern SiteBMS.**
+
+SiteBMS is not the whole platform and is not replaced by SAS A or SAS B. Construction
+Management Group control is never exposed to SAS A merely because SAS A owns the
+technical implementation.
+
+Owns: the group's files, workflows, reports and controls — company and user
+relationships, LC and ISR coordination, lead origination and assignment, project
+responsibility and Contractor of Record, sales through closeout authority, compensation
+and splits, documentation and evidence, dispute and workmanship responsibility.
+
+Operating decisions settled with ADR-014:
+
+- SiteBMS lives **inside this application** on the shared record — an operating area,
+  not a separate product behind the API.
+- **JobNimbus is the Phase 1 system of record** for existing job and project data.
+  SiteBMS decides what must happen and records the events; the API/MCP connects it to
+  the systems that already know how to do the work.
+- **Authority = Role + Company Relationship + Project Assignment.** All three must be
+  true for an operating permission; permissions are record-scoped, not menu-scoped.
+- **Construction Manager is one operating role**, alongside ISR and LC.
 
 ### Where they meet
 
-One record. Both administrations read the same append-only ledger and the same identity
-spine; neither can quietly rewrite the other's history. SAS A writes the events; SAS B
-prices them. Any surface that lets a business decision mutate technical state — or a
-technical convenience mutate an economic fact — is a defect, not a shortcut.
+One record. All three read the same append-only ledger and the same identity spine;
+none can quietly rewrite another's history. SAS A writes the events, SAS B prices and
+governs them, SiteBMS executes the work they describe. Any surface that lets a business
+decision mutate technical state — or a technical convenience mutate an economic or
+operating fact — is a defect, not a shortcut.
 
 ```text
-   Market Applications            Kimosabe.ai
-   (Technology Anchor)         (BizDev spin-off)
-            |                          |
-          SAS A                      SAS B
-   stack / project             platform business
-            \____ one shared record ____/
+   Market Applications            Kimosabe.ai              RRCA (first operator)
+   (Technology Anchor)         (BizDev spin-off)      Construction Mgmt Group
+            |                          |                       |
+          SAS A                      SAS B                  SiteBMS
+   technology admin        platform administration   group operating system
+            \____________ one shared record ________________/
 ```
 
 ### Unsettled

@@ -364,8 +364,12 @@ opportunity, so the discipline has to be structural rather than adversarial: the
 can be trusted about the technology precisely because it is not paid by the funnel, and
 the funnel can be priced honestly because it is not also grading its own stack.
 
-From that split fall the two administration systems, formerly one thing called SiteBMS —
-see `docs/ARCHITECTURE.md` §"SAS A and SAS B" and ADR-013.
+From that split fall the two platform administration systems — SAS A for technology
+administration and SAS B for platform / Human Blockchain administration. SiteBMS is a
+third, separate thing: the operating system of the Construction Management Group, run by
+whichever entity manages that group (initially RRCA). It is not replaced by SAS A or
+SAS B — see `docs/ARCHITECTURE.md` §"SAS A, SAS B, and SiteBMS" and ADR-014, which
+supersedes ADR-013.
 
 ### Unsettled
 
