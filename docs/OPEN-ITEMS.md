@@ -92,6 +92,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C23 | Referraltor — how the designation is earned, what it is under the authority rule, its features, benefits and ledger attribution | ADR-017, **proposed and not in force**. May resolve or collide with C19 |
 | C24 | Kimosabe memory retention and consent | ADR-016. Joins C16/C17 as an **input to** the Draft Connecticut Agreement |
 | C25 | Whether good-better-best offer generation may face a consumer at all | Epic 9, O-5. It currently sits in band 3 (`docs/PROTOCOL.md:207`, founder-only). A PO-facing variant needs either a redaction review or a generator that reveals no targeting logic |
+| C26 | Does a Project ID exist in JobNimbus today that SiteBMS should adopt as the shared identifier, or does SiteBMS mint its own and map to it? | `docs/RECORDS-MODEL.md` §12 Q1. Gates the JobNimbus mapping step |
+| C27 | Is income recognition at Job close a real RRCA accounting rule today, or a proposal? | §12 Q2. Determines whether the ledger writes a revenue event there |
+| C28 | Which data lives in the shared SiteBMS record, which is mirrored from JobNimbus, which is referenced by identifier only, and which events cross the boundary in each direction | `docs/RECORDS-MODEL.md` §11. ADR-014 named the need; the field list is unwritten |
+| C29 | Duplicate-address override — who is authorized, and is the override itself an event on the record? | §12 Q4 |
+
 
 ## D. Deliberately empty in the app
 
