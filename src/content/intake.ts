@@ -46,9 +46,9 @@ export const NOTE_KIND_LABEL: Record<NoteKind, string> = {
 
 /**
  * Copy for the "How this lane works" panel on /admin/intake.
- * Mirrors docs/PROTOCOL.md so the instructions sit where the work happens.
+ * Mirrors docs/law/PROTOCOL.md so the instructions sit where the work happens.
  */
-export const PROTOCOL_DOC = "docs/PROTOCOL.md";
+export const PROTOCOL_DOC = "docs/law/PROTOCOL.md";
 
 export const PROTOCOL_LEDE =
   "The corpus, not the conversation, is the source of truth. Drop material here before you know where it belongs — unfiled is a valid, durable, searchable state.";

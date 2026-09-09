@@ -168,8 +168,8 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 
 - Completed the first DH Method reconciliation with an external AI (ChatGPT): its understanding was compared against the live codebase, database, and planning context, and reported as Aligned / Different / Missing / Questions.
 - The founder issued five rulings, recorded as ADR-014: the Construction Manager is one operating role; SiteBMS stays inside this app on the shared record; JobNimbus is the Phase 1 system of record for existing job/project data; Authority = Role + Company Relationship + Project Assignment; the three-administration model (SAS A technology / SAS B platform / SiteBMS operations) supersedes the older interpretation.
-- Corrected `docs/ARCHITECTURE.md` and `docs/STRATEGY.md` to the three-administration model; updated project memory so no future session resurrects the superseded version.
+- Corrected `docs/law/ARCHITECTURE.md` and `docs/strategy/STRATEGY.md` to the three-administration model; updated project memory so no future session resurrects the superseded version.
 - Added Saga chapter *The Second Mind* (position 79) to the Owner's Manual, narrating the reconciliation and its governance lesson.
-- Closed `docs/DH-METHOD-CHECKPOINT-2026-09-09.md` with a status section.
+- Closed `docs/history/DH-METHOD-CHECKPOINT-2026-09-09.md` with a status section.
 - Narrative placement: still Act Two — this checkpoint is its hinge. Act Three begins when the first Construction Management Group (RRCA, founding sponsor and first operator) runs on the shared record.
 - Next queue: Records layer derivation from the Draft Connecticut Agreement, then the Construction Manager (SiteBMS) operating-perspective walkthrough.

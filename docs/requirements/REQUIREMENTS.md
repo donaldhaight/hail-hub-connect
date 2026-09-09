@@ -64,12 +64,12 @@ The project must be explainable to future collaborators, investors, and auditors
 | ID | Story | Acceptance criteria | Status |
 |----|-------|---------------------|--------|
 | D-1 | Project has a project-specific README. | README explains vision, local setup, tech stack, and links to docs. | shipped |
-| D-2 | Architecture is documented. | `docs/ARCHITECTURE.md` covers routes, auth, data model, and key modules. | shipped |
-| D-3 | Sprint history is documented. | `docs/SPRINTS.md` captures 0.1 through 0.14. | shipped |
-| D-4 | Requirements backlog is maintained. | `docs/REQUIREMENTS.md` exists and is updated each sprint. | shipped |
-| D-5 | Decisions are recorded. | `docs/DECISIONS.md` captures load-bearing choices with rationale. | shipped |
+| D-2 | Architecture is documented. | `docs/law/ARCHITECTURE.md` covers routes, auth, data model, and key modules. | shipped |
+| D-3 | Sprint history is documented. | `docs/work/SPRINTS.md` captures 0.1 through 0.14. | shipped |
+| D-4 | Requirements backlog is maintained. | `docs/requirements/REQUIREMENTS.md` exists and is updated each sprint. | shipped |
+| D-5 | Decisions are recorded. | `docs/law/DECISIONS.md` captures load-bearing choices with rationale. | shipped |
 | D-6 | Code is backed up to GitHub. | Repository is connected to a user-owned GitHub repo and sync is verified. | open |
-| D-7 | The working protocol is documented. | `docs/PROTOCOL.md` defines layers, the intake lifecycle, both sides of the loop, and the artifact → claim → requirement → code chain; surfaced in-app on `/admin/intake`. | shipped |
+| D-7 | The working protocol is documented. | `docs/law/PROTOCOL.md` defines layers, the intake lifecycle, both sides of the loop, and the artifact → claim → requirement → code chain; surfaced in-app on `/admin/intake`. | shipped |
 
 ## Epic 6 — Evidence, intake, and ideation
 

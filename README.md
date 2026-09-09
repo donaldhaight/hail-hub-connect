@@ -40,12 +40,12 @@ The dev server starts at `http://localhost:8080`.
 
 ## Project documentation
 
-- [`docs/PROTOCOL.md`](docs/PROTOCOL.md) — **how we work**: how material enters the archive, how it is annotated and filed, and how it becomes strategy, architecture, and code.
-- [`docs/STRATEGY.md`](docs/STRATEGY.md) — the governing strategy memo: timeline, the two congresses, brand architecture, vocabulary, and marketing posture.
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system map, routes, auth, and data model.
-- [`docs/SPRINTS.md`](docs/SPRINTS.md) — sprint-by-sprint history from 0.1 through 2.5.
-- [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) — living requirements backlog.
-- [`docs/DECISIONS.md`](docs/DECISIONS.md) — architecture and product decisions.
+- [`docs/law/PROTOCOL.md`](docs/law/PROTOCOL.md) — **how we work**: how material enters the archive, how it is annotated and filed, and how it becomes strategy, architecture, and code.
+- [`docs/strategy/STRATEGY.md`](docs/strategy/STRATEGY.md) — the governing strategy memo: timeline, the two congresses, brand architecture, vocabulary, and marketing posture.
+- [`docs/law/ARCHITECTURE.md`](docs/law/ARCHITECTURE.md) — system map, routes, auth, and data model.
+- [`docs/work/SPRINTS.md`](docs/work/SPRINTS.md) — sprint-by-sprint history from 0.1 through 2.5.
+- [`docs/requirements/REQUIREMENTS.md`](docs/requirements/REQUIREMENTS.md) — living requirements backlog.
+- [`docs/law/DECISIONS.md`](docs/law/DECISIONS.md) — architecture and product decisions.
 - [`.lovable/plan.md`](.lovable/plan.md) — current plan and next credible moves.
 
 ## Important notes

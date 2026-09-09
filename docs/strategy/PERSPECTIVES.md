@@ -2,7 +2,7 @@
 
 **Status: requirements in progress. Nothing here is a decision.**
 
-`docs/RECORDS-MODEL.md` says what the system holds. This document says what the same
+`docs/requirements/RECORDS-MODEL.md` says what the system holds. This document says what the same
 record *feels like* from each side of it. One property, one continuing address-centred
 record, walked four times — ISR, Licensed Contractor, Property Owner, Construction
 Manager — through the states in ADR-018:
@@ -37,7 +37,7 @@ record* — not a copy, not a hand-off, not a new row.
 open front door, the targeting engine, or an affiliate funnel. The ISR sees the address
 and the fact that it is workable. Whether the ISR sees *which* provenance, and how much
 of the reason behind a targeted address, is not decided — the targeting logic sits in
-band 3 (`docs/PROTOCOL.md`), and an ISR is not the founder.
+band 3 (`docs/law/PROTOCOL.md`), and an ISR is not the founder.
 
 **At the door.** The ISR is standing in front of a person who did not ask to be a record.
 Consent is captured here, on the record, as a first-class field — not a note. What is
@@ -166,7 +166,7 @@ These are the findings. Each is a decision nobody has made.
 | 8 | **Transfer on sale.** Who inherits the file when the property changes hands, and what the former owner keeps. |
 
 Items 1, 2, 7 and 8 are inputs to the Draft Connecticut Agreement. Items 3, 4, 5 and 6
-are object-model decisions and are added to `docs/OPEN-ITEMS.md` as C30–C33.
+are object-model decisions and are added to `docs/work/OPEN-ITEMS.md` as C30–C33.
 
 ---
 

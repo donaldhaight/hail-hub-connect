@@ -368,7 +368,7 @@ From that split fall the two platform administration systems — SAS A for techn
 administration and SAS B for platform / Human Blockchain administration. SiteBMS is a
 third, separate thing: the operating system of the Construction Management Group, run by
 whichever entity manages that group (initially RRCA). It is not replaced by SAS A or
-SAS B — see `docs/ARCHITECTURE.md` §"SAS A, SAS B, and SiteBMS" and ADR-014, which
+SAS B — see `docs/law/ARCHITECTURE.md` §"SAS A, SAS B, and SiteBMS" and ADR-014, which
 supersedes ADR-013.
 
 ### Unsettled

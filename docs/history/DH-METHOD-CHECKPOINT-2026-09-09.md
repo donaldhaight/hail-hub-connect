@@ -138,7 +138,7 @@ This checkpoint is closed. The founder adopted the reconciliation's five rulings
 4. **Authority = Role + Company Relationship + Project Assignment** — record-scoped, never menu-scoped.
 5. The **three-administration model** (SAS A / SAS B / SiteBMS) supersedes the older interpretation.
 
-All five are recorded as **ADR-014** in `docs/DECISIONS.md`; `docs/ARCHITECTURE.md`, `docs/STRATEGY.md`, and project memory were corrected the same day. The Saga chapter *The Second Mind* narrates the reconciliation.
+All five are recorded as **ADR-014** in `docs/law/DECISIONS.md`; `docs/law/ARCHITECTURE.md`, `docs/strategy/STRATEGY.md`, and project memory were corrected the same day. The Saga chapter *The Second Mind* narrates the reconciliation.
 
 **Addendum (same day):** Ruling 4 was refined on external review to the applicability form — **Authority = Role + applicable Relationship + applicable Assignment** — because a Property Owner can hold project authority with no company relationship. The normative wording lives in ADR-014.
 
