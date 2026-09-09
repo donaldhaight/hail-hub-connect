@@ -33,6 +33,8 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A11 | Redaction review of the protocol surface | Epic 8, P-5 | open | Follows A7–A10 |
 | A12 | Full-text extraction of uploaded documents | `docs/REQUIREMENTS.md:86` (E-7) | open | Populate `extracted_text` at upload so search reaches inside files |
 | A13 | GitHub backup verification | `docs/REQUIREMENTS.md:71` (D-6) | open | One confirmed restore test |
+| A14 | Property, Lead, and dated Ownership objects | ADR-015 | open | Property is the anchor record; leads are events attached to it. Derived from the Connecticut Agreement, not invented |
+| A15 | The empty room — what a newly certified ISR works on day one | ADR-015 | open | Certification manufactures supply; nothing yet manufactures work. Blocked on A14 |
 
 ## B. Held on purpose
 
@@ -66,6 +68,10 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C13 | Whether Hurricane Beryl is the permanent demonstration scenario or a stand-in | `.lovable/plan/hold-season-1-notes-incoming-2026-08-30.md:17` |
 | C14 | What Nav, Search, Add, Role Settings and Account Settings contain, role by role | Alignment check, 2026-09-09 — intentionally undefined extension points |
 | C15 | Company and project assignment as first-class objects | ADR-014 consequence; cannot be modeled before the Connecticut Agreement |
+| C16 | Who owns the property record; what the current owner may see and erase; what may never be sold | ADR-015. A persistent record of a structure, its damage history, its claims, and its former owners is a surveillance asset before it is a service, and is what an insurer would pay most for. **Input to** the Connecticut Agreement, not a consequence of it |
+| C17 | Consent standard for storm-triggered outbound contact | ADR-015. The targeting engine may stay secret; the consent record must survive a subpoena, and the rules vary by state. **Input to** the Connecticut Agreement |
+| C18 | How Task Efficiency Rating is computed, and what a Property Owner's tasks are | ADR-015 ruling 6. The boundary is settled (never sold, never a public score); the formula and the consumer-side task set are not |
+| C19 | Whether an affiliate is a member holding a file or an outside vendor | ADR-015 ruling 7. Member = ledger-native attribution and conduct on a permanent record; vendor = faster start, arbitrage margin, unverifiable provenance |
 
 ## D. Deliberately empty in the app
 
