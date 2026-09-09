@@ -28,7 +28,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A4 | LC approval surface | Epic 7, R-4 | open | Connecticut Agreement defines LC authority |
 | A5 | ISR / LC / Property Owner visibility matrix | Epic 7, R-5 | open | Authority rule applied per record |
 | A6 | Confirm band-3 targeting is unreachable from operating roles | Epic 7, R-6 | open | Redaction audit against `docs/law/PROTOCOL.md:199-210` |
-| A7 | ClaimExpress object and state model | `docs/requirements/REQUIREMENTS.md:103-113` (Epic 8, P-1) | open | `docs/CLAIMEXPRESS.md` does not exist yet |
+| A7 | ClaimExpress object and state model | `docs/requirements/REQUIREMENTS.md:103-113` (Epic 8, P-1) | open | `docs/requirements/CLAIMEXPRESS.md` does not exist yet |
 | A8 | Versioned `/api/public/claimexpress/*` endpoints | Epic 8, P-2 | open | Follows A7 |
 | A9 | MCP tool surface | Epic 8, P-3 | open | Follows A7 |
 | A10 | Transition audit trail on the shared record | Epic 8, P-4 | open | Follows A7 |

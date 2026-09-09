@@ -109,7 +109,7 @@ The contract that lets ISRs and LCs participate without abandoning their current
 
 | ID | Story | Acceptance criteria | Status |
 |----|-------|---------------------|--------|
-| P-1 | The object model and state machine are specified before any UI is built on them. | `docs/CLAIMEXPRESS.md` lists every object, field, state, and legal transition, sourced from the legacy screens. | open |
+| P-1 | The object model and state machine are specified before any UI is built on them. | `docs/requirements/CLAIMEXPRESS.md` lists every object, field, state, and legal transition, sourced from the legacy screens. | open |
 | P-2 | External systems can read and write scoped objects. | Versioned endpoints under `/api/public/claimexpress/*` with caller verification and Zod-validated payloads. | open |
 | P-3 | The protocol is callable by an agent. | An MCP surface exposes the same contract as tools, with the same authorization. | open |
 | P-4 | Every state transition is an event on the record. | Transitions append to an audit trail; no silent state edits. | open |
