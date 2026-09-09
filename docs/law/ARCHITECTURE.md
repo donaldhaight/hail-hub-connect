@@ -312,3 +312,47 @@ measurement spine behind the HTER/ATER efficiency thesis.
 It is **core but not a product**: tracked for all certified positions, never sold,
 never licensed, never exposed as a public score. Publishing it would require a
 superseding ADR.
+
+---
+
+## Agent surfaces — named, not built
+
+Recorded 2026-09-09 as part of the corpus reorganization. This section describes
+intended shape only. Nothing here is implemented, and nothing here supersedes
+ADR-016.
+
+### The three memory partitions, and where retrieval sits
+
+ADR-016 sets three partitions of Kimosabe memory. A retrieval index is scoped to
+a partition; it never spans them.
+
+| Partition | Holds | Index scope |
+|---|---|---|
+| Anonymous session | The transcript before anyone is onboarded | Session only; discarded or promoted by the person's act |
+| Personal file | The person's own memory, owned by them | That person only |
+| Role / app scoped | What a role or synergistic app needs to operate | That role, on that record |
+
+The boundary rule is absolute: **crossing a partition requires the person's act,
+never an inference.** An agent may not summarize across partitions, and a
+retrieval index built over one partition may not be queried while operating in
+another.
+
+### The corpus index
+
+`docs/00-START-HERE.md` is the manifest. Each corpus document now carries a
+status header — status, confidentiality class, last revised, purpose — so the
+corpus can be chunked and embedded without a human re-reading every file to
+decide what is binding. Any index over the corpus inherits each document's class,
+and a `C4` document is never retrievable into a `C2` surface.
+
+### Agent orchestration boundaries
+
+When agent teams are introduced, they operate under the same authority rule as
+people: **Role + applicable Relationship + applicable Assignment**, record-scoped.
+An agent acting for an operator holds no authority the operator does not hold, and
+every action it takes writes to the append-only ledger with the agent named as the
+actor and the human named as the principal. The Task Efficiency Rating spine
+(HTER versus ATER) is what makes agent and human work comparable on the same task.
+
+Band 3 of the redaction map is out of reach for every agent surface that can emit
+to a non-founder audience.
