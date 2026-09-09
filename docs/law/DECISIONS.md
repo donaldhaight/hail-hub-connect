@@ -1,5 +1,9 @@
 # Decisions
 
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> Every load-bearing architecture and product decision, ADR-001 forward.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This document records load-bearing architecture and product decisions. Each entry includes the decision, the context, and the consequences.
 
 ## ADR-001: TanStack Start + Lovable Cloud
@@ -138,7 +142,7 @@ This document records load-bearing architecture and product decisions. Each entr
 - Situation Room work is `deferred — held by ADR-012`. Nothing built is discarded; ISR/LC activity becomes a real signal source feeding the same variable registry.
 - ISR remains the first certifiable role; certification now lands in an ISR App Home with real work in it.
 - ClaimExpress is specified as a protocol (objects, states, events) before more UI is built on it, so ISRs and LCs can participate without abandoning their current systems.
-- The four-boundary redaction map (§11 of `docs/PROTOCOL.md`) governs what any demo may show.
+- The four-boundary redaction map (§11 of `docs/law/PROTOCOL.md`) governs what any demo may show.
 - The hold is lifted only by a superseding ADR.
 
 ## ADR-013: Split the administration system into SAS A and SAS B
@@ -305,7 +309,7 @@ anticipated when it made Property the anchor: the states that anchor actually mo
 through, and the economics attached to them (Jobs, Job Orders, Other Charges).
 
 **Consequences:**
-- `docs/RECORDS-MODEL.md` holds the full requirement set, marked *requirements in
+- `docs/requirements/RECORDS-MODEL.md` holds the full requirement set, marked *requirements in
   progress*; legacy ClaimExpress screens are reconciled against that document rather
   than against the codebase, which contains none of these objects.
 - Narrower LC duties — production, estimating, collections — remain **assignments**, not

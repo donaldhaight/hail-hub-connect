@@ -1,5 +1,9 @@
 # Requirements
 
+> **Status:** in progress · **Class:** C2 · **Last revised:** 2026-09-09  
+> The living requirements backlog, grouped by epic.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This is the living requirements backlog for the ClaimStore Briefing Room. Items are grouped by epic. Status values: `open`, `in-progress`, `shipped`, `deferred`.
 
 ## Epic 1 — Public front door
@@ -64,12 +68,12 @@ The project must be explainable to future collaborators, investors, and auditors
 | ID | Story | Acceptance criteria | Status |
 |----|-------|---------------------|--------|
 | D-1 | Project has a project-specific README. | README explains vision, local setup, tech stack, and links to docs. | shipped |
-| D-2 | Architecture is documented. | `docs/ARCHITECTURE.md` covers routes, auth, data model, and key modules. | shipped |
-| D-3 | Sprint history is documented. | `docs/SPRINTS.md` captures 0.1 through 0.14. | shipped |
-| D-4 | Requirements backlog is maintained. | `docs/REQUIREMENTS.md` exists and is updated each sprint. | shipped |
-| D-5 | Decisions are recorded. | `docs/DECISIONS.md` captures load-bearing choices with rationale. | shipped |
+| D-2 | Architecture is documented. | `docs/law/ARCHITECTURE.md` covers routes, auth, data model, and key modules. | shipped |
+| D-3 | Sprint history is documented. | `docs/work/SPRINTS.md` captures 0.1 through 0.14. | shipped |
+| D-4 | Requirements backlog is maintained. | `docs/requirements/REQUIREMENTS.md` exists and is updated each sprint. | shipped |
+| D-5 | Decisions are recorded. | `docs/law/DECISIONS.md` captures load-bearing choices with rationale. | shipped |
 | D-6 | Code is backed up to GitHub. | Repository is connected to a user-owned GitHub repo and sync is verified. | open |
-| D-7 | The working protocol is documented. | `docs/PROTOCOL.md` defines layers, the intake lifecycle, both sides of the loop, and the artifact → claim → requirement → code chain; surfaced in-app on `/admin/intake`. | shipped |
+| D-7 | The working protocol is documented. | `docs/law/PROTOCOL.md` defines layers, the intake lifecycle, both sides of the loop, and the artifact → claim → requirement → code chain; surfaced in-app on `/admin/intake`. | shipped |
 
 ## Epic 6 — Evidence, intake, and ideation
 
@@ -109,7 +113,7 @@ The contract that lets ISRs and LCs participate without abandoning their current
 
 | ID | Story | Acceptance criteria | Status |
 |----|-------|---------------------|--------|
-| P-1 | The object model and state machine are specified before any UI is built on them. | `docs/CLAIMEXPRESS.md` lists every object, field, state, and legal transition, sourced from the legacy screens. | open |
+| P-1 | The object model and state machine are specified before any UI is built on them. | `docs/requirements/CLAIMEXPRESS.md` lists every object, field, state, and legal transition, sourced from the legacy screens. | open |
 | P-2 | External systems can read and write scoped objects. | Versioned endpoints under `/api/public/claimexpress/*` with caller verification and Zod-validated payloads. | open |
 | P-3 | The protocol is callable by an agent. | An MCP surface exposes the same contract as tools, with the same authorization. | open |
 | P-4 | Every state transition is an event on the record. | Transitions append to an audit trail; no silent state edits. | open |

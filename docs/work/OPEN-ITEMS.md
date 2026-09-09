@@ -1,16 +1,20 @@
 # Open Items Register
 
-The standing list of everything opened and not yet closed. Compiled 2026-09-09 from `docs/REQUIREMENTS.md`, `docs/DECISIONS.md`, `docs/STRATEGY.md`, the dated planning notes in `.lovable/plan/`, and a direct audit of the running application.
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-09  
+> Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
+The standing list of everything opened and not yet closed. Compiled 2026-09-09 from `docs/requirements/REQUIREMENTS.md`, `docs/law/DECISIONS.md`, `docs/strategy/STRATEGY.md`, the dated planning notes in `.lovable/plan/`, and a direct audit of the running application.
 
 This register does not duplicate status held elsewhere; it points at it. When a line closes, close it in its home document and strike it here.
 
-**Board mirror.** Since 2026-09-09 every open, held, unsettled, and needs-verification line in this register also exists on the founder backlog board (Backlog tab in the founder console), carrying its register ID and source document. The register remains the document of record; the board is the working surface. Per `docs/PROTOCOL.md` §10, new lines land in both places in the same turn and close in both together.
+**Board mirror.** Since 2026-09-09 every open, held, unsettled, and needs-verification line in this register also exists on the founder backlog board (Backlog tab in the founder console), carrying its register ID and source document. The register remains the document of record; the board is the working surface. Per `docs/law/PROTOCOL.md` §10, new lines land in both places in the same turn and close in both together.
 
 **Status vocabulary:** `open` (specified, unbuilt) · `held` (deliberately paused, with a reason) · `unsettled` (no decision yet) · `needs verification` (behaviour unconfirmed).
 
 ## Locked work order
 
-Nothing in this register may be picked up out of sequence. The order was locked at the DH Method checkpoint (`docs/DH-METHOD-CHECKPOINT-2026-09-09.md:145`):
+Nothing in this register may be picked up out of sequence. The order was locked at the DH Method checkpoint (`docs/history/DH-METHOD-CHECKPOINT-2026-09-09.md:145`):
 
 > Draft Connecticut Agreement → Records / Object Model → SiteBMS walkthrough → JobNimbus mapping → API/MCP
 
@@ -22,19 +26,19 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 
 | # | Item | Home | Status | What closes it |
 |---|---|---|---|---|
-| A1 | Wallet claim on certification | `docs/REQUIREMENTS.md:90-101` (Epic 7, R-1) | open | Claim-on-sign-in is now wired (see E2, closed). What remains is the claim *at certification*, which follows the role fee flow |
+| A1 | Wallet claim on certification | `docs/requirements/REQUIREMENTS.md:90-101` (Epic 7, R-1) | open | Claim-on-sign-in is now wired (see E2, closed). What remains is the claim *at certification*, which follows the role fee flow |
 | A2 | ISR App Home book of work | Epic 7, R-2 | open | Owner describes the ISR screens; role area is built and empty |
 | A3 | Commission ledger for ISR/LC | Epic 7, R-3 | open | Records layer defines the commission object |
 | A4 | LC approval surface | Epic 7, R-4 | open | Connecticut Agreement defines LC authority |
 | A5 | ISR / LC / Property Owner visibility matrix | Epic 7, R-5 | open | Authority rule applied per record |
-| A6 | Confirm band-3 targeting is unreachable from operating roles | Epic 7, R-6 | open | Redaction audit against `docs/PROTOCOL.md:199-210` |
-| A7 | ClaimExpress object and state model | `docs/REQUIREMENTS.md:103-113` (Epic 8, P-1) | open | `docs/CLAIMEXPRESS.md` does not exist yet |
+| A6 | Confirm band-3 targeting is unreachable from operating roles | Epic 7, R-6 | open | Redaction audit against `docs/law/PROTOCOL.md:199-210` |
+| A7 | ClaimExpress object and state model | `docs/requirements/REQUIREMENTS.md:103-113` (Epic 8, P-1) | open | `docs/requirements/CLAIMEXPRESS.md` does not exist yet |
 | A8 | Versioned `/api/public/claimexpress/*` endpoints | Epic 8, P-2 | open | Follows A7 |
 | A9 | MCP tool surface | Epic 8, P-3 | open | Follows A7 |
 | A10 | Transition audit trail on the shared record | Epic 8, P-4 | open | Follows A7 |
 | A11 | Redaction review of the protocol surface | Epic 8, P-5 | open | Follows A7–A10 |
-| A12 | Full-text extraction of uploaded documents | `docs/REQUIREMENTS.md:86` (E-7) | open | Populate `extracted_text` at upload so search reaches inside files |
-| A13 | GitHub backup verification | `docs/REQUIREMENTS.md:71` (D-6) | open | One confirmed restore test |
+| A12 | Full-text extraction of uploaded documents | `docs/requirements/REQUIREMENTS.md:86` (E-7) | open | Populate `extracted_text` at upload so search reaches inside files |
+| A13 | GitHub backup verification | `docs/requirements/REQUIREMENTS.md:71` (D-6) | open | One confirmed restore test |
 | A14 | Property, Lead, and dated Ownership objects | ADR-015 | open | Property is the anchor record; leads are events attached to it. Derived from the Connecticut Agreement, not invented |
 | A15 | The empty room — what a newly certified ISR works on day one | ADR-015 | open | Certification manufactures supply; nothing yet manufactures work. Blocked on A14 |
 | A16 | Pre-onboarding session transcript — capture, carry across at wallet claim, discard if unclaimed | ADR-016 stage 1 | open | Nothing is retained today; the ruling exists, the mechanism does not |
@@ -43,11 +47,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A19 | Role Store shows three distinct paths — ISR certifies, LC registers/verifies, PO sets up | Epic 7, R-7 | open | The store currently presents one certification shape for every entity role |
 | A20 | RoofLac sale as a second ISR motion, scored separately from offer completion | Epic 7, R-8 | open | Blocked on the Records layer; there is no event to score yet |
 | A21 | The Property Owner app | Epic 9 (O-1…O-6) | open | Blocked on A14 — Property, Lead and dated Ownership objects |
-| A22 | Offer object with append-only completed snapshots, plus Invited / Accepted milestones | ADR-018, `docs/RECORDS-MODEL.md` §5 | open | Complete Offer is an event, never overwritten |
-| A23 | Project economics — Jobs (selling price), Job Orders (material/labor/turnkey/equipment, Open→Assigned→Complete→Verified→Closed), Other Charges (price and cost) | `docs/RECORDS-MODEL.md` §7 | open | Estimated before Project Open, actual after |
+| A22 | Offer object with append-only completed snapshots, plus Invited / Accepted milestones | ADR-018, `docs/requirements/RECORDS-MODEL.md` §5 | open | Complete Offer is an event, never overwritten |
+| A23 | Project economics — Jobs (selling price), Job Orders (material/labor/turnkey/equipment, Open→Assigned→Complete→Verified→Closed), Other Charges (price and cost) | `docs/requirements/RECORDS-MODEL.md` §7 | open | Estimated before Project Open, actual after |
 | A24 | Warranty — the post-project state after closeout tasks are satisfied | ADR-018 | open | Name is a placeholder |
-| A25 | Workflow tasks generated by `State + Need → Task`, with actor and created/completed events | `docs/RECORDS-MODEL.md` §8 | open | Today's tasks are onboarding tasks; no workflow task engine exists |
-| A26 | Duplicate-address detection, disclaimer, and authorized override | `docs/RECORDS-MODEL.md` §4 | open | Rules undefined — see C29 |
+| A25 | Workflow tasks generated by `State + Need → Task`, with actor and created/completed events | `docs/requirements/RECORDS-MODEL.md` §8 | open | Today's tasks are onboarding tasks; no workflow task engine exists |
+| A26 | Duplicate-address detection, disclaimer, and authorized override | `docs/requirements/RECORDS-MODEL.md` §4 | open | Rules undefined — see C29 |
 | A27 | Field-locking matrix beyond the three minimum locks | ADR-018 | deferred on purpose | Address provenance, user provenance and the completed-offer snapshot are the only locks in force |
 | A28 | Prospect as a stored state — potentially every U.S. address, *Claim Your Address*, bulk activation, bot protection | ADR-018 | out of Phase 1 | Recorded so nobody builds address ingestion early |
 
@@ -57,23 +61,23 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | # | Item | Reason held | Lifted by |
 |---|---|---|---|
 | B1 | Founder notification emails (`src/lib/email.ts:1`, `src/lib/dossier.functions.ts:245`) | No verified sending domain — functions are working no-ops | Verifying a sender domain; one line per send point (ADR-006) |
-| B2 | Attendee confirmation and update emails (`docs/REQUIREMENTS.md:58`, C-5) | Same as B1 | Same as B1 |
+| B2 | Attendee confirmation and update emails (`docs/requirements/REQUIREMENTS.md:58`, C-5) | Same as B1 | Same as B1 |
 | B3 | Quantum Dashboard / Situation Room expansion | ADR-012 — building the whole engine in public would teach competitors to rebuild it | A superseding ADR only |
 | B4 | Storm targeting and outreach engine | Built; confined to band 3, never demonstrated whole | Not intended to lift; the confinement is the decision |
-| B5 | Payments and sponsorship transactions | Out of scope for this phase (`docs/REQUIREMENTS.md:122`) | A phase decision |
-| B6 | February 2027 logistics, delegate credentialing, seat-right instruments, Agenda2028 ratification text | Can wait for 02-14-2027 (`docs/STRATEGY.md:53-58`) | Second Congress planning |
-| B7 | Blog, social, SEO, paid, press | Forbidden before 11-1-2026 (`docs/STRATEGY.md:288-295`) | Launch day |
+| B5 | Payments and sponsorship transactions | Out of scope for this phase (`docs/requirements/REQUIREMENTS.md:122`) | A phase decision |
+| B6 | February 2027 logistics, delegate credentialing, seat-right instruments, Agenda2028 ratification text | Can wait for 02-14-2027 (`docs/strategy/STRATEGY.md:53-58`) | Second Congress planning |
+| B7 | Blog, social, SEO, paid, press | Forbidden before 11-1-2026 (`docs/strategy/STRATEGY.md:288-295`) | Launch day |
 | B8 | Agenda2032 and Agenda2036 volumes | Declared, deliberately unwritten — runway, not placeholders | Later seasons |
 
 ## C. Unsettled — must not be assumed in code
 
 | # | Question | Recorded at |
 |---|---|---|
-| C1 | Profit versus non-profit for the platform business | `docs/STRATEGY.md:374`, `docs/ARCHITECTURE.md:205`, ADR-013 |
+| C1 | Profit versus non-profit for the platform business | `docs/strategy/STRATEGY.md:374`, `docs/law/ARCHITECTURE.md:205`, ADR-013 |
 | C2 | Legal shape and final name behind "Market Applications (TBD)" | same |
 | C3 | The 2008–2012 original plans and their assumed legalities | same |
 | C4 | The economic model assigned to origination funnels | same |
-| C5 | Gratitude Ranch as February venue at 300 | `docs/STRATEGY.md:314-334` |
+| C5 | Gratitude Ranch as February venue at 300 | `docs/strategy/STRATEGY.md:314-334` |
 | C6 | What the broadcast production actually requires | same |
 | C7 | Ticket cap size | same |
 | C8 | Whether Agenda2024 is written before or after First Congress | same |
@@ -84,27 +88,27 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C13 | Whether Hurricane Beryl is the permanent demonstration scenario or a stand-in | `.lovable/plan/hold-season-1-notes-incoming-2026-08-30.md:17` |
 | C14 | What Nav, Search, Add, Role Settings and Account Settings contain, role by role | Alignment check, 2026-09-09 — intentionally undefined extension points |
 | C15 | Company and project assignment as first-class objects | ADR-014 consequence; cannot be modeled before the Connecticut Agreement |
-| C16 | Who owns the property record; what the current owner may see and erase; what may never be sold | ADR-015. A persistent record of a structure, its damage history, its claims, and its former owners is a surveillance asset before it is a service, and is what an insurer would pay most for. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, not a consequence of it |
-| C17 | Consent standard for storm-triggered outbound contact | ADR-015. The targeting engine may stay secret; the consent record must survive a subpoena, and the rules vary by state. **Input to** `docs/CONNECTICUT-AGREEMENT.md` |
+| C16 | Who owns the property record; what the current owner may see and erase; what may never be sold | ADR-015. A persistent record of a structure, its damage history, its claims, and its former owners is a surveillance asset before it is a service, and is what an insurer would pay most for. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md`, not a consequence of it |
+| C17 | Consent standard for storm-triggered outbound contact | ADR-015. The targeting engine may stay secret; the consent record must survive a subpoena, and the rules vary by state. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md` |
 | C18 | How Task Efficiency Rating is computed, and what a Property Owner's tasks are | ADR-015 ruling 6. The boundary is settled (never sold, never a public score); the formula and the consumer-side task set are not |
 | C19 | Whether an affiliate is a member holding a file or an outside vendor | ADR-015 ruling 7. Member = ledger-native attribution and conduct on a permanent record; vendor = faster start, arbitrage margin, unverifiable provenance |
 | C20 | Game, Season, League and Product as a layer above roles | Named 2026-09-09. The Season Ladder exists in strategy; how a role becomes a *player*, how a season is scored and ended, and what a "Product" is in that frame are unwritten. Cannot be specified before the Records layer gives it something to count |
-| C21 | RoofLac / Lifetime Roof Assurance terms | `docs/STRATEGY.md`. Concept, carrier partner (SelfInsurity) and market position are recorded. Pricing, underwriting, reserve treatment, claim triggers, transferability on sale, and the legal instrument are open |
+| C21 | RoofLac / Lifetime Roof Assurance terms | `docs/strategy/STRATEGY.md`. Concept, carrier partner (SelfInsurity) and market position are recorded. Pricing, underwriting, reserve treatment, claim triggers, transferability on sale, and the legal instrument are open |
 | C22 | Scoring and compensation for the ISR competition | Whether offer completion and RoofLac program sales share one scoreboard, and how the two are paid |
 | C23 | Referraltor — how the designation is earned, what it is under the authority rule, its features, benefits and ledger attribution | ADR-017, **proposed and not in force**. May resolve or collide with C19 |
-| C24 | Kimosabe memory retention and consent | ADR-016. Joins C16/C17 as an **input to** `docs/CONNECTICUT-AGREEMENT.md` |
-| C25 | Whether good-better-best offer generation may face a consumer at all | Epic 9, O-5. It currently sits in band 3 (`docs/PROTOCOL.md:207`, founder-only). A PO-facing variant needs either a redaction review or a generator that reveals no targeting logic |
-| C26 | Does a Project ID exist in JobNimbus today that SiteBMS should adopt as the shared identifier, or does SiteBMS mint its own and map to it? | `docs/RECORDS-MODEL.md` §12 Q1. Gates the JobNimbus mapping step |
+| C24 | Kimosabe memory retention and consent | ADR-016. Joins C16/C17 as an **input to** `docs/requirements/CONNECTICUT-AGREEMENT.md` |
+| C25 | Whether good-better-best offer generation may face a consumer at all | Epic 9, O-5. It currently sits in band 3 (`docs/law/PROTOCOL.md:207`, founder-only). A PO-facing variant needs either a redaction review or a generator that reveals no targeting logic |
+| C26 | Does a Project ID exist in JobNimbus today that SiteBMS should adopt as the shared identifier, or does SiteBMS mint its own and map to it? | `docs/requirements/RECORDS-MODEL.md` §12 Q1. Gates the JobNimbus mapping step |
 | C27 | Is income recognition at Job close a real RRCA accounting rule today, or a proposal? | §12 Q2. Determines whether the ledger writes a revenue event there |
-| C28 | Which data lives in the shared SiteBMS record, which is mirrored from JobNimbus, which is referenced by identifier only, and which events cross the boundary in each direction | `docs/RECORDS-MODEL.md` §11. ADR-014 named the need; the field list is unwritten |
+| C28 | Which data lives in the shared SiteBMS record, which is mirrored from JobNimbus, which is referenced by identifier only, and which events cross the boundary in each direction | `docs/requirements/RECORDS-MODEL.md` §11. ADR-014 named the need; the field list is unwritten |
 | C29 | Duplicate-address override — who is authorized, and is the override itself an event on the record? | §12 Q4 |
-| C30 | Is Offer Accepted → Pending Project one event or two? | `docs/PERSPECTIVES.md` §5.3. The ISR reads acceptance as the finish line, the LC as the starting gun |
-| C31 | What relationship, visibility or attribution an ISR retains after Complete Offer | `docs/PERSPECTIVES.md` §5.4. Compensation and the competition (C22) assume something survives; the records model is silent |
-| C32 | Does RoofLac ride on the property record, or open a second record joined to it? | `docs/PERSPECTIVES.md` §5.5. Joins C21 |
-| C33 | How the authority formula bites when Construction Manager and Licensed Contractor are the same company | `docs/PERSPECTIVES.md` §5.6. RRCA is first operator *and* a contractor; if both sides are one party the Role + Relationship + Assignment test does no work |
-| C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/PERSPECTIVES.md` §5.8. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, with C16 |
-| C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/PERSPECTIVES.md` §5.7. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, with C17 |
-| C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere; collected in `docs/CONNECTICUT-AGREEMENT.md` |
+| C30 | Is Offer Accepted → Pending Project one event or two? | `docs/strategy/PERSPECTIVES.md` §5.3. The ISR reads acceptance as the finish line, the LC as the starting gun |
+| C31 | What relationship, visibility or attribution an ISR retains after Complete Offer | `docs/strategy/PERSPECTIVES.md` §5.4. Compensation and the competition (C22) assume something survives; the records model is silent |
+| C32 | Does RoofLac ride on the property record, or open a second record joined to it? | `docs/strategy/PERSPECTIVES.md` §5.5. Joins C21 |
+| C33 | How the authority formula bites when Construction Manager and Licensed Contractor are the same company | `docs/strategy/PERSPECTIVES.md` §5.6. RRCA is first operator *and* a contractor; if both sides are one party the Role + Relationship + Assignment test does no work |
+| C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/strategy/PERSPECTIVES.md` §5.8. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md`, with C16 |
+| C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/strategy/PERSPECTIVES.md` §5.7. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md`, with C17 |
+| C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/strategy/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere; collected in `docs/requirements/CONNECTICUT-AGREEMENT.md` |
 
 
 ## D. Deliberately empty in the app
@@ -134,7 +138,7 @@ E2 was the only line in this register that represented a broken user-facing prom
 
 ## F. Superseded, retained for history
 
-- ADR-013's two-administration model, superseded by ADR-014 (`docs/DECISIONS.md:144-146`).
+- ADR-013's two-administration model, superseded by ADR-014 (`docs/law/DECISIONS.md:144-146`).
 - The original "all three must be true" authority wording, corrected the same day to "Role + applicable Relationship + applicable Assignment".
 - Sprint 2.8 and the Saga chapter *The Second Mind* keep the original rulings as written; they are the historical record and are not amended.
 
@@ -167,7 +171,7 @@ the referral position, and the consumer surface already in view.
 ## H. The SiteBMS minimum-records handoff (2026-09-09)
 
 RRCA's *Minimum Records Requirement Handoff* is recorded in full as
-`docs/RECORDS-MODEL.md` (marked *requirements in progress*) and its three settled rules
+`docs/requirements/RECORDS-MODEL.md` (marked *requirements in progress*) and its three settled rules
 as ADR-018. It adds A22–A28 and C26–C29 above.
 
 It does **not** move the locked work order. It is the operating-model input to the
@@ -175,12 +179,12 @@ Records layer, and it supplies two more questions (C26, C27) that must be answer
 before the object model is cut, alongside the Connecticut inputs C16, C17 and C24.
 
 Legacy ClaimExpress / Siteforum screens, when supplied, are reconciled against
-`docs/RECORDS-MODEL.md` — the codebase holds none of these objects, so there is nothing
+`docs/requirements/RECORDS-MODEL.md` — the codebase holds none of these objects, so there is nothing
 there to compare them to.
 
 ## I. The four readings (2026-09-09)
 
-`docs/PERSPECTIVES.md` walks one address-centred record through its states four times —
+`docs/strategy/PERSPECTIVES.md` walks one address-centred record through its states four times —
 ISR, Licensed Contractor, Property Owner, Construction Manager — and collects the places
 the readings contradict each other. It adds C30–C36 above. Four of those (C34, C35, C36
 and the existing C16) are inputs to the Draft Connecticut Agreement; the rest are

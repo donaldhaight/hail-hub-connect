@@ -1,5 +1,9 @@
 # Records Model — requirements in progress
 
+> **Status:** in progress · **Class:** C2 · **Last revised:** 2026-09-09  
+> The address-centred object model and state machine. Gated behind the Connecticut Agreement.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 **Status: requirements in progress. Nothing here is final.** No field list, lock rule,
 workflow state, or revenue treatment in this document is settled. It is the operating
 model as described by RRCA on 2026-09-09, written down so the object model can be cut
@@ -216,7 +220,7 @@ document**, not against the codebase, which has nothing to compare.
 
 ## 14. The same record, read from four sides
 
-`docs/PERSPECTIVES.md` walks this model through its states four times — ISR, Licensed
+`docs/strategy/PERSPECTIVES.md` walks this model through its states four times — ISR, Licensed
 Contractor, Property Owner, Construction Manager — and records where the readings
 contradict each other. Those contradictions are open items C30–C36, and several are
 inputs to the Draft Connecticut Agreement rather than consequences of it.
@@ -224,5 +228,5 @@ inputs to the Draft Connecticut Agreement rather than consequences of it.
 ## 15. Connecticut Agreement as the next gate
 
 Before the object model is cut, the legal and operating rules that govern the record
-must be collected in `docs/CONNECTICUT-AGREEMENT.md`. It is the next step in the
+must be collected in `docs/requirements/CONNECTICUT-AGREEMENT.md`. It is the next step in the
 locked work order.
