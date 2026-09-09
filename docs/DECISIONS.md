@@ -216,3 +216,57 @@ Four operating decisions are settled with it:
 - Property-record ownership and consent become **inputs to** the Draft Connecticut Agreement, not outputs of it. See C16 and C17.
 - The locked work order is unchanged: Connecticut Agreement → Records/Object Model → SiteBMS → JobNimbus mapping → API/MCP.
 - A persistent property record accumulated without the owner's request is a surveillance asset before it is a service, and is exactly what an insurer would pay most for. The capture-prevention rule of ADR-013/ADR-014 therefore extends to the property record itself.
+
+## ADR-016: Kimosabe memory has three stages, and they are not one file
+
+**Decision:** The guide's memory is partitioned by stage of belonging, because each
+stage carries different legal and technical rules. Recorded 2026-09-09.
+
+1. **Before onboarding — session, not profile.** An anonymous arrival today receives a
+   device anchor and a holding wallet; nothing they say is retained. The ruling: what
+   they say is kept as a **session transcript attached to the anonymous anchor**, carried
+   across at wallet claim, and discarded if the anchor is never claimed. It is a
+   transcript, not a profile, and it is never enriched, appended to, or resolved to a
+   person before the person claims it.
+2. **After onboarding, before a role — the personal memory file.** Once the wallet is
+   claimed the transcript becomes a memory file on the person's record: what they asked,
+   what they were told, what they did. **It belongs to the person**, is readable by them,
+   and is never merged into a marketing asset, a lead list, or a targeting input.
+3. **Inside a role — partitioned by role and by app.** An ISR's Kimosabe knows different
+   things than the same person's Property Owner Kimosabe, and a future BooksForge or
+   MyGPT.TV Kimosabe different again. **Crossing a partition requires the person's act,
+   not an inference.** The guide may ask; it may not help itself.
+
+**Context:** Kimosabe is currently curated static guidance. The promise made at the front
+door — a guide that grows with you — cannot be kept without a memory layer, and a memory
+layer built without these three boundaries becomes the surveillance asset ADR-015 warned
+about, assembled one helpful answer at a time.
+
+**Consequences:**
+- Retrieval design, retention windows, and forget-me handling are **open work**, not
+  decided here. See A16–A18.
+- Memory retention and consent join C16/C17 as **inputs to** the Draft Connecticut
+  Agreement.
+- The three partitions are a schema constraint, not a UI preference: memory rows carry
+  stage, and where applicable role and app, from the first migration that creates them.
+- The locked work order is unchanged. No memory table is created before the Records layer.
+
+## ADR-017 (proposed, not settled): Referraltor as a market position
+
+**Status:** proposed 2026-09-09. Recorded so it is not re-invented; **not** in force.
+
+A **Referraltor** is a person who originates people and property into the market and is
+paid for it on the permanent record. The position is named; nothing about it is settled.
+
+Open before it can be adopted:
+- **How the designation is earned** — by conduct (a threshold of accepted referrals),
+  by purchase (a fee like the ISR), or by grant (founder-assigned).
+- **What it is under the authority rule** — a role, a relationship, or an assignment.
+  It behaves like a role but attaches to no company and no project.
+- **Features and benefits**, and how attribution is written to the ledger: what event
+  fires, when it settles, and what happens when two Referraltors claim the same lead.
+- **Whether it resolves or collides with C19**, the unsettled affiliate question. A
+  Referraltor is arguably the member-side answer to that question — if so, adopting one
+  closes the other.
+
+Nothing may be built on this until it is adopted as a decision.
