@@ -1,5 +1,9 @@
 # PrepareAmerica — Strategy Memo
 
+> **Status:** binding · **Class:** C1 · **Last revised:** 2026-08-25  
+> Mission, timeline, the two congresses, vocabulary, marketing posture.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 **United Stakeholders of America LLC**
 Written 25 August 2026. Supersedes prior assumptions about the 11-1-2026 convening.
 

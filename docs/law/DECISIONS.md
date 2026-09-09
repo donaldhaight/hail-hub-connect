@@ -1,5 +1,9 @@
 # Decisions
 
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> Every load-bearing architecture and product decision, ADR-001 forward.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This document records load-bearing architecture and product decisions. Each entry includes the decision, the context, and the consequences.
 
 ## ADR-001: TanStack Start + Lovable Cloud

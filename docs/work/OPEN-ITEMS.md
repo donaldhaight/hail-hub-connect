@@ -1,5 +1,9 @@
 # Open Items Register
 
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-09  
+> Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 The standing list of everything opened and not yet closed. Compiled 2026-09-09 from `docs/requirements/REQUIREMENTS.md`, `docs/law/DECISIONS.md`, `docs/strategy/STRATEGY.md`, the dated planning notes in `.lovable/plan/`, and a direct audit of the running application.
 
 This register does not duplicate status held elsewhere; it points at it. When a line closes, close it in its home document and strike it here.

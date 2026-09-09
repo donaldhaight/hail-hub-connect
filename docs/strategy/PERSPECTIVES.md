@@ -1,5 +1,9 @@
 # Perspectives — one record, four readings
 
+> **Status:** in progress · **Class:** C2 · **Last revised:** 2026-09-09  
+> One property record read four ways: ISR, LC, Property Owner, Construction Manager.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 **Status: requirements in progress. Nothing here is a decision.**
 
 `docs/requirements/RECORDS-MODEL.md` says what the system holds. This document says what the same

@@ -1,5 +1,9 @@
 # Draft Connecticut Agreement — requirements in progress
 
+> **Status:** in progress · **Class:** C3 · **Last revised:** 2026-09-09  
+> Legal and operating rules that generate the object model. Not a legal draft.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 **Status: requirements in progress. Nothing here is a legal draft.**
 
 This document collects the legal and operating rules that the shared SiteBMS record must enforce. It is the input to the object model, not a consequence of it. The locked work order remains:

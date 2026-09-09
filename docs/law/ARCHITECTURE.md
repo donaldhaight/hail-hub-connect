@@ -1,5 +1,9 @@
 # Architecture
 
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> System map: routes, auth, boundaries, data model, agent surfaces.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This document maps the ClaimStore Briefing Room as a system: what the user sees, what the founder sees, how the boundaries are gated, and how data moves.
 
 ## Design posture

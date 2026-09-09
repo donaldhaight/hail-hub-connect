@@ -1,5 +1,9 @@
 # Shared Spine
 
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> The invariant platform sequence that survives every rewrite.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 ## Purpose
 
 Freeze the part of the system that should remain stable while the product is rewritten and operated from many different perspectives.

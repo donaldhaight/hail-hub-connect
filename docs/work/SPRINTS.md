@@ -1,5 +1,9 @@
 # Sprint history
 
+> **Status:** historical · **Class:** C2 · **Last revised:** 2026-09-09  
+> Build log, sprint by sprint.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This is the build log for the ClaimStore Briefing Room. Each sprint had a single, testable outcome. Sprints are numbered loosely by release order, not calendar weeks.
 
 ## Sprint 0.1 — Design tokens and public shell

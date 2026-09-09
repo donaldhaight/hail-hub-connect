@@ -1,5 +1,9 @@
 # The Working Protocol
 
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> How material enters the corpus and becomes strategy, architecture, and code.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 How material enters this project, what happens to it, and how it becomes strategy, architecture, and code.
 
 This document is the instruction set for the collaboration itself. `STRATEGY.md` says what we are building and why. `ARCHITECTURE.md` says how the software is put together. This file says how the two stay honest with each other as the archive grows.

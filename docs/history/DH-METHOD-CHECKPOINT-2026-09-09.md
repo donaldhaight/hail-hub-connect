@@ -1,5 +1,9 @@
 # DH Method Checkpoint — 2026-09-09
 
+> **Status:** historical · **Class:** C2 · **Last revised:** 2026-09-09  
+> Checkpoint marking the hinge inside Act Two.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 ## Purpose
 
 Freeze the current understanding before further design or build work.

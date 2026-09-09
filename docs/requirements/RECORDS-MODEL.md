@@ -1,5 +1,9 @@
 # Records Model — requirements in progress
 
+> **Status:** in progress · **Class:** C2 · **Last revised:** 2026-09-09  
+> The address-centred object model and state machine. Gated behind the Connecticut Agreement.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 **Status: requirements in progress. Nothing here is final.** No field list, lock rule,
 workflow state, or revenue treatment in this document is settled. It is the operating
 model as described by RRCA on 2026-09-09, written down so the object model can be cut

@@ -1,5 +1,9 @@
 # Requirements
 
+> **Status:** in progress · **Class:** C2 · **Last revised:** 2026-09-09  
+> The living requirements backlog, grouped by epic.  
+> Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
+
 This is the living requirements backlog for the ClaimStore Briefing Room. Items are grouped by epic. Status values: `open`, `in-progress`, `shipped`, `deferred`.
 
 ## Epic 1 — Public front door
