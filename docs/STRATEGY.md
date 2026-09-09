@@ -448,3 +448,39 @@ It is:
 This is ambitious, but it is grounded in a domain proof rather than a forecast.
 The question is not whether a platform can be built; it is whether the governance
 around it can stay clean while it scales.
+
+## RoofLac — the Lifetime Roof Assurance program
+
+*Introduced 2026-09-09. Concept and position only; terms are unsettled.*
+
+RoofLac is a lifetime roof assurance program carried by **SelfInsurity**, one of the
+seven brands. A property owner enrolls a roof; the program stands behind it for as long
+as they own the structure. It sits on the Property anchor record, not on the person, so
+it survives the sale of the house in whatever form the terms eventually allow.
+
+What is written today is the name, the carrier partner, and the position in the market.
+**Pricing, underwriting, reserve treatment, claim triggers, transferability on sale, and
+the legal instrument itself are unsettled and must not be assumed in code.**
+
+Its strategic role is specific: it converts a one-time storm transaction into a standing
+relationship with a property. The insurance-restoration market today pays only when a
+roof fails and a carrier agrees. A program that pays attention between storms is what
+makes the Property anchor worth maintaining for the owner as well as for the platform.
+
+### The game: what an ISR actually competes at
+
+Door-to-door ISR work as built completes offers on behalf of a Licensed Contractor. The
+addition: **an ISR also sells the RoofLac program for SelfInsurity, and that sale is the
+competition.** Offer completion is the job; program sales are the score. This is the
+thing a Season, a League, and a standings table are built on — the first candidate for
+the Game layer that sits above roles.
+
+Open, and deliberately not designed yet:
+- How a season is scored, and whether offers and program sales share one scoreboard.
+- The compensation split between offer completion and program sale.
+- How a season ends, what carries into the next, and what a League is at scale.
+- Where the **Referraltor** sits in the standings, if anywhere (ADR-017, proposed).
+
+The Game, Season, League, and Product layer is named here and left open. It is a layer
+above roles, and it cannot be specified before the Records layer gives it something to
+count.
