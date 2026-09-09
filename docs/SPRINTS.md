@@ -161,3 +161,15 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Added Part VI — The Saga to the Owner's Manual with five chapters: *The Treasure Chest*, *The Turn*, *What Happens in the Room*, *Two Tracks*, and *Act Two — If You Can Bill It, You Can Build It*. Appendices and back matter shifted behind it.
 - Verification pass: typecheck clean; sixteen public routes returned 200 signed out; ten private surfaces (`/admin`, `/room`, `/admin/economics`, `/admin/ledger`, `/admin/inbox`, `/admin/intake`, `/admin/evidence`, `/admin/lab`, `/insider`, `/manual`) loaded authorized with zero console errors.
 - Database linter: only the two intentional SECURITY DEFINER grants (`has_role`, `redeem_insider_invitation`) remain, as recorded in security memory.
+
+## Sprint 2.8 — The Second Mind (DH Method Checkpoint)
+
+**Goal:** Freeze the first external reconciliation of the architecture into the permanent record — documentation only, no application code.
+
+- Completed the first DH Method reconciliation with an external AI (ChatGPT): its understanding was compared against the live codebase, database, and planning context, and reported as Aligned / Different / Missing / Questions.
+- The founder issued five rulings, recorded as ADR-014: the Construction Manager is one operating role; SiteBMS stays inside this app on the shared record; JobNimbus is the Phase 1 system of record for existing job/project data; Authority = Role + Company Relationship + Project Assignment; the three-administration model (SAS A technology / SAS B platform / SiteBMS operations) supersedes the older interpretation.
+- Corrected `docs/ARCHITECTURE.md` and `docs/STRATEGY.md` to the three-administration model; updated project memory so no future session resurrects the superseded version.
+- Added Saga chapter *The Second Mind* (position 79) to the Owner's Manual, narrating the reconciliation and its governance lesson.
+- Closed `docs/DH-METHOD-CHECKPOINT-2026-09-09.md` with a status section.
+- Narrative placement: still Act Two — this checkpoint is its hinge. Act Three begins when the first Construction Management Group (RRCA, founding sponsor and first operator) runs on the shared record.
+- Next queue: Records layer derivation from the Draft Connecticut Agreement, then the Construction Manager (SiteBMS) operating-perspective walkthrough.
