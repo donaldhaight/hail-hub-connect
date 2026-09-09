@@ -90,7 +90,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | E7 | Referrals by referrer unused | `src/lib/referrals.functions.ts:318` | open — same |
 | E8 | Inert leftover expression in task detail | `src/routes/_authenticated/app/tasks/$taskId.tsx:120` | open — harmless, remove on next touch |
 
-E2 is the only line in this register that may represent a broken user-facing promise rather than unbuilt work. It should be resolved before the next build step, independent of the locked work order.
+E2 was the only line in this register that represented a broken user-facing promise rather than unbuilt work. It was fixed the same day, outside the locked work order, because a kept promise at the front door is a precondition for everything after it. E3–E8 remain open and are a decision, not a build: surface each one or delete it.
 
 ## F. Superseded, retained for history
 
