@@ -96,6 +96,13 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C27 | Is income recognition at Job close a real RRCA accounting rule today, or a proposal? | §12 Q2. Determines whether the ledger writes a revenue event there |
 | C28 | Which data lives in the shared SiteBMS record, which is mirrored from JobNimbus, which is referenced by identifier only, and which events cross the boundary in each direction | `docs/RECORDS-MODEL.md` §11. ADR-014 named the need; the field list is unwritten |
 | C29 | Duplicate-address override — who is authorized, and is the override itself an event on the record? | §12 Q4 |
+| C30 | Is Offer Accepted → Pending Project one event or two? | `docs/PERSPECTIVES.md` §5.3. The ISR reads acceptance as the finish line, the LC as the starting gun |
+| C31 | What relationship, visibility or attribution an ISR retains after Complete Offer | `docs/PERSPECTIVES.md` §5.4. Compensation and the competition (C22) assume something survives; the records model is silent |
+| C32 | Does RoofLac ride on the property record, or open a second record joined to it? | `docs/PERSPECTIVES.md` §5.5. Joins C21 |
+| C33 | How the authority formula bites when Construction Manager and Licensed Contractor are the same company | `docs/PERSPECTIVES.md` §5.6. RRCA is first operator *and* a contractor; if both sides are one party the Role + Relationship + Assignment test does no work |
+| C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/PERSPECTIVES.md` §5.8. **Input to** the Connecticut Agreement, with C16 |
+| C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/PERSPECTIVES.md` §5.7. **Input to** the Connecticut Agreement, with C17 |
+| C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere |
 
 
 ## D. Deliberately empty in the app
