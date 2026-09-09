@@ -143,7 +143,9 @@ This document records load-bearing architecture and product decisions. Each entr
 
 ## ADR-013: Split the administration system into SAS A and SAS B
 
-**Decision:** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
+**Status: superseded by ADR-014.** The "two administrations replace SiteBMS" framing below is retained for history. The corrected model is three things, not two: SAS A, SAS B, and SiteBMS as the Construction Management Group's own operating system.
+
+**Decision (original, now superseded):** Replace the single SiteBMS concept with two administrations over one shared record — SAS A for technology and project administration, SAS B for business administration — mirroring an entity split between Market Applications (TBD) as Technology Anchor and Kimosabe.ai as business development spin-off.
 
 **Context:** The owner controls the entire opportunity, which removes the natural tension that normally keeps a platform's builder honest about its own economics. The blockchain precedent supplies the shape: Consensys to Ethereum, IOHK to Cardano — an anchor that builds and stewards without owning the funnel. The operating precedent is Siteforum GmbH's portal and development platform, where the development administration and the business administration were distinct systems over the same substrate.
 
