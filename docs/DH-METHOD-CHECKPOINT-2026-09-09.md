@@ -127,3 +127,17 @@ Until this walkthrough is complete:
 - do not force future Human Blockchain requirements into the introductory RRCA application unless they are required by the live operating case.
 
 **Start with RRCA. Make Connecticut work. Integrate what already works. Record the events. Expand only when reality requires it.**
+
+## Status — Closed 2026-09-09
+
+This checkpoint is closed. The founder adopted the reconciliation's five rulings verbatim:
+
+1. The Construction Manager is **one operating role** — narrower duties are project assignments, not roles.
+2. **SiteBMS stays inside this application**, on the shared record.
+3. **JobNimbus is the Phase 1 system of record** for existing job/project data.
+4. **Authority = Role + Company Relationship + Project Assignment** — record-scoped, never menu-scoped.
+5. The **three-administration model** (SAS A / SAS B / SiteBMS) supersedes the older interpretation.
+
+All five are recorded as **ADR-014** in `docs/DECISIONS.md`; `docs/ARCHITECTURE.md`, `docs/STRATEGY.md`, and project memory were corrected the same day. The Saga chapter *The Second Mind* narrates the reconciliation.
+
+This checkpoint is superseded only by the upcoming Records layer walkthrough, which begins when the founder supplies the Draft Connecticut Agreement.
