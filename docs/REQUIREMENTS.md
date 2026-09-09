@@ -99,6 +99,9 @@ Turning the Interested User ritual into a staffed operating corps. Opened by ADR
 | R-4 | An LC can see and approve the work of their ISRs. | LC surface lists their ISRs, their files, and the approvals the LC owns; split lands on the LC side. | open |
 | R-5 | Field-level visibility differs by role. | A documented matrix of what ISR, LC, and Property Owner may each see of a file, enforced by RLS. | open |
 | R-6 | Nothing in band 3 is reachable from an operating role. | ISR/LC surfaces expose no targeting, ghost-profile, or outreach machinery. | open |
+| R-7 | The Role Store shows three paths, not one. | ISR *certifies* (fee, modules, quizzes); LC *registers and verifies* (license, company, insurance); Property Owner *sets up* (no fee, a property instead of a credential). Each path is visibly different in the store. | open |
+| R-8 | An ISR can sell the RoofLac program, not only complete offers for an LC. | The ISR surface carries both motions; each writes a distinct event to the record so they can be scored separately. | open |
+| R-9 | Kimosabe carries memory across the three stages. | Anonymous transcript survives wallet claim; personal memory file is readable by its owner; role and app partitions are enforced per ADR-016. | open |
 
 ## Epic 8 — ClaimExpress protocol (API / MCP)
 
@@ -111,6 +114,19 @@ The contract that lets ISRs and LCs participate without abandoning their current
 | P-3 | The protocol is callable by an agent. | An MCP surface exposes the same contract as tools, with the same authorization. | open |
 | P-4 | Every state transition is an event on the record. | Transitions append to an audit trail; no silent state edits. | open |
 | P-5 | The protocol reveals no targeting method. | Endpoint review confirms band 4 exposes objects and states only. | open |
+
+## Epic 9 — The Property Owner app
+
+The demand side of the market. Opened by ADR-015; the surface a homeowner sees.
+
+| ID | Story | Acceptance criteria | Status |
+|----|-------|---------------------|--------|
+| O-1 | A property owner sets up their property once. | Address, structure, roof age, condition and photos are attached to the Property anchor record, with dated ownership joining Person to Property. | open |
+| O-2 | Setup produces a free insurance quote. | The completed property record is quotable; the quote is an event on the property, not a page view. | open |
+| O-3 | Setup produces a roof program offer. | RoofLac / Lifetime Roof Assurance is offered on the same record, carried by SelfInsurity. | open |
+| O-4 | Home improvement projects arrive pre-estimated in good / better / best form. | Each option shows scope and a price band, sourced from the estimating layer, and can be accepted into a project. | open |
+| O-5 | Nothing on the PO surface reveals targeting method. | Band-3 review confirms the consumer-facing good-better-best generator exposes no kill-zone, fringe, carrier-route, or outreach logic. | open |
+| O-6 | A property owner is a certified position with a file. | Wallet, ledger, tasks and Task Efficiency Rating apply, with the ADR-015 boundary: never sold, never a public score. | open |
 
 ## Deferred items
 
