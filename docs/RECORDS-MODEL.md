@@ -220,3 +220,9 @@ document**, not against the codebase, which has nothing to compare.
 Contractor, Property Owner, Construction Manager — and records where the readings
 contradict each other. Those contradictions are open items C30–C36, and several are
 inputs to the Draft Connecticut Agreement rather than consequences of it.
+
+## 15. Connecticut Agreement as the next gate
+
+Before the object model is cut, the legal and operating rules that govern the record
+must be collected in `docs/CONNECTICUT-AGREEMENT.md`. It is the next step in the
+locked work order.
