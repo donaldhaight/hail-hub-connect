@@ -213,3 +213,10 @@ surfaces — none of the operating record.
 
 Consequently, **legacy ClaimExpress / Siteforum screens are reconciled against this
 document**, not against the codebase, which has nothing to compare.
+
+## 14. The same record, read from four sides
+
+`docs/PERSPECTIVES.md` walks this model through its states four times — ISR, Licensed
+Contractor, Property Owner, Construction Manager — and records where the readings
+contradict each other. Those contradictions are open items C30–C36, and several are
+inputs to the Draft Connecticut Agreement rather than consequences of it.
