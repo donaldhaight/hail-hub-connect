@@ -4,6 +4,8 @@ The standing list of everything opened and not yet closed. Compiled 2026-09-09 f
 
 This register does not duplicate status held elsewhere; it points at it. When a line closes, close it in its home document and strike it here.
 
+**Board mirror.** Since 2026-09-09 every open, held, unsettled, and needs-verification line in this register also exists on the founder backlog board (Backlog tab in the founder console), carrying its register ID and source document. The register remains the document of record; the board is the working surface. Per `docs/PROTOCOL.md` §10, new lines land in both places in the same turn and close in both together.
+
 **Status vocabulary:** `open` (specified, unbuilt) · `held` (deliberately paused, with a reason) · `unsettled` (no decision yet) · `needs verification` (behaviour unconfirmed).
 
 ## Locked work order
