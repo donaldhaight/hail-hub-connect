@@ -175,3 +175,11 @@ before the object model is cut, alongside the Connecticut inputs C16, C17 and C2
 Legacy ClaimExpress / Siteforum screens, when supplied, are reconciled against
 `docs/RECORDS-MODEL.md` — the codebase holds none of these objects, so there is nothing
 there to compare them to.
+
+## I. The four readings (2026-09-09)
+
+`docs/PERSPECTIVES.md` walks one address-centred record through its states four times —
+ISR, Licensed Contractor, Property Owner, Construction Manager — and collects the places
+the readings contradict each other. It adds C30–C36 above. Four of those (C34, C35, C36
+and the existing C16) are inputs to the Draft Connecticut Agreement; the rest are
+object-model decisions. Nothing was closed and no code changed.
