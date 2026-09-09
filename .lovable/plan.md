@@ -61,13 +61,18 @@ Implementation approach: extract the front-door experience into a shared, person
 
 ## Out of scope
 
-- No visual redesign, no new illustration, no animation.
-- No schema, route, or wallet logic changes.
-- No new pages beyond copy updates to the existing `/kimosabe` route.
-- No domain or DNS changes.
+- No schema, migration, or wallet logic changes — the ledger and wallet behave exactly as they do today.
+- No visual redesign beyond persona palette and copy.
+- No domain or DNS changes; the `.ai` correction is recorded in content and docs only.
+- No new certification, role, or Role Store work.
+
+## Technical notes
+
+- `FrontDoor.tsx` receives a `persona` prop; all wallet server functions (`resolveWallet`, `earnToken`, `payEntryFee`) and the anchor storage key stay shared, so a person recognized at one door is the same person at the other. One identity, two faces — never two files.
+- The existing `/b/buddy-claim` brand page stays as-is; the new `/buddy-claim` front door is a separate, functional door.
 
 ## Verification
 
 - `bunx tsgo --noEmit` passes.
-- `/kimosabe` returns HTTP 200 and the new copy renders.
-- No broken internal links introduced by the new document.
+- `/kimosabe` and `/buddy-claim` both return HTTP 200 and render their own persona.
+- Opening a file at one door and visiting the other shows the same balance and ledger.
