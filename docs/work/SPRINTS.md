@@ -177,3 +177,15 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Closed `docs/history/DH-METHOD-CHECKPOINT-2026-09-09.md` with a status section.
 - Narrative placement: still Act Two — this checkpoint is its hinge. Act Three begins when the first Construction Management Group (RRCA, founding sponsor and first operator) runs on the shared record.
 - Next queue: Records layer derivation from the Draft Connecticut Agreement, then the Construction Manager (SiteBMS) operating-perspective walkthrough.
+
+## Sprint 2.10 — The Corpus, Filed for the Agent Era
+
+**Goal:** Verify the repository backup, then reorganize the corpus so any human or AI joining the project can orient itself without a briefing. Documentation only — no application code, schema, or UI.
+
+- Backup verified: working tree clean, all commits on the connected branch, nothing outstanding to push.
+- `docs/` restructured from twelve flat files into five bands by authority: `law/` (PROTOCOL, SHARED-SPINE, DECISIONS, ARCHITECTURE), `strategy/` (STRATEGY, PERSPECTIVES), `requirements/` (REQUIREMENTS, RECORDS-MODEL, CONNECTICUT-AGREEMENT), `work/` (OPEN-ITEMS, SPRINTS), `history/` (dated checkpoints). Contents unchanged; every cross-reference repaired.
+- Each document now carries a status header — status, confidentiality class, last revised, purpose — so the corpus can later be chunked and indexed without a human re-reading it to decide what is binding.
+- Added `docs/00-START-HERE.md`: reading order, the manifest, the status vocabulary, the locked work order, and the truth-label/class summary.
+- Rewrote `AGENTS.md` as the standing brief every AI session reads first: what the project is, the four documents to load, the rules that bind output (locked work order, truth labels, classes, band-3 redaction, authority formula, register-and-board rule, memory partitions), and what an agent may decide alone versus what returns to the founder.
+- Rewrote `README.md` for two audiences at once — a human arriving cold and a machine indexing the repository — with the corpus map and current milestone on the front page.
+- Added *Agent surfaces — named, not built* to `docs/law/ARCHITECTURE.md`: where a retrieval index sits relative to the ADR-016 memory partitions, how the corpus index inherits confidentiality class, and the rule that an agent holds no authority its principal does not hold and writes to the ledger as a named actor.
