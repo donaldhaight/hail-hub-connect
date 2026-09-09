@@ -189,6 +189,7 @@ The intake lane, the Concept Lab, and the evidence index are C4 throughout. Insi
 - **No silent scope changes.** Work is not quietly narrowed or widened. If something cannot be completed, that is said plainly along with what is missing and why.
 - **Blockchain and DAO concepts stay practical.** They are applied as governance and coordination mechanics — seat rights, stakeholder groups, verifiable records — not invoked as vocabulary.
 - **One owner.** You reserve all rights to execute and pivot. This protocol describes how the work is organized, not who decides.
+- **Open work is registered twice, once.** When a sprint opens new work, the line lands in `docs/OPEN-ITEMS.md` (the register, document of record) and on the founder backlog board (Backlog tab, workable in-app) in the same turn, carrying the same register ID. When work ships, both close together. No line lives in only one place.
 
 ---
 
