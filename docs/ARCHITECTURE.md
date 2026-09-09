@@ -263,3 +263,48 @@ The append-only ledger is the shared record. It serves two purposes at once:
 
 SAS A writes the events through the ledger machinery. SAS B reads and prices them.
 Either side trying to do the other's job is a defect, not a shortcut.
+
+## Two spines: Person and Property
+
+*(ADR-015, 2026-09-09.)*
+
+The shared spine runs Interested User → Identity/File → Certification → Roles →
+Permissions → Ledger → Tasks → Records. That spine is about a **human**. A second,
+equally durable spine is about a **structure**.
+
+- **Person** — the file. Identity, wallet, ledger position, roles, conduct history.
+- **Property** — the address. Damage history, claims, jobs, inspections, evidence.
+
+They meet through **dated ownership**: someone owned that roof before, someone will
+own it after. The property record outlives the relationship, which is the point —
+it is the durable asset no one else in this market holds. Ownership is the
+"applicable relationship" a Property Owner brings under the ADR-014 authority rule
+when they have no company relationship at all.
+
+**Property is the anchor.** Leads, claims, jobs, and estimates are events attached
+to a property, not free-standing rows.
+
+### Lead provenance is a first-class attribute
+
+Every lead carries how it arrived, when, from whom, and what consent came with it.
+Three sources are supported deliberately, and they are not interchangeable:
+
+| Source | Nature | Consent |
+|---|---|---|
+| Front door | Self-declared — the person asked | Implicit in the gesture |
+| Targeting engine | Inferred from storm data; band-3 trade secret | Must be established separately |
+| Affiliate funnel | Purchased; contact made by a third party | Inherited, must be verifiable |
+
+The engine may stay secret; the consent record cannot — it has to survive a
+subpoena, and the applicable rules vary by state. A contractor paying for a lead is
+really paying for a defensible answer to "why are you calling me."
+
+### Task Efficiency Rating
+
+No position in the market is certified — including Property Owner — without being
+tracked for a Task Efficiency Rating: rank versus average. It is the internal
+measurement spine behind the HTER/ATER efficiency thesis.
+
+It is **core but not a product**: tracked for all certified positions, never sold,
+never licensed, never exposed as a public score. Publishing it would require a
+superseding ADR.

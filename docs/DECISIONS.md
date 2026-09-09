@@ -196,3 +196,23 @@ Four operating decisions are settled with it:
 - Company and project assignment become first-class objects, because the authority rule cannot be expressed without them.
 - A stable identifier mapping between SiteBMS records and JobNimbus jobs, plus an explicit mirror-vs-reference field list, becomes required integration work.
 - The Records layer of the shared spine (companies, leads, opportunities, projects, claims, contracts, estimates, work orders, invoices, payments, commissions, approvals, evidence) is derived from the Connecticut Agreement and the live RRCA workflow — not invented.
+
+## ADR-015: The open front door and the Property anchor
+
+**Decision:** Seven rulings settled on 2026-09-09 while pressure-testing the Kimosabe.ai → App Home → market-entry funnel.
+
+1. **The front door is open to anyone.** Kimosabe.ai admits any arrival with a question. No gate, no qualification, no filter at the door. Filtering happens later, at certification.
+2. **ISR/LC is not the destination.** It is the first paid position built, not the purpose of the building. Onboarding is indoctrination into *holding a file* — identity, wallet, ledger, guide — and paid roles are exits from that hallway, not the hallway itself.
+3. **Property Owner is a real position**, alongside ISR and LC. A homeowner who arrives and asks holds a file; their property has a condition. This is the position the authority rule already anticipated when it allowed project authority with no company relationship.
+4. **Property is the anchor record.** An address persists across owners, storms, claims, and contractors. Leads, claims, jobs, and inspections are events attached to it. Person and Property are two spines joined by **dated ownership** — the "applicable relationship" a Property Owner brings.
+5. **Leads arrive from three sources, deliberately.** The front door (inbound, self-declared, consent implicit in the gesture); the storm-targeting engine (inferred, band-3 trade secret); affiliate funnels (purchased, consent inherited). **Provenance and consent are first-class fields on every lead, not notes.** The same row from three sources carries three different legal and quality profiles; if they are not distinguishable on the record, the platform inherits the worst one across all of them.
+6. **Conduct history is core, but not a product.** Nobody is certified in the market — not even a Property Owner — without being tracked for a **Task Efficiency Rating: rank versus average**. It is the internal spine that makes the HTER/ATER efficiency thesis measurable on real actors. **Normative boundary: the rating is tracked for all certified positions, and is never sold, never licensed, and never exposed as a public score.** Any surface that would publish it requires a superseding ADR.
+7. **The affiliate position is unsettled.** Whether an affiliate is a member holding a file (ledger-native attribution, payment as a ledger event, conduct on a permanent record) or an outside vendor (faster, but arbitrage margin and unverifiable provenance) is deliberately open. See C19.
+
+**Context:** The question was whether Kimosabe.ai plus App Home plus Tasks amounts to an onboarding funnel into ISR/LC. It does not — that framing loses the majority of arrivals, who are homeowners, tradespeople, and observers who will never sell roofs. Reframing the funnel around holding a file, with Property Owner as a first-class position, resolves the demand-side gap in the same move: a property owner with storm damage who opens a file **is** the inventory an ISR needs, sourced from the same door without exposing the targeting engine.
+
+**Consequences:**
+- Property, Lead, and dated Ownership join Company and Project as objects the Records layer must define.
+- Property-record ownership and consent become **inputs to** the Draft Connecticut Agreement, not outputs of it. See C16 and C17.
+- The locked work order is unchanged: Connecticut Agreement → Records/Object Model → SiteBMS → JobNimbus mapping → API/MCP.
+- A persistent property record accumulated without the owner's request is a surveillance asset before it is a service, and is exactly what an insurer would pay most for. The capture-prevention rule of ADR-013/ADR-014 therefore extends to the property record itself.
