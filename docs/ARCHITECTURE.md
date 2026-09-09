@@ -179,8 +179,10 @@ Operating decisions settled with ADR-014:
 - **JobNimbus is the Phase 1 system of record** for existing job and project data.
   SiteBMS decides what must happen and records the events; the API/MCP connects it to
   the systems that already know how to do the work.
-- **Authority = Role + Company Relationship + Project Assignment.** All three must be
-  true for an operating permission; permissions are record-scoped, not menu-scoped.
+- **Authority = Role + applicable Relationship + applicable Assignment.** The three
+  terms are the complete ingredient set, not a mandatory triple — a Property Owner can
+  hold project authority with no company relationship. Permissions are record-scoped,
+  not menu-scoped.
 - **Construction Manager is one operating role**, alongside ISR and LC.
 
 ### Where they meet
