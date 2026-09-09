@@ -82,15 +82,15 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C13 | Whether Hurricane Beryl is the permanent demonstration scenario or a stand-in | `.lovable/plan/hold-season-1-notes-incoming-2026-08-30.md:17` |
 | C14 | What Nav, Search, Add, Role Settings and Account Settings contain, role by role | Alignment check, 2026-09-09 — intentionally undefined extension points |
 | C15 | Company and project assignment as first-class objects | ADR-014 consequence; cannot be modeled before the Connecticut Agreement |
-| C16 | Who owns the property record; what the current owner may see and erase; what may never be sold | ADR-015. A persistent record of a structure, its damage history, its claims, and its former owners is a surveillance asset before it is a service, and is what an insurer would pay most for. **Input to** the Connecticut Agreement, not a consequence of it |
-| C17 | Consent standard for storm-triggered outbound contact | ADR-015. The targeting engine may stay secret; the consent record must survive a subpoena, and the rules vary by state. **Input to** the Connecticut Agreement |
+| C16 | Who owns the property record; what the current owner may see and erase; what may never be sold | ADR-015. A persistent record of a structure, its damage history, its claims, and its former owners is a surveillance asset before it is a service, and is what an insurer would pay most for. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, not a consequence of it |
+| C17 | Consent standard for storm-triggered outbound contact | ADR-015. The targeting engine may stay secret; the consent record must survive a subpoena, and the rules vary by state. **Input to** `docs/CONNECTICUT-AGREEMENT.md` |
 | C18 | How Task Efficiency Rating is computed, and what a Property Owner's tasks are | ADR-015 ruling 6. The boundary is settled (never sold, never a public score); the formula and the consumer-side task set are not |
 | C19 | Whether an affiliate is a member holding a file or an outside vendor | ADR-015 ruling 7. Member = ledger-native attribution and conduct on a permanent record; vendor = faster start, arbitrage margin, unverifiable provenance |
 | C20 | Game, Season, League and Product as a layer above roles | Named 2026-09-09. The Season Ladder exists in strategy; how a role becomes a *player*, how a season is scored and ended, and what a "Product" is in that frame are unwritten. Cannot be specified before the Records layer gives it something to count |
 | C21 | RoofLac / Lifetime Roof Assurance terms | `docs/STRATEGY.md`. Concept, carrier partner (SelfInsurity) and market position are recorded. Pricing, underwriting, reserve treatment, claim triggers, transferability on sale, and the legal instrument are open |
 | C22 | Scoring and compensation for the ISR competition | Whether offer completion and RoofLac program sales share one scoreboard, and how the two are paid |
 | C23 | Referraltor — how the designation is earned, what it is under the authority rule, its features, benefits and ledger attribution | ADR-017, **proposed and not in force**. May resolve or collide with C19 |
-| C24 | Kimosabe memory retention and consent | ADR-016. Joins C16/C17 as an **input to** the Draft Connecticut Agreement |
+| C24 | Kimosabe memory retention and consent | ADR-016. Joins C16/C17 as an **input to** `docs/CONNECTICUT-AGREEMENT.md` |
 | C25 | Whether good-better-best offer generation may face a consumer at all | Epic 9, O-5. It currently sits in band 3 (`docs/PROTOCOL.md:207`, founder-only). A PO-facing variant needs either a redaction review or a generator that reveals no targeting logic |
 | C26 | Does a Project ID exist in JobNimbus today that SiteBMS should adopt as the shared identifier, or does SiteBMS mint its own and map to it? | `docs/RECORDS-MODEL.md` §12 Q1. Gates the JobNimbus mapping step |
 | C27 | Is income recognition at Job close a real RRCA accounting rule today, or a proposal? | §12 Q2. Determines whether the ledger writes a revenue event there |
@@ -100,9 +100,9 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C31 | What relationship, visibility or attribution an ISR retains after Complete Offer | `docs/PERSPECTIVES.md` §5.4. Compensation and the competition (C22) assume something survives; the records model is silent |
 | C32 | Does RoofLac ride on the property record, or open a second record joined to it? | `docs/PERSPECTIVES.md` §5.5. Joins C21 |
 | C33 | How the authority formula bites when Construction Manager and Licensed Contractor are the same company | `docs/PERSPECTIVES.md` §5.6. RRCA is first operator *and* a contractor; if both sides are one party the Role + Relationship + Assignment test does no work |
-| C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/PERSPECTIVES.md` §5.8. **Input to** the Connecticut Agreement, with C16 |
-| C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/PERSPECTIVES.md` §5.7. **Input to** the Connecticut Agreement, with C17 |
-| C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere |
+| C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/PERSPECTIVES.md` §5.8. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, with C16 |
+| C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/PERSPECTIVES.md` §5.7. **Input to** `docs/CONNECTICUT-AGREEMENT.md`, with C17 |
+| C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere; collected in `docs/CONNECTICUT-AGREEMENT.md` |
 
 
 ## D. Deliberately empty in the app
