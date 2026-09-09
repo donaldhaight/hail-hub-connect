@@ -140,4 +140,8 @@ This checkpoint is closed. The founder adopted the reconciliation's five rulings
 
 All five are recorded as **ADR-014** in `docs/DECISIONS.md`; `docs/ARCHITECTURE.md`, `docs/STRATEGY.md`, and project memory were corrected the same day. The Saga chapter *The Second Mind* narrates the reconciliation.
 
+**Addendum (same day):** Ruling 4 was refined on external review to the applicability form — **Authority = Role + applicable Relationship + applicable Assignment** — because a Property Owner can hold project authority with no company relationship. The normative wording lives in ADR-014.
+
+**Locked work order:** Draft Connecticut Agreement → Records/Object Model → SiteBMS walkthrough → JobNimbus mapping → API/MCP. The agreement's legal/operating rules generate the object model; nothing is modeled ahead of it.
+
 This checkpoint is superseded only by the upcoming Records layer walkthrough, which begins when the founder supplies the Draft Connecticut Agreement.
