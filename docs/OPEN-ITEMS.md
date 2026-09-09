@@ -20,7 +20,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 
 | # | Item | Home | Status | What closes it |
 |---|---|---|---|---|
-| A1 | Wallet claim on certification | `docs/REQUIREMENTS.md:90-101` (Epic 7, R-1) | open | See E2 — the claim path is not wired at all yet |
+| A1 | Wallet claim on certification | `docs/REQUIREMENTS.md:90-101` (Epic 7, R-1) | open | Claim-on-sign-in is now wired (see E2, closed). What remains is the claim *at certification*, which follows the role fee flow |
 | A2 | ISR App Home book of work | Epic 7, R-2 | open | Owner describes the ISR screens; role area is built and empty |
 | A3 | Commission ledger for ISR/LC | Epic 7, R-3 | open | Records layer defines the commission object |
 | A4 | LC approval surface | Epic 7, R-4 | open | Connecticut Agreement defines LC authority |
@@ -82,7 +82,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | # | Item | Where | Status |
 |---|---|---|---|
 | E1 | Six working server functions are finished but connected to no screen | see below | needs verification |
-| E2 | **Wallet claim is not wired.** The front door tells a visitor their anonymous file will be attached to their wallet when they sign in (`src/routes/kimosabe.tsx:210-212`), and the logic to do it exists and is complete (`src/lib/wallet.functions.ts:140`), but no route or component calls it. Searched all of `src/` — zero call sites. As it stands the promise on the front door is not kept: an anonymous file and its earned tokens are never merged into the signed-in wallet. | `src/lib/wallet.functions.ts:140` | needs verification, then fix |
+| E2 | ~~Wallet claim is not wired.~~ **Closed 2026-09-09.** The front door promised that an anonymous file would be attached to the person's wallet on sign-in; `claimWallet` existed and was complete but had zero call sites. Now called once on every authenticated arrival by `useWalletClaim` (`src/hooks/useWalletClaim.ts`), mounted in the authenticated layout (`src/routes/_authenticated/route.tsx:15`). The anchor key is shared from `src/lib/wallet.schedule.ts` so the two ends cannot drift. A failed claim leaves the anchor in place and retries on the next visit; it never blocks entry. | `src/hooks/useWalletClaim.ts` | closed |
 | E3 | Seat-event history unused | `src/lib/conference.functions.ts:164` (`listConferenceSeatEvents`) | open — decide: surface it or remove |
 | E4 | A person's own dossier-open history unused | `src/lib/dossier.functions.ts:41` (`listMyDossierOpens`) | open — same |
 | E5 | Manual edit log unused | `src/lib/manual.functions.ts:127` (`listManualEdits`) | open — same |
@@ -90,7 +90,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | E7 | Referrals by referrer unused | `src/lib/referrals.functions.ts:318` | open — same |
 | E8 | Inert leftover expression in task detail | `src/routes/_authenticated/app/tasks/$taskId.tsx:120` | open — harmless, remove on next touch |
 
-E2 is the only line in this register that may represent a broken user-facing promise rather than unbuilt work. It should be resolved before the next build step, independent of the locked work order.
+E2 was the only line in this register that represented a broken user-facing promise rather than unbuilt work. It was fixed the same day, outside the locked work order, because a kept promise at the front door is a precondition for everything after it. E3–E8 remain open and are a decision, not a build: surface each one or delete it.
 
 ## F. Superseded, retained for history
 

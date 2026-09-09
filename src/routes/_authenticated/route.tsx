@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
+import { useWalletClaim } from "@/hooks/useWalletClaim";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
@@ -8,5 +9,11 @@ export const Route = createFileRoute("/_authenticated")({
     if (error || !data.user) throw redirect({ to: "/auth" });
     return { user: data.user };
   },
-  component: () => <Outlet />,
+  component: AuthenticatedLayout,
 });
+
+function AuthenticatedLayout() {
+  // Attaches an anonymous holding wallet to this identity, once, on arrival.
+  useWalletClaim();
+  return <Outlet />;
+}
