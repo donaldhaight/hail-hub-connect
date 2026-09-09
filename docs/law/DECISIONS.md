@@ -318,3 +318,47 @@ through, and the economics attached to them (Jobs, Job Orders, Other Charges).
   operating events. That is a next-stage requirement, not built.
 - The locked work order is unchanged. Four questions (RECORDS-MODEL §12) and the
   Connecticut inputs C16/C17/C24 gate the first migration.
+
+---
+
+## ADR-019 — One front-door engine, many personas; Kimosabe.AI is the domain
+
+**Date:** 2026-09-09 · **Status:** accepted · **Class:** C1
+
+**Decision.** The public front door is one engine rendered through a persona registry.
+`Kimosabe.AI` is the universal face; `Buddy Claim` is the first sibling, positioned as
+the market-facing spokesperson for SelfInsurity and the ClaimStore vision. Both routes
+share one anchor key, one holding wallet, one append-only ledger, and one guidance
+channel. A persona changes the wordmark, palette, and vocabulary — never the record.
+
+Two faces never mean two files. The person recognized at one door is the same person at
+every other door, and the claim-on-sign-in path is unchanged.
+
+**Domain correction.** The founder owns **kimosabe.ai**, not kimosabe.com. The brand
+registry is corrected accordingly. No DNS or hosting change is made by this decision.
+
+**Alternatives considered.**
+
+- *A separate Buddy Claim codebase.* Rejected: it would split the person's file at the
+  first door they walked through, which contradicts the shared spine and ADR-015.
+- *Buddy Claim as copy-only on the existing `/b/buddy-claim` brand page.* Rejected: the
+  brand page describes a stakeholder group; it does not open a file. The founder's intent
+  was a working second door, not a second description.
+- *A runtime-configurable persona table in the database.* Deferred: with two personas the
+  registry is a typed content file. Governance becomes a real question at the point where
+  personas are created by someone other than the founder (open question K4).
+
+**Context.** The founder framed Kimosabe as a shapeshifting personal assistant for which
+the insurance restoration market is an afterthought — a first season, not the identity.
+Rendering a second branded persona on the same engine is the smallest change that makes
+that claim structurally true rather than aspirational.
+
+**Consequences.**
+
+- `src/content/personas.ts` is the persona registry; `src/components/frontdoor/FrontDoor.tsx`
+  is the shared engine. A new persona is a registry entry plus a four-line route file.
+- `docs/strategy/KIMOSABE-POSITIONING.md` holds the positioning, voice, audience ladder,
+  and four open questions (K1–K4).
+- The existing `/b/buddy-claim` brand page is unchanged and continues to describe the
+  Legal node of the Human Blockchain. `/buddy-claim` is the functional door.
+- No schema, migration, wallet, or ledger behaviour changed.
