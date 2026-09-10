@@ -1,14 +1,20 @@
 # Architecture
 
-> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-10  
 > System map: routes, auth, boundaries, data model, agent surfaces.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
-This document maps the ClaimStore Briefing Room as a system: what the user sees, what the founder sees, how the boundaries are gated, and how data moves.
+This document maps the system: what the user sees, what the founder sees, how the boundaries are gated, and how data moves.
 
 ## Design posture
 
-The site is intentionally understated. It reads like a private transaction memorandum, not a consumer app. The visual system is documentary and restrained: warm off-white paper, charcoal ink, deep navy accent, silver rules. Serif display (Instrument Serif) for headings, neutral sans (Inter) for body, mono for micro-labels.
+*Revised 2026-09-10. One codebase now carries more than one posture.*
+
+**PrepareAmerica** — the institutional presentation — is intentionally understated. It reads like a private transaction memorandum, not a consumer app. The visual system is documentary and restrained: warm off-white paper, charcoal ink, deep navy accent, silver rules. Serif display (Instrument Serif) for headings, neutral sans (Inter) for body, mono for micro-labels.
+
+**The front doors** — Kimosabe.AI, Buddy Claim, and whatever personas follow — are simpler and friendlier by design, each with its own wordmark, palette and vocabulary drawn from the persona registry (ADR-019). They may be fun and viral; they may not weaken the governance underneath. What renders is an Expression; what binds is the Pattern (ADR-020).
+
+The restraint of the institutional face is therefore a posture of *that* face, not a property of the platform.
 
 ## High-level boundaries
 
