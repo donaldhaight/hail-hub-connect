@@ -199,3 +199,24 @@ ISR, Licensed Contractor, Property Owner, Construction Manager — and collects 
 the readings contradict each other. It adds C30–C36 above. Four of those (C34, C35, C36
 and the existing C16) are inputs to the Draft Connecticut Agreement; the rest are
 object-model decisions. Nothing was closed and no code changed.
+
+## J. The adaptive-interface clarification (2026-09-10)
+
+The founder's clarification — one human, one continuing file, one guide, many personas,
+roles, applications and experiences, with pages as authorized containers and meaning drawn
+from a Progressive Knowledge Library — was reconciled against the corpus and filed as
+ADR-020 (Source / Pattern / Expression, and the Perception Library) and ADR-021 (the
+authorized container). The specification lives in
+`docs/requirements/KNOWLEDGE-LIBRARY.md`, marked *in progress*.
+
+It adds **A29–A34** and **C37–C39** above, closes **A35** (the architecture refresh), and
+changes the state of **K1, K3 and K4** in `docs/strategy/KIMOSABE-POSITIONING.md`.
+
+It does **not** move the locked work order. This is presentation and knowledge
+architecture, not the operating object model, so it may be specified in parallel — the
+same lane as the Role Store paths (A19) — but nothing here is built ahead of the
+Connecticut gate. No application, database, schema or UI changed.
+
+Three collisions are live and must not be assumed away in code: the "fun and viral"
+direction against the §3 red lines (C37), mood-driven adaptation against the memory
+partitions of ADR-016 (C38), and whether an Expression could ever bind (C39).
