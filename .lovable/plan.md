@@ -67,7 +67,7 @@ Documentation only. No application code, no schema, no change to the locked work
    - `02_Persona_Front_Doors/Kimosabe/` — a screen that exists and can be read off the
      running app.
    - `05_ISR/Get_Set_Up/` — a screen that does not exist, so the empty facets show what a
-     未-built screen looks like honestly.
+     not-yet-built screen looks like honestly.
 4. Register and board rows for every branch in the tree that has no content yet, so the
    book's own gaps are tracked where all other gaps are tracked.
 
