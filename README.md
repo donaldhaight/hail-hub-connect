@@ -87,11 +87,11 @@ the redaction map) never appears in a demo, a public page, or an agent's output.
   "Confidential Working Concept — Not an Offering" footer.
 - **Email is stubbed until a sender domain is verified.**
 
-## Founder sign-in
+## Sign-in
 
-- **Email:** `Donald.Haight@rrcausa.com`
-- **Password:** `ClaimStore2026!`
-- **Sign-in route:** `/auth`
+- **Route:** `/auth`
+- Access is by invitation only. Credentials are never recorded in this
+  repository or anywhere else in the corpus.
 
 ## GitHub connection
 
