@@ -61,6 +61,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A33 | Retrieval layer over the corpus, inheriting document class and scoped to one memory partition | KNOWLEDGE-LIBRARY §5 | open | Manifest and status headers exist; nothing indexes or serves them |
 | A34 | Persona registry with governance rather than a typed content file | ADR-019 K4 | open | Triggered by "future domains, apps, roles, missions and moods may activate additional personas" |
 | A35 | Architecture refresh — route map, role enum and design posture corrected 2026-09-10 | `docs/law/ARCHITECTURE.md` | closed | Route map now lists App Home, role areas, persona doors, brand pages, ledger and room; enum listed at 21 values; posture split between institutional face and front doors |
+| A36 | Written account of holding the standing orders — where they strained and what was done instead | `docs/history/KEEPING-THE-INSTRUCTIONS-2026-09-10.md`, Saga chapter *The Keeper of the Order* | closed | Opened and closed 2026-09-10; historical, never edited to match a later present |
 
 
 ## B. Held on purpose

@@ -202,3 +202,13 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Registered A29–A34 and C37–C39, closed A35, mirrored all nine open lines onto the founder backlog board in the same turn, and updated K1/K3/K4 in the positioning brief.
 - Three collisions left deliberately open rather than resolved: the viral direction against the "never performs personality" red line (C37), mood-driven adaptation against the memory partitions (C38), and whether an Expression could ever bind (C39, working position: no).
 - The locked work order did not move. Nothing was built.
+
+## Sprint 2.12 — The Keeper's Account
+
+**Goal:** Write down the part of the record that was missing — not what was decided, but what it took to hold the standing orders while the project kept moving. Documentation only, no application code, schema, or UI.
+
+- Added `docs/history/KEEPING-THE-INSTRUCTIONS-2026-09-10.md` (historical, C2): the seven standing orders, the five places they strained, the four habits that carried the weight, and the three judgment calls that remain genuinely hard.
+- Named the strains plainly rather than smoothing them: building ahead of the gate three times and specifying instead; the recurring pull of band 3; taking the second mind's two corrections rather than defending the prior reading; refusing to quietly narrow the "never performs personality" red line to fit the viral direction; and the exposed founder credentials, including the part that removing the line did not undo.
+- Added Saga chapter *The Keeper of the Order* (Part VI, position 80) telling the same material as story — the difference between an agent that obeys and one that can be held to account.
+- Registered **A36** and closed it in the same turn; mirrored to the founder backlog board as shipped.
+- The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.
