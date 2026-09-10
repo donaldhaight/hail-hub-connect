@@ -189,3 +189,16 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Rewrote `AGENTS.md` as the standing brief every AI session reads first: what the project is, the four documents to load, the rules that bind output (locked work order, truth labels, classes, band-3 redaction, authority formula, register-and-board rule, memory partitions), and what an agent may decide alone versus what returns to the founder.
 - Rewrote `README.md` for two audiences at once — a human arriving cold and a machine indexing the repository — with the corpus map and current milestone on the front page.
 - Added *Agent surfaces — named, not built* to `docs/law/ARCHITECTURE.md`: where a retrieval index sits relative to the ADR-016 memory partitions, how the corpus index inherits confidentiality class, and the rule that an agent holds no authority its principal does not hold and writes to the ledger as a named actor.
+
+## Sprint 2.11 — One Meaning, Many Renderings
+
+**Goal:** Reconcile the founder's adaptive-interface clarification against the corpus and file the structure that lets the experience become fun, simple and viral without weakening the governance underneath. Documentation only — no application code, schema, or UI.
+
+- Reported the reconciliation as Aligns / Conflicts / Outdated / Missing / Discuss next. Aligned: one file across many personas (ADR-019), roles changing the view and not the person, the three memory partitions (ADR-016), pages as deliberately undefined extension points (C14, register D1), and preserve-the-obligation-let-presentation-evolve.
+- ADR-020 filed: the Progressive Knowledge Library — **Source** (unchanged originals), **Pattern** (the obligation), **Expression** (never binds) — and the **Perception Library**, holding provocative, institutional, inviting, simple, humorous and dramatic siblings of one idea, labelled by audience, persona, moment, mood, purpose, intensity, truth label and class. Four selection rules: class ceiling, band 3 unreachable in any mood, truth labels survive the rendering, every selection recorded.
+- ADR-021 filed: a page is an **authorized container** — purpose, permitted roles, permitted records, permitted actions, available tools, required context, presentation options, completion event. The container declares intent and is never the access check; authority remains Role + applicable Relationship + applicable Assignment, record-scoped.
+- Added `docs/requirements/KNOWLEDGE-LIBRARY.md` (in progress) and listed it in the manifest.
+- Corrected three outdated sections of `docs/law/ARCHITECTURE.md`: the route map (App Home, role areas, persona front doors, brand pages, ledger, Situation Room), the role enum (21 values, not two), and the design posture (institutional for PrepareAmerica, friendlier for the front doors).
+- Registered A29–A34 and C37–C39, closed A35, mirrored all nine open lines onto the founder backlog board in the same turn, and updated K1/K3/K4 in the positioning brief.
+- Three collisions left deliberately open rather than resolved: the viral direction against the "never performs personality" red line (C37), mood-driven adaptation against the memory partitions (C38), and whether an Expression could ever bind (C39, working position: no).
+- The locked work order did not move. Nothing was built.
