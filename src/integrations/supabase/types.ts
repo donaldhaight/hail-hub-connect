@@ -2048,6 +2048,189 @@ export type Database = {
         }
         Relationships: []
       }
+      screen_attachments: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          external_url: string | null
+          id: string
+          kind: string
+          mime_type: string | null
+          original_date: string | null
+          page_id: string
+          position: number
+          size_bytes: number | null
+          source_label: string | null
+          storage_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          kind: string
+          mime_type?: string | null
+          original_date?: string | null
+          page_id: string
+          position?: number
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          kind?: string
+          mime_type?: string | null
+          original_date?: string | null
+          page_id?: string
+          position?: number
+          size_bytes?: number | null
+          source_label?: string | null
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "screen_attachments_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "screen_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      screen_facet_revisions: {
+        Row: {
+          body: string
+          created_at: string
+          edited_by: string | null
+          facet_key: string
+          id: string
+          page_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          edited_by?: string | null
+          facet_key: string
+          id?: string
+          page_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          edited_by?: string | null
+          facet_key?: string
+          id?: string
+          page_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "screen_facet_revisions_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "screen_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      screen_facets: {
+        Row: {
+          body: string
+          created_at: string
+          facet_key: string
+          id: string
+          page_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          facet_key: string
+          id?: string
+          page_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          facet_key?: string
+          id?: string
+          page_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "screen_facets_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "screen_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      screen_pages: {
+        Row: {
+          branch: string
+          class: string
+          created_at: string
+          id: string
+          name: string
+          pattern_links: string[]
+          position: number
+          register_ids: string[]
+          route: string | null
+          slug: string
+          status: string
+          truth: string
+          updated_at: string
+        }
+        Insert: {
+          branch: string
+          class?: string
+          created_at?: string
+          id?: string
+          name: string
+          pattern_links?: string[]
+          position?: number
+          register_ids?: string[]
+          route?: string | null
+          slug: string
+          status?: string
+          truth?: string
+          updated_at?: string
+        }
+        Update: {
+          branch?: string
+          class?: string
+          created_at?: string
+          id?: string
+          name?: string
+          pattern_links?: string[]
+          position?: number
+          register_ids?: string[]
+          route?: string | null
+          slug?: string
+          status?: string
+          truth?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       task_ledger: {
         Row: {
           act_cost: number
