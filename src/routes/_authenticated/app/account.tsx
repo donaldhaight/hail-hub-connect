@@ -134,6 +134,78 @@ function AccountPage() {
             <div className="text-sm text-ink">{isLoading ? "…" : (data?.email ?? "—")}</div>
           </div>
 
+          <div className="p-5">
+            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
+              Password
+            </div>
+            <form onSubmit={handlePasswordChange} className="max-w-sm space-y-3">
+              <label className="block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                  Current password
+                </span>
+                <input
+                  type="password"
+                  autoComplete="current-password"
+                  value={currentPw}
+                  onChange={(e) => setCurrentPw(e.target.value)}
+                  className="mt-2 block w-full border border-border bg-paper px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none"
+                />
+              </label>
+              <label className="block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                  New password
+                </span>
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  value={newPw}
+                  onChange={(e) => setNewPw(e.target.value)}
+                  className="mt-2 block w-full border border-border bg-paper px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none"
+                />
+              </label>
+              <label className="block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+                  Confirm new password
+                </span>
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  value={confirmPw}
+                  onChange={(e) => setConfirmPw(e.target.value)}
+                  className="mt-2 block w-full border border-border bg-paper px-3 py-2.5 text-[15px] text-ink focus:border-navy focus:outline-none"
+                />
+              </label>
+              {pwError ? (
+                <div className="border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
+                  {pwError}
+                </div>
+              ) : null}
+              {pwNote ? (
+                <div className="border border-border bg-paper p-3 text-sm text-ink/80">{pwNote}</div>
+              ) : null}
+              <div className="flex items-center justify-between gap-3">
+                <button
+                  type="submit"
+                  disabled={pwBusy}
+                  className="border border-ink bg-ink px-5 py-2.5 text-sm font-medium text-paper hover:border-navy hover:bg-navy disabled:opacity-60"
+                >
+                  {pwBusy ? "…" : "Update password"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleForgot}
+                  disabled={pwBusy}
+                  className="font-mono text-[11px] uppercase tracking-[0.18em] text-silver hover:text-ink disabled:opacity-60"
+                >
+                  Forgot it?
+                </button>
+              </div>
+            </form>
+          </div>
+
+
           <div className="flex flex-wrap items-baseline justify-between gap-2 p-5">
             <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-silver">
               {PLATFORM_TOKEN} wallet
