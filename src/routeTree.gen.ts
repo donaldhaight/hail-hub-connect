@@ -70,6 +70,7 @@ import { Route as AuthenticatedAdminEconomicsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminDigestRouteImport } from './routes/_authenticated/admin/digest'
 import { Route as AuthenticatedAdminBroadcastRouteImport } from './routes/_authenticated/admin/broadcast'
 import { Route as AuthenticatedAppTasksIndexRouteImport } from './routes/_authenticated/app/tasks/index'
+import { Route as AuthenticatedAdminScreensIndexRouteImport } from './routes/_authenticated/admin/screens/index'
 import { Route as AuthenticatedInsiderDossierSlugRouteImport } from './routes/_authenticated/insider/dossier.$slug'
 import { Route as AuthenticatedAppTasksTaskIdRouteImport } from './routes/_authenticated/app/tasks/$taskId'
 import { Route as AuthenticatedAppRoleRoleKeyRouteImport } from './routes/_authenticated/app/role.$roleKey'
@@ -392,6 +393,12 @@ const AuthenticatedAppTasksIndexRoute =
     path: '/app/tasks/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminScreensIndexRoute =
+  AuthenticatedAdminScreensIndexRouteImport.update({
+    id: '/admin/screens/',
+    path: '/admin/screens/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedInsiderDossierSlugRoute =
   AuthenticatedInsiderDossierSlugRouteImport.update({
     id: '/insider/dossier/$slug',
@@ -474,6 +481,7 @@ export interface FileRoutesByFullPath {
   '/app/role/$roleKey': typeof AuthenticatedAppRoleRoleKeyRoute
   '/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/admin/screens/': typeof AuthenticatedAdminScreensIndexRoute
   '/app/tasks/': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRoutesByTo {
@@ -539,6 +547,7 @@ export interface FileRoutesByTo {
   '/app/role/$roleKey': typeof AuthenticatedAppRoleRoleKeyRoute
   '/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/admin/screens': typeof AuthenticatedAdminScreensIndexRoute
   '/app/tasks': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRoutesById {
@@ -606,6 +615,7 @@ export interface FileRoutesById {
   '/_authenticated/app/role/$roleKey': typeof AuthenticatedAppRoleRoleKeyRoute
   '/_authenticated/app/tasks/$taskId': typeof AuthenticatedAppTasksTaskIdRoute
   '/_authenticated/insider/dossier/$slug': typeof AuthenticatedInsiderDossierSlugRoute
+  '/_authenticated/admin/screens/': typeof AuthenticatedAdminScreensIndexRoute
   '/_authenticated/app/tasks/': typeof AuthenticatedAppTasksIndexRoute
 }
 export interface FileRouteTypes {
@@ -673,6 +683,7 @@ export interface FileRouteTypes {
     | '/app/role/$roleKey'
     | '/app/tasks/$taskId'
     | '/insider/dossier/$slug'
+    | '/admin/screens/'
     | '/app/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -738,6 +749,7 @@ export interface FileRouteTypes {
     | '/app/role/$roleKey'
     | '/app/tasks/$taskId'
     | '/insider/dossier/$slug'
+    | '/admin/screens'
     | '/app/tasks'
   id:
     | '__root__'
@@ -804,6 +816,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/role/$roleKey'
     | '/_authenticated/app/tasks/$taskId'
     | '/_authenticated/insider/dossier/$slug'
+    | '/_authenticated/admin/screens/'
     | '/_authenticated/app/tasks/'
   fileRoutesById: FileRoutesById
 }
@@ -1264,6 +1277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppTasksIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/screens/': {
+      id: '/_authenticated/admin/screens/'
+      path: '/admin/screens'
+      fullPath: '/admin/screens/'
+      preLoaderRoute: typeof AuthenticatedAdminScreensIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/insider/dossier/$slug': {
       id: '/_authenticated/insider/dossier/$slug'
       path: '/insider/dossier/$slug'
@@ -1319,6 +1339,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppRoleRoleKeyRoute: typeof AuthenticatedAppRoleRoleKeyRoute
   AuthenticatedAppTasksTaskIdRoute: typeof AuthenticatedAppTasksTaskIdRoute
   AuthenticatedInsiderDossierSlugRoute: typeof AuthenticatedInsiderDossierSlugRoute
+  AuthenticatedAdminScreensIndexRoute: typeof AuthenticatedAdminScreensIndexRoute
   AuthenticatedAppTasksIndexRoute: typeof AuthenticatedAppTasksIndexRoute
 }
 
@@ -1353,6 +1374,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppRoleRoleKeyRoute: AuthenticatedAppRoleRoleKeyRoute,
   AuthenticatedAppTasksTaskIdRoute: AuthenticatedAppTasksTaskIdRoute,
   AuthenticatedInsiderDossierSlugRoute: AuthenticatedInsiderDossierSlugRoute,
+  AuthenticatedAdminScreensIndexRoute: AuthenticatedAdminScreensIndexRoute,
   AuthenticatedAppTasksIndexRoute: AuthenticatedAppTasksIndexRoute,
 }
 
