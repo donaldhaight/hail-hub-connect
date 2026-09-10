@@ -123,12 +123,26 @@ a structural precondition for it, not evidence of it.
 
 ## 8. Open questions
 
-| ID | Question |
-|---|---|
-| K1 | Does Buddy Claim get its own domain, or live as a path under the main site? |
-| K2 | Do personas share one guidance feed, or does each carry its own voice track? |
-| K3 | At what point does a person see that Kimosabe and Buddy Claim are one scout? Is the reveal a feature or a footnote? |
-| K4 | How many personas before the registry needs founder governance rather than a code edit? |
+*Updated 2026-09-10 against the founder's adaptive-interface clarification.*
+
+| ID | Question | State |
+|---|---|---|
+| K1 | Does Buddy Claim get its own domain, or live as a path under the main site? | **Answered in principle** — the founder named **buddyclaim.com** alongside kimosabe.ai. No DNS or hosting change has been made; `/buddy-claim` remains the working door |
+| K2 | Do personas share one guidance feed, or does each carry its own voice track? | Open |
+| K3 | At what point does a person see that Kimosabe and Buddy Claim are one scout? Is the reveal a feature or a footnote? | **Now urgent.** Personas are a standing mechanism, not a one-off sibling; future domains, apps, roles, missions and moods may activate more. A reveal rule chosen late is a reveal rule chosen by accident |
+| K4 | How many personas before the registry needs founder governance rather than a code edit? | **Triggered.** Registered as A29–A34's companion item A34 |
+
+### 8.1 The pressure the clarification puts on §3
+
+The red lines in §3 were written for one scout with one register. The Perception Library
+(ADR-020) holds provocative, humorous and dramatic siblings of the same idea. Two of those
+sit against *"does not perform personality."* That collision is registered as **C37** and
+is a founder decision, not a copy edit. Until it is settled, the Perception Library is
+bounded to tone, length and framing — the red lines stand as written.
+
+Buddy Claim remains the first sibling and the proof of the pattern; it is no longer the
+whole of it. A persona is now the standing mechanism by which one file wears a face
+appropriate to a domain, role, mission or moment (ADR-019, ADR-021).
 
 ## 9. Related
 
