@@ -1,6 +1,6 @@
 # Open Items Register
 
-> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-09  
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-10  
 > Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 

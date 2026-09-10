@@ -1,6 +1,6 @@
 # Kimosabe.AI — Brand Positioning
 
-> **Status:** in progress · **Class:** C1 · **Last revised:** 2026-09-09
+> **Status:** in progress · **Class:** C1 · **Last revised:** 2026-09-10
 > The positioning of Kimosabe.AI and its sibling personas.
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
