@@ -40,6 +40,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
 | [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
 | [`requirements/CONNECTICUT-AGREEMENT.md`](requirements/CONNECTICUT-AGREEMENT.md) | in progress | C3 | Legal and operating rules that generate the model |
+| [`screens/00-SCREEN-BOOK.md`](screens/00-SCREEN-BOOK.md) | in progress | C2 | Every surface as an authorized container: purpose, permissions, records, actions, tools, context, completion |
 | [`work/OPEN-ITEMS.md`](work/OPEN-ITEMS.md) | register | C4 | Document of record for open work |
 | [`work/SPRINTS.md`](work/SPRINTS.md) | historical | C2 | The build log |
 | [`history/`](history/) | historical | C2 | Dated checkpoints, kept as written |

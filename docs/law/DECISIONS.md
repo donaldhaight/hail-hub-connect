@@ -463,3 +463,45 @@ declaration format rather than inventing furniture for them.
 - The eight facets are specified in `docs/requirements/KNOWLEDGE-LIBRARY.md` §4.
 - C14 is not closed; it is now answerable in a defined shape, role by role.
 - No route, component, schema or permission changed.
+
+---
+
+## ADR-022 — The Screen Book: every surface described as an authorized container
+
+**Date:** 2026-09-10 · **Status:** accepted · **Class:** C2
+
+**Decision.** Every surface of the system — built, specified, or deliberately empty — gets a
+folder under `docs/screens/`, structured as an authorized-container declaration (ADR-021)
+and treated as Expression over a named Pattern (ADR-020).
+
+A screen folder carries the eight container facets as separate files — purpose, permissions,
+records, actions, tools, context, completion, and presentation (content, layout, components,
+states, persona) — plus `variants/` for sibling renderings, `evidence/` for Source material,
+and `open-questions.md` in which every question carries a register ID.
+
+Four rules bind it:
+
+1. **The book describes; it never decides.** A screen folder is not authority. The server
+   re-checks every permission it names.
+2. **Every Expression names its Pattern.** A screen folder whose `pattern:` list is empty
+   may not leave `status: empty`.
+3. **Empty is a legitimate status, and it is stated.** An unbuilt screen says so in every
+   facet rather than being filled with plausible copy.
+4. **Nothing here jumps the locked work order.** Describing a screen is not building it.
+
+**Alternatives considered.**
+
+- *A flat page inventory.* Rejected: it records that a page exists and nothing about what it
+  is authorized to do, which is the only part that governs anything.
+- *Documenting only built screens.* Rejected: the unbuilt screens are where the unanswered
+  questions live, and they are the ones that get invented under pressure.
+- *Copy variants stored next to components in `src/`.* Rejected: it puts Expression inside
+  the running code, where a later rewrite silently overwrites a sibling instead of adding one.
+
+**Consequences.**
+
+- `docs/screens/00-SCREEN-BOOK.md` is the manifest; `SCREEN-TEMPLATE/` is the shape.
+- Twelve branches exist, each with a README stating what it holds and that it is unwritten.
+- Two worked examples: `02_Persona_Front_Doors/Kimosabe` (built) and `05_ISR/Get_Set_Up`
+  (specified, unbuilt).
+- No route, component, schema, permission or work-order change.
