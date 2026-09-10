@@ -386,3 +386,29 @@ actor and the human named as the principal. The Task Efficiency Rating spine
 
 Band 3 of the redaction map is out of reach for every agent surface that can emit
 to a non-founder audience.
+
+---
+
+## Knowledge, perception, and adaptive containers
+
+*Added 2026-09-10 (ADR-020, ADR-021). Specification only — nothing here is built.*
+
+One codebase now carries an institutional presentation and a family of friendlier,
+potentially viral front doors. The structure that keeps those compatible is a three-layer
+library: **Source** (unchanged originals), **Pattern** (the extracted obligation), and
+**Expression** (copy, layouts, conversations, lessons, games, adaptive interfaces).
+Pattern binds; Expression never does, and every Expression names the Pattern it expresses.
+
+The **Perception Library** keeps multiple valid Expressions of one idea as siblings,
+labelled by audience, persona, moment, mood, purpose and intensity — and, without
+exception, by truth label and confidentiality class. Selection enforces the class ceiling,
+keeps band 3 unreachable in any mood at any intensity, preserves truth labels through the
+rendering, and records the choice.
+
+A page is an **authorized container** declared by purpose, permitted roles, permitted
+records, permitted actions, available tools, required context, presentation options and
+completion event. The container declares intent; it is never the access check. Authority
+remains `Role + applicable Relationship + applicable Assignment`, record-scoped, and
+presentation never bypasses the permission model.
+
+Full specification: [`docs/requirements/KNOWLEDGE-LIBRARY.md`](../requirements/KNOWLEDGE-LIBRARY.md).
