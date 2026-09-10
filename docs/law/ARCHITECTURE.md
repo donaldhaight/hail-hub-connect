@@ -1,48 +1,76 @@
 # Architecture
 
-> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-09  
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-10  
 > System map: routes, auth, boundaries, data model, agent surfaces.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
-This document maps the ClaimStore Briefing Room as a system: what the user sees, what the founder sees, how the boundaries are gated, and how data moves.
+This document maps the system: what the user sees, what the founder sees, how the boundaries are gated, and how data moves.
 
 ## Design posture
 
-The site is intentionally understated. It reads like a private transaction memorandum, not a consumer app. The visual system is documentary and restrained: warm off-white paper, charcoal ink, deep navy accent, silver rules. Serif display (Instrument Serif) for headings, neutral sans (Inter) for body, mono for micro-labels.
+*Revised 2026-09-10. One codebase now carries more than one posture.*
+
+**PrepareAmerica** — the institutional presentation — is intentionally understated. It reads like a private transaction memorandum, not a consumer app. The visual system is documentary and restrained: warm off-white paper, charcoal ink, deep navy accent, silver rules. Serif display (Instrument Serif) for headings, neutral sans (Inter) for body, mono for micro-labels.
+
+**The front doors** — Kimosabe.AI, Buddy Claim, and whatever personas follow — are simpler and friendlier by design, each with its own wordmark, palette and vocabulary drawn from the persona registry (ADR-019). They may be fun and viral; they may not weaken the governance underneath. What renders is an Expression; what binds is the Pattern (ADR-020).
+
+The restraint of the institutional face is therefore a posture of *that* face, not a property of the platform.
 
 ## High-level boundaries
+
+*Route map revised 2026-09-10.*
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                        PUBLIC LAYER                         │
-│  /                          — front door                     │
-│  /why-rrca                  — case for RRCA                  │
-│  /industry-problem          — market fragmentation           │
-│  /proof-of-concept          — concept brief                  │
-│  /vision                    — long-form vision               │
-│  /founder                   — founder note                   │
-│  /prepare-america           — conference application         │
-│  /request-briefing          — briefing request form          │
-│  /prepare-america/confirmed — token-gated attendee page      │
+│  Institutional presentation (PrepareAmerica)                 │
+│    /                        — front door                     │
+│    /why-rrca /why-prepare-america                            │
+│    /industry-problem /proof-of-concept /vision /founder      │
+│    /investors /policy /architecture /briefing                │
+│    /first-congress                                           │
+│    /prepare-america         — conference application         │
+│    /request-briefing        — briefing request form          │
+│    /prepare-america/confirmed — token-gated attendee page    │
+│    /ticket/$credential /invitation/$credential               │
+│                                                              │
+│  Human Blockchain brand pages                                │
+│    /b/kimosabe /b/buddy-claim /b/claimstore /b/rrca          │
+│    /b/selfinsurity /b/market-applications                    │
+│    /b/united-stakeholders                                    │
+│                                                              │
+│  Front doors (one engine, persona registry — ADR-019)        │
+│    /kimosabe                — universal scout                │
+│    /buddy-claim             — insurance-restoration persona  │
+│      anonymous anchor · holding wallet · append-only ledger  │
+│                                                              │
+│  Access                                                      │
+│    /auth /reset-password /roles /insider/accept              │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    AUTHENTICATED LAYER                      │
-│  Requires Google OAuth + role assignment                     │
+│  Session required; authority checked per record              │
+│                                                              │
+│  Everyone signed in:                                         │
+│    /app                — App Home (tasks, guidance, footer)  │
+│    /app/tasks, /app/tasks/$taskId                            │
+│    /app/search /app/account                                  │
+│    /app/role/$roleKey  — an entity role's own area (empty)   │
+│    /manual, /manual/$slug, /manual/print                     │
 │                                                              │
 │  Founder Admin:                                              │
-  │    /admin/inbox    — triage requests, invitations, itinerary │
-  │    /admin/signals  — insider engagement dashboard            │
-  │    /admin/digest   — daily rollup                            │
-  │    /admin/edits    — dossier edit audit log                  │
-  │    /admin/reads    — section-level read heatmap              │
-  │                                                              │
-  │  Qualified Insider:                                          │
-  │    /insider        — dossier index                           │
-  │    /insider/dossier/$slug  — reader + Q&A + notes            │
-  │    /insider/accept — token redemption for invitations        │
-  │    /insider/refer  — peer nomination form                    │
+│    /admin, /admin/queue, /admin/inbox, /admin/invite         │
+│    /admin/signals, /admin/digest, /admin/edits, /admin/reads │
+│    /admin/roles, /admin/ledger, /admin/economics             │
+│    /admin/evidence, /admin/intake, /admin/lab, /admin/tour   │
+│    /admin/broadcast, /admin/tickets                          │
+│    /ledger             — platform ledger feed                │
+│                                                              │
+│  Qualified Insider:                                          │
+│    /insider, /insider/dossier/$slug, /insider/refer          │
+│    /room               — Situation Room                      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -52,15 +80,17 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 
 - Public leaf routes are flat files (e.g. `request-briefing.tsx`).
 - Authenticated routes share the `src/routes/_authenticated/route.tsx` gate.
+- App Home and role areas are under `src/routes/_authenticated/app/`.
 - Admin routes are under `src/routes/_authenticated/admin/`.
 - Insider routes are under `src/routes/_authenticated/insider/`.
+- Brand pages are under `src/routes/b/`; persona front doors are flat public routes rendering the shared `FrontDoor` engine from `src/content/personas.ts`.
 
 ## Authentication and authorization
 
 - **Auth provider:** Lovable Cloud (Supabase Auth) with Google OAuth enabled.
 - **Sign-in page:** `/auth`.
 - **Authenticated gate:** `src/routes/_authenticated/route.tsx` checks for a session and redirects to `/auth` if absent.
-- **Role system:** Roles are stored in `public.user_roles`, separate from the auth users table. The `app_role` enum currently has `founder_admin` and `qualified_insider`.
+- **Role system:** Roles are stored in `public.user_roles`, separate from the auth users table. *Corrected 2026-09-10 — the enum is no longer two values.* The `app_role` enum now carries 21: `founder_admin`, `qualified_insider`, `counsel`, `rrca_exec`, `investor_prospect`, `sponsor_prospect`, `strategic_partner`, `specialist_advisor`, `system_auditor`, `industry_observer`, `interested_user`, `verified_member`, `isr`, `lc`, `venture_tech`, `systems_tech`, `legal_tech`, `insure_tech`, `fin_tech`, `construction_management`, `business_development`. Two axes are kept separate (`src/lib/roles.ts`): **stakeholder** roles are requested and granted, **entity** roles (ISR, LC, and Property Owner when it lands) are certified.
 - **Role check:** Server functions and RLS policies use the security-definer `public.has_role(_user_id uuid, _role app_role)` function to avoid recursive RLS.
 - **Invitation flow:** Founders issue `insider_invitations` tokens. Recipients redeem at `/insider/accept`, which assigns the `qualified_insider` role.
 
@@ -356,3 +386,29 @@ actor and the human named as the principal. The Task Efficiency Rating spine
 
 Band 3 of the redaction map is out of reach for every agent surface that can emit
 to a non-founder audience.
+
+---
+
+## Knowledge, perception, and adaptive containers
+
+*Added 2026-09-10 (ADR-020, ADR-021). Specification only — nothing here is built.*
+
+One codebase now carries an institutional presentation and a family of friendlier,
+potentially viral front doors. The structure that keeps those compatible is a three-layer
+library: **Source** (unchanged originals), **Pattern** (the extracted obligation), and
+**Expression** (copy, layouts, conversations, lessons, games, adaptive interfaces).
+Pattern binds; Expression never does, and every Expression names the Pattern it expresses.
+
+The **Perception Library** keeps multiple valid Expressions of one idea as siblings,
+labelled by audience, persona, moment, mood, purpose and intensity — and, without
+exception, by truth label and confidentiality class. Selection enforces the class ceiling,
+keeps band 3 unreachable in any mood at any intensity, preserves truth labels through the
+rendering, and records the choice.
+
+A page is an **authorized container** declared by purpose, permitted roles, permitted
+records, permitted actions, available tools, required context, presentation options and
+completion event. The container declares intent; it is never the access check. Authority
+remains `Role + applicable Relationship + applicable Assignment`, record-scoped, and
+presentation never bypasses the permission model.
+
+Full specification: [`docs/requirements/KNOWLEDGE-LIBRARY.md`](../requirements/KNOWLEDGE-LIBRARY.md).

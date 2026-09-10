@@ -38,6 +38,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/KIMOSABE-POSITIONING.md`](strategy/KIMOSABE-POSITIONING.md) | in progress | C1 | The scout position, voice, personas, audience ladder |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
+| [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
 | [`requirements/CONNECTICUT-AGREEMENT.md`](requirements/CONNECTICUT-AGREEMENT.md) | in progress | C3 | Legal and operating rules that generate the model |
 | [`work/OPEN-ITEMS.md`](work/OPEN-ITEMS.md) | register | C4 | Document of record for open work |
 | [`work/SPRINTS.md`](work/SPRINTS.md) | historical | C2 | The build log |

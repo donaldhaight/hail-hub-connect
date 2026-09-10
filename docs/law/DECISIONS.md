@@ -362,3 +362,104 @@ that claim structurally true rather than aspirational.
 - The existing `/b/buddy-claim` brand page is unchanged and continues to describe the
   Legal node of the Human Blockchain. `/buddy-claim` is the functional door.
 - No schema, migration, wallet, or ledger behaviour changed.
+
+---
+
+## ADR-020 — The Progressive Knowledge Library and the Perception Library
+
+**Date:** 2026-09-10 · **Status:** accepted · **Class:** C2
+
+**Decision.** Knowledge in this project is preserved in three layers, and they accumulate
+downward rather than overwrite:
+
+1. **Source** — original documents, screenshots, logic and narrative, unchanged. A
+   correction is new Source, dated; it never edits the old.
+2. **Pattern** — the extracted purpose, workflow, rules, roles, permissions, states and
+   lessons. **Pattern is the obligation.** It is revised only by a recorded decision.
+3. **Expression** — alternative copy, layouts, conversations, lessons, games and adaptive
+   interfaces. **Expression never binds.**
+
+Every Expression names the Pattern it expresses; an Expression that cannot be traced to a
+Pattern is a defect. An Expression may shorten, dramatize, simplify or gamify a Pattern.
+It may never add, remove or loosen an obligation.
+
+The **Perception Library** holds multiple valid Expressions of the same idea as
+**siblings** — provocative, institutional, inviting, simple, humorous, dramatic — each
+labelled by audience, persona, moment, mood, purpose and intensity, and additionally by
+truth label and confidentiality class. One sibling never overwrites another; none of them
+is authoritative, because the Pattern is.
+
+Four selection rules are in force: the class ceiling (a variant is servable only into a
+surface at or above its class); band 3 is unreachable in any mood at any intensity; truth
+labels survive the rendering; and every selection is recorded — which variant, for whom,
+why, when.
+
+**Alternatives considered.**
+
+- *One canonical rendering per idea, revised in place.* Rejected: it is what the corpus
+  already refuses to do with history documents, and it would force the institutional and
+  the viral faces to fight over the same paragraph.
+- *Free per-persona copy with no linkage back.* Rejected: within two personas the
+  obligations would drift, and there would be no way to prove which rendering was true.
+- *Deferring the whole structure until after the Records layer.* Rejected as a
+  specification, accepted as a build constraint. Nothing here is built ahead of the gate.
+
+**Context.** The founder's 2026-09-10 clarification: PrepareAmerica is one serious
+institutional presentation of a larger system; Kimosabe.AI and BuddyClaim.com are simpler,
+friendlier, potentially viral front doors on the same codebase, identity, file, wallet and
+ledger. The experience should become fun, simple, useful and viral **without weakening the
+serious governance underneath.** This ADR is the mechanism that makes those two sentences
+compatible instead of opposed.
+
+**Consequences.**
+
+- `docs/requirements/KNOWLEDGE-LIBRARY.md` holds the full specification, marked
+  *in progress*. No schema, table, index or screen is created by this decision.
+- A retrieval layer over the corpus inherits document class and is scoped to one Kimosabe
+  memory partition (ADR-016). Adaptive presentation is the pressure point on that rule.
+- Three questions are explicitly left open and must not be assumed in code: how far the
+  "never performs personality" red line moves, which adaptation signals may persist versus
+  session-local, and whether an Expression could ever become authoritative (working
+  position: no). Registered C37–C39.
+- The locked work order is unchanged.
+
+---
+
+## ADR-021 — Pages are authorized containers, not fixed content
+
+**Date:** 2026-09-10 · **Status:** accepted · **Class:** C2
+
+**Decision.** A page or view is an **authorized container** declared by eight facets:
+purpose, permitted roles, permitted records, permitted actions, available tools, required
+context, presentation options, completion event. The guide retrieves meaning from the
+Progressive Knowledge Library and presents it according to the person's domain, persona,
+role, experience, goal, device and moment.
+
+Two invariants bind the container:
+
+- **Authority is unchanged.** Permitted roles and permitted records are evaluated under
+  `Role + applicable Relationship + applicable Assignment`, record-scoped. A container
+  declares intent; it is never the access check. Presentation must never bypass the
+  permission model.
+- **Completion events wait on the task engine.** `State + Need → Task` (register A25) does
+  not exist, so most containers have nothing to complete against today. The facet is
+  declared now so the first task migration is cut with it in view.
+
+**Alternatives considered.**
+
+- *Keep pages as hand-authored route files.* Rejected: it cannot express a view that
+  changes with role, persona and moment without duplicating the page per combination.
+- *Make the container definition executable now.* Deferred: the operating records the
+  containers would authorize do not exist yet, and a container object cut before the
+  Records layer would be cut twice.
+
+**Context.** The corpus already refuses to fix the contents of Nav, Search, Add, Role
+Settings and Account Settings (C14), and each role area is a proven lock with a
+deliberately unfurnished room behind it (register D1). This ADR gives those rooms a
+declaration format rather than inventing furniture for them.
+
+**Consequences.**
+
+- The eight facets are specified in `docs/requirements/KNOWLEDGE-LIBRARY.md` §4.
+- C14 is not closed; it is now answerable in a defined shape, role by role.
+- No route, component, schema or permission changed.

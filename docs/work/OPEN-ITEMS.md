@@ -1,6 +1,6 @@
 # Open Items Register
 
-> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-09  
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-10  
 > Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
@@ -54,6 +54,13 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A26 | Duplicate-address detection, disclaimer, and authorized override | `docs/requirements/RECORDS-MODEL.md` §4 | open | Rules undefined — see C29 |
 | A27 | Field-locking matrix beyond the three minimum locks | ADR-018 | deferred on purpose | Address provenance, user provenance and the completed-offer snapshot are the only locks in force |
 | A28 | Prospect as a stored state — potentially every U.S. address, *Claim Your Address*, bulk activation, bot protection | ADR-018 | out of Phase 1 | Recorded so nobody builds address ingestion early |
+| A29 | Progressive Knowledge Library — Source / Pattern / Expression stored as three linked layers, with every Expression naming its Pattern | ADR-020, `docs/requirements/KNOWLEDGE-LIBRARY.md` §2 | open | Specified 2026-09-10; nothing stores the separation today |
+| A30 | Perception Library — sibling variants labelled by audience, persona, moment, mood, purpose, intensity, truth label and class | ADR-020 §3 | open | No variant model exists; copy is single-rendering per surface |
+| A31 | Variant selection with class ceiling, band-3 exclusion, truth-label survival and recorded selection provenance | ADR-020 §3 | open | The audit trail is the part that must not be skipped |
+| A32 | The authorized container as a declared object — purpose, roles, records, actions, tools, context, presentation, completion | ADR-021, KNOWLEDGE-LIBRARY §4 | open | Gives C14 and D1 a declaration format; blocked from build by the Records layer |
+| A33 | Retrieval layer over the corpus, inheriting document class and scoped to one memory partition | KNOWLEDGE-LIBRARY §5 | open | Manifest and status headers exist; nothing indexes or serves them |
+| A34 | Persona registry with governance rather than a typed content file | ADR-019 K4 | open | Triggered by "future domains, apps, roles, missions and moods may activate additional personas" |
+| A35 | Architecture refresh — route map, role enum and design posture corrected 2026-09-10 | `docs/law/ARCHITECTURE.md` | closed | Route map now lists App Home, role areas, persona doors, brand pages, ledger and room; enum listed at 21 values; posture split between institutional face and front doors |
 
 
 ## B. Held on purpose
@@ -109,6 +116,9 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C34 | Who inherits the property file when the property is sold, and what the former owner keeps | `docs/strategy/PERSPECTIVES.md` §5.8. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md`, with C16 |
 | C35 | What an ISR may truthfully tell a property owner at the door about how the address was obtained, without exposing band-3 targeting logic | `docs/strategy/PERSPECTIVES.md` §5.7. **Input to** `docs/requirements/CONNECTICUT-AGREEMENT.md`, with C17 |
 | C36 | Whether erasure is possible at all against append-only offer snapshots and ledger entries | `docs/strategy/PERSPECTIVES.md` §5.2. C16 and ADR-018 are in direct tension; the tension is resolved nowhere; collected in `docs/requirements/CONNECTICUT-AGREEMENT.md` |
+| C37 | How far the "never performs personality" red line moves | ADR-020. `docs/strategy/KIMOSABE-POSITIONING.md` §3 rules that Kimosabe is not a chatbot, does not perform personality and never flatters. A humorous or dramatic Perception variant selected by mood sits against that. Either the red line narrows to "never flatters, never fakes memory," or the Perception Library is bounded to tone, length and framing |
+| C38 | Which adaptation signals may persist, and which are session-local | ADR-020 with ADR-016. Device and declared goal are easy; mood and inferred intent are inference, and a signal learned in one role reshaping another role's presentation crosses a memory partition without the person's act |
+| C39 | Could an Expression ever become authoritative? | ADR-020. Working position: **no** — Source and Pattern bind, Expression never does, and an Expression untraceable to a Pattern is a defect. Founder confirmation converts the working position into a decision |
 
 
 ## D. Deliberately empty in the app
@@ -189,3 +199,24 @@ ISR, Licensed Contractor, Property Owner, Construction Manager — and collects 
 the readings contradict each other. It adds C30–C36 above. Four of those (C34, C35, C36
 and the existing C16) are inputs to the Draft Connecticut Agreement; the rest are
 object-model decisions. Nothing was closed and no code changed.
+
+## J. The adaptive-interface clarification (2026-09-10)
+
+The founder's clarification — one human, one continuing file, one guide, many personas,
+roles, applications and experiences, with pages as authorized containers and meaning drawn
+from a Progressive Knowledge Library — was reconciled against the corpus and filed as
+ADR-020 (Source / Pattern / Expression, and the Perception Library) and ADR-021 (the
+authorized container). The specification lives in
+`docs/requirements/KNOWLEDGE-LIBRARY.md`, marked *in progress*.
+
+It adds **A29–A34** and **C37–C39** above, closes **A35** (the architecture refresh), and
+changes the state of **K1, K3 and K4** in `docs/strategy/KIMOSABE-POSITIONING.md`.
+
+It does **not** move the locked work order. This is presentation and knowledge
+architecture, not the operating object model, so it may be specified in parallel — the
+same lane as the Role Store paths (A19) — but nothing here is built ahead of the
+Connecticut gate. No application, database, schema or UI changed.
+
+Three collisions are live and must not be assumed away in code: the "fun and viral"
+direction against the §3 red lines (C37), mood-driven adaptation against the memory
+partitions of ADR-016 (C38), and whether an Expression could ever bind (C39).
