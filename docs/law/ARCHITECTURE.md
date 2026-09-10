@@ -18,37 +18,59 @@ The restraint of the institutional face is therefore a posture of *that* face, n
 
 ## High-level boundaries
 
+*Route map revised 2026-09-10.*
+
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                        PUBLIC LAYER                         │
-│  /                          — front door                     │
-│  /why-rrca                  — case for RRCA                  │
-│  /industry-problem          — market fragmentation           │
-│  /proof-of-concept          — concept brief                  │
-│  /vision                    — long-form vision               │
-│  /founder                   — founder note                   │
-│  /prepare-america           — conference application         │
-│  /request-briefing          — briefing request form          │
-│  /prepare-america/confirmed — token-gated attendee page      │
+│  Institutional presentation (PrepareAmerica)                 │
+│    /                        — front door                     │
+│    /why-rrca /why-prepare-america                            │
+│    /industry-problem /proof-of-concept /vision /founder      │
+│    /investors /policy /architecture /briefing                │
+│    /first-congress                                           │
+│    /prepare-america         — conference application         │
+│    /request-briefing        — briefing request form          │
+│    /prepare-america/confirmed — token-gated attendee page    │
+│    /ticket/$credential /invitation/$credential               │
+│                                                              │
+│  Human Blockchain brand pages                                │
+│    /b/kimosabe /b/buddy-claim /b/claimstore /b/rrca          │
+│    /b/selfinsurity /b/market-applications                    │
+│    /b/united-stakeholders                                    │
+│                                                              │
+│  Front doors (one engine, persona registry — ADR-019)        │
+│    /kimosabe                — universal scout                │
+│    /buddy-claim             — insurance-restoration persona  │
+│      anonymous anchor · holding wallet · append-only ledger  │
+│                                                              │
+│  Access                                                      │
+│    /auth /reset-password /roles /insider/accept              │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    AUTHENTICATED LAYER                      │
-│  Requires Google OAuth + role assignment                     │
+│  Session required; authority checked per record              │
+│                                                              │
+│  Everyone signed in:                                         │
+│    /app                — App Home (tasks, guidance, footer)  │
+│    /app/tasks, /app/tasks/$taskId                            │
+│    /app/search /app/account                                  │
+│    /app/role/$roleKey  — an entity role's own area (empty)   │
+│    /manual, /manual/$slug, /manual/print                     │
 │                                                              │
 │  Founder Admin:                                              │
-  │    /admin/inbox    — triage requests, invitations, itinerary │
-  │    /admin/signals  — insider engagement dashboard            │
-  │    /admin/digest   — daily rollup                            │
-  │    /admin/edits    — dossier edit audit log                  │
-  │    /admin/reads    — section-level read heatmap              │
-  │                                                              │
-  │  Qualified Insider:                                          │
-  │    /insider        — dossier index                           │
-  │    /insider/dossier/$slug  — reader + Q&A + notes            │
-  │    /insider/accept — token redemption for invitations        │
-  │    /insider/refer  — peer nomination form                    │
+│    /admin, /admin/queue, /admin/inbox, /admin/invite         │
+│    /admin/signals, /admin/digest, /admin/edits, /admin/reads │
+│    /admin/roles, /admin/ledger, /admin/economics             │
+│    /admin/evidence, /admin/intake, /admin/lab, /admin/tour   │
+│    /admin/broadcast, /admin/tickets                          │
+│    /ledger             — platform ledger feed                │
+│                                                              │
+│  Qualified Insider:                                          │
+│    /insider, /insider/dossier/$slug, /insider/refer          │
+│    /room               — Situation Room                      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -58,8 +80,10 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 
 - Public leaf routes are flat files (e.g. `request-briefing.tsx`).
 - Authenticated routes share the `src/routes/_authenticated/route.tsx` gate.
+- App Home and role areas are under `src/routes/_authenticated/app/`.
 - Admin routes are under `src/routes/_authenticated/admin/`.
 - Insider routes are under `src/routes/_authenticated/insider/`.
+- Brand pages are under `src/routes/b/`; persona front doors are flat public routes rendering the shared `FrontDoor` engine from `src/content/personas.ts`.
 
 ## Authentication and authorization
 
