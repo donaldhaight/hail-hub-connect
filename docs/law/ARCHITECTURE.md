@@ -90,7 +90,7 @@ TanStack Start uses file-based routing. Routes live in `src/routes/`. Pathless l
 - **Auth provider:** Lovable Cloud (Supabase Auth) with Google OAuth enabled.
 - **Sign-in page:** `/auth`.
 - **Authenticated gate:** `src/routes/_authenticated/route.tsx` checks for a session and redirects to `/auth` if absent.
-- **Role system:** Roles are stored in `public.user_roles`, separate from the auth users table. The `app_role` enum currently has `founder_admin` and `qualified_insider`.
+- **Role system:** Roles are stored in `public.user_roles`, separate from the auth users table. *Corrected 2026-09-10 — the enum is no longer two values.* The `app_role` enum now carries 21: `founder_admin`, `qualified_insider`, `counsel`, `rrca_exec`, `investor_prospect`, `sponsor_prospect`, `strategic_partner`, `specialist_advisor`, `system_auditor`, `industry_observer`, `interested_user`, `verified_member`, `isr`, `lc`, `venture_tech`, `systems_tech`, `legal_tech`, `insure_tech`, `fin_tech`, `construction_management`, `business_development`. Two axes are kept separate (`src/lib/roles.ts`): **stakeholder** roles are requested and granted, **entity** roles (ISR, LC, and Property Owner when it lands) are certified.
 - **Role check:** Server functions and RLS policies use the security-definer `public.has_role(_user_id uuid, _role app_role)` function to avoid recursive RLS.
 - **Invitation flow:** Founders issue `insider_invitations` tokens. Recipients redeem at `/insider/accept`, which assigns the `qualified_insider` role.
 
