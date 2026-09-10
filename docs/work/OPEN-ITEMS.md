@@ -65,6 +65,8 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A37 | The Screen Book — every surface described as an authorized container | ADR-022, `docs/screens/00-SCREEN-BOOK.md` | open | Manifest, template and twelve branches exist; two worked examples written; the remaining screens are unwritten |
 | A38 | Kimosabe front door invites a question and nothing answers it | `docs/screens/02_Persona_Front_Doors/Kimosabe/open-questions.md` | needs verification | The guide channel is named and unbuilt; decide whether it belongs before or after sign-in |
 | A39 | ISR certification rules — fee on failure, retries, lapse, revocation | `docs/screens/05_ISR/Get_Set_Up/actions.md` | open | Surfaced by writing the screen; blocks the Day 01–10 curriculum |
+| A40 | The Screen Book as a live founder surface — table, facet editor, evidence uploads, revision history, question-to-backlog, markdown export | `/admin/screens`, `src/lib/screens.functions.ts` | closed | Built 2026-09-10; 106 screens seeded from the tree. Export writes markdown; writing it back into `docs/screens/` is still a manual step (A41) |
+| A41 | Write the exported Screen Book back into `docs/screens/` on a cadence | `/admin/screens` export button | open | Until this runs, the live book and the corpus on disk can drift |
 
 
 ## B. Held on purpose

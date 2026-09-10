@@ -128,3 +128,14 @@ register: A29, C37
 - [`requirements/KNOWLEDGE-LIBRARY.md`](../requirements/KNOWLEDGE-LIBRARY.md) — the three
   layers, the Perception Library, the eight container facets.
 - [`work/OPEN-ITEMS.md`](../work/OPEN-ITEMS.md) — where this book's gaps are tracked.
+
+## 7. The live book
+
+Since 2026-09-10 this book also exists as a founder surface at `/admin/screens`: every screen as
+a row with its status, class, route, facet count, open questions, evidence count and last-edited
+date; and a page per screen where each facet is written and saved on its own, keeps its previous
+state, and carries uploads and links as evidence.
+
+The files under `docs/screens/` remain the corpus. The surface exports the whole book as markdown
+so the two can be brought back into step (register A41). Where they disagree, the corpus on disk
+is the record until the export is applied.

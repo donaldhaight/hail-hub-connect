@@ -23,6 +23,7 @@ const SURFACES = [
   { to: "/admin/ledger", label: "Task Ledger", note: "Human and agent efficiency ratings, and the 10% variance rule made visible." },
   { to: "/admin/queue", label: "The Request Queue", note: "One row per human — what they asked for, the file they arrived with, and the one control that accepts them." },
   { to: "/admin/inbox", label: "Inbox", note: "Seats, invitations, referrals, discussion, and the run of show." },
+  { to: "/admin/screens", label: "Screen Book", note: "Every page, view and report as a row: purpose, permissions, records, actions, evidence, status, and its previous state." },
 
   { to: "/admin/tickets", label: "Ticket Ledger", note: "Assign tiers and issue First Congress credentials." },
   { to: "/admin/broadcast", label: "Broadcast", note: "Stream config, state machine, and the pre-event checklist." },

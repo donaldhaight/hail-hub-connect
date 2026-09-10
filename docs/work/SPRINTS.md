@@ -224,3 +224,26 @@ Documentation only. No route, component, schema, migration or permission changed
 - Expanded the founder's original eleven-branch tree to twelve: LC, Property Owner, Construction Manager / SiteBMS, Records, Shared Surfaces and Named-Not-Built were missing; permitted records, tools, required context and completion event were missing from the facet list.
 - Recorded **ADR-022**; registered **A37**, **A38** and **A39**; mirrored all three to the founder backlog board.
 - The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.
+
+## Sprint 2.14 — The Screen Book as a working surface (2026-09-10)
+
+The pattern the founder named: the backlog board, the manual and the dossiers are all live
+tables with status, dates, discussion and uploads. The Screen Book was the exception — markdown
+files only. This sprint closed that gap.
+
+- Four new tables: `screen_pages` (branch, screen, status, class, truth label, route, Pattern
+  links, register IDs), `screen_facets` (thirteen facets per screen, each with its own
+  last-edited stamp), `screen_facet_revisions` (append-only previous state) and
+  `screen_attachments` (PDFs, screenshots, links). Founder-only policies; revisions cannot be
+  edited or deleted by anyone.
+- Seeded 106 screens from the twelve-branch tree, with the two worked examples marked `built`
+  and `specified` and everything else honestly `empty`.
+- New surface `/admin/screens`: the whole book as a filterable table with facet counts, open
+  questions, evidence counts and last-edited dates; and a per-screen page with front matter as
+  fields, thirteen independently saved facets, per-facet history with restore, uploads and links.
+- A question typed on a screen opens a backlog row and stamps the register ID back onto the
+  screen — register and board in the same act, as the standing orders require.
+- Markdown export of the whole book, so the corpus on disk can be brought back in step (A41).
+- Registered **A40** (closed) and **A41** (open); mirrored to the founder backlog board.
+- The locked work order did not move: Draft Connecticut Agreement → Records / Object Model →
+  SiteBMS → JobNimbus mapping → API / MCP.
