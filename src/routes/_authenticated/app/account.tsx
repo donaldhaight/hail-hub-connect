@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -42,6 +42,58 @@ function AccountPage() {
     const stored = window.localStorage.getItem(ACTIVE_ROLE_KEY);
     if (stored) setActiveRole(stored);
   }, []);
+
+  const [currentPw, setCurrentPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [pwBusy, setPwBusy] = useState(false);
+  const [pwError, setPwError] = useState<string | null>(null);
+  const [pwNote, setPwNote] = useState<string | null>(null);
+
+  async function handlePasswordChange(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPwError(null);
+    setPwNote(null);
+    if (newPw.length < 8) return setPwError("New password must be at least 8 characters.");
+    if (newPw !== confirmPw) return setPwError("The two new passwords don't match.");
+    if (!currentPw) return setPwError("Enter your current password.");
+    setPwBusy(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPw,
+        // Required for signed-in changes; not used by recovery links.
+        current_password: currentPw,
+      } as Parameters<typeof supabase.auth.updateUser>[0]);
+      if (error) throw error;
+      setCurrentPw("");
+      setNewPw("");
+      setConfirmPw("");
+      setPwNote("Password updated.");
+    } catch (err) {
+      setPwError(err instanceof Error ? err.message : "Could not update password.");
+    } finally {
+      setPwBusy(false);
+    }
+  }
+
+  async function handleForgot() {
+    setPwError(null);
+    setPwNote(null);
+    const email = data?.email;
+    if (!email) return setPwError("Your email is still loading. Try again in a moment.");
+    setPwBusy(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setPwNote("A reset link is on its way to your email.");
+    } catch (err) {
+      setPwError(err instanceof Error ? err.message : "Could not send the reset email.");
+    } finally {
+      setPwBusy(false);
+    }
+  }
 
   async function handleSignOut() {
     await supabase.auth.signOut();
