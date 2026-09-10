@@ -62,6 +62,9 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A34 | Persona registry with governance rather than a typed content file | ADR-019 K4 | open | Triggered by "future domains, apps, roles, missions and moods may activate additional personas" |
 | A35 | Architecture refresh — route map, role enum and design posture corrected 2026-09-10 | `docs/law/ARCHITECTURE.md` | closed | Route map now lists App Home, role areas, persona doors, brand pages, ledger and room; enum listed at 21 values; posture split between institutional face and front doors |
 | A36 | Written account of holding the standing orders — where they strained and what was done instead | `docs/history/KEEPING-THE-INSTRUCTIONS-2026-09-10.md`, Saga chapter *The Keeper of the Order* | closed | Opened and closed 2026-09-10; historical, never edited to match a later present |
+| A37 | The Screen Book — every surface described as an authorized container | ADR-022, `docs/screens/00-SCREEN-BOOK.md` | open | Manifest, template and twelve branches exist; two worked examples written; the remaining screens are unwritten |
+| A38 | Kimosabe front door invites a question and nothing answers it | `docs/screens/02_Persona_Front_Doors/Kimosabe/open-questions.md` | needs verification | The guide channel is named and unbuilt; decide whether it belongs before or after sign-in |
+| A39 | ISR certification rules — fee on failure, retries, lapse, revocation | `docs/screens/05_ISR/Get_Set_Up/actions.md` | open | Surfaced by writing the screen; blocks the Day 01–10 curriculum |
 
 
 ## B. Held on purpose

@@ -212,3 +212,15 @@ This is the build log for the ClaimStore Briefing Room. Each sprint had a single
 - Added Saga chapter *The Keeper of the Order* (Part VI, position 80) telling the same material as story — the difference between an agent that obeys and one that can be held to account.
 - Registered **A36** and closed it in the same turn; mirrored to the founder backlog board as shipped.
 - The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.
+
+## Sprint 2.13 — The Screen Book (2026-09-10)
+
+Documentation only. No route, component, schema, migration or permission changed.
+
+- Added `docs/screens/00-SCREEN-BOOK.md`: four rules, the twelve-branch tree, the screen-folder shape, front matter, and links back into law and requirements.
+- Added `docs/screens/SCREEN-TEMPLATE/` — the eight authorized-container facets as separate files (purpose, permissions, records, actions, tools, context, completion, presentation), plus `variants/` and `evidence/` READMEs and `open-questions.md`.
+- Wrote two worked examples on purpose, one of each kind: `02_Persona_Front_Doors/Kimosabe` as a built screen described exactly as it runs, and `05_ISR/Get_Set_Up` as a specified-but-unbuilt screen whose empty facets are the finding.
+- Created the ten remaining branch READMEs, each stating its screens, its class and the honest fact that it is unwritten — including `12_Named_Not_Built` for the footer promises with nothing behind them.
+- Expanded the founder's original eleven-branch tree to twelve: LC, Property Owner, Construction Manager / SiteBMS, Records, Shared Surfaces and Named-Not-Built were missing; permitted records, tools, required context and completion event were missing from the facet list.
+- Recorded **ADR-022**; registered **A37**, **A38** and **A39**; mirrored all three to the founder backlog board.
+- The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.
