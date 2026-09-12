@@ -69,6 +69,10 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A41 | Write the exported Screen Book back into `docs/screens/` on a cadence | `/admin/screens` export button | open | Until this runs, the live book and the corpus on disk can drift |
 | A42 | An institutional, apolitical Perception variant of the Prepare America argument — same Pattern, audience-labelled sibling | ADR-020 §3, A30, `docs/strategy/LT-DANS-PLAN.md` §4 | open | An executive can carry the thesis to a board without the Congress and Agenda framing reading as endorsement. Nothing is softened; a sibling is added |
 | A43 | LtDansPlan.com as a calm, personal, publishing-style serious door | `docs/strategy/LT-DANS-PLAN.md` §4 | open | HYPOTHESIS. Decide only after A42 is tried — a new domain is an expensive way to do what a variant does |
+| A44 | The universal grammar — Home · Ask · Feed · Player · Tasks · Settings — as a declared container set holding many businesses without exposing the corporate architecture | `docs/strategy/ENGAGEMENT-LAYER.md` §3, ADR-021, ADR-024 | open | HYPOTHESIS. Six words the Interested User learns once. Declared, not built; the declaration format is A32 |
+| A45 | Feed — permitted records, ranking inputs, and the memory-partition rule that governs recommendation | `docs/strategy/ENGAGEMENT-LAYER.md` §4, ADR-016 | open | Not in the Screen Book before 2026-09-12; now honestly empty in `04_App_Home`. Blocked on C38 before any ranking exists |
+| A46 | Player / Reader — permitted records, what consumption writes, and the completion event | `docs/strategy/ENGAGEMENT-LAYER.md` §4, ADR-021 | open | Under ADR-021 a surface with no completion event cannot be specified. Sits downstream of the Records layer |
+| A47 | First-pass gamification — scope and the explicit refusal list | `docs/strategy/ENGAGEMENT-LAYER.md` §5 | open | In scope: progress that feels consequential. Out of scope and recorded as such: the final game, the LARP, Metatron's Cube bound to roles, ledger-altering scoring, badge inflation, and anything touching band 3 |
 
 
 ## B. Held on purpose
@@ -130,6 +134,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C40 | Is **Lt. Dan's Plan** the umbrella for the whole body of work, with Prepare America as a mission inside it? | ADR-023, **proposed and not in force**. Re-parents the institutional face, the Congress and the Agenda years. Founder ruling only |
 | C41 | The game gateway — what is its completion event, and what does it authorize? | `docs/strategy/LT-DANS-PLAN.md` §5. Under ADR-021 a surface with no completion event cannot be specified. Band 3 never appears in it |
 | C42 | ADR-010 ("no anonymous sign-ups") against ADR-015 (front door open to anyone) | Reconcilable — the front door opens a file, not an account — but the ADR-010 text no longer says so. Needs a superseding note, not an edit |
+| C43 | Can a progression mechanic make a role feel earned without weakening the certification rule? | `docs/strategy/ENGAGEMENT-LAYER.md` §5. Nobody grants a certification and nobody buys past one — that rule is why the badge means anything. Any mechanic that makes a role *feel* nearer without the quiz being passed is a claim the badge cannot back |
 
 
 ## D. Deliberately empty in the app
@@ -231,3 +236,17 @@ Connecticut gate. No application, database, schema or UI changed.
 Three collisions are live and must not be assumed away in code: the "fun and viral"
 direction against the §3 red lines (C37), mood-driven adaptation against the memory
 partitions of ADR-016 (C38), and whether an Expression could ever bind (C39).
+
+## K. The afternoon addendum (2026-09-12)
+
+An outside session, read as Source and not as instruction, argued that the construction
+machinery is largely recoverable from the 2012–2019 material while the engagement layer has
+no ancestor, and that founder hours therefore belong on the part with no precedent. Filed in
+`docs/strategy/ENGAGEMENT-LAYER.md` and ruled on in **ADR-024**: attention moves, the locked
+work order does not.
+
+It adds **A44–A47** and **C43** above, and puts a concrete surface behind **C38**. Two
+containers the addendum's loop runs through — Feed and Player — were absent from the Screen
+Book at any status and are now recorded as honestly empty in `04_App_Home`.
+
+Nothing was closed. No route, component, schema, migration or UI changed.

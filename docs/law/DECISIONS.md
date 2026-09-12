@@ -554,3 +554,50 @@ creates an anonymous *file*, not an account — but the ADR-010 text no longer s
 plainly, and the viral direction in the checkpoint puts weight on the difference. Flagged
 for a superseding note as **C42**; not rewritten here, because an ADR is not edited to
 match a later present.
+
+---
+
+## ADR-024 — Attention moves to the engagement layer; the work order does not
+
+**Date:** 2026-09-12 · **Status:** accepted · **Class:** C2
+
+**Decision.** The locked work order is unchanged — Draft Connecticut Agreement → Records /
+Object Model → SiteBMS → JobNimbus mapping → API / MCP. Separately and without amending it,
+founder attention is directed at the layer of the platform that has no ancestor: the
+engagement architecture — the guide's relationship with the person, the feed, the player,
+the universal grammar, and first-pass gamification.
+
+The distinction this ADR draws is between **sequence** and **attention**. They have been
+treated as one thing, and conflating them is why the afternoon's drift away from
+Construction Management looked like avoidance rather than prioritization.
+
+**Grounds.** The Licensed Contractor, ISR, Property Owner and SiteBMS problems have
+ancestors: screens, workflows, agreements, legal documents, process logic and prior
+software from the 2012–2019 era. That work is translation, and translation is what agent
+hours are good for. The engagement layer has no prior implementation anywhere. Founder
+hours are the scarce input, and they are worth most where nothing can be copied.
+
+**Alternatives considered.**
+
+- *Reorder the work so the engagement layer comes first.* Rejected: it would make a feed,
+  a player and a mechanic depend on records that do not exist, which is exactly the
+  build-ahead-of-the-gate failure the order was locked to prevent.
+- *Hold all attention on the locked path until API / MCP.* Rejected: it spends the founder's
+  irreplaceable hours on the recoverable half and leaves the unprecedented half to be
+  invented under deadline pressure before November 1.
+- *Treat the engagement material as pure story with no structural consequence.* Rejected:
+  a recommending feed and a consuming player write records and cross memory partitions
+  (ADR-016), so they are structural whatever they are called.
+
+**Consequences.**
+
+- Nothing is built out of order. The engagement layer may be *described* in parallel — it
+  is Expression under ADR-020 — and may not be *built* ahead of the Records layer, because
+  under ADR-021 every container needs permitted records and a completion event.
+- `docs/strategy/ENGAGEMENT-LAYER.md` holds the material, labelled.
+- The refusal list for first-pass gamification is in force now, before any mechanic is
+  drafted: not the final game, not the LARP, not Metatron's Cube bound to roles, no
+  ledger-altering scoring, no badge inflation, and nothing that exposes band 3.
+- The certification rule is untouched: no mechanic may make a role feel earned that has
+  not been earned (**C43**).
+- Registered as **A44–A47** and **C43**; **C38** gains a concrete surface.
