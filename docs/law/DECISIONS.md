@@ -505,3 +505,52 @@ Four rules bind it:
 - Two worked examples: `02_Persona_Front_Doors/Kimosabe` (built) and `05_ISR/Get_Set_Up`
   (specified, unbuilt).
 - No route, component, schema, permission or work-order change.
+
+---
+
+## ADR-023 — Lt. Dan's Plan as the umbrella: proposed, not in force
+
+**Date:** 2026-09-12 · **Status:** proposed — **not in force** · **Class:** C2
+
+**Proposal.** That **Lt. Dan's Plan** names the entire body of work, and that Prepare
+America becomes a mission, a book, a challenge, an event or an era inside it rather than
+the permanent umbrella. Agenda 2024 / 2028 / 2032 / 2036 would become volumes and time
+markers; the books, songs, albums and films would become stories in one world.
+
+Recorded 2026-09-12 from the lunch-break checkpoint and held in
+[`docs/strategy/LT-DANS-PLAN.md`](../strategy/LT-DANS-PLAN.md).
+
+**Why it is not applied.** This is not a naming preference. It re-parents the
+institutional face of United Stakeholders of America LLC, changes what the First Congress
+is a chapter of, and changes what the November 1 event is an instance of. The corpus
+currently has Prepare America carrying that weight with RRCA as the first operating proof
+beneath it. Both readings cannot bind. Until the founder rules, the existing structure
+stands and the proposal is quoted, never assumed. Registered as **C40**.
+
+**Alternatives considered.**
+
+- *Apply it now and rewrite the corpus around Lt. Dan's Plan.* Rejected: it would silently
+  re-label binding documents on the strength of one morning's thinking, which is exactly
+  the promotion-by-repetition the protocol forbids.
+- *Decline it and keep Prepare America as the umbrella.* Rejected as premature: the
+  proposal is well-founded, is older than the project's current framing — "Lt Dans Plan
+  for the Human Blockchain" appears in the original material — and deserves a ruling
+  rather than a shrug.
+- *Treat it as pure story with no structural effect.* Rejected: the story layer is where
+  the Agenda years and the Congress live, so a story decision here is a structural one.
+
+**Consequences while it remains proposed.**
+
+- No document is re-parented. No route, brand page, or copy changes.
+- The distinction the proposal rests on — Source preserved, Pattern binding, Expression
+  free (ADR-020) — is unaffected and already in force.
+- The boats metaphor (many doors, one arrival architecture) is recorded as an accurate
+  description of ADR-019 as already built, and does **not** require this ADR to be accepted.
+
+**Note on ADR-010.** ADR-010 reads "no anonymous sign-ups; all authenticated access is by
+invitation or founder action." ADR-015 opened the front door to anyone, and the
+Interested User arrives with no email at all. These are reconcilable — the front door
+creates an anonymous *file*, not an account — but the ADR-010 text no longer says so
+plainly, and the viral direction in the checkpoint puts weight on the difference. Flagged
+for a superseding note as **C42**; not rewritten here, because an ADR is not edited to
+match a later present.
