@@ -247,3 +247,14 @@ files only. This sprint closed that gap.
 - Registered **A40** (closed) and **A41** (open); mirrored to the founder backlog board.
 - The locked work order did not move: Draft Connecticut Agreement → Records / Object Model →
   SiteBMS → JobNimbus mapping → API / MCP.
+
+## Sprint 2.15 — Reading the lunch-break checkpoint (2026-09-12)
+
+Documentation only. No route, component, schema, migration or permission changed.
+
+- Added `docs/strategy/LT-DANS-PLAN.md` (C2): the umbrella proposal, the convergence between the outside session's three layers and ADR-019/020, the boats-and-the-country metaphor, the board-room problem, the game gateway, and why the front end looks anticlimactic.
+- Recorded **ADR-023** with the umbrella question as **proposed and not in force**, three alternatives considered, and a note flagging ADR-010 against ADR-015 rather than editing an ADR to match a later present.
+- Classified every new idea rather than absorbing it: boats, the Library-is-not-the-work, and Kimosabe-as-intelligence are already canon or consistent with it; the Agenda years as volumes and LtDansPlan.com are HYPOTHESIS; the game gateway is OPEN; the umbrella and "leave Prepare America alone" are proposed decisions.
+- Named the cheaper answer to the board-room objection: A30's Perception variants already exist as a specification and have never been used. A new domain is an expensive way to do what a sibling variant does.
+- Registered **A42**, **A43**, **C40**, **C41**, **C42**; mirrored to the founder backlog board.
+- The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.

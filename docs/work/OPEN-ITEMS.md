@@ -67,6 +67,8 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A39 | ISR certification rules — fee on failure, retries, lapse, revocation | `docs/screens/05_ISR/Get_Set_Up/actions.md` | open | Surfaced by writing the screen; blocks the Day 01–10 curriculum |
 | A40 | The Screen Book as a live founder surface — table, facet editor, evidence uploads, revision history, question-to-backlog, markdown export | `/admin/screens`, `src/lib/screens.functions.ts` | closed | Built 2026-09-10; 106 screens seeded from the tree. Export writes markdown; writing it back into `docs/screens/` is still a manual step (A41) |
 | A41 | Write the exported Screen Book back into `docs/screens/` on a cadence | `/admin/screens` export button | open | Until this runs, the live book and the corpus on disk can drift |
+| A42 | An institutional, apolitical Perception variant of the Prepare America argument — same Pattern, audience-labelled sibling | ADR-020 §3, A30, `docs/strategy/LT-DANS-PLAN.md` §4 | open | An executive can carry the thesis to a board without the Congress and Agenda framing reading as endorsement. Nothing is softened; a sibling is added |
+| A43 | LtDansPlan.com as a calm, personal, publishing-style serious door | `docs/strategy/LT-DANS-PLAN.md` §4 | open | HYPOTHESIS. Decide only after A42 is tried — a new domain is an expensive way to do what a variant does |
 
 
 ## B. Held on purpose
@@ -125,6 +127,9 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C37 | How far the "never performs personality" red line moves | ADR-020. `docs/strategy/KIMOSABE-POSITIONING.md` §3 rules that Kimosabe is not a chatbot, does not perform personality and never flatters. A humorous or dramatic Perception variant selected by mood sits against that. Either the red line narrows to "never flatters, never fakes memory," or the Perception Library is bounded to tone, length and framing |
 | C38 | Which adaptation signals may persist, and which are session-local | ADR-020 with ADR-016. Device and declared goal are easy; mood and inferred intent are inference, and a signal learned in one role reshaping another role's presentation crosses a memory partition without the person's act |
 | C39 | Could an Expression ever become authoritative? | ADR-020. Working position: **no** — Source and Pattern bind, Expression never does, and an Expression untraceable to a Pattern is a defect. Founder confirmation converts the working position into a decision |
+| C40 | Is **Lt. Dan's Plan** the umbrella for the whole body of work, with Prepare America as a mission inside it? | ADR-023, **proposed and not in force**. Re-parents the institutional face, the Congress and the Agenda years. Founder ruling only |
+| C41 | The game gateway — what is its completion event, and what does it authorize? | `docs/strategy/LT-DANS-PLAN.md` §5. Under ADR-021 a surface with no completion event cannot be specified. Band 3 never appears in it |
+| C42 | ADR-010 ("no anonymous sign-ups") against ADR-015 (front door open to anyone) | Reconcilable — the front door opens a file, not an account — but the ADR-010 text no longer says so. Needs a superseding note, not an edit |
 
 
 ## D. Deliberately empty in the app
