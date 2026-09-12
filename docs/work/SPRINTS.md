@@ -258,3 +258,23 @@ Documentation only. No route, component, schema, migration or permission changed
 - Named the cheaper answer to the board-room objection: A30's Perception variants already exist as a specification and have never been used. A new domain is an expensive way to do what a sibling variant does.
 - Registered **A42**, **A43**, **C40**, **C41**, **C42**; mirrored to the founder backlog board.
 - The locked work order did not move: Draft Connecticut Agreement → Records / Object Model → SiteBMS → JobNimbus mapping → API / MCP.
+
+## Sprint 2.15 — The engagement layer, filed (2026-09-12)
+
+An outside afternoon session was read as Source, not instruction, and reconciled against the
+corpus. Documentation only — no route, component, schema, migration or UI changed.
+
+- The genuinely new finding: construction machinery is recoverable from the 2012–2019
+  material; the engagement layer has no ancestor anywhere. Recorded as a prioritization
+  principle in `docs/strategy/ENGAGEMENT-LAYER.md`.
+- **ADR-024** separates sequence from attention: the locked work order is unchanged, and
+  founder hours go to the layer with no precedent. Alternatives recorded.
+- The universal grammar — Home · Ask · Feed · Player · Tasks · Settings — filed as a
+  HYPOTHESIS (A44). Feed and Player were missing from the Screen Book at any status and are
+  now honestly empty in `04_App_Home` (A45, A46), each carrying its conflict rather than a
+  specification.
+- First-pass gamification scoped with an explicit refusal list in force before any mechanic
+  is drafted (A47), and the earned-role tension against the certification rule registered
+  as C43.
+- The locked work order did not move: Draft Connecticut Agreement → Records / Object Model
+  → SiteBMS → JobNimbus mapping → API / MCP.
