@@ -36,6 +36,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/STRATEGY.md`](strategy/STRATEGY.md) | binding | C1 | Mission, timeline, the two congresses, vocabulary |
 | [`strategy/PERSPECTIVES.md`](strategy/PERSPECTIVES.md) | in progress | C2 | One record, four readings |
 | [`strategy/KIMOSABE-POSITIONING.md`](strategy/KIMOSABE-POSITIONING.md) | in progress | C1 | The scout position, voice, personas, audience ladder |
+| [`strategy/LT-DANS-PLAN.md`](strategy/LT-DANS-PLAN.md) | in progress | C2 | The umbrella question, boats and the country, the four Expressions, the game gateway |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
 | [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
