@@ -300,3 +300,21 @@ UI changed, and the locked work order did not move.
 - Registered **A48–A52** and **C44–C46**; mirrored to the founder backlog board.
 - Left open on purpose: C40/C45 — Part 3 assumes the six doors are peers; ADR-023 asks
   whether one is the umbrella. Not ruled by inference.
+
+## Sprint 2.17 — The two-exposure simulation, filed (2026-09-13)
+
+A business-sequencing simulation was submitted as Source, not instruction, and reconciled
+against the corpus. Documentation only — no route, component, schema, migration, domain,
+public copy or UI changed, and the locked work order did not move.
+
+- The simulation's one question — can the same platform architecture support both launch
+  strategies without structural change — answered `ASSERTION`: yes. Doors are data
+  (ADR-019), the Screen Book already separates a screen from its exposure (ADR-021), and
+  the missing entity dimension means Model B asks less of the one thing not yet built.
+- `docs/strategy/EXPOSURE-SIMULATION.md` holds both models filed as `SIMULATION`, the two
+  load-bearing assumptions now named as unguaranteed (announcement-without-readiness;
+  Siteforum-as-bridge), and the conflicts stated plainly — including "Kimosabe as product"
+  leaning on the engagement layer, the one layer with no ancestor.
+- No ADR this pass: a simulation is not a decision. If the founder rules A, B or hybrid,
+  that ruling gets the ADR.
+- Registered **A53–A56** and **C47**; mirrored to the founder backlog board.
