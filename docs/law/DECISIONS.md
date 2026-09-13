@@ -601,3 +601,60 @@ hours are the scarce input, and they are worth most where nothing can be copied.
 - The certification rule is untouched: no mechanic may make a role feel earned that has
   not been earned (**C43**).
 - Registered as **A44–A47** and **C43**; **C38** gains a concrete surface.
+
+---
+
+## ADR-025 — Generalization, not pivot; and the entity dimension the ledger does not have
+
+**Date:** 2026-09-13 · **Status:** accepted · **Class:** C2
+
+**Decision.** The existing codebase is treated as the first working expression of a
+general platform rather than as a Prepare America website that would have to be abandoned
+or cloned to serve another door. Three consequences are recorded together:
+
+1. **Doors and roles are already general.** Additional front doors are persona records and
+   routes on the existing front-door engine (ADR-019). Additional roles ride the existing
+   identity / certification / wallet / ledger spine. Neither requires a second codebase, a
+   second identity system, or a second user database.
+2. **Legal entity is a missing dimension and must exist before real money moves.**
+   Verified against the live schema on 2026-09-13: no entity, tenant, DBA or organization
+   column exists on any table. Because ledger entries are append-only (ADR-018, enforced by
+   `ledger_entries_append_only`), the dimension cannot be backfilled onto history later.
+3. **The transaction rail sits behind an interface.** Rail, ledger, accounting and
+   application UI are four layers with four boundaries. No bank, processor or wallet
+   provider is ever written into the ledger.
+
+Nothing is built by this ADR. It records what is already general, what is not, and the
+order in which the gap must be closed.
+
+**Grounds.** The corpus has held three administrations since ADR-014 and multiple DBAs
+since the seed material, and the database has never known about any of them. The platform
+is presently capable of synergy and incapable of separation. That is acceptable while one
+entity operates and unacceptable the moment a second one receives money.
+
+**Alternatives considered.**
+
+- *A separate codebase, repository or identity system per door.* Rejected: it forks the
+  one thing that must not fork — one human, one continuing file (`law/SHARED-SPINE.md`).
+  Six doors would become six partial people.
+- *A multi-tenant rewrite now.* Rejected: it would model companies, entities and
+  assignments ahead of the Connecticut Agreement and the Records layer, which is precisely
+  the build-ahead-of-the-gate failure the locked order prevents.
+- *Do nothing and decide at the first transaction.* Rejected: append-only means the
+  decision made at the first transaction is permanent for everything before it.
+- *Declare Prepare America superseded by a general platform brand.* Rejected: the
+  generalization is architectural, not a repositioning. Prepare America is an Expression
+  and stays one.
+
+**Consequences.**
+
+- `docs/strategy/PLATFORM-GENERALIZATION.md` holds the reconciliation, labelled.
+- The locked work order is unchanged: Draft Connecticut Agreement → Records / Object Model
+  → SiteBMS → JobNimbus mapping → API / MCP. The entity dimension is designed with the
+  Records layer, not ahead of it.
+- Relationship and Assignment storage is registered, not designed here (A49).
+- The competing-platform experiment and agent-teams-as-governance are registered as
+  experiments about the corpus, not features of it (A51, C46).
+- C40 remains open. Part 3 assumes Lt. Dan's Plan is one door among six; ADR-023 asks
+  whether it is the umbrella above all of them. This ADR does not rule it.
+- Registered as **A48–A52** and **C44–C46**.
