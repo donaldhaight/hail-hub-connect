@@ -278,3 +278,25 @@ corpus. Documentation only — no route, component, schema, migration or UI chan
   as C43.
 - The locked work order did not move: Draft Connecticut Agreement → Records / Object Model
   → SiteBMS → JobNimbus mapping → API / MCP.
+
+## Sprint 2.16 — The platform hidden inside the project (2026-09-13)
+
+A third outside session ("Part 3") was read as Source, not instruction, and reconciled
+against the corpus. Documentation only — no route, component, schema, migration, domain or
+UI changed, and the locked work order did not move.
+
+- The question — can this codebase become multi-site, multi-entity, multi-role — was split
+  three ways. Multi-site: already true (persona registry and one front-door engine).
+  Multi-role: true with a ceiling (Relationship and Assignment have no storage).
+  Multi-entity: **no** — verified against the live schema, no entity, tenant, DBA or org
+  column exists anywhere.
+- **ADR-025** records generalization rather than pivot, the missing entity dimension, and
+  the rail / ledger / accounting / UI separation with the transaction rail behind an
+  interface. Four alternatives considered and rejected, including a separate codebase per
+  door and a multi-tenant rewrite now.
+- `docs/strategy/PLATFORM-GENERALIZATION.md` holds the reconciliation, every claim
+  labelled, including the architectural boundary: what stays, what must become general,
+  what is separate from the first line of code, and what stays a separate experiment.
+- Registered **A48–A52** and **C44–C46**; mirrored to the founder backlog board.
+- Left open on purpose: C40/C45 — Part 3 assumes the six doors are peers; ADR-023 asks
+  whether one is the umbrella. Not ruled by inference.

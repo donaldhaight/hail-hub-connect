@@ -1,6 +1,6 @@
 # Open Items Register
 
-> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-10  
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-13  
 > Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
@@ -73,6 +73,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A45 | Feed — permitted records, ranking inputs, and the memory-partition rule that governs recommendation | `docs/strategy/ENGAGEMENT-LAYER.md` §4, ADR-016 | open | Not in the Screen Book before 2026-09-12; now honestly empty in `04_App_Home`. Blocked on C38 before any ranking exists |
 | A46 | Player / Reader — permitted records, what consumption writes, and the completion event | `docs/strategy/ENGAGEMENT-LAYER.md` §4, ADR-021 | open | Under ADR-021 a surface with no completion event cannot be specified. Sits downstream of the Records layer |
 | A47 | First-pass gamification — scope and the explicit refusal list | `docs/strategy/ENGAGEMENT-LAYER.md` §5 | open | In scope: progress that feels consequential. Out of scope and recorded as such: the final game, the LARP, Metatron's Cube bound to roles, ledger-altering scoring, badge inflation, and anything touching band 3 |
+| A48 | Legal-entity dimension on wallets and ledger entries, before any real money moves | ADR-025, `docs/strategy/PLATFORM-GENERALIZATION.md` §1 | open | Verified 2026-09-13: no entity, tenant, DBA or org column exists on any table. Ledger entries are append-only (ADR-018), so the dimension cannot be backfilled onto history. Designed with the Records layer, never ahead of it |
+| A49 | Storage for Relationship and Assignment so authority can be record-scoped | ADR-014 (as corrected), ADR-025 | open | Authority = Role + applicable Relationship + applicable Assignment. Role has storage; the other two have none. Blocked on the Connecticut Agreement and the Records layer |
+| A50 | Rail / ledger / accounting / application-UI separation, with the transaction rail behind an interface | ADR-025 §3, `docs/strategy/PLATFORM-GENERALIZATION.md` §6 | open | A first real transaction is an architectural test before it is a payment test. No bank, processor or wallet provider is ever written into the ledger. Held for phase by B5 |
+| A51 | Portable Source packet — canonical Source, asset inventory, goals, requirements, decisions, open questions, authority boundaries, acceptance criteria, documentation rules, and an interpretation rule for disagreement | `docs/strategy/PLATFORM-GENERALIZATION.md` §2 | open | The corpus is most of this already. What is missing is portability across vendors and the rule for how a future model resolves disagreement and uncertainty |
+| A52 | Whether BooksForge, MusicApp, MovieApp and MyGPT.TV are separate applications or modes, preferences and content environments inside App Home | `docs/strategy/PLATFORM-GENERALIZATION.md` §5, A46 | open | OPEN. Bears directly on the Player (A46): one player with modes, or four applications |
 
 
 ## B. Held on purpose
@@ -135,6 +140,9 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C41 | The game gateway — what is its completion event, and what does it authorize? | `docs/strategy/LT-DANS-PLAN.md` §5. Under ADR-021 a surface with no completion event cannot be specified. Band 3 never appears in it |
 | C42 | ADR-010 ("no anonymous sign-ups") against ADR-015 (front door open to anyone) | Reconcilable — the front door opens a file, not an account — but the ADR-010 text no longer says so. Needs a superseding note, not an edit |
 | C43 | Can a progression mechanic make a role feel earned without weakening the certification rule? | `docs/strategy/ENGAGEMENT-LAYER.md` §5. Nobody grants a certification and nobody buys past one — that rule is why the badge means anything. Any mechanic that makes a role *feel* nearer without the quiz being passed is a claim the badge cannot back |
+| C44 | Which legal entity owns which wallet, which ledger, which contract and which authority — and what may be shared across entities without sharing money or authority | ADR-025, `docs/strategy/PLATFORM-GENERALIZATION.md` §4.2 | Synergy is built; separation is not. Joins C1 and C2, and is an **input to** `docs/requirements/CONNECTICUT-AGREEMENT.md` |
+| C45 | Are the six doors peers, or is one of them the umbrella above the rest? | ADR-023 / C40 against `docs/strategy/PLATFORM-GENERALIZATION.md` §4.1 | Part 3 assumes the peer reading without ruling it. Founder ruling only; does not resolve by inference |
+| C46 | Arbitration rule for the competing-platform experiment, and whether an agent team is required for governance even where one model is capable | `docs/strategy/PLATFORM-GENERALIZATION.md` §2, §6 | Without an arbitration rule, several platforms given the same Source produce several corpora and no canon. *Can* one model do the work and *should* it are different questions |
 
 
 ## D. Deliberately empty in the app
