@@ -39,6 +39,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/LT-DANS-PLAN.md`](strategy/LT-DANS-PLAN.md) | in progress | C2 | The umbrella question, boats and the country, the four Expressions, the game gateway |
 | [`strategy/ENGAGEMENT-LAYER.md`](strategy/ENGAGEMENT-LAYER.md) | in progress | C2 | The recoverability asymmetry, the universal grammar, the engagement loop, first-pass gamification |
 | [`strategy/PLATFORM-GENERALIZATION.md`](strategy/PLATFORM-GENERALIZATION.md) | in progress | C2 | Multi-site / multi-entity / multi-role reading, the missing entity dimension, the architectural boundary |
+| [`strategy/EXPOSURE-SIMULATION.md`](strategy/EXPOSURE-SIMULATION.md) | in progress | C2 | The two-exposure simulation: Model A vs Model B for November 1, filed as SIMULATION |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
 | [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
