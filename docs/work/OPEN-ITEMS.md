@@ -263,3 +263,16 @@ containers the addendum's loop runs through — Feed and Player — were absent 
 Book at any status and are now recorded as honestly empty in `04_App_Home`.
 
 Nothing was closed. No route, component, schema, migration or UI changed.
+
+## L. The two-exposure simulation (2026-09-13)
+
+A business-sequencing simulation was filed as `SIMULATION` in
+`docs/strategy/EXPOSURE-SIMULATION.md`: Model A (current — public RRCA case study + Prepare
+America event + multi-entity/multi-brand rollout) tested against Model B (controlled
+announcement / book / demonstration first, Kimosabe-facing experience, broader rollout
+later). Its one question — can the same architecture support both — answered yes, without
+structural change.
+
+It adds **A53–A56** and **C47** above. Nothing was closed; no ADR was written, because a
+simulation is not a decision. If the founder rules A, B or a hybrid, that ruling gets the
+ADR. The locked work order did not move, and no code, UI, schema or public copy changed.
