@@ -412,3 +412,29 @@ remains `Role + applicable Relationship + applicable Assignment`, record-scoped,
 presentation never bypasses the permission model.
 
 Full specification: [`docs/requirements/KNOWLEDGE-LIBRARY.md`](../requirements/KNOWLEDGE-LIBRARY.md).
+
+## What is general, and what is not (2026-09-13)
+
+Verified against the live schema, recorded under ADR-025.
+
+**Already general.** Front doors are persona records rendered by one engine
+(`src/content/personas.ts`, `src/components/frontdoor/FrontDoor.tsx`); `/kimosabe` and
+`/buddy-claim` stand on one anchor, one holding wallet, one append-only ledger, one file.
+Additional doors cost a persona record and a route, not a platform. Roles ride one identity
+and certification spine (`user_roles`, `has_role`, `role_catalog`, `role_modules`,
+`role_enrollments`, `role_progress`).
+
+**Not general yet.**
+
+- **Legal entity.** No entity, tenant, DBA or organization column exists on any table.
+  `ledger_wallets` carries `kind`, `anchor`, `user_id`, `label`; `ledger_entries` carries
+  `wallet_id` and `token_code`. Nothing records which entity a movement belongs to. Because
+  entries are append-only, this must be settled before real money moves (A48, C44).
+- **Relationship and Assignment.** Authority is Role + applicable Relationship + applicable
+  Assignment. Only Role has storage; record-scoped authority therefore does not exist yet
+  (A49). It follows the Records layer, never precedes it.
+- **The role vocabulary.** `app_role` is a flat Postgres enum of 21 values.
+
+**Separate by design.** The transaction rail sits behind an interface and is never written
+into the ledger. Rail, ledger, accounting and application UI are four layers with four
+boundaries (A50).
