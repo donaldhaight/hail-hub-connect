@@ -345,3 +345,27 @@ order did not move.
 - Registered **A57–A66** and **C48–C52**; mirrored to the founder backlog board.
 - Preserved on purpose: whether USA may sell into a market whose protocol it owns
   (C48), and whether NRA's parent depends on the still-unruled umbrella (C49).
+
+## Sprint 2.19 — The turn from vision to underwriting (2026-09-16)
+
+A living narrative dated 2026-09-16 was read as Source, not instruction, and answered
+with a companion narrative from this project's side. Documentation only — no route,
+component, schema, migration, domain, public copy or UI changed, and the locked work
+order did not move.
+
+- `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` — how the project arrived here,
+  what the corpus already held, the three genuinely new things, the earlier ideas made
+  heavier by independent resurfacing, the eight assumptions still carrying architecture
+  or business logic, and where we stand in the story.
+- `docs/strategy/STAKEHOLDER-VIEWS.md` — the Stakeholder-view hypothesis examined
+  against Position Books, Circle spaces, Perception Library variants, App Home modes,
+  Quantum Dashboard views, revenue assumptions, the product catalog, attribution,
+  compensation and geography. Finding: one mechanism seen from five places, specified
+  in ADR-020 and unused since 2026-09-10. Attribution, compensation and geography stay
+  outside it.
+- **ADR-027** — assumptions start at zero. Belief and cross-model agreement are
+  evidence events, never starting positions. No scoring method invented (A72).
+- On the story: Act I resolved; the threshold not yet crossed, because nothing
+  irreversible has happened. Both readings preserved (C55).
+- Manual chapter 81, `saga-the-turn-to-underwriting`, Part VI, ASSERTION / C2.
+- Registered **A67–A72** and **C53–C56**; mirrored to the founder backlog board.
