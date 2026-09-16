@@ -11,6 +11,7 @@ import { KIMOSABE_FEED } from "@/lib/kimosabe-feed";
 import { ACTIVE_ROLE_KEY, roleLabel } from "@/lib/roles";
 import { PLATFORM_TOKEN } from "@/lib/wallet.schedule";
 import { Meta } from "@/components/briefing/Badges";
+import { useFunnelTrack } from "@/hooks/useFunnelTrack";
 
 export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
@@ -34,9 +35,10 @@ function fmt(n: number) {
 function AppHomePage() {
   const fetchHome = useServerFn(getAppHome);
   const fetchRoles = useServerFn(listMyRoleTags);
+  const track = useFunnelTrack();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["app-home"],
-    queryFn: () => fetchHome(),
+    queryKey: ["app-home", track],
+    queryFn: () => fetchHome({ data: track ? { track } : undefined }),
   });
   const { data: roleData } = useQuery({
     queryKey: ["my-role-tags"],

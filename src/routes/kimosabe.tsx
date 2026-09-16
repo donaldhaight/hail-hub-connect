@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 import { FrontDoor } from "@/components/frontdoor/FrontDoor";
 import { getPersona } from "@/content/personas";
+import { getTrack } from "@/content/funnels";
 import { routeHead } from "@/lib/site";
 
 const persona = getPersona("kimosabe");
 
+const searchSchema = z.object({ track: z.string().optional() });
+
 export const Route = createFileRoute("/kimosabe")({
+  validateSearch: (search) => searchSchema.parse(search),
   head: () =>
     routeHead({
       title: persona.title,
@@ -17,5 +22,6 @@ export const Route = createFileRoute("/kimosabe")({
 });
 
 function KimosabePage() {
-  return <FrontDoor persona={persona} />;
+  const { track } = Route.useSearch();
+  return <FrontDoor persona={persona} track={getTrack(track)} />;
 }

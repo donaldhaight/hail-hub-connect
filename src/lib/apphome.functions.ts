@@ -11,10 +11,13 @@ export type { AppHomeTask, AppHomeView } from "@/lib/apphome.types";
  */
 export const getAppHome = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((d: unknown) =>
+    z.object({ track: z.string().optional() }).optional().parse(d ?? undefined),
+  )
+  .handler(async ({ data, context }) => {
     const { buildAppHome } = await import("@/lib/apphome.server");
     const email = (context.claims as { email?: string } | undefined)?.email ?? null;
-    return buildAppHome(context.supabase, context.userId, email);
+    return buildAppHome(context.supabase, context.userId, email, data?.track ?? null);
   });
 
 /**
@@ -26,8 +29,8 @@ export const setAppTaskDone = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d) => z.object({ taskId: z.string(), done: z.boolean() }).parse(d))
   .handler(async ({ data, context }) => {
-    const { DISMISSIBLE_TASKS } = await import("@/lib/apphome.server");
-    if (!DISMISSIBLE_TASKS.has(data.taskId)) {
+    const { isDismissibleTask } = await import("@/lib/apphome.server");
+    if (!isDismissibleTask(data.taskId)) {
       return { ok: false as const, reason: "not_dismissible" as const };
     }
     if (data.done) {

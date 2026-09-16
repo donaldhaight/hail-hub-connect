@@ -17,12 +17,15 @@ export function AccessRequestForm({
   submitLabel = "Submit request",
   reviewerNote = "Reviewed by the founder. No third-party marketing.",
   acknowledgement,
+  contextDefault,
   onSubmit,
 }: {
   defaultAsk?: AccessAskId;
   submitLabel?: string;
   reviewerNote?: string;
   acknowledgement?: string;
+  /** Pre-filled, editable context — e.g. the funnel track a person arrived on. */
+  contextDefault?: string;
   onSubmit: (already: boolean) => void;
 }) {
   const submit = useServerFn(submitAccessRequest);
@@ -132,6 +135,7 @@ export function AccessRequestForm({
           name="context"
           rows={5}
           maxLength={1500}
+          defaultValue={contextDefault}
           placeholder="Referral source, the specific question you want to explore, or the outcome you're evaluating."
           className="mt-2 block w-full border border-border bg-card p-3 text-[15px] leading-relaxed text-ink placeholder:text-silver focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
         />

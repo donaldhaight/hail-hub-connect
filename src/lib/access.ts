@@ -21,6 +21,7 @@ export type AccessDoor = {
 /** Doors every signed-in person reaches, whatever they hold. */
 export const BASE_DOORS: AccessDoor[] = [
   { label: "App Home", href: "/app" },
+  { label: "Your activity", href: "/app/activity" },
   { label: "Role Store", href: "/roles" },
   { label: "Kimosabe front door", href: "/kimosabe" },
   { label: "The Owner's Manual", href: "/manual" },

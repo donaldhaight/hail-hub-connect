@@ -33,6 +33,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TicketCredentialRouteImport } from './routes/ticket.$credential'
 import { Route as PrepareAmericaConfirmedRouteImport } from './routes/prepare-america.confirmed'
+import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as InvitationCredentialRouteImport } from './routes/invitation.$credential'
 import { Route as InsiderAcceptRouteImport } from './routes/insider.accept'
 import { Route as BUnitedStakeholdersRouteImport } from './routes/b/united-stakeholders'
@@ -52,6 +53,7 @@ import { Route as AuthenticatedManualPrintRouteImport } from './routes/_authenti
 import { Route as AuthenticatedManualSlugRouteImport } from './routes/_authenticated/manual/$slug'
 import { Route as AuthenticatedInsiderReferRouteImport } from './routes/_authenticated/insider/refer'
 import { Route as AuthenticatedAppSearchRouteImport } from './routes/_authenticated/app/search'
+import { Route as AuthenticatedAppActivityRouteImport } from './routes/_authenticated/app/activity'
 import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app/account'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
@@ -195,6 +197,11 @@ const PrepareAmericaConfirmedRoute = PrepareAmericaConfirmedRouteImport.update({
   path: '/confirmed',
   getParentRoute: () => PrepareAmericaRoute,
 } as any)
+const OfferSlugRoute = OfferSlugRouteImport.update({
+  id: '/offer/$slug',
+  path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InvitationCredentialRoute = InvitationCredentialRouteImport.update({
   id: '/invitation/$credential',
   path: '/invitation/$credential',
@@ -294,6 +301,12 @@ const AuthenticatedAppSearchRoute = AuthenticatedAppSearchRouteImport.update({
   path: '/app/search',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppActivityRoute =
+  AuthenticatedAppActivityRouteImport.update({
+    id: '/app/activity',
+    path: '/app/activity',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppAccountRoute = AuthenticatedAppAccountRouteImport.update({
   id: '/app/account',
   path: '/app/account',
@@ -458,6 +471,7 @@ export interface FileRoutesByFullPath {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/invitation/$credential': typeof InvitationCredentialRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -477,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/activity': typeof AuthenticatedAppActivityRoute
   '/app/search': typeof AuthenticatedAppSearchRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -525,6 +540,7 @@ export interface FileRoutesByTo {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/invitation/$credential': typeof InvitationCredentialRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -544,6 +560,7 @@ export interface FileRoutesByTo {
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
+  '/app/activity': typeof AuthenticatedAppActivityRoute
   '/app/search': typeof AuthenticatedAppSearchRoute
   '/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -594,6 +611,7 @@ export interface FileRoutesById {
   '/b/united-stakeholders': typeof BUnitedStakeholdersRoute
   '/insider/accept': typeof InsiderAcceptRoute
   '/invitation/$credential': typeof InvitationCredentialRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/prepare-america/confirmed': typeof PrepareAmericaConfirmedRoute
   '/ticket/$credential': typeof TicketCredentialRoute
   '/_authenticated/admin/broadcast': typeof AuthenticatedAdminBroadcastRoute
@@ -613,6 +631,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
   '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
+  '/_authenticated/app/activity': typeof AuthenticatedAppActivityRoute
   '/_authenticated/app/search': typeof AuthenticatedAppSearchRoute
   '/_authenticated/insider/refer': typeof AuthenticatedInsiderReferRoute
   '/_authenticated/manual/$slug': typeof AuthenticatedManualSlugRoute
@@ -663,6 +682,7 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/invitation/$credential'
+    | '/offer/$slug'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/admin/broadcast'
@@ -682,6 +702,7 @@ export interface FileRouteTypes {
     | '/admin/tickets'
     | '/admin/tour'
     | '/app/account'
+    | '/app/activity'
     | '/app/search'
     | '/insider/refer'
     | '/manual/$slug'
@@ -730,6 +751,7 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/invitation/$credential'
+    | '/offer/$slug'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/admin/broadcast'
@@ -749,6 +771,7 @@ export interface FileRouteTypes {
     | '/admin/tickets'
     | '/admin/tour'
     | '/app/account'
+    | '/app/activity'
     | '/app/search'
     | '/insider/refer'
     | '/manual/$slug'
@@ -798,6 +821,7 @@ export interface FileRouteTypes {
     | '/b/united-stakeholders'
     | '/insider/accept'
     | '/invitation/$credential'
+    | '/offer/$slug'
     | '/prepare-america/confirmed'
     | '/ticket/$credential'
     | '/_authenticated/admin/broadcast'
@@ -817,6 +841,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/tickets'
     | '/_authenticated/admin/tour'
     | '/_authenticated/app/account'
+    | '/_authenticated/app/activity'
     | '/_authenticated/app/search'
     | '/_authenticated/insider/refer'
     | '/_authenticated/manual/$slug'
@@ -858,6 +883,7 @@ export interface RootRouteChildren {
   WhyRrcaRoute: typeof WhyRrcaRoute
   InsiderAcceptRoute: typeof InsiderAcceptRoute
   InvitationCredentialRoute: typeof InvitationCredentialRoute
+  OfferSlugRoute: typeof OfferSlugRoute
   TicketCredentialRoute: typeof TicketCredentialRoute
 }
 
@@ -1031,6 +1057,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrepareAmericaConfirmedRouteImport
       parentRoute: typeof PrepareAmericaRoute
     }
+    '/offer/$slug': {
+      id: '/offer/$slug'
+      path: '/offer/$slug'
+      fullPath: '/offer/$slug'
+      preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/invitation/$credential': {
       id: '/invitation/$credential'
       path: '/invitation/$credential'
@@ -1162,6 +1195,13 @@ declare module '@tanstack/react-router' {
       path: '/app/search'
       fullPath: '/app/search'
       preLoaderRoute: typeof AuthenticatedAppSearchRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/activity': {
+      id: '/_authenticated/app/activity'
+      path: '/app/activity'
+      fullPath: '/app/activity'
+      preLoaderRoute: typeof AuthenticatedAppActivityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/account': {
@@ -1348,6 +1388,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
   AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
+  AuthenticatedAppActivityRoute: typeof AuthenticatedAppActivityRoute
   AuthenticatedAppSearchRoute: typeof AuthenticatedAppSearchRoute
   AuthenticatedInsiderReferRoute: typeof AuthenticatedInsiderReferRoute
   AuthenticatedManualSlugRoute: typeof AuthenticatedManualSlugRoute
@@ -1384,6 +1425,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
   AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
+  AuthenticatedAppActivityRoute: AuthenticatedAppActivityRoute,
   AuthenticatedAppSearchRoute: AuthenticatedAppSearchRoute,
   AuthenticatedInsiderReferRoute: AuthenticatedInsiderReferRoute,
   AuthenticatedManualSlugRoute: AuthenticatedManualSlugRoute,
@@ -1463,6 +1505,7 @@ const rootRouteChildren: RootRouteChildren = {
   WhyRrcaRoute: WhyRrcaRoute,
   InsiderAcceptRoute: InsiderAcceptRoute,
   InvitationCredentialRoute: InvitationCredentialRoute,
+  OfferSlugRoute: OfferSlugRoute,
   TicketCredentialRoute: TicketCredentialRoute,
 }
 export const routeTree = rootRouteImport

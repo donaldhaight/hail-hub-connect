@@ -99,6 +99,10 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A70 | The first variant proof — one existing Pattern rendered twice, for a Licensed Contractor and for capital, published to nobody | `docs/strategy/STAKEHOLDER-VIEWS.md` §5 | open | The cheapest available test of A62, A69 and ADR-020 at once. If the two drift, the mechanism is wrong |
 | A71 | The aggregate Stakeholder view as a redaction design, not a layout | C53 below | open | An all-views surface is servable only at the lowest class present. Band 3 unreachable at any intensity |
 | A72 | A confidence method under ADR-027 — how evidence events accumulate | ADR-027 §3 | open | Deliberately undefined. Do not invent arithmetic before there is evidence to weigh |
+| A73 | The Property Owner terminus — the owner track converges on a record that does not exist | `docs/strategy/PHASE-1-FUNNEL.md` §4.2 | open | The track stops at a request on purpose. A property record is downstream of the Records gate (A60) and is not modelled ahead of it |
+| A74 | Track provenance — the funnel track lives in the person's browser and is never written to their record | `docs/strategy/PHASE-1-FUNNEL.md` §5 | open | Writing it would be a lead-provenance field, which is first-class under ADR-015 and cannot be introduced as a side effect of framing copy |
+| A75 | The request `context` field carries track and offer as free text | `src/routes/request-briefing.tsx`, `docs/strategy/PHASE-1-FUNNEL.md` §3.7 | open | Deliberately no column added. If the funnel is kept, structured attribution is a Records decision, not a form decision |
+| A76 | Whether Phase 1 offers may ever be published | `docs/strategy/PHASE-1-FUNNEL.md` §6 | open | Every offer screen is C0 and labelled SIMULATION. None is approved public copy or a commercial commitment |
 
 
 ## B. Held on purpose
@@ -345,3 +349,19 @@ crossed, because nothing irreversible has happened yet. Both readings are preser
 
 It adds **A67–A72** and **C53–C56** above. Nothing was closed; no code, UI, route,
 schema, domain or public copy changed, and the locked work order did not move.
+
+## O. The Phase 1 funnel, made walkable (2026-09-16)
+
+A narrated Phase 1 funnel — one spine, three audiences — was implemented at its smallest
+credible size, as `SIMULATION` content on existing architecture.
+
+Six of the nine narrated steps already existed: arrival and file (`FrontDoor`, anchor,
+wallet, ledger), App Home, the reader (`/manual`), the request (`AccessRequestForm` →
+founder queue) and its confirmation. Getting Started became configuration — track-derived
+starter Tasks. Two things were genuinely missing and were built at minimum size: the
+offer screen (`/offer/$slug`) and the person's own activity view (`/app/activity`).
+
+No role, record type, permission, table or migration was added. The track lives in the
+person's own browser, changes framing copy and starter Tasks, and touches nothing else.
+
+It adds **A73–A76** above. No ADR: a walkable simulation is not a ruling.

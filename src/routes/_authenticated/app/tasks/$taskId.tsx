@@ -6,6 +6,7 @@ import { CheckCircle2, Circle } from "lucide-react";
 import { AppShell } from "@/components/apphome/AppShell";
 import { getAppHome, setAppTaskDone } from "@/lib/apphome.functions";
 import { ACTIVE_ROLE_KEY } from "@/lib/roles";
+import { useFunnelTrack } from "@/hooks/useFunnelTrack";
 
 export const Route = createFileRoute("/_authenticated/app/tasks/$taskId")({
   head: () => ({
@@ -28,9 +29,10 @@ function TaskPage() {
   const qc = useQueryClient();
   const [query, setQuery] = useState("");
 
+  const track = useFunnelTrack();
   const { data, isLoading } = useQuery({
-    queryKey: ["app-home"],
-    queryFn: () => fetchHome(),
+    queryKey: ["app-home", track],
+    queryFn: () => fetchHome({ data: track ? { track } : undefined }),
   });
 
   const mutate = useMutation({
