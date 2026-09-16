@@ -369,3 +369,15 @@ order did not move.
   irreversible has happened. Both readings preserved (C55).
 - Manual chapter 81, `saga-the-turn-to-underwriting`, Part VI, ASSERTION / C2.
 - Registered **A67–A72** and **C53–C56**; mirrored to the founder backlog board.
+
+## Sprint 2.20 — The Phase 1 funnel, made walkable
+
+**Goal:** Make a narrated three-audience funnel walkable on existing architecture, as simulation.
+
+- Added `src/content/funnels.ts` — builder, owner and contractor tracks as data.
+- `/kimosabe?track=…` remembers the track in the person's own browser; framing only.
+- Track-derived starter Tasks in `buildAppHome`, self-settleable, prefixed `track:`.
+- Built `/offer/$slug` (C0, SIMULATION) and `/app/activity` (own rows only).
+- `/request-briefing` accepts `track` and `offer` into the existing context field.
+- Filed `docs/strategy/PHASE-1-FUNNEL.md`, a narrative in `docs/history/`, A73–A76 in the
+  register and on the board. No ADR — a walkable simulation is not a ruling.
