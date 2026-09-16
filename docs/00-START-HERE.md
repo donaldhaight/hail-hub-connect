@@ -42,6 +42,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/EXPOSURE-SIMULATION.md`](strategy/EXPOSURE-SIMULATION.md) | in progress | C2 | The two-exposure simulation: Model A vs Model B for November 1, filed as SIMULATION |
 | [`strategy/BUSINESS-MODEL-CONTEXT.md`](strategy/BUSINESS-MODEL-CONTEXT.md) | in progress | C2 | The 2026-09-15 context packet: USA positioning, USA/RRCA/NRA separation, origin vs compensation, provider abstraction, Position Books, revenue objects |
 | [`strategy/STAKEHOLDER-VIEWS.md`](strategy/STAKEHOLDER-VIEWS.md) | in progress | C2 | One operating model, many Stakeholder readings; what the view mechanism does and does not reach |
+| [`strategy/PHASE-1-FUNNEL.md`](strategy/PHASE-1-FUNNEL.md) | simulation | C2 | One spine, three audiences; what already existed, what was built, and what the owner track refuses to pretend |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
 | [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
