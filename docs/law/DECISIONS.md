@@ -658,3 +658,56 @@ entity operates and unacceptable the moment a second one receives money.
 - C40 remains open. Part 3 assumes Lt. Dan's Plan is one door among six; ADR-023 asks
   whether it is the umbrella above all of them. This ADR does not rule it.
 - Registered as **A48–A52** and **C44–C46**.
+
+---
+
+## ADR-026 — Origin is not compensation; and what No Conflicting Interest actually forbids
+
+**Date:** 2026-09-16 · **Status:** accepted · **Class:** C2
+
+**Decision.** Two things the 2026-09-15 context packet *asserts* rather than simulates
+are put in force. Everything else in that packet stays `SIMULATION` or `OPEN`.
+
+1. **Origin is not compensation.** The system records contribution facts and economic
+   outcomes as two separate record families. Person Origin, Property Origin,
+   Opportunity Origin, Role, Relationship, Assignment, contribution, conversion event
+   and fulfillment are facts about what happened. What any of them *pays* is decided by
+   an economic agreement that reads those facts. The ledger records first; the
+   agreement settles second. A compensation rule may change; the origin record may not.
+2. **No Conflicting Interest forbids control, not self-interest.** Every Stakeholder
+   Group is expected to protect its own legitimate interests. What the protocol
+   forbids is any one Stakeholder — including the founder and any founder-controlled
+   entity — secretly or structurally controlling the rules, attribution, authority,
+   data, pricing, access, dispute resolution or economics that bind everyone else.
+   The test applies to the founder on the same terms as to anyone else.
+
+**Grounds.** The corpus has carried attribution questions since ADR-015 (lead
+provenance), ADR-017 (Referraltor) and C19/C23/C31 without ever saying whether an
+attribution record *is* a payment claim. Left unsaid, every future compensation
+argument becomes an argument about the record itself. Separating them makes the record
+unarguable and the payment negotiable, which is the correct way round. The NCOI
+clarification closes a similar looseness: the phrase had been read as "nobody has
+interests", which is not achievable and was never the point.
+
+**Alternatives considered.**
+
+- *One ledger row that carries both the fact and the payout.* Rejected: append-only
+  means a compensation change would require rewriting history, which the ledger forbids
+  by design.
+- *Defer both until the Records layer.* Rejected for the origin rule: the Records layer
+  is where the two families get drawn, so the principle must exist before the drawing.
+  The objects themselves are still deferred to their gate.
+- *Read NCOI as a founder exemption during the proving phase.* Rejected: an exemption
+  that exists during the phase that sets every precedent is not a temporary exemption.
+
+**Consequences.**
+
+- The Records layer draws a contribution / origin family separate from the ledger, with
+  a compensation-agreement object reading from it (**A60**). Nothing is built here.
+- The NCOI test now applies to every simulation in the packet — notably USA as a
+  selling contractor while owning the protocol (**C48**) and the neutral-technology
+  versus business-development split inside Market Applications (**C50**).
+- `docs/strategy/BUSINESS-MODEL-CONTEXT.md` holds the full reconciliation, labelled.
+- The locked work order is unchanged: Draft Connecticut Agreement → Records / Object
+  Model → SiteBMS → JobNimbus mapping → API / MCP.
+- Registered as **A57–A66** and **C48–C52**. No simulation in the packet is ruled here.
