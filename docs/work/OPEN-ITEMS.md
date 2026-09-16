@@ -1,6 +1,6 @@
 # Open Items Register
 
-> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-13  
+> **Status:** register · **Class:** C4 · **Last revised:** 2026-09-16  
 > Document of record for everything opened and not yet closed. Mirrored on the founder backlog board.  
 > Reading order and the full corpus map: [`docs/00-START-HERE.md`](../00-START-HERE.md)
 
@@ -82,6 +82,16 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A54 | Verified inventory of what the Siteforum codebase actually provides | `docs/strategy/EXPOSURE-SIMULATION.md` §3, §5.3 | needs verification | Assumption (b) — "Siteforum bridges the implementation gap" — is load-bearing and unexamined. Cannot be tested from inside this codebase |
 | A55 | An exposure read of the Screen Book under each model — which screens, personas and entities are lit on November 1 under A versus B | `docs/strategy/EXPOSURE-SIMULATION.md` §1 | open | A read of the Screen Book, not a rewrite. Blocked on A53 |
 | A56 | If a Kimosabe-carried launch is chosen, its dependency on the engagement layer | `docs/strategy/EXPOSURE-SIMULATION.md` §5.2, `docs/strategy/ENGAGEMENT-LAYER.md` | open | Feed and Player are honestly empty; the habit loop is undesigned. The one layer with no ancestor would carry the launch. Blocked on A53 |
+| A57 | Founder ruling on **USA as a licensed roofing contractor / prime**, and whether the 1%-back-to-the-market proposition is offered at all | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.1 | unsettled | SIMULATION. Gives the venture an ordinary revenue heartbeat, and puts the protocol owner into the market it governs. The 1% figure is a variable, never a commitment. Collides with NCOI at C48 |
+| A58 | The USA → RRCA → NRA operating separation — USA sells, RRCA manages, NRA performs — including NRA re-parented under USA | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.2 | unsettled | SIMULATION. A three-entity money flow on a ledger with no entity column (A48). Also moves a door without ruling the umbrella (C49) |
+| A59 | Network ownership of RRCA — part or all sold to network participants as part of the NCOI experiment | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.3 | unsettled | SIMULATION. Ownership, securities structure, valuation, timing, voting, governance and eligibility all OPEN. Cannot be assessed from inside this codebase |
+| A60 | A contribution / origin record family separate from the ledger, with a compensation-agreement object reading from it | ADR-026, `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.4 | open | Origin is not compensation. The principle is in force; the objects are drawn with the Records layer, never ahead of it. Joins C19, C23, C31 |
+| A61 | Provider abstraction — an external provider registry where provider activity becomes evidence and provider IDs stay external mappings | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.5 | open | SIMULATION, rehearsed against Circle. Reconnects MarketAPI. Must not cross an ADR-016 memory partition by inference (C51) |
+| A62 | Founding Stakeholder Position Books — one invariant Pattern, one book per Stakeholder Group, the same nine questions each | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.6 | open | The first concrete use of the Perception Library (ADR-020) and the variant model, specified 2026-09-10 and never used. Relieves the homepage of carrying the whole model. Related to A42 |
+| A63 | A reusable revenue-object catalog — one product taxonomy across every brand instead of a bespoke economic model per brand | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.7 | open | Access / participation, transaction / performance, technology, media / knowledge, and future financial concepts. Pricing, regulatory and banking structure out of scope here (B5) |
+| A64 | Geography as a dimension — global, national, state, county, market, territory, property — with exclusivity as a separable grant | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.9 | open | Territory must not imply exclusivity. Sponsorship, operating rights, lead priority, license, designation, representation and exclusivity are separate things |
+| A65 | The Experienced Builder / Dragonslayer acceptance test applied to the public surfaces | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.8 | open | Would an experienced builder understand the proposition, see the assumptions, identify the dragons, and know how to plug in? Attracting one operator, CFO, lawyer or sponsor may itself be the success condition |
+| A66 | The business-planning layer — startup expenses, runway, banking, general ledgers, DBA tracking, lead and win economics, pricing, sponsorships, licenses, memberships, territories, seat economics, entity revenues and expenses, stakeholder splits | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §1, packet §22 | open | The Quantum Dashboard may become the scenario layer for these variables. Held by B3 until a superseding ADR; nothing is demonstrated in public |
 
 
 ## B. Held on purpose
@@ -148,6 +158,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C45 | Are the six doors peers, or is one of them the umbrella above the rest? | ADR-023 / C40 against `docs/strategy/PLATFORM-GENERALIZATION.md` §4.1 | Part 3 assumes the peer reading without ruling it. Founder ruling only; does not resolve by inference |
 | C46 | Arbitration rule for the competing-platform experiment, and whether an agent team is required for governance even where one model is capable | `docs/strategy/PLATFORM-GENERALIZATION.md` §2, §6 | Without an arbitration rule, several platforms given the same Source produce several corpora and no canon. *Can* one model do the work and *should* it are different questions |
 | C47 | If Model B were chosen, what the public surfaces may promise on November 1 — a C0/C1 exposure decision, not a build decision | `docs/strategy/EXPOSURE-SIMULATION.md` §5.1 | The site today implies RRCA + event + multi-brand rollout. Changing the promise changes public copy, not architecture. Moot unless A53 rules B or hybrid |
+| C48 | Can USA sell into the market while owning the protocol that governs attribution, pricing and lead routing? | ADR-026 §2 against `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.1. This is the exact structural control NCOI forbids. The RRCA network-ownership simulation (A59) may answer it or compound it. Founder ruling only |
+| C49 | Is National Roofing Army parented under USA or under RRCA — and does that answer depend on the unruled umbrella? | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.2 against ADR-023 / C40 / C45. The packet moves a door without ruling the hierarchy. Not resolved by inference |
+| C50 | The separation between Market Applications' neutral technology interest and its business-development / lead / attribution interest | Packet §10, `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §5.7. The same NCOI conflict as C48 one level up. The packet states it is unresolved; it stays unresolved here |
+| C51 | May provider activity become evidence on a person's continuing record without the person's own act? | ADR-016 against `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.5. Memory partitions are not crossed by inference, and the rule does not bend for a provider. Bears on every future provider, not just Circle |
+| C52 | Is 1% of sold volume — or any figure — economically survivable, and what is it a percentage *of*? | Packet §5. Explicitly a variable, not a contractual commitment. Cannot be tested from inside this codebase; waits on A66 |
 
 
 ## D. Deliberately empty in the app
@@ -276,3 +291,22 @@ structural change.
 It adds **A53–A56** and **C47** above. Nothing was closed; no ADR was written, because a
 simulation is not a decision. If the founder rules A, B or a hybrid, that ruling gets the
 ADR. The locked work order did not move, and no code, UI, schema or public copy changed.
+
+
+## M. The business-model & exposure context packet (2026-09-15, filed 2026-09-16)
+
+A context synchronization packet was read as Source, not instruction, and reconciled in
+`docs/strategy/BUSINESS-MODEL-CONTEXT.md`. Most of it is `SIMULATION` or `OPEN`: USA as a
+licensed contractor, the USA / RRCA / NRA separation, network ownership of RRCA, provider
+abstraction, Position Books, the revenue-object catalog and the geography dimension.
+
+Two things it asserted rather than simulated were ruled in **ADR-026**: origin is not
+compensation, and No Conflicting Interest forbids structural control rather than
+self-interest — binding on the founder equally.
+
+The architectural finding: the packet does not create the missing entity dimension, it
+raises the price of it. *USA sells / RRCA manages / NRA performs* is a three-entity money
+flow on a ledger with no entity column, and the ledger is append-only.
+
+It adds **A57–A66** and **C48–C52** above. Nothing was closed; no code, UI, route, schema,
+domain or public copy changed, and the locked work order did not move.
