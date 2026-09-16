@@ -711,3 +711,54 @@ interests", which is not achievable and was never the point.
 - The locked work order is unchanged: Draft Connecticut Agreement → Records / Object
   Model → SiteBMS → JobNimbus mapping → API / MCP.
 - Registered as **A57–A66** and **C48–C52**. No simulation in the packet is ruled here.
+
+---
+
+## ADR-027 — Assumptions start at zero
+
+**Date:** 2026-09-16 · **Status:** accepted · **Class:** C2
+
+**Decision.** Every proposition in this project enters the corpus with **zero earned
+confidence**, regardless of who proposed it or how compelling it reads.
+
+1. Belief by the founder, or agreement between ChatGPT, Claude, Manus, Lovable or any
+   other model, is an **evidence event**. It moves an assumption off zero. It never
+   starts one above zero.
+2. Independent convergence, working software, executed agreements, operating results
+   and observed reality raise confidence. Contradictory evidence lowers it.
+3. **No numeric scoring method is invented here.** No weighting, no percentage, no
+   Coefficient-of-Truth arithmetic. Designing one is registered as open (**A72**), not
+   drafted.
+4. Truth labels are unchanged and do a different job. A label says what *kind* of claim
+   a thing is; this ADR governs how much that claim has *earned*. The two axes are read
+   together and neither substitutes for the other.
+5. A proposition entering the corpus from here is expected to state what evidence would
+   move it. Not a score — a named evidence event.
+
+**Grounds.** The corpus has carried truth labels since 2026-09-09 and they have worked.
+What they cannot do is stop a repeated idea from feeling proven. This project's specific
+failure mode — named by the founder and independently by the 2026-09-16 narrative — is a
+compelling story outrunning what reality has proven. Four models agreeing is exactly the
+shape that failure takes. Naming agreement as evidence rather than proof is the cheapest
+available correction, and it binds the founder and every model on identical terms.
+
+**Alternatives considered.**
+
+- *Adopt a 0–100 confidence score now.* Rejected: it would manufacture precision the
+  evidence cannot support, and an unearned number is harder to argue with than an
+  unearned sentence.
+- *Leave the posture informal.* Rejected: it has been informal for eight weeks and the
+  packet-to-packet drift shows what informal produces.
+- *Apply it only to business claims, not architecture.* Rejected: the architectural
+  assumptions are the expensive ones, because the ledger is append-only.
+
+**Consequences.**
+
+- An assumption inventory becomes a standing artifact of the corpus (**A67**), starting
+  with the eight assumptions listed in
+  `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` §5.
+- No existing decision is reopened. This governs confidence, not validity.
+- The locked work order is unchanged: Draft Connecticut Agreement → Records / Object
+  Model → SiteBMS → JobNimbus mapping → API / MCP.
+- Registered as **A67–A72** and **C53–C56**. The Stakeholder-view hypothesis is held in
+  `docs/strategy/STAKEHOLDER-VIEWS.md` and is not ruled here.

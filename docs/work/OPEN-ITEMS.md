@@ -93,6 +93,13 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A65 | The Experienced Builder / Dragonslayer acceptance test applied to the public surfaces | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.8 | open | Would an experienced builder understand the proposition, see the assumptions, identify the dragons, and know how to plug in? Attracting one operator, CFO, lawyer or sponsor may itself be the success condition |
 | A66 | The business-planning layer — startup expenses, runway, banking, general ledgers, DBA tracking, lead and win economics, pricing, sponsorships, licenses, memberships, territories, seat economics, entity revenues and expenses, stakeholder splits | `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §1, packet §22 | open | The Quantum Dashboard may become the scenario layer for these variables. Held by B3 until a superseding ADR; nothing is demonstrated in public |
 
+| A67 | A standing assumption inventory — every proposition that carries architecture, money or exposure, with what evidence would move it | ADR-027, `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` §5 | open | Starts at zero by definition. No scoring method; a named evidence event per line |
+| A68 | The attribution pipeline as a named diagram — Observed Event → Normalized Fact → Attribution Claim → Settlement Decision | `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` §3.2 | open | Shape only. The objects are drawn with the Records layer under A60, never ahead of it |
+| A69 | The Stakeholder-view mechanism — one Pattern selected by Stakeholder Group, audience, moment, mood and class | `docs/strategy/STAKEHOLDER-VIEWS.md` | open | HYPOTHESIS. Not a new subsystem: the first serious demand on ADR-020, unused since 2026-09-10 |
+| A70 | The first variant proof — one existing Pattern rendered twice, for a Licensed Contractor and for capital, published to nobody | `docs/strategy/STAKEHOLDER-VIEWS.md` §5 | open | The cheapest available test of A62, A69 and ADR-020 at once. If the two drift, the mechanism is wrong |
+| A71 | The aggregate Stakeholder view as a redaction design, not a layout | C53 below | open | An all-views surface is servable only at the lowest class present. Band 3 unreachable at any intensity |
+| A72 | A confidence method under ADR-027 — how evidence events accumulate | ADR-027 §3 | open | Deliberately undefined. Do not invent arithmetic before there is evidence to weigh |
+
 
 ## B. Held on purpose
 
@@ -163,6 +170,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C50 | The separation between Market Applications' neutral technology interest and its business-development / lead / attribution interest | Packet §10, `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §5.7. The same NCOI conflict as C48 one level up. The packet states it is unresolved; it stays unresolved here |
 | C51 | May provider activity become evidence on a person's continuing record without the person's own act? | ADR-016 against `docs/strategy/BUSINESS-MODEL-CONTEXT.md` §3.5. Memory partitions are not crossed by inference, and the rule does not bend for a provider. Bears on every future provider, not just Circle |
 | C52 | Is 1% of sold volume — or any figure — economically survivable, and what is it a percentage *of*? | Packet §5. Explicitly a variable, not a contractual commitment. Cannot be tested from inside this codebase; waits on A66 |
+
+| C53 | May an all-Stakeholder-views-at-once surface exist at all, given confidentiality classes? | `docs/strategy/STAKEHOLDER-VIEWS.md` §4. A composition problem before a UI problem; the aggregate is servable only at the lowest class present |
+| C54 | May a Stakeholder view render economics at all, before an executed agreement supports the number? | `docs/strategy/STAKEHOLDER-VIEWS.md` §3.2, against ADR-026. A rendered number reads as an offer |
+| C55 | Has the threshold into Act II been crossed, or are we standing on it? | `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` §6. Both readings preserved. The crossing act is an executed agreement, a real dollar, or a public November 1 commitment |
+| C56 | Does independent convergence between models count as evidence at the same weight as observed reality? | ADR-027 §2 against A72. Currently both are evidence events with no weighting, on purpose |
 
 
 ## D. Deliberately empty in the app
@@ -310,3 +322,26 @@ flow on a ledger with no entity column, and the ledger is append-only.
 
 It adds **A57–A66** and **C48–C52** above. Nothing was closed; no code, UI, route, schema,
 domain or public copy changed, and the locked work order did not move.
+
+## N. The turn from vision to underwriting (2026-09-16)
+
+A living narrative was read as Source, not instruction, and answered with a companion
+narrative from this side in `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md`.
+
+**ADR-027** puts one thing in force: assumptions start at zero. Belief by the founder,
+or agreement between models, is an evidence event — it moves a claim off zero, it never
+starts one above it. No scoring method is invented.
+
+The structural idea — one shared operating model rendered as one Stakeholder view or all
+views together — is held as `HYPOTHESIS` in `docs/strategy/STAKEHOLDER-VIEWS.md`. Its
+finding: Position Books, Circle spaces, Perception Library variants, App Home modes and
+Quantum Dashboard views are not five features but one mechanism seen from five places,
+and that mechanism (ADR-020) has existed unused since 2026-09-10. Attribution,
+compensation and geography stay outside it — records and grants, never views.
+
+On where the project stands: Act I has resolved; the threshold into Act II has not been
+crossed, because nothing irreversible has happened yet. Both readings are preserved
+(C55).
+
+It adds **A67–A72** and **C53–C56** above. Nothing was closed; no code, UI, route,
+schema, domain or public copy changed, and the locked work order did not move.
