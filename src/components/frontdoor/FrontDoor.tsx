@@ -11,6 +11,7 @@ import {
 } from "@/lib/wallet.schedule";
 import { Meta } from "@/components/briefing/Badges";
 import type { Persona } from "@/content/personas";
+import { FUNNEL_TRACK_STORAGE_KEY, type FunnelTrack } from "@/content/funnels";
 
 function fmt(n: number) {
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
@@ -23,7 +24,14 @@ function fmt(n: number) {
  * shares one anchor key, one wallet, and one ledger — the person is the same
  * person at every door, and the file never splits.
  */
-export function FrontDoor({ persona }: { persona: Persona }) {
+export function FrontDoor({
+  persona,
+  track,
+}: {
+  persona: Persona;
+  /** Optional Phase 1 funnel track — changes the framing line only. */
+  track?: FunnelTrack | null;
+}) {
   const resolve = useServerFn(resolveWallet);
   const earn = useServerFn(earnToken);
   const pay = useServerFn(payEntryFee);
@@ -57,6 +65,12 @@ export function FrontDoor({ persona }: { persona: Persona }) {
       })
       .catch(() => setNotice("The file could not be opened."));
   }, [resolve, apply]);
+
+  // The track a person arrived on is remembered for App Home. It is a framing
+  // choice only — it touches no record, no role, and no permission.
+  useEffect(() => {
+    if (track) window.localStorage.setItem(FUNNEL_TRACK_STORAGE_KEY, track.key);
+  }, [track]);
 
   async function ask(e: React.FormEvent) {
     e.preventDefault();
@@ -126,6 +140,11 @@ export function FrontDoor({ persona }: { persona: Persona }) {
             <p className="mx-auto mt-6 max-w-[46ch] text-center text-sm leading-relaxed text-muted-foreground">
               {persona.promise}
             </p>
+            {track ? (
+              <p className="mx-auto mt-5 max-w-[46ch] border-l-2 border-ink pl-4 text-sm leading-relaxed text-ink">
+                {track.framing}
+              </p>
+            ) : null}
             <form onSubmit={ask} className="mt-10">
               <div className="flex border border-border transition-colors focus-within:border-navy">
                 <div className="flex items-center pl-4">
@@ -197,6 +216,24 @@ export function FrontDoor({ persona }: { persona: Persona }) {
         ) : (
           <p className="mb-8 text-sm text-muted-foreground">I remembered you.</p>
         )}
+
+        {track ? (
+          <section className="mb-10 border-l-2 border-ink pl-4">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+              {track.label}
+            </div>
+            <p className="mt-2 max-w-[58ch] text-sm leading-relaxed text-ink/85">
+              {track.framing}
+            </p>
+            <Link
+              to="/offer/$slug"
+              params={{ slug: track.offerSlug }}
+              className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-navy hover:underline"
+            >
+              See what is being asked →
+            </Link>
+          </section>
+        ) : null}
 
         {/* The holding wallet */}
         <section className="mb-10 border border-border p-6">

@@ -6,6 +6,7 @@ import { Meta } from "@/components/briefing/Badges";
 import { AccessRequestForm } from "@/components/access/AccessRequestForm";
 import type { AccessAskId } from "@/lib/briefing.schemas";
 import { routeHead } from "@/lib/site";
+import { getTrack } from "@/content/funnels";
 
 const TITLE = "Request Access";
 const DESC =
@@ -13,6 +14,8 @@ const DESC =
 
 const searchSchema = z.object({
   ask: z.enum(["briefing", "conference", "both"]).optional(),
+  track: z.string().optional(),
+  offer: z.string().optional(),
 });
 
 export const Route = createFileRoute("/request-briefing")({
@@ -22,9 +25,15 @@ export const Route = createFileRoute("/request-briefing")({
 });
 
 function RequestAccess() {
-  const { ask } = Route.useSearch();
+  const { ask, track: trackKey, offer } = Route.useSearch();
+  const track = getTrack(trackKey);
   const [submitted, setSubmitted] = useState(false);
   const [already, setAlready] = useState(false);
+
+  // The track and offer travel with the request in the context the founder reads.
+  const contextDefault = track
+    ? `Arrived on the ${track.label} track${offer ? ` via the "${offer}" Phase 1 offer (simulation)` : ""}.\n\n`
+    : undefined;
 
   return (
     <PageShell>
@@ -64,10 +73,11 @@ function RequestAccess() {
 
           <div className="md:col-span-8">
             {submitted ? (
-              <SubmittedNotice already={already} />
+              <SubmittedNotice already={already} next={track?.confirmationNext ?? null} />
             ) : (
               <AccessRequestForm
                 defaultAsk={(ask as AccessAskId | undefined) ?? "briefing"}
+                contextDefault={contextDefault}
                 onSubmit={(dup) => {
                   setAlready(dup);
                   setSubmitted(true);
@@ -81,7 +91,7 @@ function RequestAccess() {
   );
 }
 
-function SubmittedNotice({ already }: { already: boolean }) {
+function SubmittedNotice({ already, next }: { already: boolean; next: string | null }) {
   return (
     <div className="border border-border bg-card p-8">
       <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
@@ -95,6 +105,11 @@ function SubmittedNotice({ already }: { already: boolean }) {
           ? "We already have a recent request from this email. The founder will follow up directly."
           : "We will review it personally. If a briefing is appropriate you will hear from us within seven business days. Nothing you submitted has been shared outside the founder's review."}
       </p>
+      {next ? (
+        <p className="mt-6 max-w-[52ch] border-l-2 border-ink pl-4 text-sm leading-relaxed text-ink">
+          {next}
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -16,10 +16,18 @@ type AnyClient = {
 /** Tasks a person may mark done themselves; everything else is derived. */
 export const DISMISSIBLE_TASKS = new Set(["introduce", "founder-queue", "welcome"]);
 
+/** Phase 1 funnel tasks are self-settled; they are reading, not evidence. */
+export const TRACK_TASK_PREFIX = "track:";
+
+export function isDismissibleTask(taskId: string): boolean {
+  return DISMISSIBLE_TASKS.has(taskId) || taskId.startsWith(TRACK_TASK_PREFIX);
+}
+
 export async function buildAppHome(
   supabase: AnyClient,
   userId: string,
   email: string | null,
+  track?: string | null,
 ): Promise<AppHomeView> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { ensureUserWallet, buildWalletView, balanceOf } = await import(
@@ -154,6 +162,27 @@ export async function buildAppHome(
       done: false,
       dismissible: true,
     });
+  }
+
+  // Phase 1 funnel tasks — framing and reading only. SIMULATION content; they
+  // create no record, grant nothing, and can be settled by the person.
+  if (track) {
+    const { FUNNEL_TRACKS } = await import("@/content/funnels");
+    const t = FUNNEL_TRACKS[track];
+    if (t) {
+      for (const seed of t.starterTasks) {
+        tasks.push({
+          id: `${TRACK_TASK_PREFIX}${t.key}:${seed.id}`,
+          label: seed.label,
+          detail: seed.detail,
+          why: seed.why,
+          action: seed.action,
+          href: seed.href,
+          done: false,
+          dismissible: true,
+        });
+      }
+    }
   }
 
   for (const t of tasks) {
