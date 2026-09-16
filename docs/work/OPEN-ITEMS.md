@@ -349,3 +349,19 @@ crossed, because nothing irreversible has happened yet. Both readings are preser
 
 It adds **A67–A72** and **C53–C56** above. Nothing was closed; no code, UI, route,
 schema, domain or public copy changed, and the locked work order did not move.
+
+## O. The Phase 1 funnel, made walkable (2026-09-16)
+
+A narrated Phase 1 funnel — one spine, three audiences — was implemented at its smallest
+credible size, as `SIMULATION` content on existing architecture.
+
+Six of the nine narrated steps already existed: arrival and file (`FrontDoor`, anchor,
+wallet, ledger), App Home, the reader (`/manual`), the request (`AccessRequestForm` →
+founder queue) and its confirmation. Getting Started became configuration — track-derived
+starter Tasks. Two things were genuinely missing and were built at minimum size: the
+offer screen (`/offer/$slug`) and the person's own activity view (`/app/activity`).
+
+No role, record type, permission, table or migration was added. The track lives in the
+person's own browser, changes framing copy and starter Tasks, and touches nothing else.
+
+It adds **A73–A76** above. No ADR: a walkable simulation is not a ruling.
