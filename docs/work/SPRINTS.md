@@ -318,3 +318,30 @@ public copy or UI changed, and the locked work order did not move.
 - No ADR this pass: a simulation is not a decision. If the founder rules A, B or hybrid,
   that ruling gets the ADR.
 - Registered **A53–A56** and **C47**; mirrored to the founder backlog board.
+
+## Sprint 2.18 — The business-model & exposure context packet, filed (2026-09-16)
+
+A context synchronization packet dated 2026-09-15 was submitted as Source, not
+instruction, and reconciled against the corpus. Documentation only — no route,
+component, schema, migration, domain, public copy or UI changed, and the locked work
+order did not move.
+
+- `docs/strategy/BUSINESS-MODEL-CONTEXT.md` holds the reconciliation, every claim
+  labelled: what the corpus already held, what is genuinely new, what refines earlier
+  language, the conflicts preserved rather than resolved, the future Screen Book and
+  data implications if anything is ruled, and the assumptions this codebase cannot
+  verify.
+- The architectural finding: the packet does not create the missing entity dimension
+  (ADR-025, A48) — it raises the price of it. *USA sells / RRCA manages / NRA
+  performs* is a three-entity money flow on an append-only ledger with no entity
+  column. Exposure Model B is cheap under that gap; the three-entity separation is not.
+- **ADR-026** rules only the two things the packet asserted rather than simulated:
+  origin is not compensation (two record families, not one), and No Conflicting
+  Interest forbids secret or structural control rather than self-interest, binding on
+  the founder and founder-controlled entities equally.
+- Everything else stays `SIMULATION` or `OPEN`: USA as licensed contractor and the 1%
+  proposition, the USA / RRCA / NRA separation, network ownership of RRCA, provider
+  abstraction, Position Books, the revenue-object catalog, the geography dimension.
+- Registered **A57–A66** and **C48–C52**; mirrored to the founder backlog board.
+- Preserved on purpose: whether USA may sell into a market whose protocol it owns
+  (C48), and whether NRA's parent depends on the still-unruled umbrella (C49).

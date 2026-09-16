@@ -1,6 +1,6 @@
 # Start Here — the corpus map
 
-> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-13
+> **Status:** binding · **Class:** C2 · **Last revised:** 2026-09-16
 > The reading order for any human or agent joining this project, and the manifest
 > a future retrieval index walks.
 
@@ -40,6 +40,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/ENGAGEMENT-LAYER.md`](strategy/ENGAGEMENT-LAYER.md) | in progress | C2 | The recoverability asymmetry, the universal grammar, the engagement loop, first-pass gamification |
 | [`strategy/PLATFORM-GENERALIZATION.md`](strategy/PLATFORM-GENERALIZATION.md) | in progress | C2 | Multi-site / multi-entity / multi-role reading, the missing entity dimension, the architectural boundary |
 | [`strategy/EXPOSURE-SIMULATION.md`](strategy/EXPOSURE-SIMULATION.md) | in progress | C2 | The two-exposure simulation: Model A vs Model B for November 1, filed as SIMULATION |
+| [`strategy/BUSINESS-MODEL-CONTEXT.md`](strategy/BUSINESS-MODEL-CONTEXT.md) | in progress | C2 | The 2026-09-15 context packet: USA positioning, USA/RRCA/NRA separation, origin vs compensation, provider abstraction, Position Books, revenue objects |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
 | [`requirements/KNOWLEDGE-LIBRARY.md`](requirements/KNOWLEDGE-LIBRARY.md) | in progress | C2 | Source / Pattern / Expression, the Perception Library, authorized containers |
