@@ -129,7 +129,7 @@ export function FrontDoor({
         data-brand={persona.paletteToken}
         className="flex min-h-screen flex-col bg-background text-foreground"
       >
-        <main className="flex flex-1 flex-col items-center justify-center px-6">
+        <main className="flex min-h-[80vh] flex-1 flex-col items-center justify-center px-6">
           <div className="w-full max-w-xl">
             <h1 className="text-center font-serif text-6xl tracking-tight text-ink md:text-7xl">
               {persona.wordmark}
