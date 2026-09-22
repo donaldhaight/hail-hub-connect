@@ -174,6 +174,7 @@ export function FrontDoor({
             ) : null}
           </div>
         </main>
+        <DoorSections persona={persona} />
         <footer className="px-6 py-6 text-center">
           <Link
             to="/"
