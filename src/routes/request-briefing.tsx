@@ -16,6 +16,10 @@ const searchSchema = z.object({
   ask: z.enum(["briefing", "conference", "both"]).optional(),
   track: z.string().optional(),
   offer: z.string().optional(),
+  /** Which canonical Door the person arrived through. Attribution only. */
+  door: z.string().optional(),
+  /** A self-declared interest statement. Never a role or a permission. */
+  interest: z.string().optional(),
 });
 
 export const Route = createFileRoute("/request-briefing")({
