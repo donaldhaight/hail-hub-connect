@@ -377,6 +377,9 @@ export function FrontDoor({
         </form>
       </main>
 
+      <DoorSections persona={persona} />
+
+
       <footer className="border-t border-border px-6 py-6 text-center">
         <Link
           to="/"
