@@ -762,3 +762,57 @@ available correction, and it binds the founder and every model on identical term
   Model → SiteBMS → JobNimbus mapping → API / MCP.
 - Registered as **A67–A72** and **C53–C56**. The Stakeholder-view hypothesis is held in
   `docs/strategy/STAKEHOLDER-VIEWS.md` and is not ruled here.
+
+---
+
+## ADR-028 — The canonical Door; and what a Door may not do
+
+**Date:** 2026-09-22 · **Status:** in force · **Class:** C2
+
+**Context.** The Seven-Venture Positioning Handoff of 2026-09-22 arrived with nine
+implementation instructions written against a conceptual architecture. A codebase audit
+found two public systems claiming the same ground: the real front-door engine serving
+`/kimosabe` and `/buddy-claim`, and the static brand cards at `/b/<slug>`. The founder
+accepted the audit and issued ten rulings.
+
+**Decision.**
+
+1. **The front-door engine is the canonical Door.** Positioning copy renders as sections
+   beneath it, from the persona record. Two public pages for one venture, with different
+   promises, are forbidden. `/b/<slug>` is retired as an independent destination and
+   redirects only once its replacement is accepted.
+2. **Interest is not authority.** A visitor may state an interest. It creates no role, no
+   credential, no Stakeholder Group and no permission. The founder assigns every position.
+3. **Attribution is proposed, not persisted.** A minimal additive `entry_context` object on
+   the anchor/request record is specified and **not authorized**. Until it is, arrival
+   context stays in the browser and travels as free text.
+4. **SelfInsurity is message-only** until the Records / Object Model gate authorizes the
+   Property record. Property relationship, address confirmation, File Ready and walk-through
+   screens are deferred.
+5. **No public capital intake.** RRCA's preview says "Strategic Partner or Advisor" until
+   counsel approves a controlled pathway.
+6. **United Stakeholders is the intentional eighth** portfolio container, excluded from the
+   seven-Door execution set. There is no seven-versus-eight conflict.
+7. **National Roofing Army is visibly proposed** — no members, verified counties,
+   deployments, domain ownership, territory availability or national operation.
+8. **All copy is preview copy** pending founder and applicable counsel approval.
+9. **The package decisions DEC-031–056 are reconciled, not merged.** No renumbering, no
+   silent absorption in either direction.
+10. **ClaimStore establishes the pattern.** No further Door begins until it is approved.
+
+**Alternatives considered.**
+
+- *Build each venture's page as specified in its instruction.* Rejected: nine pages of
+  positioning copy with no shared arrival would have produced nine promises and one
+  confused record.
+- *Retire `/b/<slug>` immediately.* Rejected: published URLs stay live; nothing is retired
+  before its replacement is accepted.
+- *Persist attribution now, since preseason learning needs it.* Rejected by the founder's
+  own instruction: the schema is returned for authorization first.
+
+**Consequences.**
+
+- `/claimstore` is built as the first canonical Door (message-only).
+- Route plan, attribution proposal and the reconciliation matrix are held in
+  `docs/strategy/SEVEN-DOORS.md`.
+- Registered as **A77–A81** and **C57–C60**. The locked work order is unchanged.

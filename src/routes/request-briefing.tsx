@@ -16,6 +16,10 @@ const searchSchema = z.object({
   ask: z.enum(["briefing", "conference", "both"]).optional(),
   track: z.string().optional(),
   offer: z.string().optional(),
+  /** Which canonical Door the person arrived through. Attribution only. */
+  door: z.string().optional(),
+  /** A self-declared interest statement. Never a role or a permission. */
+  interest: z.string().optional(),
 });
 
 export const Route = createFileRoute("/request-briefing")({
@@ -25,15 +29,21 @@ export const Route = createFileRoute("/request-briefing")({
 });
 
 function RequestAccess() {
-  const { ask, track: trackKey, offer } = Route.useSearch();
+  const { ask, track: trackKey, offer, door, interest } = Route.useSearch();
   const track = getTrack(trackKey);
   const [submitted, setSubmitted] = useState(false);
   const [already, setAlready] = useState(false);
 
-  // The track and offer travel with the request in the context the founder reads.
-  const contextDefault = track
-    ? `Arrived on the ${track.label} track${offer ? ` via the "${offer}" Phase 1 offer (simulation)` : ""}.\n\n`
-    : undefined;
+  // The track, offer, door and stated interest travel with the request in the
+  // free-text context the founder reads. None of them grants anything.
+  const lines = [
+    track
+      ? `Arrived on the ${track.label} track${offer ? ` via the "${offer}" Phase 1 offer (simulation)` : ""}.`
+      : null,
+    door ? `Entered through the ${door} door.` : null,
+    interest ? `Stated interest: ${interest} (interest only — not a role).` : null,
+  ].filter(Boolean);
+  const contextDefault = lines.length ? `${lines.join("\n")}\n\n` : undefined;
 
   return (
     <PageShell>

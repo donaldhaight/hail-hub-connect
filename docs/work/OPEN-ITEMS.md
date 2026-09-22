@@ -103,6 +103,11 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A74 | Track provenance — the funnel track lives in the person's browser and is never written to their record | `docs/strategy/PHASE-1-FUNNEL.md` §5 | open | Writing it would be a lead-provenance field, which is first-class under ADR-015 and cannot be introduced as a side effect of framing copy |
 | A75 | The request `context` field carries track and offer as free text | `src/routes/request-briefing.tsx`, `docs/strategy/PHASE-1-FUNNEL.md` §3.7 | open | Deliberately no column added. If the funnel is kept, structured attribution is a Records decision, not a form decision |
 | A76 | Whether Phase 1 offers may ever be published | `docs/strategy/PHASE-1-FUNNEL.md` §6 | open | Every offer screen is C0 and labelled SIMULATION. None is approved public copy or a commercial commitment |
+| A77 | Canonical Door consolidation — `/b/<slug>` retired as an independent destination and redirected once each replacement is accepted | ADR-028, `docs/strategy/SEVEN-DOORS.md` §1 | open | Six ventures still have only a brand card. Closes when every card redirects to or renders its canonical Door |
+| A78 | The `entry_context` attribution object on the anchor/request record | ADR-028 §3, `docs/strategy/SEVEN-DOORS.md` §2 | held | Specified and deliberately not applied. Captured in the browser only until the founder authorizes the migration |
+| A79 | The remaining six canonical Doors — SelfInsurity, RRCA, National Roofing Army, Market Applications, and the alignment of Kimosabe and Buddy Claim | ADR-028 §10, `docs/strategy/SEVEN-DOORS.md` §1 | held | None begins until ClaimStore is approved as the pattern |
+| A80 | Promise-version record — the exact wording each Door showed, and when | `src/lib/entry-context.ts`, ADR-028 §3 | open | Currently a string in the persona record. A durable record of what was promised is a Records decision, not a copy decision |
+| A81 | Preview-copy approval gate — no Door copy publishes until the founder and, where applicable, counsel approve it | ADR-028 §8 | open | Standing gate. Applies to every Door built under ADR-028 |
 
 
 ## B. Held on purpose
@@ -179,6 +184,10 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | C54 | May a Stakeholder view render economics at all, before an executed agreement supports the number? | `docs/strategy/STAKEHOLDER-VIEWS.md` §3.2, against ADR-026. A rendered number reads as an offer |
 | C55 | Has the threshold into Act II been crossed, or are we standing on it? | `docs/history/THE-TURN-TO-UNDERWRITING-2026-09-16.md` §6. Both readings preserved. The crossing act is an executed agreement, a real dollar, or a public November 1 commitment |
 | C56 | Does independent convergence between models count as evidence at the same weight as observed reality? | ADR-027 §2 against A72. Currently both are evidence events with no weighting, on purpose |
+| C57 | Do the package's four canonical views supersede, sit beside, or defer to the corpus law, ADR register and this register? | Package DEC-031/DEC-032 against `docs/law/PROTOCOL.md`. Two governance systems now claim to be the source of truth. Neither may absorb the other by inference |
+| C58 | Does the persistent File pattern (Person, Property, Business, Project, Claim, Job) become canon before the Records gate? | Package DEC-034 against ADR-018 and the locked work order. The SelfInsurity expression is already deferred; the underlying model decision is still ahead of its gate |
+| C59 | Does Market Applications operate the platform with Kimosabe as its layer? | Package DEC-038 against ADR-014's three administrations and the unsettled legal shape of Market Applications |
+| C60 | Is a neutral DAO governance rather than exemption? | Package DEC-052 against the capture-prevention structure and the standing NCOI conflict at C48 |
 
 
 ## D. Deliberately empty in the app

@@ -12,6 +12,7 @@ import {
 import { Meta } from "@/components/briefing/Badges";
 import type { Persona } from "@/content/personas";
 import { FUNNEL_TRACK_STORAGE_KEY, type FunnelTrack } from "@/content/funnels";
+import { DoorSections } from "@/components/frontdoor/DoorSections";
 
 function fmt(n: number) {
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
@@ -129,7 +130,7 @@ export function FrontDoor({
         data-brand={persona.paletteToken}
         className="flex min-h-screen flex-col bg-background text-foreground"
       >
-        <main className="flex flex-1 flex-col items-center justify-center px-6">
+        <main className="flex min-h-[80vh] flex-1 flex-col items-center justify-center px-6">
           <div className="w-full max-w-xl">
             <h1 className="text-center font-serif text-6xl tracking-tight text-ink md:text-7xl">
               {persona.wordmark}
@@ -174,6 +175,7 @@ export function FrontDoor({
             ) : null}
           </div>
         </main>
+        <DoorSections persona={persona} />
         <footer className="px-6 py-6 text-center">
           <Link
             to="/"
@@ -374,6 +376,9 @@ export function FrontDoor({
           </div>
         </form>
       </main>
+
+      <DoorSections persona={persona} />
+
 
       <footer className="border-t border-border px-6 py-6 text-center">
         <Link
