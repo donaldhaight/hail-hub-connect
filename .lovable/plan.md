@@ -1,121 +1,156 @@
-# Seven-Venture Handoff — Read-Only Audit and Recommended Sequence
+# Seven Doors — Rulings Accepted: Route Plan, Attribution Proposal, Reconciliation, ClaimStore
 
-Read in the prescribed order: session readme, Screen Book, Manual, the seven positioning
-reports and instructions, the Ledger, the Book. Nothing built, nothing changed. This is the
-first response the master handoff asks for.
+Audit accepted; all ten rulings taken as given. This returns the four things asked for and
+nothing else. No Door is built until the ClaimStore pattern is approved.
 
-## 1. What already exists that the seven Doors can reuse
+## 1. Canonical route plan
 
-There are **two different things in the codebase both called a door**, and the package treats
-them as one.
+Today there are two public systems: the real Door engine (ask box, holding file, wallet,
+anchor) serving `/kimosabe` and `/buddy-claim` from persona records, and the static brand
+card at `/b/<slug>` serving six ventures. The ruling makes the Door engine canonical.
 
-- **The real Door.** One shared engine takes a persona record and renders the whole arrival:
-  the ask box, the holding file, the wallet, the anchor that remembers an anonymous visitor
-  between visits, and the entry payment. Only **Kimosabe** and **Buddy Claim** have persona
-  records. Adding a persona is a content record plus a route — the engine already carries the
-  work.
-- **The brand card.** A separate, much lighter static page at `/b/<slug>` — a three-layer
-  reveal (vertical, brand, domain), a fixed "request a private briefing" pair of buttons, and
-  an architecture footer. **Six** of the seven ventures have one of these: SelfInsurity,
-  Market Applications, Kimosabe, ClaimStore, Buddy Claim, RRCA (plus United Stakeholders, an
-  eighth record not in the package's seven). These have no ask, no wallet, no attribution.
+Proposed target:
 
-Also reusable and proven: the page shell, section and prose components; the shared head/SEO
-helper every public route uses; and `/offer/<slug>` as the clean recent example of a simple
-content-driven page with a not-found state.
+```text
+/claimstore            canonical Door   (new persona record)
+/selfinsurity          canonical Door   (new, message-only)
+/rrca                  canonical Door   (new)
+/national-roofing-army canonical Door   (new, visibly proposed)
+/market-applications   canonical Door   (new, last)
+/kimosabe              canonical Door   (exists)
+/buddy-claim           canonical Door   (exists; track param wired in)
+/b/<slug>              -> permanent redirect to the canonical Door
+/b/united-stakeholders -> kept as the brand card, unchanged (eighth container)
+```
 
-## 2. Coverage, venture by venture
+Three points the founder should weigh before anything moves:
 
-| Venture | Real Door | Brand card | Gap to a full preseason Door |
-|---|---|---|---|
-| SelfInsurity | no | yes | persona record + route + copy |
-| Market Applications | no | yes | persona record + route + copy |
-| Kimosabe | yes | yes | copy alignment only |
-| ClaimStore | no | yes | persona record + route + copy |
-| Buddy Claim | yes | yes | copy alignment; track param not wired |
-| RRCA | no | yes | persona record + route + copy |
-| National Roofing Army | no | **no** | everything — no route, no record, no palette, no mention anywhere in the repo |
+1. **The Door engine is longer than a brand card and shorter than a positioning page.** The
+   venture instructions ask for ten sections. Rather than bloat the ask-first engine, the
+   proposal is: the Door engine keeps its arrival behaviour, and the positioning sections
+   render *beneath* it from the persona record — one new optional `sections` field on the
+   persona shape, no new component family.
+2. **Redirects preserve the published URLs.** `/b/<slug>` stays live and permanently
+   redirects, so nothing already shared breaks. United Stakeholders is the one exception and
+   keeps its card.
+3. **Order of cutover:** ClaimStore ships first as a new canonical route while `/b/claimstore`
+   still renders the old card. The redirect is flipped only after the pattern is approved.
+   Nothing is retired before its replacement is accepted.
 
-United Stakeholders exists as an eighth brand card. The package's seven do not include it.
-That mismatch needs a founder answer before the set is treated as closed.
+## 2. Minimal attribution record — proposal only, not implemented
 
-## 3. Conflicts — stop-and-report, not chosen silently
+One additive column. No redesign, no new table, no change to existing reads.
 
-1. **Two door systems, one word.** Every instruction says "create the Door using existing
-   components." Six ventures already have a page at `/b/<slug>`. Building a second, richer
-   page at `/<slug>` gives each venture two public addresses with different promises. Either
-   the brand cards are retired into the new pattern, or the new Doors live under `/b/` and
-   that route family grows an ask. This is a decision, not a preference.
-2. **Attribution is promised and does not exist.** Every instruction requires
-   `entry_door`, `campaign: preseason_2026`, `initial_intent`, `initial_role_hypothesis`,
-   `primary_file_type`, `promise_version` to be preserved. Today the only thing that reaches
-   the server is an opaque anchor string. No table anywhere records which door, persona,
-   campaign or track a person arrived through. The instructions also forbid migrations. So
-   the requirement and the boundary contradict each other: the honest outcome is
-   browser-only context plus a written gap, which means **preseason attribution will not be
-   measurable** unless the founder lifts the no-migration rule for that one column.
-3. **Role-interest pickers.** Five instructions ask the Door to offer stakeholder choices
-   (Property Owner, ISR, Licensed Contractor, Adjuster, Advocate, Creditor, Capital Partner,
-   and more). The corpus rule is that the founder sets the Stakeholder Group at acceptance;
-   nobody self-certifies. Interest-only capture is compatible, but it has nowhere to land —
-   see conflict 2. It would be free text on a request, at best.
-4. **Locked work order.** The corpus order is Connecticut Agreement → Records/Object Model →
-   SiteBMS → JobNimbus → API/MCP. Seven Doors are not in that order. They are public
-   expression, not architecture, so they can run alongside it — but the SelfInsurity
-   instruction goes further and describes Property File onboarding screens (relationship,
-   address confirmation, file-ready, walk-around). **That is the Property record**, which the
-   corpus says does not exist and which the Records gate governs. As written, SelfInsurity
-   jumps its gate.
-5. **RRCA and capital language.** The RRCA Door asks for a "Potential Capital Partner"
-   interest option while forbidding investment solicitation. That line is thinner than the
-   document treats it and wants counsel's eye before it is public.
-6. **The Ledger's own decisions are dated one day ago and unreconciled with ours.** DEC-031
-   through DEC-040 restructure the corpus into four views. Our corpus has its own law,
-   decisions and register. Nothing should be migrated by inference; the two need an explicit
-   reconciliation ruling.
+```sql
+ALTER TABLE public.ledger_wallets
+  ADD COLUMN entry_context jsonb;
 
-## 4. Missing evidence
+ALTER TABLE public.briefing_requests
+  ADD COLUMN entry_context jsonb;
 
-- No verified inventory for National Roofing Army: no domain, no DBA proof, no members, no
-  county data. The Door would be entirely a proposal.
-- RRCA history is founder-reported throughout and carries the valuation baseline.
-- Every SelfInsurity market observation is labelled a fact but sourced to "source candidates
-  requiring formal registration" — none registered yet.
-- Domain ownership for the seven brands is asserted, not documented.
-- No promise-version or disclosure-approval record exists anywhere; the media plan requires
-  one per artifact.
+COMMENT ON COLUMN public.ledger_wallets.entry_context IS
+  'Door attribution captured at arrival. Non-authoritative marketing context. Never a role.';
+```
 
-## 5. Dependencies before any Door is built
+Shape written on first arrival and never rewritten afterwards:
 
-1. Founder ruling on conflict 1 (one door system, which one).
-2. Founder ruling on conflict 2 (browser-only attribution, or one permitted column).
-3. Counsel or founder sign-off on the disclosure paragraph for each of the seven.
-4. A ruling on whether SelfInsurity ships as a **message-only Door** (hero, problem, property
-   file described, trust, CTA) with the onboarding screens deferred to the Records gate.
-5. Confirmation of the seven-vs-eight set (United Stakeholders).
-6. Copy approval: every line in the instructions is drafted, none is approved public copy.
+```json
+{
+  "entry_door": "ClaimStore",
+  "campaign": "preseason_2026",
+  "initial_intent": "explore_insurance_restoration_market",
+  "interest": "property_owner",
+  "promise_version": "ClaimStore Landing Page v0.1 — 2026-09-22",
+  "referral_source": "utm or referrer, when present",
+  "captured_at": "timestamp"
+}
+```
 
-## 6. Recommended execution sequence
+- **Privacy.** No name, email, address, IP or device data. The interest value is a
+  self-declared marketing string, explicitly not a role, group, credential or permission —
+  matching ruling three. It travels with the anonymous anchor and follows the person only if
+  they claim the wallet themselves.
+- **Permissions.** No new policy. The column inherits the existing rules on both tables; the
+  person reads their own, the founder reads the queue. No public read.
+- **Write path.** Set once by the existing server function that creates the wallet, and
+  copied onto the briefing request when one is submitted. Nothing derives authority from it.
+- **Rollback.** A nullable JSON column with no constraints and no code depending on it being
+  present: the migration is reversible by ignoring the column, and destructively reversible
+  by dropping it, with no data loss elsewhere.
+- **Authorization still required.** This is the proposal the ruling asked for. It is not run
+  until the founder says run it.
 
-The package's own order (SelfInsurity first) is wrong for this codebase, because SelfInsurity
-is the one venture whose instruction collides with a locked gate.
+## 3. Decision reconciliation — package DEC-031–056 against our law
 
-1. **Decide the two conflicts above.** Nothing else is worth starting first.
-2. **Prove the pattern on ClaimStore.** Message-only, no record implied, the vision framing is
-   already how the corpus talks, and it is the cleanest test of one shared template.
-3. **Buddy Claim and RRCA** next — they validate advocacy and company framing and both already
-   have surface to fold in.
-4. **SelfInsurity**, message-only, once the Property File question is ruled.
-5. **National Roofing Army** last of the market Doors, and only after the evidence gap is
-   accepted as "proposed network, nothing verified" in visible language.
-6. **Market Applications and Kimosabe** last, as the package says: they describe the shared
-   layer and should be written after the others prove what is shared.
-7. Reconcile findings into the Ledger and our register with matching IDs. No Quantum
-   Dashboard work until the seven baselines are reconciled.
+No renumbering, no merging. Read as: what each package decision does to our corpus.
 
-## 7. Database, auth and permission confirmation
+**Equivalent — already ruled here, different words**
 
-No database, auth, role or permission change is required to build the Doors as message-only
-pages with existing CTAs. **One precise gap:** preserving `entry_door` and `campaign` beyond
-the browser requires a persisted column on the anchor or request record. Without it,
-preseason attribution is a claim the system cannot support.
+| Package | Ours |
+|---|---|
+| DEC-033 Many Doors, One System | ADR-019 one front-door engine, many personas |
+| DEC-037 Lovable Boundary | ADR-021, ADR-022 authorized containers; the documentation-first rule |
+| DEC-044 Provider memory is not canonical memory | ADR-016 memory partitions |
+| DEC-043 Continuity and authority separation | Authority = Role + Relationship + Assignment |
+| DEC-056 Seven comparable valuation records | ADR-012 hold the Quantum Dashboard |
+
+**Compatible — new, and nothing here contradicts them**
+
+DEC-035, DEC-036 (SelfInsurity entry and RoofLac placement), DEC-039 (foundry category),
+DEC-040 (shared-slice proof before platform claim), DEC-041, DEC-042 (Kimosabe as Personal
+Operating Guide, Person File primitive), DEC-045–048 (ClaimStore portfolio, canonical domain,
+ClaimExpress as protocol, financial-name boundaries), DEC-049, DEC-050 (Buddy Claim advocacy
+and the attorney-of-record boundary), DEC-053–055 (RRCA as operating proof, diligence before
+numbers, NRA is a network not RRCA at scale).
+
+**Conflicts — founder ruling required, not resolved here**
+
+1. **DEC-031 / DEC-032 four canonical views** vs our corpus law, ADR register and
+   OPEN-ITEMS. Two governance systems now claim to be the source of truth. Neither should
+   absorb the other by inference.
+2. **DEC-034 persistent File pattern** (Person, Property, Business, Project, Claim, Job as
+   File types) vs ADR-018 and the locked work order, which puts the Records/Object Model at
+   its own gate. Ruling four already defers the SelfInsurity expression of this; the
+   underlying model decision is still ahead of its gate.
+3. **DEC-038 Market Applications operates the platform, Kimosabe is its layer** vs ADR-014's
+   three administrations and the unsettled legal shape of Market Applications.
+4. **DEC-052 neutral DAO is governance, not exemption** touches the capture-prevention
+   structure and the NCOI conflict already standing as C48.
+
+**Positioning-only — belongs in the package, not in our law**
+
+DEC-046 domain routing, DEC-051 territorial participation hypothesis, DEC-054 diligence
+sequencing, and every evidence, hypothesis and source register.
+
+## 4. ClaimStore — precise implementation plan
+
+The first canonical Door. Message-only, no new record, no functional scope.
+
+- **Persona record.** Add `claimstore` to the persona content file: wordmark, eyebrow
+  "ClaimStore Vision for the Insurance Restoration Market", promise "One claim. One operating
+  record. Every authorized party knows what comes next.", ask placeholder, opened-file copy,
+  palette token reused from the existing brand record.
+- **Sections beneath the Door**, from the instruction, rendered by the existing section
+  components: the problem; the market pattern (ClaimStore, ClaimExpress, ClaimsBank,
+  ClaimLoan, ClaimCoin, each with its boundary line); the ClaimExpress sequence; interest
+  selection; Focused Future, labelled future; disclosure; final CTA into the existing request
+  routine.
+- **Interest selection** is a plain choice carried into the request's existing free-text
+  context. Visible line: *an interest statement only — it creates no role, credential,
+  group or permission.* Nothing is written that the ruling forbids.
+- **Route.** `/claimstore`, with the standard head/SEO helper. `/b/claimstore` untouched this
+  pass; the redirect is a separate step after approval.
+- **Attribution.** Browser-only for this build, with the entry context visibly recorded on
+  screen as captured-but-not-persisted, until the schema above is authorized.
+- **Not built:** Claim File, workflow, payments, migrations, roles, permissions, publishing.
+- **Returned for review:** route, desktop and mobile screenshots, components reused versus
+  added, what is simulated, typecheck result, and the wording decisions left open.
+
+## 5. Register and board
+
+New register lines, mirrored to the founder backlog board with the same IDs, in the same turn
+as the first build: the canonical route consolidation; the entry-context column awaiting
+authorization; the four reconciliation conflicts above; and preview-copy approval as a
+standing gate before any publication.
+
+Nothing publishes. Nothing touches the Quantum Dashboard.
