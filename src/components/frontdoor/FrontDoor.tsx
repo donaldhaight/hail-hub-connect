@@ -12,6 +12,7 @@ import {
 import { Meta } from "@/components/briefing/Badges";
 import type { Persona } from "@/content/personas";
 import { FUNNEL_TRACK_STORAGE_KEY, type FunnelTrack } from "@/content/funnels";
+import { DoorSections } from "@/components/frontdoor/DoorSections";
 
 function fmt(n: number) {
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(n);
