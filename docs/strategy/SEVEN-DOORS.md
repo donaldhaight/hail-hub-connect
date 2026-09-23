@@ -24,16 +24,16 @@ Door, the registry declares how the two differ so they do not appear to contradi
 
 | Route | State |
 |---|---|
-| `/claimstore` | **Built 2026-09-22** — the first canonical Door, message-only |
+| `/claimstore` | **Built 2026-09-22** — the first preseason Interest Door, message-only |
 | `/selfinsurity` | Planned — message-only, Property screens deferred behind the Records gate |
 | `/rrca` | Planned — "Strategic Partner or Advisor", no public capital intake |
 | `/national-roofing-army` | Planned — visibly proposed, no members, territories or coverage claimed |
 | `/market-applications` | Planned — last, after the pattern is proven |
-| `/kimosabe`, `/buddy-claim` | Existing canonical Doors |
-| `/b/<slug>` | Unchanged this pass; redirects to the canonical Door only after each replacement is accepted |
+| `/kimosabe`, `/buddy-claim` | Existing Doors |
+| `/b/<slug>` | **Kept.** The architectural expression of each venture; coexists with its Door, purposes declared in the registry |
 | `/b/united-stakeholders` | Kept as the brand card — the intentional eighth portfolio container |
 
-Nothing is retired before its replacement is approved.
+Nothing is retired. Every surface declares its purpose instead (ADR-029).
 
 ## 2. Attribution — proposed, not implemented
 
