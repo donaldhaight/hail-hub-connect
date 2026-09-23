@@ -376,10 +376,10 @@ export const SURFACES: Surface[] = [
     source: "src/content/personas.ts",
     cta: "Ask",
     destination: PLATFORM,
-    status: "established",
+    status: "preseason",
     capturesContext: true,
     siblings:
-      "Positioning sections have not yet been folded in. See /b/buddy-claim for the architectural expression.",
+      "The second canonical Door (2026-09-23): problem, what it is, how it would work, focused future, interest, disclosure. /b/buddy-claim remains the architectural expression — both valid, both point into the same routine.",
   },
   {
     route: "/claimstore",
