@@ -113,6 +113,115 @@ export const PERSONAS: Record<string, Persona> = {
     title: "Buddy Claim",
     description:
       "The insurance restoration market with somebody finally on your side of the record. Ask once and a file opens — no email, no phone, no claim number required.",
+    promiseVersion: "Buddy Claim Door v0.1 — 2026-09-23",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "You are the only party to your claim without a record.",
+        body: [
+          "The carrier keeps a file. The adjuster keeps notes. The contractor keeps a scope. You keep a folder of emails and a memory of a phone call, and when the accounts disagree, yours is the one that cannot be produced.",
+          "That asymmetry is not usually malice. It is simply that everyone else in the room does this for a living, writes things down as a matter of routine, and you do it once or twice in your lifetime, under a tarp, in a hurry.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "What Buddy Claim is",
+        title: "A record kept on your side, from the first question.",
+        label: "PREVIEW",
+        body: [
+          "Buddy Claim is not a company that handles your claim for you. It is a file that belongs to you, kept from the moment you first ask a question, so that what was said and when it was said stops being a matter of recollection.",
+        ],
+        items: [
+          {
+            term: "Your file",
+            detail:
+              "Opens on your first question. No email, no phone number, no claim number required.",
+            boundary: "A record of your own, not a claim submission.",
+          },
+          {
+            term: "The append-only ledger",
+            detail:
+              "Every entry is added; nothing is edited away later. What the record said last month still says it.",
+            boundary: "A history, not a legal filing and not evidence of coverage.",
+          },
+          {
+            term: "The scout",
+            detail:
+              "Ask anything at any hour and get a plain answer about what typically comes next, in your words.",
+            boundary:
+              "Guidance, not advice. Not a public adjuster, not a lawyer, not your carrier.",
+          },
+          {
+            term: "The shared record",
+            detail:
+              "The intent is that authorized parties eventually read the same account of the same event.",
+            boundary: "A concept under development. Nothing is shared with anyone today.",
+          },
+        ],
+      },
+      {
+        id: "sequence",
+        eyebrow: "How it would work",
+        title: "The order it actually happens in.",
+        label: "PREVIEW",
+        body: [
+          "Nothing here asks you to commit to anything. The first four steps exist today; the rest describe intent.",
+        ],
+        steps: [
+          "You ask one question, and a file opens in your name.",
+          "You say what happened to the property and when.",
+          "What you were told, and by whom, gets written down as you learn it.",
+          "You can see your own history at any time, and it is only yours.",
+          "Authorized parties read the same account rather than three different ones.",
+          "The work performed is written to the record as it happens.",
+          "The claim closes with a history nobody had to reconstruct from memory.",
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "A property owner walks into a claim with the same quality of record as everyone else in the room. Not an advantage — parity.",
+          "It is deliberately a smaller claim than this industry usually makes, and it is not yet built. Everything above the disclosure describes intent, tested first with one operating contractor rather than announced as a national service.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of this are you standing on?",
+      note: "An interest statement only — it creates no role, credential, group or permission. The founder assigns every actual position, personally.",
+      options: [
+        {
+          id: "property_owner",
+          label: "Property owner",
+          detail: "It is my roof, my building, my claim.",
+        },
+        {
+          id: "contractor",
+          label: "Contractor or restorer",
+          detail: "I perform the work and carry the risk of getting paid late.",
+        },
+        {
+          id: "rep",
+          label: "Sales representative",
+          detail: "I stand between the owner and the work, and I need the record to hold.",
+        },
+        {
+          id: "carrier_adjuster",
+          label: "Carrier or adjuster",
+          detail: "I hold a position on claims and have to defend it.",
+        },
+        {
+          id: "observer",
+          label: "Observer",
+          detail: "I am reading, not participating.",
+        },
+      ],
+    },
+    disclosure:
+      "Preview copy. Buddy Claim is described here as a concept under development. It is not insurance, not a public adjusting service, not legal advice, not a lender, and not an offer or solicitation of any kind. Nothing on this page creates a business relationship, and no part of it has been approved for publication.",
   },
 
   /**
