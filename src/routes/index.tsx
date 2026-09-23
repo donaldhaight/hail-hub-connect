@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/briefing/PageShell";
 import { Meta } from "@/components/briefing/Badges";
+import { FrontDoor } from "@/components/frontdoor/FrontDoor";
+import { getPersona } from "@/content/personas";
+import { personaForHost } from "@/lib/door-hosts";
 import {
   FIRST_CONGRESS,
   SECOND_CONGRESS,
@@ -16,21 +19,48 @@ const DESC =
 const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: OG_TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: OG_TITLE },
-      { property: "og:description", content: DESC },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://prepareamerica.com/" },
-      { property: "og:site_name", content: "PrepareAmerica" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: OG_TITLE },
-      { name: "twitter:description", content: DESC },
-    ],
-    links: [{ rel: "canonical", href: "https://prepareamerica.com/" }],
-  }),
+  // ADR-030: a venture domain serves its canonical Door as the front page.
+  // Unknown hosts fall through to the movement home.
+  loader: async () => {
+    let host: string | null = null;
+    if (typeof window !== "undefined") {
+      host = window.location.host;
+    } else {
+      const { getRequestHeader } = await import("@tanstack/react-start/server");
+      host = getRequestHeader("host");
+    }
+    return { personaId: personaForHost(host)?.id ?? null };
+  },
+  head: ({ loaderData }) => {
+    const persona = loaderData?.personaId ? getPersona(loaderData.personaId) : null;
+    if (persona) {
+      return {
+        meta: [
+          { title: persona.title },
+          { name: "description", content: persona.description },
+          { property: "og:title", content: persona.title },
+          { property: "og:description", content: persona.description },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
+        ],
+      };
+    }
+    return {
+      meta: [
+        { title: OG_TITLE },
+        { name: "description", content: DESC },
+        { property: "og:title", content: OG_TITLE },
+        { property: "og:description", content: DESC },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: "https://prepareamerica.com/" },
+        { property: "og:site_name", content: "PrepareAmerica" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: OG_TITLE },
+        { name: "twitter:description", content: DESC },
+      ],
+      links: [{ rel: "canonical", href: "https://prepareamerica.com/" }],
+    };
+  },
   component: Index,
 });
 
