@@ -73,6 +73,8 @@ const LADDER = [
 ];
 
 function Index() {
+  const { personaId } = Route.useLoaderData();
+  if (personaId) return <FrontDoor persona={getPersona(personaId)} />;
   return (
     <PageShell>
       {/* Hero */}
