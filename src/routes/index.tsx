@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
       host = window.location.host;
     } else {
       const { getRequestHeader } = await import("@tanstack/react-start/server");
-      host = getRequestHeader("host");
+      host = getRequestHeader("host") ?? null;
     }
     return { personaId: personaForHost(host)?.id ?? null };
   },
