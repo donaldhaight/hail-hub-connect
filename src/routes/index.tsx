@@ -4,6 +4,7 @@ import { Meta } from "@/components/briefing/Badges";
 import { FrontDoor } from "@/components/frontdoor/FrontDoor";
 import { getPersona } from "@/content/personas";
 import { personaForHost } from "@/lib/door-hosts";
+import { getCurrentHost } from "@/lib/request-host";
 import {
   FIRST_CONGRESS,
   SECOND_CONGRESS,
@@ -21,14 +22,8 @@ const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateL
 export const Route = createFileRoute("/")({
   // ADR-030: a venture domain serves its canonical Door as the front page.
   // Unknown hosts fall through to the movement home.
-  loader: async () => {
-    let host: string | null = null;
-    if (typeof window !== "undefined") {
-      host = window.location.host;
-    } else {
-      const { getRequestHeader } = await import("@tanstack/react-start/server");
-      host = getRequestHeader("host") ?? null;
-    }
+  loader: () => {
+    const host = getCurrentHost();
     return { personaId: personaForHost(host)?.id ?? null };
   },
   head: ({ loaderData }) => {
