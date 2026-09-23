@@ -5,16 +5,22 @@
 > `.lovable/plan/seven-doors-rulings-accepted-route-plan-attribution-proposal-2026-09-22.md`.  
 > Everything described as copy here is **preview copy**. Nothing is approved for publication.
 
-## 1. The canonical Door
+## 1. The Door engine, and the surfaces beside it
 
-Two public systems existed: the real Door engine (ask box, holding file, wallet, anchor)
-serving `/kimosabe` and `/buddy-claim` from persona records, and the static brand card at
-`/b/<slug>`. The founder ruled the Door engine canonical and the brand cards retired as
-independent destinations.
+> **Correction, 2026-09-23 (ADR-029).** This section originally said the brand cards were
+> retired as independent destinations. That was a misreading of the founder's intention and
+> is superseded. Nothing is retired, redirected or renamed. `/b/<slug>` is the architectural
+> expression of a venture; the Door is its market expression. Both are valid and both point
+> into the same Interested User routine. See the Surface and Door Registry at
+> `/admin/surfaces` and `docs/history/MANY-DOORS-ONE-PLATFORM-2026-09-23.md`.
 
-The engine now carries optional positioning `sections` beneath the door — one new field on
-the persona shape, no second component family and no second public page with a different
-promise.
+Two public systems exist: the Door engine (ask box, holding file, wallet, anchor) serving
+`/kimosabe`, `/buddy-claim` and `/claimstore` from persona records, and the brand card at
+`/b/<slug>` serving the architecture. They perform different jobs.
+
+The engine carries optional positioning `sections` beneath the door — one new field on the
+persona shape, no second component family. Where a venture speaks through both a card and a
+Door, the registry declares how the two differ so they do not appear to contradict.
 
 | Route | State |
 |---|---|
