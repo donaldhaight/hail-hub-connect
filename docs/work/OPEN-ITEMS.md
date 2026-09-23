@@ -379,3 +379,31 @@ No role, record type, permission, table or migration was added. The track lives 
 person's own browser, changes framing copy and starter Tasks, and touches nothing else.
 
 It adds **A73–A76** above. No ADR: a walkable simulation is not a ruling.
+
+## P. One engine, many domains (2026-09-23)
+
+The founder asked how the preseason messaging at the key venture domains should be built
+and run, and delegated the architecture call. Ruled as **ADR-030**: each venture domain
+serves its canonical Door as its own front page from this platform — separate expressions,
+one engine, one Interested User routine. Implemented: `src/lib/door-hosts.ts`, host-aware
+`/` (verified in dev for claimstore.com, buddyclaim.com, kimosabe.ai; default home
+unchanged), and `docs/strategy/PRESEASON-DOMAINS.md` holding the doctrine and the season
+spine (preseason → 11-1-2026 launch → Season 1 → 2-14-2027 Owners Meeting / Congress →
+Hurricane Season 2027 → Season 2).
+
+- **A86 — Connect the venture domains (founder action).** Each domain connected in project
+  settings with root + www entries and *no primary domain set*, so each serves its Door at
+  its own address. DNS records supplied on request. Nothing goes live without explicit
+  founder instruction. Acceptance: a connected domain renders its Door at its root.
+- **A87 — Domain inventory.** Which domains are owned, at which registrar, expiring when —
+  asserted in the seven-venture package, never documented. Founder-supplied facts.
+  Acceptance: a corpus line per domain with owner, registrar and expiry.
+- **A88 — Season-spine promise versioning.** Each Door's promise version recorded per
+  season (preseason, Season 1, the turn, Season 2) so we can always say which promise a
+  person arrived on. Restates the urgency of A78 (entry-context persistence): with real
+  domains, browser-only arrival context cannot measure which door's message works.
+  Acceptance: a promise-version record per Door per season, and A78 decided.
+
+Domain connection and publishing remain founder acts. Buddy Claim's domain mapping is
+inert until the domain is connected and the founder publishes — the registry-review
+sequencing is unchanged.
