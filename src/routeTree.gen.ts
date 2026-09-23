@@ -58,6 +58,7 @@ import { Route as AuthenticatedAppActivityRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAppAccountRouteImport } from './routes/_authenticated/app/account'
 import { Route as AuthenticatedAdminTourRouteImport } from './routes/_authenticated/admin/tour'
 import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated/admin/tickets'
+import { Route as AuthenticatedAdminSurfacesRouteImport } from './routes/_authenticated/admin/surfaces'
 import { Route as AuthenticatedAdminSignalsRouteImport } from './routes/_authenticated/admin/signals'
 import { Route as AuthenticatedAdminRolesRouteImport } from './routes/_authenticated/admin/roles'
 import { Route as AuthenticatedAdminReadsRouteImport } from './routes/_authenticated/admin/reads'
@@ -329,6 +330,12 @@ const AuthenticatedAdminTicketsRoute =
     path: '/admin/tickets',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminSurfacesRoute =
+  AuthenticatedAdminSurfacesRouteImport.update({
+    id: '/admin/surfaces',
+    path: '/admin/surfaces',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminSignalsRoute =
   AuthenticatedAdminSignalsRouteImport.update({
     id: '/admin/signals',
@@ -495,6 +502,7 @@ export interface FileRoutesByFullPath {
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/surfaces': typeof AuthenticatedAdminSurfacesRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
@@ -565,6 +573,7 @@ export interface FileRoutesByTo {
   '/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/admin/surfaces': typeof AuthenticatedAdminSurfacesRoute
   '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/admin/tour': typeof AuthenticatedAdminTourRoute
   '/app/account': typeof AuthenticatedAppAccountRoute
@@ -637,6 +646,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/reads': typeof AuthenticatedAdminReadsRoute
   '/_authenticated/admin/roles': typeof AuthenticatedAdminRolesRoute
   '/_authenticated/admin/signals': typeof AuthenticatedAdminSignalsRoute
+  '/_authenticated/admin/surfaces': typeof AuthenticatedAdminSurfacesRoute
   '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
   '/_authenticated/admin/tour': typeof AuthenticatedAdminTourRoute
   '/_authenticated/app/account': typeof AuthenticatedAppAccountRoute
@@ -709,6 +719,7 @@ export interface FileRouteTypes {
     | '/admin/reads'
     | '/admin/roles'
     | '/admin/signals'
+    | '/admin/surfaces'
     | '/admin/tickets'
     | '/admin/tour'
     | '/app/account'
@@ -779,6 +790,7 @@ export interface FileRouteTypes {
     | '/admin/reads'
     | '/admin/roles'
     | '/admin/signals'
+    | '/admin/surfaces'
     | '/admin/tickets'
     | '/admin/tour'
     | '/app/account'
@@ -850,6 +862,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/reads'
     | '/_authenticated/admin/roles'
     | '/_authenticated/admin/signals'
+    | '/_authenticated/admin/surfaces'
     | '/_authenticated/admin/tickets'
     | '/_authenticated/admin/tour'
     | '/_authenticated/app/account'
@@ -1245,6 +1258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTicketsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/surfaces': {
+      id: '/_authenticated/admin/surfaces'
+      path: '/admin/surfaces'
+      fullPath: '/admin/surfaces'
+      preLoaderRoute: typeof AuthenticatedAdminSurfacesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/signals': {
       id: '/_authenticated/admin/signals'
       path: '/admin/signals'
@@ -1405,6 +1425,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminReadsRoute: typeof AuthenticatedAdminReadsRoute
   AuthenticatedAdminRolesRoute: typeof AuthenticatedAdminRolesRoute
   AuthenticatedAdminSignalsRoute: typeof AuthenticatedAdminSignalsRoute
+  AuthenticatedAdminSurfacesRoute: typeof AuthenticatedAdminSurfacesRoute
   AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
   AuthenticatedAdminTourRoute: typeof AuthenticatedAdminTourRoute
   AuthenticatedAppAccountRoute: typeof AuthenticatedAppAccountRoute
@@ -1442,6 +1463,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminReadsRoute: AuthenticatedAdminReadsRoute,
   AuthenticatedAdminRolesRoute: AuthenticatedAdminRolesRoute,
   AuthenticatedAdminSignalsRoute: AuthenticatedAdminSignalsRoute,
+  AuthenticatedAdminSurfacesRoute: AuthenticatedAdminSurfacesRoute,
   AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
   AuthenticatedAdminTourRoute: AuthenticatedAdminTourRoute,
   AuthenticatedAppAccountRoute: AuthenticatedAppAccountRoute,
