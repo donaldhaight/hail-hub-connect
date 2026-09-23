@@ -24,6 +24,7 @@ const SURFACES = [
   { to: "/admin/queue", label: "The Request Queue", note: "One row per human — what they asked for, the file they arrived with, and the one control that accepts them." },
   { to: "/admin/inbox", label: "Inbox", note: "Seats, invitations, referrals, discussion, and the run of show." },
   { to: "/admin/screens", label: "Screen Book", note: "Every page, view and report as a row: purpose, permissions, records, actions, evidence, status, and its previous state." },
+  { to: "/admin/surfaces", label: "Surface & Door Registry", note: "What every public surface is for — and where two pages express the same venture on purpose. Many Doors, one platform." },
 
   { to: "/admin/tickets", label: "Ticket Ledger", note: "Assign tiers and issue First Congress credentials." },
   { to: "/admin/broadcast", label: "Broadcast", note: "Stream config, state machine, and the pre-event checklist." },

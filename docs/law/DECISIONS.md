@@ -816,3 +816,53 @@ accepted the audit and issued ten rulings.
 - Route plan, attribution proposal and the reconciliation matrix are held in
   `docs/strategy/SEVEN-DOORS.md`.
 - Registered as **A77–A81** and **C57–C60**. The locked work order is unchanged.
+
+## ADR-029 — Many Doors, one platform; ADR-028 §1 superseded
+
+**Date:** 2026-09-23 · **Status:** in force · **Class:** C1 · **Truth:** DECISION
+
+**Context.** The founder published the ClaimStore Door, went to the Manual, and could not
+find the work. An outside reading of the published site followed, found two ClaimStore
+pages with different promises, and recommended that one win and the other be retired,
+redirected or labelled historical. ADR-028 §1 had already written the same assumption into
+law. The founder corrected both readings: the Doors were never intended to replace the
+existing website. They are additional market-facing surfaces that generate interest and
+convert an Interested User into the shared platform.
+
+**Decision.**
+
+1. **No existing public surface is retired, redirected, renamed or rewritten** without an
+   explicit founder instruction. ADR-028 §1 is superseded on this point only; ADR-028 §§2–10
+   stand unchanged, including *interest is not authority*.
+2. **Surfaces are classified, not consolidated.** Movement · Narrative · Architecture ·
+   Brand card · Interest Door · Capture · Platform · Corpus. Each declares its own job.
+3. **Two surfaces may express one venture on purpose.** `/b/claimstore` is the architectural
+   and financial-rails expression; `/claimstore` is the market-positioning Interest Door.
+   Both are valid; both point into the same Interested User routine.
+4. **The completion rule.** A new Door is complete when its distinct purpose is declared,
+   its relationship to existing surfaces is documented, and it connects the Interested User
+   to the shared platform without silently replacing another valid expression.
+5. **The Surface and Door Registry is the label.** Founder-visible at `/admin/surfaces`,
+   sourced from `src/content/surfaces.ts`.
+6. **The reusable journey.** Interest Door → Interested User → Kimosabe → existing identity
+   → App Home, preserving the originating Door, campaign, promise version, expressed
+   interest and referral source. Preservation stays browser-only until A78 is authorized.
+7. **Buddy Claim waits** until the registry has been returned and reviewed.
+
+**Alternatives considered.**
+
+- *Make ClaimStore canonical and redirect `/b/claimstore`* — the outside reading's remedy.
+  Rejected by the founder: it destroys a valid expression to remove an apparent conflict
+  that was never a conflict.
+- *Edit ADR-028 to remove the retirement clause.* Rejected: history is not rewritten to
+  match the present. ADR-028 stands as written and is superseded here.
+- *Add a public explanation page.* Rejected for now: the confusion was the founder's, about
+  the founder's own surfaces. A founder-visible registry answers it without adding another
+  public destination to a site already accused of simultaneity.
+
+**Consequences.**
+
+- `src/content/surfaces.ts` and `/admin/surfaces` exist. No route retired, no navigation
+  changed, no brand card touched, nothing published.
+- `docs/strategy/SEVEN-DOORS.md` §1 carries a correction note.
+- Registered as **A82–A85** and **C61**.
