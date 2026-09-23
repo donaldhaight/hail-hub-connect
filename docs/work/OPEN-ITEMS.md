@@ -407,3 +407,27 @@ Hurricane Season 2027 → Season 2).
 Domain connection and publishing remain founder acts. Buddy Claim's domain mapping is
 inert until the domain is connected and the founder publishes — the registry-review
 sequencing is unchanged.
+
+## Q. The second Door, and the map (2026-09-23)
+
+The founder cleared the host-detection fix, approved all outstanding work, authorized
+publication, and asked for an analysis of every page to date. Buddy Claim was built as the
+second canonical Door under ADR-029 and ADR-030 — positioning sections, interest selection
+(interest is not authority), preview disclosure, promise version `Buddy Claim Door v0.1 —
+2026-09-23`. `/b/buddy-claim` is untouched and remains the architectural expression. Two
+Manual chapters were written: **83, One Engine, Many Domains**, and **84, The Map of the
+House**. No ADR: building a Door under standing rulings is execution, not a new ruling.
+
+- **A89 — The remaining five Doors.** RRCA (Strategic Partner / Advisor language only,
+  never capital), message-only SelfInsurity (no Property relationship until the Records
+  gate), National Roofing Army (visibly proposed, no claims of members, territories or
+  coverage), then Market Applications and Kimosabe once the shared pattern is proven.
+  Acceptance: each Door built, registered, and carrying its promise version.
+- **A90 — A public "Many Doors" explainer.** The principle that one venture may speak
+  twice on purpose exists only in the founder-only registry. A stranger who notices both
+  pages has no way to learn it is deliberate. Acceptance: one public page, C0, linked from
+  the brand cards and the Doors.
+- **A91 — The four meanings of seven.** The message spine, the venture Doors, the founding
+  stakeholder positions and the role architecture each count to a number near seven and
+  borrow each other's figures. Named in Chapter 84; still unresolved. Acceptance: one
+  corpus line per set, with its own count and its own name.
