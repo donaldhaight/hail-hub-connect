@@ -1,76 +1,101 @@
-# After the First Canonical Door — Tell the Story, Then Take the Next Door
+# Many Doors, One Platform — The Surface and Door Registry
 
-ClaimStore is live at `/claimstore` as the first canonical Door; the rulings are ADR-028;
-the register and board carry A77–A81 and C57–C60. The founder published the work, went to
-the Manual, and found nothing there — correctly. The Manual is its own corpus surface, and
-no chapter has been written about this turn yet. This plan fixes that and lays out what
-comes after.
+The correction lands, and it corrects me as much as it corrects the chapter. My earlier
+plan inherited the "retire the brand cards" reading, and ADR-028 recorded it. That was a
+misread of the intention: the Doors were never meant to replace the house. Nothing gets
+retired, redirected, renamed or rewritten in this work.
 
-## 1. Write the chapter — "The Door Became the Same Door" (Manual, next chapter)
+The real defect is not duplication. It is that no surface in the product declares what any
+other surface is *for*. Intentional multiplicity, unlabelled, reads as accidental
+duplication — which is exactly what happened to the founder in the Manual.
 
-A narrative chapter in the house style — prose, not a changelog — telling the story of the
-seven-door handoff from the project's own perspective:
+## 1. The Surface and Door Registry (the core of this work)
 
-- The package arrived with two door systems; the audit found the difference between the
-  conceptual architecture and the codebase before anything was built over it.
-- The founder ruled: one canonical Door, the real engine; brand cards retire into redirects;
-  interest is not authority; SelfInsurity is message-only; capital intake comes off RRCA;
-  NRA stays visibly proposed; preview copy is not public copy.
-- ClaimStore became the first canonical Door — the same ask-once arrival as every other
-  door, with the positioning read beneath it, the five named pieces each carrying its own
-  boundary line, and the disclosure that nothing here is approved public copy.
-- The attribution question the code could not yet answer, and why the entry-context column
-  is still only a proposal.
-- What was deliberately not built: no Claim File, no workflow, no payments, no publishing.
+A founder-visible registry that names every public route and what job it performs. Built as
+a content record plus one admin-side reading surface — no schema change, no route retired.
 
-Written for the Manual's C1 class. Filed with truth label FACT for what was built and
-ruled, OPEN for what is still waiting. Rendered through the existing manual-chapter
-machinery — one new chapter row, no code change.
+Each entry carries: route · surface type · audience · purpose · controlling source ·
+call to action · destination · status · whether it captures arrival context · and its
+relationship to other surfaces expressing the same venture.
 
-## 2. File the history narrative
+Surface types, as the correction defines them:
 
-`docs/history/THE-FIRST-CANONICAL-DOOR-2026-09-22.md` — the companion narrative for the
-corpus: how the project got from the nine-step Phase 1 funnel to a pattern where a new
-venture is a persona record and a route, and why the reconciliation matrix (equivalent /
-compatible / conflict / positioning-only) is the working method from here on. Documentation
-only.
+| Type | Job |
+|---|---|
+| Movement | PrepareAmerica home — the mission, the event, the master invitation |
+| Narrative | Briefing and case study — RRCA → correction → ClaimExpress → ClaimStore → USA |
+| Architecture | Stakeholder geometry, roles, counties, governance |
+| Brand card | `/b/<slug>` — the vertical, brand and domain *within* the architecture |
+| Interest Door | `/claimstore` and its siblings — one market problem, one focused message |
+| Capture | The Interested User routine — need and entry context |
+| Platform | Kimosabe and App Home — the continuing relationship |
+| Corpus | Manual, Screen Book, register — how the surfaces govern each other |
 
-## 3. What comes next, in the founder's approved sequence
+The registry states plainly where two surfaces share a venture name on purpose:
+`/b/claimstore` is the architecture and financial-rails expression; `/claimstore` is the
+market-positioning Interest Door. Both are correct. Both point into the same Interested
+User routine. Neither supersedes the other.
 
-Listed, not built in this plan — each returns for review before the next begins:
+## 2. The chapter — "Many Doors, One Platform"
 
-1. **Buddy Claim** — the second canonical Door. Its persona and route already exist; the
-   work is folding its positioning report into the same sections-beneath-the-Door pattern
-   ClaimStore just established, with the attorney-of-record boundary line carried visibly.
-2. **RRCA** — new persona record and Door, with "Strategic Partner or Advisor" in place of
-   any capital-partner intake until counsel approves language.
-3. **SelfInsurity** — message-only Door: hero, problem, Property File explanation, how it
-   could work, trust and evidence states, Focused Future, CTA into the existing Interested
-   User routine. Nothing touching a Property record — that gate is still locked.
-4. **National Roofing Army** — Door built only as a visibly proposed readiness network: no
-   members, territories, deployments, or national operation claimed.
-5. **Market Applications, then Kimosabe** — aligned last, after the shared pattern is proven.
+A Manual chapter in the house style, carrying the founder's own words as the method:
 
-Held back until the founder says so: the `entry_context` migration (proposal is in the
-corpus; awaiting "run it"), the `/b/<slug>` → canonical Door redirect flips, and any public
-publishing of preview copy.
+> Many intentional Doors. Clearly named purposes. One continuing person. One shared platform.
 
-## 4. The four conflicts still awaiting a founder ruling
+It tells the story honestly: the founder published, went looking for the work, and could not
+find it; the outside reading called it burial and recommended deletion; the founder
+corrected both readers, because the assumption of duplication overrode the method. It
+records the corrected completion rule:
 
-Carried as C57–C60 and restated in the chapter's closing register, not resolved by this
-work:
+> A new Door is complete when its distinct purpose is declared, its relationship to existing
+> surfaces is documented, and it connects the Interested User to the shared platform without
+> silently replacing another valid expression.
 
-- DEC-031/032 four canonical views vs corpus law (two systems claim to be the source of truth)
-- DEC-034 persistent File pattern vs ADR-018 and the locked Records gate
-- DEC-038 Market Applications operates the platform vs ADR-014's three administrations
-- DEC-052 neutral DAO vs the capture-prevention structure (touches C48)
+It also records what the seven positioning reports actually provide that the site did not:
+a standalone market case per venture, a focused message for the person arriving through that
+interest, a measurable acquisition Door, and a comparable foundation for later portfolio
+valuation. They extend the site; they do not rewrite it.
+
+## 3. Correct ADR-028 — without erasing it
+
+ADR-028 recorded "brand cards retire into redirects." That was accepted in good faith and is
+now superseded. Per the corpus rule, history is not edited to match the present: ADR-028
+stays as written, and a new dated ADR-029 supersedes the retirement clause, records the
+correction and the alternatives considered, and states the standing rule that no existing
+public surface is retired, redirected or renamed without an explicit founder instruction.
+`docs/strategy/SEVEN-DOORS.md` gets a correction note at the top and its route table
+reworded from "retires into" to "coexists with, purposes declared."
+
+## 4. File the source and the reading
+
+- The attached chapter is filed verbatim as source material under `docs/history/`, with a
+  header noting that its remedy was superseded by the founder's correction and that its
+  observation — the new work was hard to find and its relationship unexplained — stands.
+- The correction itself is filed alongside it as the ruling text.
+
+## 5. Register and board
+
+New lines in `docs/work/OPEN-ITEMS.md`, mirrored to the founder backlog board with the same
+IDs in the same turn: the registry itself; the entry-context persistence still awaiting
+authorization (the Doors cannot be measured until it lands); the naming question the
+outside reading raised but did not settle — the five-message sequence, the seven venture
+Doors, the founding stakeholder positions and the seventeen-role architecture are four
+different things that currently borrow each other's numbers; and Buddy Claim held until the
+registry is returned and reviewed.
+
+## What is explicitly not done
+
+No page is retired, redirected, renamed or rewritten. No navigation is changed. No brand
+card is touched. No new Door is built. Nothing publishes. The Quantum Dashboard is untouched.
+Buddy Claim waits for the registry to be reviewed first, as the correction instructs.
 
 ## Technical notes
 
+- Registry: a new `src/content/surfaces.ts` content record (typed, no database), read by a
+  founder-only page under the existing admin area, reusing existing table and badge
+  components. No migration, no schema, no RLS change, no public route.
 - Manual chapter: one row in the existing `manual_chapters` table via the established
-  chapter-writing path (title, part, body, draft_status, truth, confidentiality); surfaced
-  on the Manual index and print edition automatically. No schema, no route, no UI change.
-- History doc: single new markdown file under `docs/history/`.
-- Nothing publishes; the public copy gate stands. Nothing touches the Quantum Dashboard.
-- Register and board stay as they are — no new IDs needed for a chapter and a narrative;
-  they close nothing that is open.
+  writing path — C1, part IV. Appears on the Manual index and print edition automatically.
+- Docs: new `docs/history/` files for the source chapter and the correction; ADR-029
+  appended to `docs/law/DECISIONS.md`; a correction note on `docs/strategy/SEVEN-DOORS.md`.
+- `bunx tsgo --noEmit` must pass; the admin registry page verified to return 200.
