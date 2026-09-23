@@ -866,3 +866,56 @@ convert an Interested User into the shared platform.
   changed, no brand card touched, nothing published.
 - `docs/strategy/SEVEN-DOORS.md` §1 carries a correction note.
 - Registered as **A82–A85** and **C61**.
+
+---
+
+## ADR-030 — One engine, many domains (2026-09-23)
+
+**Status:** DECISION — accepted (founder ruling, plan approved unchanged 2026-09-23).
+
+**Context.** The founder asked how the preseason messaging at the key venture domains
+should be built and run to launch the entities and DBAs, and delegated the architecture
+call, with the messaging horizon in view: launch 2026-11-01, Season 1 through the
+2027-02-14 Super Bowl Weekend Owners Meeting / Congress, Hurricane Season 2027, and the
+start of Season 2. The seven-venture package assumed separate positioning per venture;
+ADR-029 settled that surfaces are classified, not consolidated.
+
+**Decision.**
+
+1. **One engine, many domains.** Each venture domain serves its canonical Door as its own
+   front page, rendered by this platform at its own address. To the world: separate sites,
+   separate voices, separate promises. Underneath: one engine, one Interested User routine,
+   one continuing person, one ledger.
+2. **Domains are connected with no primary domain set**, so each serves the platform at its
+   own address instead of redirecting. prepareamerica.com keeps the movement home unchanged.
+3. **Paths stay shared.** claimstore.com/architecture and prepareamerica.com/architecture
+   reach the same page, because the architecture is shared. Only the front page wears the
+   domain's face.
+4. **Doors are content records with promise versions.** Eighteen months of evolving
+   messaging — launch, mid-season corrections, post-Congress, hurricane season, Season 2 —
+   are edits, not rebuilds.
+5. **Only built Doors are mapped.** A domain whose Door does not exist falls through to the
+   movement home until its Door is built under the standing sequence and gates.
+
+**Alternatives considered.**
+
+- *Separate sites per domain (separate stacks).* The founder's own first instinct, offered
+  as an option and delegated. Rejected on the merits: the point of preseason is measuring
+  which message makes a stranger raise their hand, and the conversion destination is this
+  platform — separate stacks would fragment the record and add a ferry between systems at
+  exactly the point where the person should already be inside.
+- *Paths only (prepareamerica.com/claimstore), domains later.* Rejected: a domain is the
+  venture's own voice at its own address; a path is a corridor inside the movement. The
+  preseason test needs the former.
+
+**Consequences.**
+
+- `src/lib/door-hosts.ts` maps host → persona; `/` renders the mapped Door or falls
+  through to the movement home. Verified in dev for claimstore.com, buddyclaim.com and
+  kimosabe.ai; the default home is unchanged.
+- Domain connection is a founder action in project settings (DNS records supplied); nothing
+  publishes, and no domain goes live, without explicit founder instruction.
+- `docs/strategy/PRESEASON-DOMAINS.md` holds the doctrine and the season spine.
+- A78 (entry-context persistence) becomes more urgent: with many real domains, browser-only
+  arrival context cannot measure which door's message works.
+- Registered as **A86–A88**.

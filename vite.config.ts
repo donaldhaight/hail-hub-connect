@@ -12,4 +12,23 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // ADR-030: venture domains serve their own Door from this platform.
+      allowedHosts: [
+        "claimstore.com",
+        "www.claimstore.com",
+        "buddyclaim.com",
+        "www.buddyclaim.com",
+        "kimosabe.ai",
+        "www.kimosabe.ai",
+        "selfinsurity.com",
+        "www.selfinsurity.com",
+        "rrcausa.com",
+        "www.rrcausa.com",
+        "marketapplications.io",
+        "www.marketapplications.io",
+      ],
+    },
+  },
 });
