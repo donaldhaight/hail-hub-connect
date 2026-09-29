@@ -22,7 +22,12 @@ const HOST_TO_PERSONA: Record<string, string> = {
   "www.rrcausa.com": "rrca",
   "selfinsurity.com": "selfinsurity",
   "www.selfinsurity.com": "selfinsurity",
+  "nationalroofingarmy.com": "national-roofing-army",
+  "www.nationalroofingarmy.com": "national-roofing-army",
+  "marketapplications.io": "market-applications",
+  "www.marketapplications.io": "market-applications",
 };
+
 
 export function personaForHost(host: string | null | undefined): Persona | null {
   if (!host) return null;

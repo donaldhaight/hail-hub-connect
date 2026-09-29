@@ -31,6 +31,9 @@ const ENTRIES: Entry[] = [
   { path: "/b/kimosabe", changefreq: "monthly", priority: "0.8" },
   { path: "/rrca", changefreq: "monthly", priority: "0.8" },
   { path: "/selfinsurity", changefreq: "monthly", priority: "0.8" },
+  { path: "/national-roofing-army", changefreq: "monthly", priority: "0.8" },
+  { path: "/market-applications", changefreq: "monthly", priority: "0.8" },
+
   { path: "/request-briefing", changefreq: "monthly", priority: "0.6" },
 ];
 

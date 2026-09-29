@@ -530,7 +530,220 @@ export const PERSONAS: Record<string, Persona> = {
     disclosure:
       "Preview copy. SelfInsurity and RoofLac / Lifetime Roof Assurance are described as concepts under development. This is not insurance, not a warranty, not a quote, not an offer or solicitation, and nothing can be purchased. No property information is collected. No part of this page has been approved for publication.",
   },
+
+  /**
+   * National Roofing Army — the fifth canonical Door (2026-09-29).
+   * Visibly proposed (ADR-028 §7): no members, counties, deployments,
+   * territories, coverage or national operation is claimed.
+   */
+  "national-roofing-army": {
+    id: "national-roofing-army",
+    wordmark: "National Roofing Army",
+    eyebrow: "A proposed readiness network for independent roofing contractors",
+    promise:
+      "When a storm lands, the work is done by independent contractors who were never organized for it. This asks whether they could be — without anyone taking them over.",
+    askPlaceholder: "Ask what an organized contractor network would have to do for you.",
+    askAgainPlaceholder: "Ask again — the file stays open.",
+    openLabel: "Open my file",
+    openedBody:
+      "A file opened the moment you asked — yours, not a roster entry. The National Roofing Army is a proposal, not an organization with members. Nothing here enlists you, assigns you a territory, or commits you to anything.",
+    walletBody:
+      "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
+    paletteToken: "steel",
+    path: "/national-roofing-army",
+    title: "National Roofing Army",
+    description:
+      "A proposed readiness network for independent roofing contractors. No members, no territories, no coverage claimed — a question being asked out loud.",
+    promiseVersion: "National Roofing Army Door v0.1 — 2026-09-29",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "The storm arrives organized. The contractors do not.",
+        body: [
+          "Hail and hurricane work is absorbed by thousands of independent crews who meet each other for the first time in a parking lot. Capacity exists; coordination does not. The people who show up first are rarely the people who stay.",
+          "Every other party in that market — carriers, adjusters, suppliers, capital — arrives with structure. The contractor arrives alone.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "The proposal",
+        title: "Organized readiness, owned by no one above the contractors.",
+        label: "PROPOSED",
+        body: [
+          "This is a question being asked in public, not a network being announced. Nothing below exists yet.",
+        ],
+        items: [
+          {
+            term: "Readiness before the storm",
+            detail:
+              "Knowing who is ready, for what kind of work, before weather makes it urgent.",
+            boundary:
+              "No contractor is enrolled, verified or listed today. No count of members exists to quote.",
+          },
+          {
+            term: "A record the contractor keeps",
+            detail:
+              "Work performed, on which job, to what standard — written as it happens and carried by the contractor.",
+            boundary: "Not built. The Records layer has its own gate and has not opened.",
+          },
+          {
+            term: "Coordination without capture",
+            detail:
+              "Shared standards and shared logistics that no single carrier, supplier or platform owner controls.",
+            boundary:
+              "A governance intention, not a structure. No entity, membership or agreement exists.",
+          },
+        ],
+      },
+      {
+        id: "not-claimed",
+        eyebrow: "What is not being claimed",
+        title: "Read this part before the rest.",
+        body: [
+          "There are no members. There are no verified counties, no deployments, no territories available or reserved, no coverage map, and no national operation. Nothing on this page says otherwise, and nothing said elsewhere on our behalf should.",
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "An independent contractor who arrives at a storm with the readiness of a large organization and the independence they started with.",
+          "It is not built. Everything above the disclosure describes intent.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of this are you standing on?",
+      note: "An interest statement only — it creates no membership, role, credential, territory, group or permission. The founder assigns every actual position, personally.",
+      options: [
+        {
+          id: "contractor",
+          label: "Roofing contractor",
+          detail: "I run a company and want to know what this would ask of me.",
+        },
+        { id: "crew_lead", label: "Crew lead or foreman", detail: "I run the work in the field." },
+        {
+          id: "supplier",
+          label: "Supplier or partner",
+          detail: "I serve contractors and want to understand the shape of this.",
+        },
+        { id: "observer", label: "Observer", detail: "I am reading, not participating." },
+      ],
+    },
+    disclosure:
+      "Preview copy. The National Roofing Army is a proposal under development. It has no members, no verified territories, no deployments, no coverage and no national operation. Nothing on this page is an offer, a solicitation, an enrollment, an employment or contracting opportunity, or a commitment of work, and no part of it has been approved for publication. Nothing here creates a business relationship.",
+  },
+
+  /**
+   * Market Applications — the sixth canonical Door (2026-09-29).
+   * The technology anchor (ADR-014, SAS A): it builds the stack and
+   * never sells the funnel. Legal shape remains unsettled and is not asserted.
+   */
+  "market-applications": {
+    id: "market-applications",
+    wordmark: "Market Applications",
+    eyebrow: "The technology layer underneath all of it",
+    promise:
+      "Every party in the restoration market keeps its own version of the truth. This is the neutral layer where one record can live without any single party owning it.",
+    askPlaceholder: "Ask what a neutral record layer would have to guarantee.",
+    askAgainPlaceholder: "Ask again — the file stays open.",
+    openLabel: "Open my file",
+    openedBody:
+      "A file opened the moment you asked — an anchor, a holding wallet, and an append-only line. That mechanism is the thing Market Applications builds: one continuing record for a person, across every door they walk through.",
+    walletBody:
+      "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
+    paletteToken: "electric",
+    path: "/market-applications",
+    title: "Market Applications",
+    description:
+      "The neutral technology layer beneath the insurance restoration market: one continuing record, append-only history, and integration that leaves existing systems in place.",
+    promiseVersion: "Market Applications Door v0.1 — 2026-09-29",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "Six systems, six versions of the same job.",
+        body: [
+          "The owner has paperwork, the contractor has a job file, the carrier has a claim, the supplier has an order, the lender has an exposure. None of them reconcile, and the cost of reconciling them is paid by whoever has the least power — usually the owner, then the contractor.",
+          "The usual fix is for one party to buy the others' visibility. That solves coordination by creating capture.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "The approach",
+        title: "Build the rails. Never own the traffic.",
+        label: "PREVIEW",
+        body: [
+          "Market Applications is the technology administration of this work: it builds the shared record and the integration layer, and it does not sell into the market it coordinates.",
+        ],
+        items: [
+          {
+            term: "One continuing record",
+            detail:
+              "A person or a property is the same record at every door, rather than a new row per brand.",
+            boundary: "Already true of the arrival file here. Not yet true of properties or jobs.",
+          },
+          {
+            term: "Append-only history",
+            detail: "What happened is added, never rewritten. No administrator can edit the past.",
+            boundary: "In force for arrivals. The wider record model has not reached its gate.",
+          },
+          {
+            term: "Integration, not replacement",
+            detail:
+              "An API and agent interface so a contractor keeps the systems they already run and still participates.",
+            boundary: "Last in the locked order. Specified, not built, and no partner is named.",
+          },
+          {
+            term: "Neutrality as a constraint",
+            detail:
+              "The party that builds the rails is barred from secretly or structurally controlling the rules, pricing, attribution or access that bind everyone else.",
+            boundary:
+              "A stated principle. The legal shape of Market Applications is not settled and is not asserted here.",
+          },
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "Infrastructure boring enough that nobody argues about it, and neutral enough that nobody has to.",
+          "Most of it is not built. Everything above the disclosure describes intent.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of this are you standing on?",
+      note: "An interest statement only — it creates no role, credential, partnership, integration agreement, group or permission.",
+      options: [
+        {
+          id: "technology_partner",
+          label: "Technology partner",
+          detail: "I build software this would have to talk to.",
+        },
+        {
+          id: "operator",
+          label: "Operator with systems already running",
+          detail: "I run a business and will not replace my stack.",
+        },
+        {
+          id: "strategic_partner",
+          label: "Strategic partner or advisor",
+          detail: "I bring experience and want to help shape it.",
+        },
+        { id: "observer", label: "Observer", detail: "I am reading, not participating." },
+      ],
+    },
+    disclosure:
+      "Preview copy. Market Applications is described as a technology layer under development; its legal form, ownership and governance are unsettled and nothing here asserts them. This is not an offer or solicitation of securities, an investment opportunity, a request for capital, or an offer of a product, integration or partnership, and no part of it has been approved for publication. Nothing here creates a business relationship.",
+  },
 };
+
 
 export function getPersona(id: string): Persona {
   const persona = PERSONAS[id];
