@@ -160,6 +160,7 @@ export type Database = {
           context: string | null
           created_at: string
           email: string
+          entry_context: Json | null
           granted_at: string | null
           granted_by: string | null
           granted_role: string | null
@@ -179,6 +180,7 @@ export type Database = {
           context?: string | null
           created_at?: string
           email: string
+          entry_context?: Json | null
           granted_at?: string | null
           granted_by?: string | null
           granted_role?: string | null
@@ -198,6 +200,7 @@ export type Database = {
           context?: string | null
           created_at?: string
           email?: string
+          entry_context?: Json | null
           granted_at?: string | null
           granted_by?: string | null
           granted_role?: string | null
@@ -1309,6 +1312,7 @@ export type Database = {
           claimed_at: string | null
           claimed_from: string | null
           created_at: string
+          entry_context: Json | null
           id: string
           kind: string
           label: string
@@ -1320,6 +1324,7 @@ export type Database = {
           claimed_at?: string | null
           claimed_from?: string | null
           created_at?: string
+          entry_context?: Json | null
           id?: string
           kind?: string
           label?: string
@@ -1331,6 +1336,7 @@ export type Database = {
           claimed_at?: string | null
           claimed_from?: string | null
           created_at?: string
+          entry_context?: Json | null
           id?: string
           kind?: string
           label?: string
