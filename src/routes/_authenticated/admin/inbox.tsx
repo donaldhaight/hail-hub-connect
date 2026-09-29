@@ -781,6 +781,15 @@ function DetailPanel({
           <p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{row.context}</p>
         </div>
       ) : null}
+      {row.entry_context ? (
+        <div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Arrived through</div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {String((row.entry_context as any).entry_door ?? "—")} · {String((row.entry_context as any).promise_version ?? "")}
+            {(row.entry_context as any).interest ? ` · interest: ${String((row.entry_context as any).interest)}` : ""}
+          </p>
+        </div>
+      ) : null}
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">Internal notes</div>
         <textarea
