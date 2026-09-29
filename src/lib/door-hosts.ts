@@ -18,6 +18,10 @@ const HOST_TO_PERSONA: Record<string, string> = {
   "www.buddyclaim.com": "buddy-claim",
   "kimosabe.ai": "kimosabe",
   "www.kimosabe.ai": "kimosabe",
+  "rrcausa.com": "rrca",
+  "www.rrcausa.com": "rrca",
+  "selfinsurity.com": "selfinsurity",
+  "www.selfinsurity.com": "selfinsurity",
 };
 
 export function personaForHost(host: string | null | undefined): Persona | null {
