@@ -30,12 +30,12 @@ recorded per season, so we can always say which promise a person arrived on.
 
 | Season | Window | What the doors carry |
 |---|---|---|
-| Preseason | now → 2026-11-01 | Message-first preview copy. Learning, not claiming. Nothing publishes without explicit founder instruction and counsel review where required. |
-| Season 1 | 2026-11-01 launch → 2027-02-14 | The announced venture set, at real domains, converting arrival into the Interested User routine. Closes at the Super Bowl Weekend Owners Meeting / Congress. |
-| The turn | after 2027-02-14 | Post-Congress corrections; the message shifts from invitation to evidence of Season 1. |
-| Hurricane Season 2027 / Season 2 | 2027 season | The operating message: readiness, response, the network performing in public. |
+| Announcement | 2026-11-01 | #PrepareAmerica Conference: the announcement, not the launch. |
+| Pre Season | 2026-11-01 → 2027-03-01 | Message-first preview copy. Learning, not claiming. Nothing publishes without founder instruction. |
+| First Continental Congress | Super Bowl Weekend 2027 | The gathering that closes the Pre Season. |
+| Season 1 | 2027-03-01 → 2027-09-30 | The launch: announced ventures converting arrival into the Interested User routine. |
 
-Dates beyond the 11-1-2026 launch and the 2-14-2027 Owners Meeting are planning markers,
+*Revised by ADR-031 (2026-09-29).* Dates beyond the 11-1-2026 launch and the 2-14-2027 Owners Meeting are planning markers,
 not commitments.
 
 ## What this does not change

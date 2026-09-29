@@ -919,3 +919,18 @@ ADR-029 settled that surfaces are classified, not consolidated.
 - A78 (entry-context persistence) becomes more urgent: with many real domains, browser-only
   arrival context cannot measure which door's message works.
 - Registered as **A86–A88**.
+
+## ADR-031 — The calendar turned (2026-09-29)
+
+**Status:** DECISION — founder ruling, sprint approved 2026-09-29.
+
+**Decision.** 2026-11-01 is an announcement at the #PrepareAmerica Conference, not the launch.
+The Pre Season runs 2026-11-01 → 2027-03-01. The Super Bowl Weekend 2027 gathering is the
+**First Continental Congress**. Season 1 runs 2027-03-01 → 2027-09-30. Supersedes the season
+spine dates in ADR-030 and PRESEASON-DOMAINS.md.
+
+**Alternatives considered.** Keep 11-1 as launch (rejected: launch moves after the Congress);
+rewrite every public page now (rejected: conflicts are fluid and non-blocking, A98).
+
+**Consequences.** RRCA and SelfInsurity Doors built as the third and fourth canonical Doors
+(A99, A100). Registered as A98–A101.
