@@ -21,6 +21,8 @@ import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
 import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
 import { Route as PolicyRouteImport } from './routes/policy'
+import { Route as NationalRoofingArmyRouteImport } from './routes/national-roofing-army'
+import { Route as MarketApplicationsRouteImport } from './routes/market-applications'
 import { Route as KimosabeRouteImport } from './routes/kimosabe'
 import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
@@ -140,6 +142,16 @@ const PrepareAmericaRoute = PrepareAmericaRouteImport.update({
 const PolicyRoute = PolicyRouteImport.update({
   id: '/policy',
   path: '/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NationalRoofingArmyRoute = NationalRoofingArmyRouteImport.update({
+  id: '/national-roofing-army',
+  path: '/national-roofing-army',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketApplicationsRoute = MarketApplicationsRouteImport.update({
+  id: '/market-applications',
+  path: '/market-applications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KimosabeRoute = KimosabeRouteImport.update({
@@ -476,6 +488,8 @@ export interface FileRoutesByFullPath {
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
+  '/market-applications': typeof MarketApplicationsRoute
+  '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -549,6 +563,8 @@ export interface FileRoutesByTo {
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
+  '/market-applications': typeof MarketApplicationsRoute
+  '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -624,6 +640,8 @@ export interface FileRoutesById {
   '/industry-problem': typeof IndustryProblemRoute
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
+  '/market-applications': typeof MarketApplicationsRoute
+  '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
   '/proof-of-concept': typeof ProofOfConceptRoute
@@ -699,6 +717,8 @@ export interface FileRouteTypes {
     | '/industry-problem'
     | '/investors'
     | '/kimosabe'
+    | '/market-applications'
+    | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -772,6 +792,8 @@ export interface FileRouteTypes {
     | '/industry-problem'
     | '/investors'
     | '/kimosabe'
+    | '/market-applications'
+    | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -846,6 +868,8 @@ export interface FileRouteTypes {
     | '/industry-problem'
     | '/investors'
     | '/kimosabe'
+    | '/market-applications'
+    | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
     | '/proof-of-concept'
@@ -921,6 +945,8 @@ export interface RootRouteChildren {
   IndustryProblemRoute: typeof IndustryProblemRoute
   InvestorsRoute: typeof InvestorsRoute
   KimosabeRoute: typeof KimosabeRoute
+  MarketApplicationsRoute: typeof MarketApplicationsRoute
+  NationalRoofingArmyRoute: typeof NationalRoofingArmyRoute
   PolicyRoute: typeof PolicyRoute
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
   ProofOfConceptRoute: typeof ProofOfConceptRoute
@@ -1023,6 +1049,20 @@ declare module '@tanstack/react-router' {
       path: '/policy'
       fullPath: '/policy'
       preLoaderRoute: typeof PolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/national-roofing-army': {
+      id: '/national-roofing-army'
+      path: '/national-roofing-army'
+      fullPath: '/national-roofing-army'
+      preLoaderRoute: typeof NationalRoofingArmyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/market-applications': {
+      id: '/market-applications'
+      path: '/market-applications'
+      fullPath: '/market-applications'
+      preLoaderRoute: typeof MarketApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kimosabe': {
@@ -1576,6 +1616,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndustryProblemRoute: IndustryProblemRoute,
   InvestorsRoute: InvestorsRoute,
   KimosabeRoute: KimosabeRoute,
+  MarketApplicationsRoute: MarketApplicationsRoute,
+  NationalRoofingArmyRoute: NationalRoofingArmyRoute,
   PolicyRoute: PolicyRoute,
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,
   ProofOfConceptRoute: ProofOfConceptRoute,
