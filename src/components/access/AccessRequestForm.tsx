@@ -6,6 +6,7 @@ import {
   type AccessAskId,
   type AccessRequestInput,
 } from "@/lib/briefing.schemas";
+import { readEntryContext } from "@/lib/entry-context";
 import { submitAccessRequest } from "@/lib/briefing.functions";
 
 /**
@@ -60,7 +61,7 @@ export function AccessRequestForm({
 
     setIsSubmitting(true);
     try {
-      const res = await submit({ data: parsed.data });
+      const res = await submit({ data: { ...parsed.data, entryContext: readEntryContext() } });
       onSubmit(!!res.alreadySubmitted);
     } catch (err) {
       setGlobalError(

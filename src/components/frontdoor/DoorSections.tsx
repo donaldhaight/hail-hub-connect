@@ -142,11 +142,12 @@ export function DoorSections({ persona }: { persona: Persona }) {
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
                 Arrival context
               </div>
-              <Chip>Captured · not stored</Chip>
+              <Chip>Captured · kept with your file</Chip>
             </div>
             <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-muted-foreground">
-              This is everything this door noticed about how you arrived. It stays in
-              your browser. It is not written to any record, and it grants nothing.
+              This is everything this door noticed about how you arrived. It is kept
+              once with your file so we can learn which message worked. No name, no
+              address, no device. It grants nothing and pays no one.
             </p>
             <dl className="mt-4 grid gap-x-8 gap-y-2 font-mono text-[11px] sm:grid-cols-2">
               {(

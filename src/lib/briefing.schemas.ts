@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { entryContextSchema } from "./entry-context";
 
 /**
  * One request, one vocabulary.
@@ -39,6 +40,7 @@ export const accessRequestSchema = z.object({
     .optional()
     .transform((v) => (v && /^[0-9a-f-]{36}$/i.test(v) ? v : undefined)),
   context: z.string().trim().max(1500).optional(),
+  entryContext: entryContextSchema,
   acknowledged: z.literal("on", { message: "You must acknowledge the disclaimer" }),
 });
 
