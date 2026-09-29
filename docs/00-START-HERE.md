@@ -89,3 +89,13 @@ never appears in a demo, a public page, or an agent's output.
 Announcement 2026-11-01 · Pre Season 2026-11-01 → 2027-03-01 · First Continental Congress,
 Super Bowl Weekend 2027 · Season 1 2027-03-01 → 2027-09-30. Public-page conflicts are fluid
 and non-blocking (A98).
+
+## The Doors (complete 2026-09-29)
+
+Seven canonical Interest Doors run on one engine: `/kimosabe` · `/buddy-claim` ·
+`/claimstore` · `/rrca` · `/selfinsurity` · `/national-roofing-army` ·
+`/market-applications`. United Stakeholders is the intentional eighth — a portfolio
+container, not a Door. The `/b/<slug>` brand cards are kept and distinct (ADR-029).
+Route plan and boundaries: [`strategy/SEVEN-DOORS.md`](strategy/SEVEN-DOORS.md).
+All Door copy is preview copy; none is approved for publication.
+
