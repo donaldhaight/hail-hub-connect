@@ -105,7 +105,7 @@ The Draft Connecticut Agreement is the gate. Nothing is modeled ahead of it.
 | A76 | Whether Phase 1 offers may ever be published | `docs/strategy/PHASE-1-FUNNEL.md` §6 | open | Every offer screen is C0 and labelled SIMULATION. None is approved public copy or a commercial commitment |
 | A77 | ~~Canonical Door consolidation — `/b/<slug>` retired and redirected~~ **Superseded by ADR-029.** Brand cards are kept; each surface declares its purpose in the registry | ADR-029, `docs/strategy/SEVEN-DOORS.md` §1 | closed | Closed as a misreading of intent, not as work completed. Nothing is retired or redirected |
 | A78 | The `entry_context` attribution object on the anchor/request record | ADR-028 §3, `docs/strategy/SEVEN-DOORS.md` §2 | held | Specified and deliberately not applied. Captured in the browser only until the founder authorizes the migration |
-| A79 | The remaining six canonical Doors — SelfInsurity, RRCA, National Roofing Army, Market Applications, and the alignment of Kimosabe and Buddy Claim | ADR-028 §10, `docs/strategy/SEVEN-DOORS.md` §1 | held | None begins until ClaimStore is approved as the pattern |
+| ~~A79~~ | ~~The remaining six canonical Doors~~ | ADR-028 §10, `docs/strategy/SEVEN-DOORS.md` §1 | **closed 2026-09-29** | All built as preview Doors: Buddy Claim, RRCA, SelfInsurity, National Roofing Army, Market Applications, beside Kimosabe and ClaimStore. See Sprint 2.3 |
 | A80 | Promise-version record — the exact wording each Door showed, and when | `src/lib/entry-context.ts`, ADR-028 §3 | open | Currently a string in the persona record. A durable record of what was promised is a Records decision, not a copy decision |
 | A81 | Preview-copy approval gate — no Door copy publishes until the founder and, where applicable, counsel approve it | ADR-028 §8 | open | Standing gate. Applies to every Door built under ADR-028 |
 | A82 | The Surface and Door Registry — every public route, its type, purpose, destination and its relationship to sibling surfaces | ADR-029, `src/content/surfaces.ts`, `/admin/surfaces` | open | Built founder-only. Stays open because every new surface must be entered before it counts as complete |
@@ -457,3 +457,15 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A100 — SelfInsurity Door.** `/selfinsurity`, message only, no Property record, selfinsurity.com mapped. Done (preview).
 - **A101 — Circle ingestion.** The founder's Circle.so body of work is the next lane. OPEN.
 - A78 (entry-context persistence) remains waiting on founder authorization.
+
+## Sprint 2.3 — The door sequence closes (2026-09-29)
+
+- **A102 — National Roofing Army Door.** `/national-roofing-army`, promise version National Roofing Army Door v0.1, palette steel, visibly proposed per ADR-028 §7 with a dedicated "what is not being claimed" section. `nationalroofingarmy.com` mapped. Done (preview).
+- **A103 — Market Applications Door.** `/market-applications`, promise version Market Applications Door v0.1, palette electric, neutrality stated as a constraint and legal shape explicitly not asserted. `marketapplications.io` mapped. Coexists with `/b/market-applications`. Done (preview).
+- **A79 closed.** The canonical Door set is complete: Kimosabe, Buddy Claim, ClaimStore, RRCA, SelfInsurity, National Roofing Army, Market Applications. United Stakeholders remains the intentional eighth portfolio container, not a Door.
+- **A104 — Domain ownership unverified.** `nationalroofingarmy.com` and `marketapplications.io` are mapped in the host table on the strength of the seven-venture package's assertion. Whether they are owned, and at which registrar, is a founder-supplied fact never documented. An unmapped or unowned domain simply never reaches us; nothing breaks. OPEN.
+- **A105 — Surface registry duplicates removed.** The registry carried stale "proposed" rows for `/rrca` and `/selfinsurity` alongside their built rows. The stale rows are struck; the built rows stand. Done.
+- **C66 — Is National Roofing Army a Door without a brand card on purpose?** It has no position in the seven-position Human Blockchain geometry and no `/b/` card, unlike every other Door. Related to C49 (whether NRA is parented under USA or RRCA). Not resolved by inference.
+- A78 (entry-context persistence) still waiting on founder authorization. With seven Doors live, the argument for it is now at its strongest: we cannot tell which door's message works.
+- A101 (Circle ingestion) is the next lane.
+
