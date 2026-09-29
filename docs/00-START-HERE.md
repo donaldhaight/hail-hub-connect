@@ -83,3 +83,9 @@ Full definitions in [`law/PROTOCOL.md`](law/PROTOCOL.md) §9.
 
 Band 3 of the redaction map — storm targeting and everything downstream of it —
 never appears in a demo, a public page, or an agent's output.
+
+## Calendar (ADR-031, 2026-09-29)
+
+Announcement 2026-11-01 · Pre Season 2026-11-01 → 2027-03-01 · First Continental Congress,
+Super Bowl Weekend 2027 · Season 1 2027-03-01 → 2027-09-30. Public-page conflicts are fluid
+and non-blocking (A98).

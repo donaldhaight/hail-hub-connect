@@ -364,6 +364,172 @@ export const PERSONAS: Record<string, Persona> = {
     disclosure:
       "Preview copy. ClaimStore, ClaimExpress, ClaimsBank, ClaimLoan and ClaimCoin are described here as concepts under development. Nothing on this page is an offer, a solicitation, insurance, banking, lending, a security or financial advice, and no part of it has been approved for publication. Nothing here creates a business relationship between any party.",
   },
+
+  /**
+   * RRCA — the third canonical Door (2026-09-29). Strategic Partner / Advisor
+   * language only. No capital intake, no investment wording.
+   */
+  rrca: {
+    id: "rrca",
+    wordmark: "RRCA",
+    eyebrow: "Restoration, run on one record",
+    promise:
+      "One operating contractor, running its work on a shared record — so the proof is a job site, not a slide.",
+    askPlaceholder: "Ask how a restoration company runs on one record.",
+    askAgainPlaceholder: "Ask again — the file stays open.",
+    openLabel: "Open my file",
+    openedBody:
+      "A file opened the moment you asked — yours, before any company, role or job. RRCA is where the same discipline is being tested against real work: what was scoped, what was performed, and what remains.",
+    walletBody:
+      "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
+    paletteToken: "steel",
+    path: "/rrca",
+    title: "RRCA",
+    description:
+      "A restoration contractor running its work on one shared record — the first operating proof. Ask once and a file opens; no email or phone required.",
+    promiseVersion: "RRCA Door v0.1 — 2026-09-29",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "A restoration job is run from six different memories.",
+        body: [
+          "The rep remembers what was promised. The crew remembers what was found. The office remembers what was billed. The owner remembers what they were told. Each is honest, and the job still drifts, because nobody is reading the same page.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "What RRCA is doing",
+        title: "The first operating proof, on a real job site.",
+        label: "PREVIEW",
+        body: [
+          "RRCA is a working restoration contractor volunteering to run its work on one shared record first — so the idea is tested against weather, crews and deadlines rather than announced.",
+        ],
+        items: [
+          {
+            term: "One job record",
+            detail: "Scope, work performed and what remains, written as it happens.",
+            boundary: "An operating record, not a guarantee of any outcome.",
+          },
+          {
+            term: "Construction management",
+            detail: "What must happen next is decided from the state of the job, not from a menu.",
+            boundary: "Being built in order; not yet a finished system.",
+          },
+          {
+            term: "Strategic partners and advisors",
+            detail:
+              "People with operating, industry or public-sector experience who want to help shape the proof.",
+            boundary: "A conversation only. No capital is being raised or accepted here.",
+          },
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "A contractor whose record holds up in front of any owner, carrier or partner — and a pattern other contractors can adopt without giving up the systems they already run.",
+          "It is not yet built. Everything above the disclosure describes intent.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of this are you standing on?",
+      note: "An interest statement only — it creates no role, credential, group or permission. The founder assigns every actual position, personally.",
+      options: [
+        { id: "contractor", label: "Contractor or restorer", detail: "I run jobs and want the record to hold." },
+        {
+          id: "strategic_partner",
+          label: "Strategic partner or advisor",
+          detail: "I bring experience and want to help shape the proof.",
+        },
+        { id: "property_owner", label: "Property owner", detail: "It is my building." },
+        { id: "observer", label: "Observer", detail: "I am reading, not participating." },
+      ],
+    },
+    disclosure:
+      "Preview copy. RRCA's participation is described as an operating test under development. Nothing on this page is an offer or solicitation of securities, an investment opportunity, or a request for capital, and no part of it has been approved for publication. Nothing here creates a business relationship.",
+  },
+
+  /**
+   * SelfInsurity — the fourth canonical Door (2026-09-29). Message only:
+   * no Property record, no quote, no offer, no payment.
+   */
+  selfinsurity: {
+    id: "selfinsurity",
+    wordmark: "SelfInsurity",
+    eyebrow: "The roof, assured for as long as you own it",
+    promise:
+      "A roof is the most exposed part of a home. The idea is simple: assure it for life, and keep the record that proves it.",
+    askPlaceholder: "Ask what lifetime roof assurance would mean for you.",
+    askAgainPlaceholder: "Ask again — the file stays open.",
+    openLabel: "Open my file",
+    openedBody:
+      "A file opened the moment you asked — yours, not a policy and not an application. SelfInsurity is exploring what it would take to stand behind a roof for its whole life, and that starts with a record the owner holds.",
+    walletBody:
+      "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
+    paletteToken: "emerald",
+    path: "/selfinsurity",
+    title: "SelfInsurity",
+    description:
+      "Exploring lifetime roof assurance — RoofLac — and the owner-held record behind it. A preview; not insurance and not an offer.",
+    promiseVersion: "SelfInsurity Door v0.1 — 2026-09-29",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "Every storm restarts the same argument about the same roof.",
+        body: [
+          "Age, condition, prior repairs, workmanship — each claim relitigates a roof's history because nobody kept it. The owner pays for that in time, deductibles and doubt.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "The concept",
+        title: "RoofLac — Lifetime Roof Assurance.",
+        label: "PREVIEW",
+        body: [
+          "RoofLac is a concept carried by SelfInsurity: a roof installed and maintained to a known standard, recorded from day one, and assured for the life of ownership.",
+        ],
+        items: [
+          {
+            term: "The roof's record",
+            detail: "Installation, inspections and repairs, kept in one history.",
+            boundary: "Not yet built for properties. Nothing is recorded about your home today.",
+          },
+          {
+            term: "Lifetime assurance",
+            detail: "The idea that a well-recorded roof can be stood behind for as long as you own it.",
+            boundary: "A concept under review. Not insurance, not a warranty, not a quote.",
+          },
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "An owner who never has to prove their roof's history again, because it was never lost.",
+          "No product exists, no price exists, and nothing can be purchased. Everything above the disclosure describes intent.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of this are you standing on?",
+      note: "An interest statement only — it creates no role, credential, group or permission, and no policy or quote.",
+      options: [
+        { id: "property_owner", label: "Property owner", detail: "I want to know if my roof could qualify someday." },
+        { id: "contractor", label: "Roofing contractor", detail: "I install roofs and want mine to be assured." },
+        { id: "rep", label: "Sales representative", detail: "I would offer this alongside the work." },
+        { id: "observer", label: "Observer", detail: "I am reading, not participating." },
+      ],
+    },
+    disclosure:
+      "Preview copy. SelfInsurity and RoofLac / Lifetime Roof Assurance are described as concepts under development. This is not insurance, not a warranty, not a quote, not an offer or solicitation, and nothing can be purchased. No property information is collected. No part of this page has been approved for publication.",
+  },
 };
 
 export function getPersona(id: string): Persona {

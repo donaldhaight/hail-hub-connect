@@ -449,3 +449,11 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 | C63 | Do Insurance Company Admin, Independent Adjuster, Supplier Admin and Mortgage Company Admin become catalogued positions, or stay Circle-only? (Catalog change is a founder act.) | Circle role courses | A93, Screen Book role branches |
 | C64 | Is ClaimBuddy retired in favor of Buddy Claim, or a separate thing? | Circle role courses | Buddy Claim naming |
 | C65 | Is Circle the member-facing course home in Season 1, or only a rehearsal space? Our platform stays system of record either way. | Circle AI tiers | A96, A97 |
+
+## Sprint 2.25 — The calendar turned (2026-09-29)
+
+- **A98 — Public-page timeline conflicts.** Pages still citing the old dates are fluid and non-blocking; correct later on founder instruction. OPEN.
+- **A99 — RRCA Door.** `/rrca`, promise version RRCA Door v0.1, Strategic Partner / Advisor language, rrcausa.com mapped. Done (preview).
+- **A100 — SelfInsurity Door.** `/selfinsurity`, message only, no Property record, selfinsurity.com mapped. Done (preview).
+- **A101 — Circle ingestion.** The founder's Circle.so body of work is the next lane. OPEN.
+- A78 (entry-context persistence) remains waiting on founder authorization.

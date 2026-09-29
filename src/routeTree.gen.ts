@@ -13,6 +13,8 @@ import { Route as WhyRrcaRouteImport } from './routes/why-rrca'
 import { Route as WhyPrepareAmericaRouteImport } from './routes/why-prepare-america'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SelfinsurityRouteImport } from './routes/selfinsurity'
+import { Route as RrcaRouteImport } from './routes/rrca'
 import { Route as RolesRouteImport } from './routes/roles'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestBriefingRouteImport } from './routes/request-briefing'
@@ -98,6 +100,16 @@ const VisionRoute = VisionRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelfinsurityRoute = SelfinsurityRouteImport.update({
+  id: '/selfinsurity',
+  path: '/selfinsurity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RrcaRoute = RrcaRouteImport.update({
+  id: '/rrca',
+  path: '/rrca',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RolesRoute = RolesRouteImport.update({
@@ -470,6 +482,8 @@ export interface FileRoutesByFullPath {
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roles': typeof RolesRoute
+  '/rrca': typeof RrcaRoute
+  '/selfinsurity': typeof SelfinsurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -541,6 +555,8 @@ export interface FileRoutesByTo {
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roles': typeof RolesRoute
+  '/rrca': typeof RrcaRoute
+  '/selfinsurity': typeof SelfinsurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -614,6 +630,8 @@ export interface FileRoutesById {
   '/request-briefing': typeof RequestBriefingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/roles': typeof RolesRoute
+  '/rrca': typeof RrcaRoute
+  '/selfinsurity': typeof SelfinsurityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vision': typeof VisionRoute
   '/why-prepare-america': typeof WhyPrepareAmericaRoute
@@ -687,6 +705,8 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/reset-password'
     | '/roles'
+    | '/rrca'
+    | '/selfinsurity'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -758,6 +778,8 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/reset-password'
     | '/roles'
+    | '/rrca'
+    | '/selfinsurity'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -830,6 +852,8 @@ export interface FileRouteTypes {
     | '/request-briefing'
     | '/reset-password'
     | '/roles'
+    | '/rrca'
+    | '/selfinsurity'
     | '/sitemap.xml'
     | '/vision'
     | '/why-prepare-america'
@@ -903,6 +927,8 @@ export interface RootRouteChildren {
   RequestBriefingRoute: typeof RequestBriefingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RolesRoute: typeof RolesRoute
+  RrcaRoute: typeof RrcaRoute
+  SelfinsurityRoute: typeof SelfinsurityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VisionRoute: typeof VisionRoute
   WhyPrepareAmericaRoute: typeof WhyPrepareAmericaRoute
@@ -941,6 +967,20 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/selfinsurity': {
+      id: '/selfinsurity'
+      path: '/selfinsurity'
+      fullPath: '/selfinsurity'
+      preLoaderRoute: typeof SelfinsurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rrca': {
+      id: '/rrca'
+      path: '/rrca'
+      fullPath: '/rrca'
+      preLoaderRoute: typeof RrcaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/roles': {
@@ -1542,6 +1582,8 @@ const rootRouteChildren: RootRouteChildren = {
   RequestBriefingRoute: RequestBriefingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RolesRoute: RolesRoute,
+  RrcaRoute: RrcaRoute,
+  SelfinsurityRoute: SelfinsurityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VisionRoute: VisionRoute,
   WhyPrepareAmericaRoute: WhyPrepareAmericaRoute,
