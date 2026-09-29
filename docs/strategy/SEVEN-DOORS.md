@@ -46,16 +46,16 @@ the Tech position in the architecture, the Door makes the market case.
 Nothing is retired. Every surface declares its purpose instead (ADR-029).
 
 
-## 2. Attribution — proposed, not implemented
+## 2. Attribution — implemented (ADR-032, 2026-09-29)
 
-The `entry_context` column proposed for `ledger_wallets` and `briefing_requests` is **not
-authorized and has not been run**. Until it is, arrival context is captured in the browser
-(`src/lib/entry-context.ts`), shown to the person on screen as *captured · not stored*, and
-carried into a request as free text in the existing `context` field.
+Arrival context is captured in the browser (`src/lib/entry-context.ts`) and kept write-once as
+`entry_context` on the holding file (`ledger_wallets`) and on each request
+(`briefing_requests`). Each Door now tells the person *captured · kept with your file*.
 
-Captured fields: `entry_door`, `campaign`, `initial_intent`, `interest`, `promise_version`,
-`referral_source`, `captured_at`. No name, email, address, IP or device data. The interest
-value is a self-declared marketing string and never a role, credential, group or permission.
+Fields: `entry_door`, `campaign`, `initial_intent`, `interest`, `promise_version`,
+`referral_source` (hostname only), `captured_at`. No name, email, address, IP or device data.
+The interest value is a self-declared marketing string and never a role, credential, group,
+permission or basis for compensation.
 
 ## 3. Decision reconciliation — package DEC-031–056 against the corpus
 

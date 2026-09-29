@@ -934,3 +934,24 @@ rewrite every public page now (rejected: conflicts are fluid and non-blocking, A
 
 **Consequences.** RRCA and SelfInsurity Doors built as the third and fourth canonical Doors
 (A99, A100). Registered as A98–A101.
+
+## ADR-032 — Arrival context is kept with the file (2026-09-29)
+
+**Status:** accepted · **Class:** C2 · closes A78 · archived plan `.lovable/plan/arrival-context-the-exact-proposal-for-authorization-a78-2026-09-29.md`
+
+**Decision.** The seven-key arrival context (`entry_door`, `campaign`, `initial_intent`,
+`interest`, `promise_version`, `referral_source`, `captured_at`) is persisted as a nullable
+`entry_context` jsonb on `ledger_wallets` (written once, only when empty) and on
+`briefing_requests` (at the moment of the request). Referral source is reduced to a hostname.
+No name, email, address, IP, device or Band 3 material is ever stored in it.
+
+**Boundaries.** Attribution is a record, not compensation (ADR-026). Nothing reads this field to
+route leads, set prices, grant roles or pay anyone. Visible only to the founder view. Each Door's
+disclosure now reads "captured · kept with your file".
+
+**Alternatives considered.** Browser-only forever (rejected: seven Doors, no accumulating
+learning — A83). A separate attribution table (rejected for now: more surface than the question
+needs). Storing the full query string (rejected: privacy).
+
+**Rollback.** `ALTER TABLE public.ledger_wallets DROP COLUMN entry_context;` and the same on
+`public.briefing_requests`. Nothing depends on the columns; browser capture continues.
