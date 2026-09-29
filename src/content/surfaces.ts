@@ -440,20 +440,22 @@ export const SURFACES: Surface[] = [
     siblings:
       "Fifth canonical Door (2026-09-29). Visibly proposed under ADR-028 §7. No brand card exists; NRA is not in the seven-position Human Blockchain menu.",
   },
-
   {
     route: "/market-applications",
     name: "Market Applications",
     type: "Interest Door",
     audience: "Technology partners, operators with existing systems, advisors",
     purpose:
-      "The neutral technology anchor as a market-facing door: one continuing record, append-only history, integration rather than replacement. Distinct from /b/market-applications, which is the architectural expression.",
-    source: "Positioning report, 2026-09-22 · ADR-014 · built 2026-09-29",
-    cta: "Request a briefing",
-    destination: CAPTURE,
+      "The neutral technology anchor, told as a market case: one continuing record, append-only history, integration rather than replacement.",
+    source: "src/content/personas.ts · promise version Market Applications Door v0.1",
+    cta: "Ask",
+    destination: PLATFORM,
     status: "preseason",
-    capturesContext: false,
+    capturesContext: true,
+    siblings:
+      "Sixth and last canonical Door (2026-09-29). Intentionally distinct from /b/market-applications, which states the Tech position in the architecture. Legal shape of Market Applications remains unsettled and is not asserted on either surface.",
   },
+
 
   {
     route: "/offer/$slug",
