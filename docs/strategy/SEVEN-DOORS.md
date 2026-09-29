@@ -93,3 +93,27 @@ hypothesis · DEC-054 diligence sequencing · every evidence, hypothesis and sou
 - Interest selection carries into the request's free-text context with the visible line that
   it creates no role, credential, group or permission.
 - Not built: Claim File, workflow, payments, migrations, roles, permissions, publishing.
+
+## 5. The last two Doors, as built (2026-09-29)
+
+**National Roofing Army** — `/national-roofing-army`, palette `steel`, promise version
+*National Roofing Army Door v0.1 — 2026-09-29*. The hard part of this Door is what it must
+not say, so it says it in a section of its own: no members, no verified counties, no
+deployments, no territories available or reserved, no coverage map, no national operation.
+The proposal itself is readiness before the storm, a record the contractor keeps, and
+coordination that no carrier, supplier or platform owner controls — each carrying its own
+boundary line. Interest options are contractor, crew lead, supplier, observer, and the note
+says plainly that none of them is a membership or a territory.
+
+**Market Applications** — `/market-applications`, palette `electric`, promise version
+*Market Applications Door v0.1 — 2026-09-29*. The technology administration of ADR-014,
+told as a market case: six systems hold six versions of the same job, and the usual fix
+solves coordination by creating capture. The four items are one continuing record,
+append-only history, integration rather than replacement, and neutrality as a constraint —
+the last of which states the NCOI test (ADR-026) in market language while saying outright
+that the legal shape of Market Applications is unsettled and is not asserted here.
+
+Both Doors run the unchanged engine, capture arrival context in the browser only, and route
+into the existing Interested User routine. No schema, migration, role, permission or
+publication.
+
