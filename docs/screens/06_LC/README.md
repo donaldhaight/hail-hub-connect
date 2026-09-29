@@ -12,3 +12,5 @@ Each becomes a folder copied from [`../SCREEN-TEMPLATE/`](../SCREEN-TEMPLATE/) w
 written. Until then this branch holds the place and the honest fact that it is unwritten.
 
 Rules: [`../00-SCREEN-BOOK.md`](../00-SCREEN-BOOK.md).
+
+**Circle (2026-09-26):** a matching empty role course exists in the Circle community. See C63, C65; rehearsal A96 (ISR).

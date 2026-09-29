@@ -431,3 +431,21 @@ House**. No ADR: building a Door under standing rulings is execution, not a new 
   stakeholder positions and the role architecture each count to a number near seven and
   borrow each other's figures. Named in Chapter 84; still unresolved. Acceptance: one
   corpus line per set, with its own count and its own name.
+
+### Section R — The Circle conversation (2026-09-26)
+
+Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not proof (ADR-027).
+
+- **A92 — Circle in the provider inventory.** Plan, limits (3/3 admins, 19/20 spaces), access groups, owner. Founder-supplied facts. C2. Acceptance: one inventory line under A61.
+- **A93 — Role crosswalk.** Circle's ten role courses × Role Store × seventeen-role architecture × stakeholder positions, one table. Documentation only; feeds A91.
+- **A94 — File the Circle conversation as Source.** Done 2026-09-26 with the "Nobody Owns It" preface and Chapter One as SOURCE, not canon.
+- **A95 — Circle admin-AI brief.** What it may remember and what it may never hold (Band 3, C3/C4). Draft only; the founder installs it.
+- **A96 — SIMULATION: one role course rehearsal.** ISR's four modules rendered as a Circle course; test whether activity returns as evidence without crossing a memory partition (ADR-016, C51). Nothing written to our ledger.
+- **A97 — SIMULATION: Kimosabe-voiced agent instruction.** 1,500 characters as a Perception Library Expression. Waits on Circle Plus; paper exercise first.
+
+| ID | Question | Source | Blocks |
+|---|---|---|---|
+| C62 | Is the Circle "Pledge Agreement to the Rules" in force, and how does it relate to the Connecticut Agreement? | Circle News & Announcements | Anything relying on member rules |
+| C63 | Do Insurance Company Admin, Independent Adjuster, Supplier Admin and Mortgage Company Admin become catalogued positions, or stay Circle-only? (Catalog change is a founder act.) | Circle role courses | A93, Screen Book role branches |
+| C64 | Is ClaimBuddy retired in favor of Buddy Claim, or a separate thing? | Circle role courses | Buddy Claim naming |
+| C65 | Is Circle the member-facing course home in Season 1, or only a rehearsal space? Our platform stays system of record either way. | Circle AI tiers | A96, A97 |

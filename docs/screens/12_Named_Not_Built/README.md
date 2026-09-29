@@ -12,3 +12,9 @@ Each becomes a folder copied from [`../SCREEN-TEMPLATE/`](../SCREEN-TEMPLATE/) w
 written. Until then this branch holds the place and the honest fact that it is unwritten.
 
 Rules: [`../00-SCREEN-BOOK.md`](../00-SCREEN-BOOK.md).
+
+## Circle role-course shells (2026-09-26)
+
+The Circle community holds empty course shells for positions with no folder here: Insurance
+Company Admin, Independent Adjuster, Building Material Supplier Admin, Mortgage Company Admin,
+Applicant, ClaimBuddy. No folder is created until C63 and C64 are ruled. Register: A93.
