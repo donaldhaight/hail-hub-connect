@@ -25,15 +25,26 @@ Door, the registry declares how the two differ so they do not appear to contradi
 | Route | State |
 |---|---|
 | `/claimstore` | **Built 2026-09-22** — the first preseason Interest Door, message-only |
-| `/selfinsurity` | Planned — message-only, Property screens deferred behind the Records gate |
-| `/rrca` | Planned — "Strategic Partner or Advisor", no public capital intake |
-| `/national-roofing-army` | Planned — visibly proposed, no members, territories or coverage claimed |
-| `/market-applications` | Planned — last, after the pattern is proven |
-| `/kimosabe`, `/buddy-claim` | Existing Doors |
+| `/buddy-claim` | **Built 2026-09-23** — second canonical Door |
+| `/rrca` | **Built 2026-09-29** — "Strategic Partner or Advisor", no public capital intake |
+| `/selfinsurity` | **Built 2026-09-29** — message-only, Property screens deferred behind the Records gate |
+| `/national-roofing-army` | **Built 2026-09-29** — visibly proposed; a named section states that no members, counties, deployments, territories or coverage are claimed |
+| `/market-applications` | **Built 2026-09-29** — last, as ruled. Neutrality stated as a constraint; legal shape explicitly not asserted |
+| `/kimosabe` | Existing Door — the center of the geometry |
 | `/b/<slug>` | **Kept.** The architectural expression of each venture; coexists with its Door, purposes declared in the registry |
 | `/b/united-stakeholders` | Kept as the brand card — the intentional eighth portfolio container |
 
+The canonical Door sequence is complete as of 2026-09-29 (register A79, closed). Every Door
+is preview copy. None is approved for publication.
+
+Two asymmetries worth naming rather than smoothing over. **National Roofing Army has no
+brand card** — it holds no position in the seven-position Human Blockchain geometry, so
+unlike every other Door it has one surface rather than two (**C66**, related to C49).
+**Market Applications has both**, and they say different things on purpose: the card states
+the Tech position in the architecture, the Door makes the market case.
+
 Nothing is retired. Every surface declares its purpose instead (ADR-029).
+
 
 ## 2. Attribution — proposed, not implemented
 
