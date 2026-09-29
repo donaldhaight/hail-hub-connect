@@ -13,3 +13,5 @@ The ten days are the curriculum and cannot be written before compensation and th
 attachment rule are settled (A3, A4, C22, C31).
 
 Rules: [`../00-SCREEN-BOOK.md`](../00-SCREEN-BOOK.md).
+
+**Circle (2026-09-26):** a matching empty role course exists in the Circle community. See C63, C65; rehearsal A96 (ISR).
