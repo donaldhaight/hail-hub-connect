@@ -426,19 +426,21 @@ export const SURFACES: Surface[] = [
       "Intentionally distinct from /b/claimstore. The card explains ClaimStore's banking position in the architecture; this Door makes the market case and converts an Interested User. Both are valid.",
   },
   {
-
     route: "/national-roofing-army",
     name: "National Roofing Army",
     type: "Interest Door",
     audience: "Roofing contractors, crew leads, suppliers",
     purpose:
       "A visibly proposed contractor readiness network. No members, counties, deployments, territories or coverage claimed — the page says so on its face.",
-    source: "Positioning report, 2026-09-22 · ADR-028 §7 · built 2026-09-29",
-    cta: "Register interest",
-    destination: CAPTURE,
+    source: "src/content/personas.ts · promise version National Roofing Army Door v0.1",
+    cta: "Ask",
+    destination: PLATFORM,
     status: "preseason",
-    capturesContext: false,
+    capturesContext: true,
+    siblings:
+      "Fifth canonical Door (2026-09-29). Visibly proposed under ADR-028 §7. No brand card exists; NRA is not in the seven-position Human Blockchain menu.",
   },
+
   {
     route: "/market-applications",
     name: "Market Applications",
