@@ -426,32 +426,7 @@ export const SURFACES: Surface[] = [
       "Intentionally distinct from /b/claimstore. The card explains ClaimStore's banking position in the architecture; this Door makes the market case and converts an Interested User. Both are valid.",
   },
   {
-    route: "/selfinsurity",
-    name: "SelfInsurity",
-    type: "Interest Door",
-    audience: "Property owners and carriers",
-    purpose:
-      "Message-only Door. Property relationship, address confirmation and walk-through stay behind the Records gate.",
-    source: "Positioning report, 2026-09-22",
-    cta: "Request a briefing",
-    destination: CAPTURE,
-    status: "proposed",
-    capturesContext: false,
-  },
-  {
-    route: "/rrca",
-    name: "RRCA",
-    type: "Interest Door",
-    audience: "Operators, strategic partners, advisors",
-    purpose:
-      "The operating proof, told as a market case. Strategic Partner or Advisor only — no public capital intake.",
-    source: "Positioning report, 2026-09-22 · counsel gate applies",
-    cta: "Request a briefing",
-    destination: CAPTURE,
-    status: "proposed",
-    capturesContext: false,
-  },
-  {
+
     route: "/national-roofing-army",
     name: "National Roofing Army",
     type: "Interest Door",
