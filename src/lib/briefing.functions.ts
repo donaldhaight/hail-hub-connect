@@ -39,6 +39,7 @@ export const submitAccessRequest = createServerFn({ method: "POST" })
       requested_role: null,
       anchor: data.anchor ?? null,
       context: data.context?.trim() || null,
+      entry_context: data.entryContext,
       acknowledged: true,
       status: "pending" as const,
     };

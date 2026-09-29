@@ -1,10 +1,9 @@
 /**
  * Entry context — arrival attribution, captured in the browser only.
  *
- * Founder ruling (2026-09-22): a minimal additive `entry_context` column on the
- * anchor/request record was PROPOSED and is NOT authorized. Until it is, the
- * context below is captured in the browser, shown to the person on screen, and
- * carried into a request as free text. Nothing is persisted server-side.
+ * ADR-032 (2026-09-29): captured in the browser, then kept write-once with the
+ * person's holding file (ledger_wallets.entry_context) and with any request
+ * they send (briefing_requests.entry_context). Seven keys only; no identity.
  *
  * It is marketing context and never authority: it creates no role, credential,
  * Stakeholder Group or permission.
@@ -65,3 +64,30 @@ export function setEntryInterest(interest: string): EntryContext | null {
   window.localStorage.setItem(ENTRY_CONTEXT_STORAGE_KEY, JSON.stringify(next));
   return next;
 }
+
+import { z } from "zod";
+
+const s = z.string().trim().max(200).nullable().optional().transform((v) => v ?? null);
+
+/** ADR-032: the seven keys, nothing else. Referral source reduced to a hostname. */
+export const entryContextSchema = z
+  .object({
+    entry_door: z.string().trim().min(1).max(80),
+    campaign: s,
+    initial_intent: s,
+    interest: s,
+    promise_version: z.string().trim().max(200),
+    referral_source: s.transform((v) => {
+      if (!v) return null;
+      try {
+        return new URL(v).hostname || v.slice(0, 120);
+      } catch {
+        return v.slice(0, 120);
+      }
+    }),
+    captured_at: z.string().max(40),
+  })
+  .strip()
+  .nullable()
+  .optional()
+  .transform((v) => v ?? null);

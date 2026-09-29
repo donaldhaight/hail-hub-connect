@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { entryContextSchema } from "@/lib/entry-context";
 import { EARN_SCHEDULE, ENTRY_PRICE_JBK, PLATFORM_TOKEN } from "@/lib/wallet.schedule";
 
 export type WalletEntry = {
@@ -41,7 +42,9 @@ const anchorSchema = z
   .transform((v) => v ?? null);
 
 export const resolveWallet = createServerFn({ method: "POST" })
-  .validator((d: unknown) => z.object({ anchor: anchorSchema }).parse(d))
+  .validator((d: unknown) =>
+    z.object({ anchor: anchorSchema, entryContext: entryContextSchema }).parse(d),
+  )
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { buildWalletView, mintInterestedUserWallet } = await import("@/lib/wallet.server");
@@ -52,10 +55,27 @@ export const resolveWallet = createServerFn({ method: "POST" })
         .select("id, anchor, kind, label, claimed_at")
         .eq("anchor", data.anchor)
         .maybeSingle();
-      if (existing) return await buildWalletView(supabaseAdmin, existing);
+      if (existing) {
+        if (data.entryContext) {
+          // Write-once: only fills a file that has no arrival context yet.
+          await supabaseAdmin
+            .from("ledger_wallets")
+            .update({ entry_context: data.entryContext })
+            .eq("id", existing.id)
+            .is("entry_context", null);
+        }
+        return await buildWalletView(supabaseAdmin, existing);
+      }
     }
 
     const wallet = await mintInterestedUserWallet(supabaseAdmin);
+    if (data.entryContext) {
+      await supabaseAdmin
+        .from("ledger_wallets")
+        .update({ entry_context: data.entryContext })
+        .eq("id", wallet.id)
+        .is("entry_context", null);
+    }
     return await buildWalletView(supabaseAdmin, wallet);
   });
 

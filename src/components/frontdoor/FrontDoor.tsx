@@ -12,6 +12,7 @@ import {
 import { Meta } from "@/components/briefing/Badges";
 import type { Persona } from "@/content/personas";
 import { FUNNEL_TRACK_STORAGE_KEY, type FunnelTrack } from "@/content/funnels";
+import { readEntryContext } from "@/lib/entry-context";
 import { DoorSections } from "@/components/frontdoor/DoorSections";
 
 function fmt(n: number) {
@@ -59,7 +60,7 @@ export function FrontDoor({
     booted.current = true;
     const stored = window.localStorage.getItem(ANCHOR_KEY);
     if (!stored) return;
-    resolve({ data: { anchor: stored } })
+    resolve({ data: { anchor: stored, entryContext: readEntryContext() } })
       .then((v) => {
         apply(v as WalletView);
         setOpened(true);
@@ -81,7 +82,7 @@ export function FrontDoor({
     setBusy(true);
     try {
       const stored = window.localStorage.getItem(ANCHOR_KEY);
-      const v = (await resolve({ data: { anchor: stored } })) as WalletView;
+      const v = (await resolve({ data: { anchor: stored, entryContext: readEntryContext() } })) as WalletView;
       apply(v);
       setAsked(q);
       setOpened(true);
