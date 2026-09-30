@@ -483,3 +483,16 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 | C67 | Does the founder enter the Olympics as a contestant, writing his own Blind and Post-Reveal editions? | Campfire §"And yes — I should write my own Owner's Manual" | A108 scoring symmetry |
 | C68 | Is Proof of Corroboration ever promoted to architecture, and at which gate? | ADR-033 rule 3 | SiteBMS evidence model |
 | C69 | Which of the seven done-gates carry money consequences in Season 1, and which are recorded but not enforced? | ADR-033 rule 4 | A109, commission timing |
+
+
+## Sprint 2.5 — The Founding Sponsor triad catch-up (2026-09-30)
+
+- **A111 — Founding Sponsor diligence dossier.** `docs/strategy/FOUNDING-SPONSOR-TRIAD.md` filed with claim register; ADR-034 adopted. The dossier itself (C3) waits on counsel for sponsor terms. OPEN.
+- **A112 — Webinar and deck redline.** "The Unseen Utility" and the 30-slide script exist only in chat as SIMULATION. Redline every figure, benefit, scarcity line and date (ADR-031) against the claim register before use. OPEN.
+- **A113 — Siteforum benchmark inspection.** Restore or walk through the 2019 backup with the Siteforum team; move founder assertions to FACT or strike them. Founder-led. OPEN — blocked on founder.
+
+| ID | Question | Source | Blocks |
+|---|---|---|---|
+| C70 | What does "assign $10M of value" mean legally — cash, in-kind, pledge, commitment — and what does a sponsor receive? | ADR-034 | A111, A112 |
+| C71 | Do RRCA and the Gratitude Ranch enter the sponsor structure, and on what terms? | Founder, 2026-09-30 | A111 |
+| C72 | Does any sponsor benefit imply territory or exclusivity, and how does NCOI bound it? | ADR-015, ADR-026 | A112 |
