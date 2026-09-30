@@ -955,3 +955,64 @@ needs). Storing the full query string (rejected: privacy).
 
 **Rollback.** `ALTER TABLE public.ledger_wallets DROP COLUMN entry_context;` and the same on
 `public.briefing_requests`. Nothing depends on the columns; browser capture continues.
+
+## ADR-033 — Epistemic state, governance state, and the seven boundaries of done (2026-09-30)
+
+**Status:** accepted · **Class:** C2 · sources
+`docs/history/BREADCRUMBS-FROM-THE-CAMPFIRE-2026-09-30.md` (ChatGPT) and
+`docs/history/BREADCRUMBS-LOVABLE-DOCTRINE-2026-09-30.md` (Lovable).
+
+**Decision.** Four rules are adopted as binding on all future modelling and on every agent
+working in this corpus.
+
+**1. Documentation Momentum is a named hazard.** Increasing internal consistency creates the
+appearance of increasing external truth. A recommendation becomes an assumption, the
+assumption a decision, the decision a requirement, the requirement a test — and the test then
+appears to validate the original recommendation. No chain of internally consistent artifacts
+ever constitutes founder authority. Evidence status and authority status remain separate
+dimensions at all times: a statement may be strongly evidenced and unauthorized, or
+founder-authorized and scientifically uncertain.
+
+**2. Two state systems, never collapsed.** Every claim-bearing record carries an epistemic
+state and, where consequence attaches, a governance state. They may legitimately diverge.
+
+- Epistemic: `ASSERTED` → `OBSERVED` → `CORROBORATED` → `CONTRADICTED`
+- Governance / legal: `OPEN` → `CONTESTED` → `ADJUDICATED` → `SETTLED`
+
+A supplement may be corroborated by three photographs and still contested by the desk
+adjuster. A dispute may be legally settled while the factual origin stays disputed. Corroborated
+never means true; the correct phrasing is that the configured corroboration threshold for this
+claim class has been satisfied.
+
+**3. Proof of Corroboration is a protocol hypothesis, scored on three independences.** An
+imported event is evidence, not truth — a CRM status change, a photograph, a signed document,
+a payment and a municipal inspection are all witnesses of differing weight. Corroboration is
+evaluated across **actor independence** (different people, not two logins), **interest
+independence** (opposed rather than aligned financial stake), and **evidence independence**
+(separate artifacts, not five parties citing one photograph). HYPOTHESIS, not architecture.
+
+**4. "Done" has seven boundaries.** Closeout is not done. SiteBMS tracks these as discrete
+gates rather than a single closed status: operational (work finished, site cleared),
+evidentiary (photographs, inspection), financial (proceeds and deductible collected),
+accounting (invoices matched, subcontractor paid, margin locked), compensation (commissions
+and overrides calculated and credited), warranty / protocol (manufacturer registration,
+assurance issued), legal (final lien waiver executed and delivered).
+
+**Also adopted as method, not architecture.** Reciprocal absence: every mature product is a
+fossil record of problems encountered by real users, so before removing an awkward field,
+status or workflow — in JobNimbus or in the 2008–2012 system — ask what expensive mistake
+forced someone to build it that way. And: a negative finding must state its search boundary;
+write "no developer portal was found in these sources as of this date", never "there is no
+developer portal".
+
+**Alternatives considered.** Fold both documents into a single synthesis (rejected: the delta
+between an epistemological reading and an operational reading is itself the artifact — each is
+filed whole). Promote Proof of Corroboration to architecture (rejected: it is untested, and
+promoting it would be the exact Documentation Momentum this ADR names). Add a single unified
+status enum covering both state systems (rejected: collapsing them is why conventional CRMs
+fail on contested claims).
+
+**Consequences.** The two sources are filed under `docs/history/` as Source, unpromoted. The
+contest rules are written to `docs/strategy/LLM-OLYMPICS.md`. The records model and SiteBMS
+work now inherit the two-state rule and the seven done-gates before any schema is drawn — the
+locked work order is unchanged. Registered as **A106–A110**.
