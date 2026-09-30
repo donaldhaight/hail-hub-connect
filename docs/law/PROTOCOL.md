@@ -213,3 +213,32 @@ Adopted with ADR-012. Every surface, every demo script, and every route belongs 
 | **4. Protocol boundary** | ClaimExpress as API/MCP — the objects, states, and events an external system may call. | Published contract; no method, no data, no targeting logic |
 
 Band 3 is never demoed whole. Outputs of band 3 may appear in band 1 as outcomes; the method never does. Band 4 exists so ISRs and LCs can adopt the platform without a rip-and-replace of the systems they already run.
+
+---
+
+## 12. Documentation Momentum and the search boundary
+
+Adopted with ADR-033, from the two breadcrumb sources of 2026-09-30.
+
+**Documentation Momentum** is the failure mode where increasing internal consistency creates
+the appearance of increasing external truth. A recommendation becomes an assumption, the
+assumption a decision, the decision a requirement, the requirement a test — and the test then
+appears to validate the recommendation that produced it. The error emerges from competence,
+not carelessness. It is the reason this corpus labels every claim.
+
+Three standing rules follow:
+
+1. **Recommendation is not decision.** Nothing becomes a DECISION without the founder's act,
+   whatever quantity of internally consistent documentation stands behind it.
+2. **Evidence status and authority status are separate dimensions.** A claim may be strongly
+   evidenced and unauthorized; a claim may be founder-decided and scientifically uncertain.
+   Neither dimension may be inferred from the other.
+3. **A negative finding must state its search boundary.** Never "there is no developer
+   portal." Always "no developer portal was found in these sources as of this date." Absence
+   of evidence does not masquerade as evidence of absence.
+
+And one habit before removing anything: **every mature product is a fossil record.** An odd
+field, a status that refuses to advance, a button that disappears — each may be scar tissue
+from an expensive lesson. Ask what happened that made someone build it that way before
+simplifying it away. This applies to incumbent platforms and to the founder's own 2008–2012
+system equally.
