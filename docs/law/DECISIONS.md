@@ -1016,3 +1016,27 @@ fail on contested claims).
 contest rules are written to `docs/strategy/LLM-OLYMPICS.md`. The records model and SiteBMS
 work now inherit the two-state rule and the seven done-gates before any schema is drawn — the
 locked work order is unchanged. Registered as **A106–A110**.
+
+---
+
+## ADR-034 — The triad runs in parallel; sponsor material is diligence-first (2026-09-30)
+
+**Status:** adopted · **Class:** C3 · **Source:** founder, 2026-09-30; [`../strategy/FOUNDING-SPONSOR-TRIAD.md`](../strategy/FOUNDING-SPONSOR-TRIAD.md)
+
+**Decision.** Three systems run in parallel and none replaces another by inference: this
+application (Kimosabe and the direction it carries), Circle.so (learning and rehearsal only),
+and Siteforum / ClaimExpress (the legacy stack, engaged by the founder directly). Siteforum
+and ClaimExpress are withheld from LLM Olympics contestants until Round 4. The Founding
+Sponsor target is a minimum of $10,000,000 in assigned value, excluding RRCA and the Gratitude
+Ranch; its legal form, sponsor rights and any territorial meaning are OPEN and belong to
+counsel. Sponsor collateral (webinar, deck, one-pager) is SIMULATION until every claim in it
+clears the triad claim register.
+
+**Alternatives considered.** Choose one stack now (rejected by the founder: "we have to do
+both"). Share the legacy system with all contestants up front (rejected: it turns the contest
+into pattern-matching and exposes proprietary architecture). Treat the webinar draft as ready
+copy (rejected: it carries unverified figures and a superseded calendar).
+
+**Consequences.** No schema, route or public copy changes. Founder statements about Siteforum
+are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake) and ADR-026
+(NCOI binds the founder too) apply to all sponsor work. Registered as **A111–A113**, **C70–C72**.

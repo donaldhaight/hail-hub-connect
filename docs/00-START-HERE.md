@@ -43,6 +43,7 @@ Then read whichever of `strategy/` and `requirements/` the task touches.
 | [`strategy/BUSINESS-MODEL-CONTEXT.md`](strategy/BUSINESS-MODEL-CONTEXT.md) | in progress | C2 | The 2026-09-15 context packet: USA positioning, USA/RRCA/NRA separation, origin vs compensation, provider abstraction, Position Books, revenue objects |
 | [`strategy/STAKEHOLDER-VIEWS.md`](strategy/STAKEHOLDER-VIEWS.md) | in progress | C2 | One operating model, many Stakeholder readings; what the view mechanism does and does not reach |
 | [`strategy/PHASE-1-FUNNEL.md`](strategy/PHASE-1-FUNNEL.md) | simulation | C2 | One spine, three audiences; what already existed, what was built, and what the owner track refuses to pretend |
+| [`strategy/FOUNDING-SPONSOR-TRIAD.md`](strategy/FOUNDING-SPONSOR-TRIAD.md) | in progress | C3 | The triad (this app, Circle, Siteforum), the $10M Founding Sponsor ask, the claim register |
 | [`strategy/LLM-OLYMPICS.md`](strategy/LLM-OLYMPICS.md) | simulation | C2 | The six-contestant challenge: Rounds 0–5, the two classes, scoring, the One Prompt Event. No round runs until the founder starts it |
 | [`requirements/REQUIREMENTS.md`](requirements/REQUIREMENTS.md) | in progress | C2 | The epic backlog and acceptance criteria |
 | [`requirements/RECORDS-MODEL.md`](requirements/RECORDS-MODEL.md) | in progress | C2 | The address-centred object model |
