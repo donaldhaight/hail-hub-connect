@@ -469,3 +469,17 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - A78 (entry-context persistence) still waiting on founder authorization. With seven Doors live, the argument for it is now at its strongest: we cannot tell which door's message works.
 - A101 (Circle ingestion) is the next lane.
 
+
+## Sprint 2.4 — The breadcrumb synthesis (2026-09-30)
+
+- **A106 — Two sources filed.** `BREADCRUMBS-FROM-THE-CAMPFIRE-2026-09-30.md` (ChatGPT, the method) and `BREADCRUMBS-LOVABLE-DOCTRINE-2026-09-30.md` (Lovable, the machinery), both filed whole as Source under `docs/history/`, neither promoted. Done.
+- **A107 — ADR-033 adopted.** Documentation Momentum named as a hazard; epistemic and governance states separated; Proof of Corroboration held as HYPOTHESIS with three independences; seven boundaries of done. Done.
+- **A108 — LLM Olympics specification.** `docs/strategy/LLM-OLYMPICS.md` holds Rounds 0–5, the two classes, the scoring dimensions and the One Prompt Event. SIMULATION; no round runs until the founder starts one. OPEN.
+- **A109 — Two-state rule reaches the records model.** `docs/requirements/RECORDS-MODEL.md` and the SiteBMS gate must carry the epistemic/governance separation and the seven done-gates before any schema is drawn. Waits on the Connecticut Agreement gate — locked work order unchanged. OPEN.
+- **A110 — The legacy reveal is not scheduled.** Round 4 needs the founder to select which 2008–2012 screens are shown and in what order. Only the founder can supply this. OPEN — blocked on founder.
+
+| ID | Question | Source | Blocks |
+|---|---|---|---|
+| C67 | Does the founder enter the Olympics as a contestant, writing his own Blind and Post-Reveal editions? | Campfire §"And yes — I should write my own Owner's Manual" | A108 scoring symmetry |
+| C68 | Is Proof of Corroboration ever promoted to architecture, and at which gate? | ADR-033 rule 3 | SiteBMS evidence model |
+| C69 | Which of the seven done-gates carry money consequences in Season 1, and which are recorded but not enforced? | ADR-033 rule 4 | A109, commission timing |
