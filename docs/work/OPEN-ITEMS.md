@@ -496,3 +496,12 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 | C70 | What does "assign $10M of value" mean legally — cash, in-kind, pledge, commitment — and what does a sponsor receive? | ADR-034 | A111, A112 |
 | C71 | Do RRCA and the Gratitude Ranch enter the sponsor structure, and on what terms? | Founder, 2026-09-30 | A111 |
 | C72 | Does any sponsor benefit imply territory or exclusivity, and how does NCOI bound it? | ADR-015, ADR-026 | A112 |
+
+## Sprint 2.6 — The site walk, acted on (2026-10-04)
+
+- **A114 — Doors index and three-tier footer.** Public `/doors` page lists the seven Doors; footer now reads Movement · Narrative · Doors so every public page has an inbound link. Top navigation left unchanged by founder instruction. DONE.
+- **A115 — App Home reachability.** Activity and Search linked from the App Home footer. DONE.
+- **A116 — Sign-in headline and founder page gatekeeping.** Sign-in page now says "Sign in." to everyone; invite, queue, ledger and tour pages refuse non-founders like the rest. DONE.
+- **A117 — Kinder refusal for /manual and /insider.** Roleless visitors still bounce silently to home; a one-line explanation is proposed. OPEN.
+- **A118 — Top navigation is crowded on first glance.** Founder noted it; explicitly not to be rethought now. HELD.
+- **A119 — Content-block palette (Gutenberg / Circle style).** Touches how pages are stored, so it returns to the founder before any build. OPEN — blocked on founder.
