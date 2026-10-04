@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { FounderGate } from "@/components/briefing/FounderGate";
 import { PageShell, PageHeader, Section } from "@/components/briefing/PageShell";
 
 import shotIndex from "@/assets/tour/front-index.png";
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/_authenticated/admin/tour")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: TourPage,
+  component: () => <FounderGate><TourPage /></FounderGate>,
 });
 
 type Shot = { src?: string; path: string; title: string; body: string };

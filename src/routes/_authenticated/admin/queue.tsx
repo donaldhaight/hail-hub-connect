@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { FounderGate } from "@/components/briefing/FounderGate";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { PageShell, PageHeader, Section } from "@/components/briefing/PageShell";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/admin/queue")({
         "One row per human. Who asked, what they arrived with, what has happened to them, and the single control that accepts them.",
       path: "/admin/queue",
     }),
-  component: RequestQueue,
+  component: () => <FounderGate><RequestQueue /></FounderGate>,
 });
 
 type Filter = "open" | "accepted" | "declined" | "all";

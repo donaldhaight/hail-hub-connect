@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { FounderGate } from "@/components/briefing/FounderGate";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { listLedger, upsertTask, deleteTask, type LedgerRow } from "@/lib/ledger.functions";
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/_authenticated/admin/ledger")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: LedgerPage,
+  component: () => <FounderGate><LedgerPage /></FounderGate>,
 });
 
 type Draft = {
