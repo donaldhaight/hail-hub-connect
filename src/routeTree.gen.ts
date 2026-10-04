@@ -34,6 +34,7 @@ import { Route as BuddyClaimRouteImport } from './routes/buddy-claim'
 import { Route as BriefingRouteImport } from './routes/briefing'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as AdjustingProfessionalsRouteImport } from './routes/adjusting-professionals'
 import { Route as BRouteRouteImport } from './routes/b/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -208,6 +209,11 @@ const AuthRoute = AuthRouteImport.update({
 const ArchitectureRoute = ArchitectureRouteImport.update({
   id: '/architecture',
   path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdjustingProfessionalsRoute = AdjustingProfessionalsRouteImport.update({
+  id: '/adjusting-professionals',
+  path: '/adjusting-professionals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BRouteRoute = BRouteRouteImport.update({
@@ -484,6 +490,7 @@ const AuthenticatedAdminScreensPageIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/b': typeof BRouteRouteWithChildren
+  '/adjusting-professionals': typeof AdjustingProfessionalsRoute
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
@@ -560,6 +567,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/b': typeof BRouteRouteWithChildren
+  '/adjusting-professionals': typeof AdjustingProfessionalsRoute
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
@@ -638,6 +646,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/b': typeof BRouteRouteWithChildren
+  '/adjusting-professionals': typeof AdjustingProfessionalsRoute
   '/architecture': typeof ArchitectureRoute
   '/auth': typeof AuthRoute
   '/briefing': typeof BriefingRoute
@@ -716,6 +725,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/b'
+    | '/adjusting-professionals'
     | '/architecture'
     | '/auth'
     | '/briefing'
@@ -792,6 +802,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/b'
+    | '/adjusting-professionals'
     | '/architecture'
     | '/auth'
     | '/briefing'
@@ -869,6 +880,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/b'
+    | '/adjusting-professionals'
     | '/architecture'
     | '/auth'
     | '/briefing'
@@ -947,6 +959,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BRouteRoute: typeof BRouteRouteWithChildren
+  AdjustingProfessionalsRoute: typeof AdjustingProfessionalsRoute
   ArchitectureRoute: typeof ArchitectureRoute
   AuthRoute: typeof AuthRoute
   BriefingRoute: typeof BriefingRoute
@@ -1153,6 +1166,13 @@ declare module '@tanstack/react-router' {
       path: '/architecture'
       fullPath: '/architecture'
       preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adjusting-professionals': {
+      id: '/adjusting-professionals'
+      path: '/adjusting-professionals'
+      fullPath: '/adjusting-professionals'
+      preLoaderRoute: typeof AdjustingProfessionalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/b': {
@@ -1626,6 +1646,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BRouteRoute: BRouteRouteWithChildren,
+  AdjustingProfessionalsRoute: AdjustingProfessionalsRoute,
   ArchitectureRoute: ArchitectureRoute,
   AuthRoute: AuthRoute,
   BriefingRoute: BriefingRoute,

@@ -1040,3 +1040,11 @@ copy (rejected: it carries unverified figures and a superseded calendar).
 **Consequences.** No schema, route or public copy changes. Founder statements about Siteforum
 are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake) and ADR-026
 (NCOI binds the founder too) apply to all sponsor work. Registered as **A111–A113**, **C70–C72**.
+
+## ADR-035 — Adjusting Professionals is the preferred public Door; RRCA is the valuation Door (2026-10-04)
+
+**Decision.** The founder ruled that Adjusting Professionals becomes the preferred public front door and RRCA is reserved for those evaluating production and market valuation. Both render through the one FrontDoor engine (ADR-019); the mission is the only variable. Adjusting Professionals starts as a Member Network; Claim Caller is a protocol concept, not a service.
+
+**Alternatives considered.** Replacing RRCA (rejected — RRCA underwrites the proof); a separate site build (rejected — ADR-030 one engine, many domains); launching Claim Caller as a service (deferred).
+
+**Status.** Preview copy only. Governance documents (A121) and the NCOI question (C73) remain OPEN.

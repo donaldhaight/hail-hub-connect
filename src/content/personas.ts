@@ -369,6 +369,101 @@ export const PERSONAS: Record<string, Persona> = {
    * RRCA — the third canonical Door (2026-09-29). Strategic Partner / Advisor
    * language only. No capital intake, no investment wording.
    */
+  /**
+   * Adjusting Professionals — the preferred public Door (2026-10-04, A120).
+   * The dualling twin of RRCA: same engine, the adjusting mission instead of
+   * the contractor mission. Member Network first; Claim Caller stays a
+   * protocol concept. Preview copy only.
+   */
+  "adjusting-professionals": {
+    id: "adjusting-professionals",
+    wordmark: "Adjusting Professionals",
+    eyebrow: "The adjuster's record, kept by the adjuster",
+    promise:
+      "A member network for the people who determine the claim — so the file you build follows you, not the firm or the carrier that hired you.",
+    askPlaceholder: "Ask how an adjuster keeps their own record.",
+    askAgainPlaceholder: "Ask again — the file stays open.",
+    openLabel: "Open my file",
+    openedBody:
+      "A file opened the moment you asked — yours, before any firm, carrier or claim. Adjusting Professionals is where the determination side of a loss learns to read from the same record the contractor and the owner read from.",
+    walletBody:
+      "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
+    paletteToken: "navy",
+    path: "/adjusting-professionals",
+    title: "Adjusting Professionals",
+    description:
+      "A member network for independent and staff adjusters, built on one shared claim record. Ask once and a file opens; no email or phone required.",
+    promiseVersion: "Adjusting Professionals Door v0.1 — 2026-10-04",
+    sections: [
+      {
+        id: "problem",
+        eyebrow: "The problem",
+        title: "The adjuster is the only party who has to start over every storm.",
+        body: [
+          "The contractor keeps their jobs. The carrier keeps its claims. The adjuster deploys, documents, determines — and then the work belongs to someone else. Reputation lives in other people's systems, and every new assignment begins from zero.",
+        ],
+      },
+      {
+        id: "pattern",
+        eyebrow: "What this is",
+        title: "A member network, on the same record as the job.",
+        label: "PREVIEW",
+        body: [
+          "Adjusting Professionals is the determination side of the ClaimExpress Protocol: the place where adjusters hold a continuing professional file and read the loss from the same record everyone else reads.",
+        ],
+        items: [
+          {
+            term: "Member Network",
+            detail: "Independent adjusters, adjusting firms and staff adjusters, each with a file they own.",
+            boundary: "Membership is an interest today. No credential, licence or assignment is issued here.",
+          },
+          {
+            term: "One claim record",
+            detail: "What was observed, what was determined, and what remains — beside the contractor's job record, not inside it.",
+            boundary: "An operating record, not a coverage decision or a guarantee of any outcome.",
+          },
+          {
+            term: "Claim Caller",
+            detail: "A protocol concept for how a loss is first called in and routed to the right professionals.",
+            boundary: "Concept only. Not a service, a dispatch, or a referral arrangement.",
+          },
+        ],
+      },
+      {
+        id: "dual",
+        eyebrow: "The dualling alternative",
+        title: "Two missions, one engine.",
+        label: "PREVIEW",
+        body: [
+          "RRCA proves the production side: a contractor running its work on one record. Adjusting Professionals proves the determination side. Same file, same ledger, same person at every door — the mission is the only thing that changes.",
+        ],
+      },
+      {
+        id: "future",
+        eyebrow: "Focused future",
+        title: "What this becomes if it is right.",
+        label: "FUTURE",
+        body: [
+          "An adjuster whose work history holds up in front of any firm, carrier or owner — and a determination process every other party can read without anyone controlling it.",
+          "It is not yet built. Everything above the disclosure describes intent.",
+        ],
+      },
+    ],
+    interest: {
+      intro: "Which side of the claim are you standing on?",
+      note: "An interest statement only — it creates no role, credential, licence, group or permission. The founder assigns every actual position, personally.",
+      options: [
+        { id: "independent_adjuster", label: "Independent adjuster", detail: "I deploy and determine." },
+        { id: "adjusting_firm", label: "Adjusting firm", detail: "I run a team of adjusters." },
+        { id: "staff_adjuster", label: "Carrier or staff adjuster", detail: "I adjust inside a carrier." },
+        { id: "contractor", label: "Contractor", detail: "I am on the other side of the same loss." },
+        { id: "observer", label: "Observer", detail: "I am reading, not participating." },
+      ],
+    },
+    disclosure:
+      "Preview copy. Adjusting Professionals is a proposed member network. Nothing on this page is an offer of employment, an adjusting licence or credential, a claim service, an insurance product, or an offer of securities, and no part of it has been approved for publication. Nothing here creates a business relationship.",
+  },
+
   rrca: {
     id: "rrca",
     wordmark: "RRCA",

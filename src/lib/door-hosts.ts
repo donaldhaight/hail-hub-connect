@@ -20,6 +20,8 @@ const HOST_TO_PERSONA: Record<string, string> = {
   "www.kimosabe.ai": "kimosabe",
   "rrcausa.com": "rrca",
   "www.rrcausa.com": "rrca",
+  "adjustingprofessionals.com": "adjusting-professionals",
+  "www.adjustingprofessionals.com": "adjusting-professionals",
   "selfinsurity.com": "selfinsurity",
   "www.selfinsurity.com": "selfinsurity",
   "nationalroofingarmy.com": "national-roofing-army",
