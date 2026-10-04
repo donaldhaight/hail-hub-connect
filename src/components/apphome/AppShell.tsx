@@ -199,6 +199,12 @@ export function AppShell({
           >
             MarketApp
           </Link>
+          <Link to="/app/activity" className="font-mono text-[11px] uppercase tracking-[0.18em] text-navy hover:underline">
+            Activity
+          </Link>
+          <Link to="/app/search" search={{ q: "" }} className="font-mono text-[11px] uppercase tracking-[0.18em] text-navy hover:underline">
+            Search
+          </Link>
           {COMING_SOON_APPS.map((app) => (
             <span
               key={app}
