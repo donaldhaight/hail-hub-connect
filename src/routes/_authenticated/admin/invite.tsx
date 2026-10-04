@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { FounderGate } from "@/components/briefing/FounderGate";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/admin/invite")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: InvitePage,
+  component: () => <FounderGate><InvitePage /></FounderGate>,
 });
 
 const ROLE_OPTIONS = [

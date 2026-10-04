@@ -28,6 +28,7 @@ import { Route as InvestorsRouteImport } from './routes/investors'
 import { Route as IndustryProblemRouteImport } from './routes/industry-problem'
 import { Route as FounderRouteImport } from './routes/founder'
 import { Route as FirstCongressRouteImport } from './routes/first-congress'
+import { Route as DoorsRouteImport } from './routes/doors'
 import { Route as ClaimstoreRouteImport } from './routes/claimstore'
 import { Route as BuddyClaimRouteImport } from './routes/buddy-claim'
 import { Route as BriefingRouteImport } from './routes/briefing'
@@ -177,6 +178,11 @@ const FounderRoute = FounderRouteImport.update({
 const FirstCongressRoute = FirstCongressRouteImport.update({
   id: '/first-congress',
   path: '/first-congress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoorsRoute = DoorsRouteImport.update({
+  id: '/doors',
+  path: '/doors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClaimstoreRoute = ClaimstoreRouteImport.update({
@@ -483,6 +489,7 @@ export interface FileRoutesByFullPath {
   '/briefing': typeof BriefingRoute
   '/buddy-claim': typeof BuddyClaimRoute
   '/claimstore': typeof ClaimstoreRoute
+  '/doors': typeof DoorsRoute
   '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -558,6 +565,7 @@ export interface FileRoutesByTo {
   '/briefing': typeof BriefingRoute
   '/buddy-claim': typeof BuddyClaimRoute
   '/claimstore': typeof ClaimstoreRoute
+  '/doors': typeof DoorsRoute
   '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -635,6 +643,7 @@ export interface FileRoutesById {
   '/briefing': typeof BriefingRoute
   '/buddy-claim': typeof BuddyClaimRoute
   '/claimstore': typeof ClaimstoreRoute
+  '/doors': typeof DoorsRoute
   '/first-congress': typeof FirstCongressRoute
   '/founder': typeof FounderRoute
   '/industry-problem': typeof IndustryProblemRoute
@@ -712,6 +721,7 @@ export interface FileRouteTypes {
     | '/briefing'
     | '/buddy-claim'
     | '/claimstore'
+    | '/doors'
     | '/first-congress'
     | '/founder'
     | '/industry-problem'
@@ -787,6 +797,7 @@ export interface FileRouteTypes {
     | '/briefing'
     | '/buddy-claim'
     | '/claimstore'
+    | '/doors'
     | '/first-congress'
     | '/founder'
     | '/industry-problem'
@@ -863,6 +874,7 @@ export interface FileRouteTypes {
     | '/briefing'
     | '/buddy-claim'
     | '/claimstore'
+    | '/doors'
     | '/first-congress'
     | '/founder'
     | '/industry-problem'
@@ -940,6 +952,7 @@ export interface RootRouteChildren {
   BriefingRoute: typeof BriefingRoute
   BuddyClaimRoute: typeof BuddyClaimRoute
   ClaimstoreRoute: typeof ClaimstoreRoute
+  DoorsRoute: typeof DoorsRoute
   FirstCongressRoute: typeof FirstCongressRoute
   FounderRoute: typeof FounderRoute
   IndustryProblemRoute: typeof IndustryProblemRoute
@@ -1098,6 +1111,13 @@ declare module '@tanstack/react-router' {
       path: '/first-congress'
       fullPath: '/first-congress'
       preLoaderRoute: typeof FirstCongressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doors': {
+      id: '/doors'
+      path: '/doors'
+      fullPath: '/doors'
+      preLoaderRoute: typeof DoorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/claimstore': {
@@ -1611,6 +1631,7 @@ const rootRouteChildren: RootRouteChildren = {
   BriefingRoute: BriefingRoute,
   BuddyClaimRoute: BuddyClaimRoute,
   ClaimstoreRoute: ClaimstoreRoute,
+  DoorsRoute: DoorsRoute,
   FirstCongressRoute: FirstCongressRoute,
   FounderRoute: FounderRoute,
   IndustryProblemRoute: IndustryProblemRoute,

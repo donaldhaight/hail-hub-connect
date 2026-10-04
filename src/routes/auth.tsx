@@ -5,8 +5,8 @@ import { lovable } from "@/integrations/lovable";
 import { claimFounderIfUnclaimed } from "@/lib/inbox.functions";
 import { PageShell, PageHeader } from "@/components/briefing/PageShell";
 
-const TITLE = "Founder Sign In";
-const DESC = "Private access to the ClaimStore founder inbox.";
+const TITLE = "Sign In";
+const DESC = "Sign in to your PrepareAmerica file.";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -103,8 +103,8 @@ function AuthPage() {
     <PageShell>
       <PageHeader
         eyebrow="Access"
-        title="Founder sign in."
-        lede="Private admin access. If you are the first sign-in on this project, you will be granted founder rights automatically."
+        title="Sign in."
+        lede="Sign in or create an account to open your file."
         confidentiality="C2"
       />
       <section className="mx-auto max-w-md px-6 py-16">
