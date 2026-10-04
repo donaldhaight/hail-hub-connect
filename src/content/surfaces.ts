@@ -382,6 +382,20 @@ export const SURFACES: Surface[] = [
       "The second canonical Door (2026-09-23): problem, what it is, how it would work, focused future, interest, disclosure. /b/buddy-claim remains the architectural expression — both valid, both point into the same routine.",
   },
   {
+    route: "/adjusting-professionals",
+    name: "Adjusting Professionals",
+    type: "Interest Door",
+    audience: "Independent adjusters, adjusting firms, staff adjusters, contractors, observers",
+    purpose: "The preferred public Door: a member network on the determination side of the claim.",
+    source: "src/content/personas.ts · promise version Adjusting Professionals Door v0.1",
+    cta: "Ask",
+    destination: PLATFORM,
+    status: "preseason",
+    capturesContext: true,
+    siblings:
+      "Dualling twin of /rrca (2026-10-04, A120). RRCA keeps the production / valuation evaluation; this Door is the preferred public face. Claim Caller is a protocol concept only.",
+  },
+  {
     route: "/rrca",
     name: "RRCA",
     type: "Interest Door",

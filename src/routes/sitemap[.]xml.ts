@@ -30,6 +30,7 @@ const ENTRIES: Entry[] = [
   { path: "/b/rrca", changefreq: "monthly", priority: "0.8" },
   { path: "/b/kimosabe", changefreq: "monthly", priority: "0.8" },
   { path: "/rrca", changefreq: "monthly", priority: "0.8" },
+  { path: "/adjusting-professionals", changefreq: "monthly", priority: "0.8" },
   { path: "/selfinsurity", changefreq: "monthly", priority: "0.8" },
   { path: "/national-roofing-army", changefreq: "monthly", priority: "0.8" },
   { path: "/market-applications", changefreq: "monthly", priority: "0.8" },
