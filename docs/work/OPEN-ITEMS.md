@@ -505,3 +505,10 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A117 — Kinder refusal for /manual and /insider.** Roleless visitors still bounce silently to home; a one-line explanation is proposed. OPEN.
 - **A118 — Top navigation is crowded on first glance.** Founder noted it; explicitly not to be rethought now. HELD.
 - **A119 — Content-block palette (Gutenberg / Circle style).** Touches how pages are stored, so it returns to the founder before any build. OPEN — blocked on founder.
+
+## Sprint 2.7 — The dualling alternative (2026-10-04)
+
+- **A120 — Adjusting Professionals Door.** `/adjusting-professionals` built on the shared FrontDoor engine as the preferred public Door; RRCA kept for production and valuation evaluation. Member Network first; Claim Caller a protocol concept only. Preview copy, promise version v0.1. DONE (unpublished).
+- **A121 — Adjusting Professionals governance spec.** TOS, Member Network Agreement and SLA drafted from the 2012 ClaimExpress multi-stakeholder TOS and the RRCA Member Agreement — sources not yet in the corpus. OPEN — waiting on founder to supply the 2012 baselines.
+- **A122 — Mission swap ("mass edit") script.** Persona-level substitution so a mission can be inserted across surfaces. Proposed; touches many pages, returns to founder. OPEN.
+- **C73 — Adjusting Professionals vs ADR-014 / NCOI.** Whether a member network of adjusters beside a contractor operator creates a structural conflict of interest. OPEN — founder and counsel.
