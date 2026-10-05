@@ -22,8 +22,12 @@ const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateL
 export const Route = createFileRoute("/")({
   // ADR-030: a venture domain serves its canonical Door as the front page.
   // Unknown hosts fall through to the movement home.
-  loader: () => {
-    const host = getCurrentHost();
+  // ?as=<domain> previews a domain's front page before DNS is pointed.
+  validateSearch: (s: Record<string, unknown>): { as?: string } =>
+    typeof s.as === "string" ? { as: s.as } : {},
+  loaderDeps: ({ search }) => ({ as: search.as }),
+  loader: ({ deps }) => {
+    const host = deps.as ?? getCurrentHost();
     return { personaId: personaForHost(host)?.id ?? null };
   },
   head: ({ loaderData }) => {
