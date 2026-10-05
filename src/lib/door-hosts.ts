@@ -28,7 +28,12 @@ const HOST_TO_PERSONA: Record<string, string> = {
   "www.nationalroofingarmy.com": "national-roofing-army",
   "marketapplications.io": "market-applications",
   "www.marketapplications.io": "market-applications",
+  // roofingprofessionals.com / prepareamerica.com: contractor perspective =
+  // the movement home itself, so they intentionally fall through (no entry).
 };
+
+/** Domains a founder can preview at /?as=<domain>. */
+export const PREVIEWABLE_DOMAINS = Object.keys(HOST_TO_PERSONA).filter((h) => !h.startsWith("www."));
 
 
 export function personaForHost(host: string | null | undefined): Persona | null {
