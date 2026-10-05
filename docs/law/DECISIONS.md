@@ -1048,3 +1048,11 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** Replacing RRCA (rejected — RRCA underwrites the proof); a separate site build (rejected — ADR-030 one engine, many domains); launching Claim Caller as a service (deferred).
 
 **Status.** Preview copy only. Governance documents (A121) and the NCOI question (C73) remain OPEN.
+
+## ADR-036 — Stakeholder Door autonomy and the Attributable Author principle (2026-10-05)
+
+**Decision.** `DECISION` The Door does not neutralize the Stakeholder. Each Stakeholder Group's Door speaks for that group from its own self-interest; the platform and protocol underneath are what remain neutral. RRCA speaking as a contractor is therefore correct, not a bias to be corrected. Adjusting Professionals' self-interest is attributable professional judgment: every estimate has an author, authorship is not authority, and a later change is appended to the record rather than erasing the earlier opinion. Door copy v0.2 carries the hook "Every Estimate Has an Author" and the mission "Restore the property. Settle the claim. Preserve the truth."
+
+**Alternatives considered.** Neutral copy on every Door (rejected — erases the stakeholder voice that makes a federation worth joining); making the platform an advocate (rejected — breaks capture prevention, ADR-014/ADR-026); a separate adjuster platform (rejected — ADR-019/ADR-030).
+
+**Boundaries.** `OPEN` How appended authorship is modelled waits for the Records / Object Model gate; nothing here is schema. Preview copy only; unpublished. Source: founder's ChatGPT/Claude continuation, 2026-10-05.

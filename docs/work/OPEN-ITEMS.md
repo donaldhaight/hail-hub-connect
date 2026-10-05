@@ -512,3 +512,5 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A121 — Adjusting Professionals governance spec.** TOS, Member Network Agreement and SLA drafted from the 2012 ClaimExpress multi-stakeholder TOS and the RRCA Member Agreement — sources not yet in the corpus. OPEN — waiting on founder to supply the 2012 baselines.
 - **A122 — Mission swap ("mass edit") script.** Persona-level substitution so a mission can be inserted across surfaces. Proposed; touches many pages, returns to founder. OPEN.
 - **C73 — Adjusting Professionals vs ADR-014 / NCOI.** Whether a member network of adjusters beside a contractor operator creates a structural conflict of interest. OPEN — founder and counsel.
+- **A123 — Attributable Author principle (ADR-036).** Door autonomy ruling filed; Adjusting Professionals copy v0.2 wired ("Every Estimate Has an Author", four pillars). DONE (unpublished).
+- **A124 — Appended authorship in the record.** How an adjuster's opinion and a manager's change coexist on the claim file. OPEN — waits on the Records / Object Model gate.
