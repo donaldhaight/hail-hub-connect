@@ -13,24 +13,11 @@ import {
 const TITLE = "If we can fix the Insurance Restoration Market, we can fix the Government of the United States of America.";
 const DESC =
   `The First Congress · ${FIRST_CONGRESS.dateLabel} · streamed to invitation holders. A reveal, an announcement, and an invitation to the convened Second Congress.`;
-const OG_TITLE = `PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
+const OG_TITLE = `The Movement · PrepareAmerica · The First Congress · ${FIRST_CONGRESS.dateLabel}`;
 
 export const Route = createFileRoute("/movement")({
   // ADR-037: the former movement home, preserved intact.
   head: () => {
-    const persona = null as null | { title: string; description: string };
-    if (persona) {
-      return {
-        meta: [
-          { title: persona.title },
-          { name: "description", content: persona.description },
-          { property: "og:title", content: persona.title },
-          { property: "og:description", content: persona.description },
-          { property: "og:type", content: "website" },
-          { name: "twitter:card", content: "summary_large_image" },
-        ],
-      };
-    }
     return {
       meta: [
         { title: OG_TITLE },
