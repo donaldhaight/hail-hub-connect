@@ -1056,3 +1056,19 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** Neutral copy on every Door (rejected — erases the stakeholder voice that makes a federation worth joining); making the platform an advocate (rejected — breaks capture prevention, ADR-014/ADR-026); a separate adjuster platform (rejected — ADR-019/ADR-030).
 
 **Boundaries.** `OPEN` How appended authorship is modelled waits for the Records / Object Model gate; nothing here is schema. Preview copy only; unpublished. Source: founder's ChatGPT/Claude continuation, 2026-10-05.
+
+## ADR-037 — The Universal Commons front door; the movement home moves to /movement (2026-10-05)
+
+**Status:** DECISION — founder ruling, 2026-10-05 · **Class:** C1
+
+**Context.** prepareamerica.com served both as the mother-ship domain and as the contractor First Congress home. That voice is authentic and stays, but at the root it read as a contractor mobilization to adjusters, owners and underwriters. ADR-030 already gives each venture domain its own front page and ADR-036 lets each Door speak for its own group; the commons itself had no page.
+
+**Decision.**
+1. `/` on prepareamerica.com and any unmapped host is the **Universal Commons**: the restoration of property, the preservation of truth, the alignment of commerce. Neutral voice; no single stakeholder owns it.
+2. The root presents **five portals**: Property Owners, Adjusting Professionals, Licensed Contractors & Construction Managers, Insurers / Underwriters / Risk Capital, Civic & Capital Partners. Each portal is a Door or a briefing request; none grants authority (ADR-028).
+3. The former movement home is **preserved unchanged at `/movement`**, linked from the Universal Home and from the contractor portal. It is moved, not rewritten (ADR-029).
+4. Mapped venture domains still serve their own Door at `/` (ADR-030). `?as=<domain>` preview continues.
+
+**Alternatives considered.** Keep the contractor Congress at the root (rejected — frames the platform as one side's strike force). Point the root at Adjusting Professionals (rejected — the same mistake reversed). Put the movement page behind sign-in now (deferred — the founder's "behind a gate" is a direction; gating changes what visitors can see and returns to the founder separately).
+
+**Boundaries.** Preview copy; `HYPOTHESIS` that the neutral root improves adoption across groups. Underwriter and civic portals point to briefing requests because no Door exists for them yet. The "$100B+" market figure was kept out of page copy until it is sourced. Unpublished. Registered as **A125–A127**.

@@ -22,6 +22,7 @@ import { Route as ProofOfConceptRouteImport } from './routes/proof-of-concept'
 import { Route as PrepareAmericaRouteImport } from './routes/prepare-america'
 import { Route as PolicyRouteImport } from './routes/policy'
 import { Route as NationalRoofingArmyRouteImport } from './routes/national-roofing-army'
+import { Route as MovementRouteImport } from './routes/movement'
 import { Route as MarketApplicationsRouteImport } from './routes/market-applications'
 import { Route as KimosabeRouteImport } from './routes/kimosabe'
 import { Route as InvestorsRouteImport } from './routes/investors'
@@ -149,6 +150,11 @@ const PolicyRoute = PolicyRouteImport.update({
 const NationalRoofingArmyRoute = NationalRoofingArmyRouteImport.update({
   id: '/national-roofing-army',
   path: '/national-roofing-army',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MovementRoute = MovementRouteImport.update({
+  id: '/movement',
+  path: '/movement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarketApplicationsRoute = MarketApplicationsRouteImport.update({
@@ -503,6 +509,7 @@ export interface FileRoutesByFullPath {
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
   '/market-applications': typeof MarketApplicationsRoute
+  '/movement': typeof MovementRoute
   '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
@@ -580,6 +587,7 @@ export interface FileRoutesByTo {
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
   '/market-applications': typeof MarketApplicationsRoute
+  '/movement': typeof MovementRoute
   '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
@@ -659,6 +667,7 @@ export interface FileRoutesById {
   '/investors': typeof InvestorsRoute
   '/kimosabe': typeof KimosabeRoute
   '/market-applications': typeof MarketApplicationsRoute
+  '/movement': typeof MovementRoute
   '/national-roofing-army': typeof NationalRoofingArmyRoute
   '/policy': typeof PolicyRoute
   '/prepare-america': typeof PrepareAmericaRouteWithChildren
@@ -738,6 +747,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/kimosabe'
     | '/market-applications'
+    | '/movement'
     | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
@@ -815,6 +825,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/kimosabe'
     | '/market-applications'
+    | '/movement'
     | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
@@ -893,6 +904,7 @@ export interface FileRouteTypes {
     | '/investors'
     | '/kimosabe'
     | '/market-applications'
+    | '/movement'
     | '/national-roofing-army'
     | '/policy'
     | '/prepare-america'
@@ -972,6 +984,7 @@ export interface RootRouteChildren {
   InvestorsRoute: typeof InvestorsRoute
   KimosabeRoute: typeof KimosabeRoute
   MarketApplicationsRoute: typeof MarketApplicationsRoute
+  MovementRoute: typeof MovementRoute
   NationalRoofingArmyRoute: typeof NationalRoofingArmyRoute
   PolicyRoute: typeof PolicyRoute
   PrepareAmericaRoute: typeof PrepareAmericaRouteWithChildren
@@ -1082,6 +1095,13 @@ declare module '@tanstack/react-router' {
       path: '/national-roofing-army'
       fullPath: '/national-roofing-army'
       preLoaderRoute: typeof NationalRoofingArmyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movement': {
+      id: '/movement'
+      path: '/movement'
+      fullPath: '/movement'
+      preLoaderRoute: typeof MovementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/market-applications': {
@@ -1659,6 +1679,7 @@ const rootRouteChildren: RootRouteChildren = {
   InvestorsRoute: InvestorsRoute,
   KimosabeRoute: KimosabeRoute,
   MarketApplicationsRoute: MarketApplicationsRoute,
+  MovementRoute: MovementRoute,
   NationalRoofingArmyRoute: NationalRoofingArmyRoute,
   PolicyRoute: PolicyRoute,
   PrepareAmericaRoute: PrepareAmericaRouteWithChildren,

@@ -514,3 +514,9 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **C73 — Adjusting Professionals vs ADR-014 / NCOI.** Whether a member network of adjusters beside a contractor operator creates a structural conflict of interest. OPEN — founder and counsel.
 - **A123 — Attributable Author principle (ADR-036).** Door autonomy ruling filed; Adjusting Professionals copy v0.2 wired ("Every Estimate Has an Author", four pillars). DONE (unpublished).
 - **A124 — Appended authorship in the record.** How an adjuster's opinion and a manager's change coexist on the claim file. OPEN — waits on the Records / Object Model gate.
+
+## Sprint 2.8 — The Universal Commons (2026-10-05)
+
+- **A125 — Universal Home at `/` (ADR-037).** Neutral civic front page with five portals. Preview copy v0.1. DONE (unpublished).
+- **A126 — Movement home preserved at `/movement`.** Former root moved unchanged and linked from the commons. DONE (unpublished).
+- **A127 — Underwriter and civic Doors, and the gate.** The two portals without a Door point to briefing requests; whether the movement and stakeholder page sets sit behind sign-in returns to the founder. OPEN — founder.
