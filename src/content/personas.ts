@@ -378,49 +378,59 @@ export const PERSONAS: Record<string, Persona> = {
   "adjusting-professionals": {
     id: "adjusting-professionals",
     wordmark: "Adjusting Professionals",
-    eyebrow: "The adjuster's record, kept by the adjuster",
+    eyebrow: "Every estimate has an author",
     promise:
-      "A member network for the people who determine the claim — so the file you build follows you, not the firm or the carrier that hired you.",
-    askPlaceholder: "Ask how an adjuster keeps their own record.",
+      "Adjusters write the opinion. Managers make the final call. A complete claim file should preserve both.",
+    askPlaceholder: "Ask how an adjuster's opinion stays attributable.",
     askAgainPlaceholder: "Ask again — the file stays open.",
     openLabel: "Open my file",
     openedBody:
-      "A file opened the moment you asked — yours, before any firm, carrier or claim. Adjusting Professionals is where the determination side of a loss learns to read from the same record the contractor and the owner read from.",
+      "A file opened the moment you asked — yours, before any firm, carrier or claim. Restore the property. Settle the claim. Preserve the truth.",
     walletBody:
       "JoeBack is earned, never bought. It buys one thing: entry. Nothing here transfers to another person, and nothing here has external value until a certified role exists.",
     paletteToken: "navy",
     path: "/adjusting-professionals",
-    title: "Adjusting Professionals",
+    title: "Adjusting Professionals — Every Estimate Has an Author",
     description:
-      "A member network for independent and staff adjusters, built on one shared claim record. Ask once and a file opens; no email or phone required.",
-    promiseVersion: "Adjusting Professionals Door v0.1 — 2026-10-04",
+      "Adjusters write the opinion. Managers make the final call. A complete claim file should preserve both. Ask once and a file opens.",
+    promiseVersion: "Adjusting Professionals Door v0.2 — 2026-10-05",
     sections: [
       {
         id: "problem",
         eyebrow: "The problem",
-        title: "The adjuster is the only party who has to start over every storm.",
+        title: "When the estimate changes, the author disappears.",
         body: [
-          "The contractor keeps their jobs. The carrier keeps its claims. The adjuster deploys, documents, determines — and then the work belongs to someone else. Reputation lives in other people's systems, and every new assignment begins from zero.",
+          "An adjuster inspects, documents and writes a professional opinion. Later the number changes — sometimes for good reason. But the file rarely shows who wrote what, when, and why. The judgment and the decision blur into one line, and the professional who wrote the first opinion loses standing in their own work.",
         ],
       },
       {
         id: "pattern",
-        eyebrow: "What this is",
-        title: "A member network, on the same record as the job.",
+        eyebrow: "What we stand for",
+        title: "Restore the property. Settle the claim. Preserve the truth.",
         label: "PREVIEW",
         body: [
-          "Adjusting Professionals is the determination side of the ClaimExpress Protocol: the place where adjusters hold a continuing professional file and read the loss from the same record everyone else reads.",
+          "Adjusting Professionals speaks for adjusters, from adjusters' own interest. The platform underneath stays neutral; this Door does not.",
         ],
         items: [
           {
-            term: "Member Network",
-            detail: "Independent adjusters, adjusting firms and staff adjusters, each with a file they own.",
-            boundary: "Membership is an interest today. No credential, licence or assignment is issued here.",
+            term: "Authorship is not authority",
+            detail: "An adjuster's professional judgment stays attributable. A manager's change is appended to the file — it does not erase the earlier opinion.",
+            boundary: "The final call still belongs to whoever holds that authority. Authorship is preserved, not promoted.",
           },
           {
-            term: "One claim record",
-            detail: "What was observed, what was determined, and what remains — beside the contractor's job record, not inside it.",
+            term: "Autonomous advocacy",
+            detail: "Not anti-carrier. Not anti-contractor. In favour of legitimate professional integrity and licence standing.",
+            boundary: "A voice for a profession, not a party to any dispute.",
+          },
+          {
+            term: "The common record",
+            detail: "One record where disagreement is written down with who, when, what and why — beside the contractor's job and the owner's property.",
             boundary: "An operating record, not a coverage decision or a guarantee of any outcome.",
+          },
+          {
+            term: "Portability and standing",
+            detail: "The professional record belongs to the professional, governed by the rules that apply to it.",
+            boundary: "Intent only. No credential, licence or assignment is issued here.",
           },
           {
             term: "Claim Caller",

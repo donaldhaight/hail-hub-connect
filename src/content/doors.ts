@@ -1,5 +1,6 @@
 /** Public index of the market Doors (preview copy). */
 export const DOORS = [
+  { to: "/adjusting-professionals", name: "Adjusting Professionals", line: "Every estimate has an author. For adjusters whose judgment should stay theirs." },
   { to: "/kimosabe", name: "Kimosabe", line: "The conversation anyone can start. Open to everyone." },
   { to: "/buddy-claim", name: "Buddy Claim", line: "For the homeowner after a storm who wants someone in their corner." },
   { to: "/claimstore", name: "ClaimStore", line: "The original proof of concept for the claim-to-completion record." },
