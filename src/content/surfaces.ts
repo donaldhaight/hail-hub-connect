@@ -73,12 +73,25 @@ export const SURFACES: Surface[] = [
   // ---------------------------------------------------------------- Movement
   {
     route: "/",
-    name: "PrepareAmerica",
+    name: "PrepareAmerica · Universal Commons",
     type: "Movement",
     audience: "Everyone arriving at the front of the house",
     purpose:
+      "ADR-037: the neutral civic commons — five stakeholder portals over one shared record.",
+    source: "Founder ruling 2026-10-05",
+    cta: "Find your door",
+    destination: "The five portals",
+    status: "proposed",
+    capturesContext: false,
+  },
+  {
+    route: "/movement",
+    name: "The Movement",
+    type: "Movement",
+    audience: "Contractors and movement conveners",
+    purpose:
       "Restructure one real contractor, document every correction, prove a better process, then ask whether it can become a standard.",
-    source: "Founder narrative · the five-message spine",
+    source: "Founder narrative · the five-message spine (former root, ADR-037)",
     cta: "Request a private briefing",
     destination: CAPTURE,
     status: "established",
