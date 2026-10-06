@@ -15,6 +15,13 @@
       "when": 1791213031072,
       "tag": "0001_manual_commons_thought_process",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791317017395,
+      "tag": "0002_manual_chapter_93_laboratory",
+      "breakpoints": true
     }
   ]
 }
