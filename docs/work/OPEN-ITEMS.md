@@ -520,3 +520,4 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A125 — Universal Home at `/` (ADR-037).** Neutral civic front page with five portals. Preview copy v0.1. DONE (unpublished).
 - **A126 — Movement home preserved at `/movement`.** Former root moved unchanged and linked from the commons. DONE (unpublished).
 - **A127 — Underwriter and civic Doors, and the gate.** The two portals without a Door point to briefing requests; whether the movement and stakeholder page sets sit behind sign-in returns to the founder. OPEN — founder.
+- **A128 — Governance Laboratory recorded and parked (2026-10-06).** The proposed sister-project lab for experiencing Decidim, Loomio, DAOhaus, Aragon and Open Collective is recorded as Manual Chapter 93. Founder ruling: no work scheduled; governance requirements will emerge from SiteBMS requirements and the existing contracts, pay agreements and workflows. DONE (documentation).
