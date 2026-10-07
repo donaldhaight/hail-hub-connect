@@ -523,3 +523,9 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A128 — Governance Laboratory recorded and parked (2026-10-06).** The proposed sister-project lab for experiencing Decidim, Loomio, DAOhaus, Aragon and Open Collective is recorded as Manual Chapter 93. Founder ruling: no work scheduled; governance requirements will emerge from SiteBMS requirements and the existing contracts, pay agreements and workflows. DONE (documentation).
 - **A129 — Act 2 "Rounding Down" filed as Manual Chapter 94 (2026-10-06).** The Movie / Book / Game triad is recorded as the creative brief for experimental front-door redesigns. DONE (documentation). Founder board not updated: board access is read-only from this session.
 - **A130 — Experimental rounded-down front-door redesign (2026-10-06).** Sketch the Universal Commons as "the Movie" in preview only, keeping every Door, route and `?as=` preview intact. OPEN — awaiting founder pick of a design direction. No publishing.
+
+## Sprint 2.9 — Swallowing the Map (2026-10-07)
+
+- **A131 — Whole-site taxonomy map.** `docs/requirements/SITE-MAP.md` lays every surface into Movie / Book / Game with menus, slot kit and placeholders. DONE (documentation, draft). Founder board not updated: read-only from this session.
+- **A132 — The seventeen market owners.** Ingest the founder's 7 + 6 + 4 names and rule which become Stakeholder Groups vs Designations. OPEN — waiting on founder documents.
+- **A133 — Group pages and Movie reel.** Whether `/groups/<owner>` and `/media` become routes, and any table behind them. OPEN — founder decision (schema).
