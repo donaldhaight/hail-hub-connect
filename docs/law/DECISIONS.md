@@ -1072,3 +1072,15 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** Keep the contractor Congress at the root (rejected — frames the platform as one side's strike force). Point the root at Adjusting Professionals (rejected — the same mistake reversed). Put the movement page behind sign-in now (deferred — the founder's "behind a gate" is a direction; gating changes what visitors can see and returns to the founder separately).
 
 **Boundaries.** Preview copy; `HYPOTHESIS` that the neutral root improves adoption across groups. Underwriter and civic portals point to briefing requests because no Door exists for them yet. The "$100B+" market figure was kept out of page copy until it is sourced. Unpublished. Registered as **A125–A127**.
+
+## ADR-038 — Zero-PII charter first, then a single-door PSL prediction (2026-10-07)
+
+**Status:** DECISION — founder ruling ("I like it… let's build on that"), 2026-10-07 · **Class:** C1
+
+**Context.** The founder asked whether to research Terms and Privacy for Kimosabe.AI or to work the MVP door by door with a modest revenue assumption, possibly PSLs with an over/under prediction.
+
+**Decision.** Both, in order. (1) Kimosabe.AI's anonymous conversation is governed by a thin Explorer Charter beneath the Terms + Privacy rung (Chapter 98). (2) The PSL is tested as a granular prediction on one Door and one seat before any pattern is rolled across Doors (Chapter 99).
+
+**Alternatives considered.** Full Terms/Privacy research first (deferred — slower, and the anonymous door may need less). Revenue modeling across all Doors at once (rejected — violates "predict small").
+
+**Boundaries.** No public copy, schema, price, quota or offer. Money stays behind its gate; entity counterparty stays with A138; the zero-PII claim is HYPOTHESIS until counsel tests it. Registered as **A139–A140**.
