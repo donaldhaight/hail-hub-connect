@@ -1084,3 +1084,15 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** Full Terms/Privacy research first (deferred — slower, and the anonymous door may need less). Revenue modeling across all Doors at once (rejected — violates "predict small").
 
 **Boundaries.** No public copy, schema, price, quota or offer. Money stays behind its gate; entity counterparty stays with A138; the zero-PII claim is HYPOTHESIS until counsel tests it. Registered as **A139–A140**.
+
+## ADR-039 — Act 3: the Vault and the Arena; the League leads, the PSL is held (2026-10-10)
+
+**Status:** DECISION — founder ruling ("proceed as you recommend… the fork has already been done"), 2026-10-10 · **Class:** C1
+
+**Context.** No offer had been named (Chapter 101). The founder proposed leading with a performance contest, the National Roofing League, built on ClaimExpress-style ranking, and launching Kimosabe.AI, the Kimosabe Commons and the League publicly while PrepareAmerica, RRCA and Adjusting Professionals stay invite-only. He then remixed the project.
+
+**Decision.** (1) This project is the **Vault**: corpus, Manual, law, register, Records/SiteBMS path, and the invite-only institutional Doors. (2) The remix is the **Arena**: the public launch surface for Kimosabe.AI, the Commons and the League. (3) Nothing crosses between them by inference; shared records or APIs wait for the Records and API gates. (4) The PSL is held, not abandoned; a ticketed tournament is HYPOTHESIS. Season 1 targets Super Bowl Weekend, Feb. 11–14, 2027, as direction only.
+
+**Alternatives considered.** One project with gated routes (rejected by the founder's remix — the public surface and the canon pull in different directions). Lead with the PSL (held — no one could state the offer, and the valuation arithmetic was ambiguous). Round-robin assignment (rejected — work goes to demonstrated performance).
+
+**Boundaries.** No price, ticket, prize, quota or territory. TER stays private. Band 3 never enters the Arena. Gating the institutional Doors in this project returns to the founder (A145). Registered as **A142–A145**, **C74**.

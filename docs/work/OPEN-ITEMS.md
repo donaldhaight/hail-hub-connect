@@ -537,3 +537,11 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A139 — Chapter 98, The Zero-PII Front Door (2026-10-07).** Kimosabe.AI as ground zero; a thin Explorer Charter for the anonymous conversation beneath Terms + Privacy; full rails attach when the person identifies themselves (ADR-016, ADR-038). DONE (documentation, HYPOTHESIS, C1). Legal wording OPEN — counsel must test the "zero-PII" claim; counterparty held by A138. On the board.
 - **A140 — Chapter 99, One Door, One Seat, One Number (2026-10-07).** PSL as the candidate first revenue model, framed as a single-door, single-season over/under prediction. DONE as outline (SIMULATION, C3). No price, quota, territory or offer set; founder picks the pilot Door; counsel on any public valuation link. On the board.
 - **A141 — Chapter 100, The Ten Pillars and the Revenue Machine (2026-10-07).** Two-day manual audit found the founder's Oct 6 operating spine (ten pillars, four legal cheat sheets, toll gates by pillar, predict small) held only in memory. Filed as drafting (HYPOTHESIS, C2); all figures SIMULATION; reconciling cheat sheets with Chapter 96 rails left OPEN. Chapter 97 label fixed. DONE. On the board.
+
+## Sprint 3.0 — Act 3: The Vault and the Arena (2026-10-10)
+
+- **A142 — Chapter 101, From the License to the Tournament.** PSL held; tickets and tournament recorded as HYPOTHESIS; seat arithmetic SIMULATION. DONE (documentation, C1). On the board.
+- **A143 — Chapter 102, The National Roofing League.** Performance-ranked assignment instead of round-robin; ClaimExpress ranking is founder ASSERTION; TER stays private; Season 1 direction Feb. 11–14, 2027. DONE (documentation, HYPOTHESIS, C1). On the board.
+- **A144 — Chapter 103, The Vault and the Arena (ADR-039).** This project is the Vault; the founder's remix is the Arena; nothing crosses by inference. DONE (documentation, DECISION, C1). On the board.
+- **A145 — Arena setup and invite-only gating.** Founder finishes remix setup; how PrepareAmerica, RRCA and Adjusting Professionals become invite-only in this project returns to the founder. OPEN — founder. On the board.
+- **C74 — Season 1 ticket, prize and qualifier.** What is sold, to whom, for what. OPEN — founder and counsel. On the board.
