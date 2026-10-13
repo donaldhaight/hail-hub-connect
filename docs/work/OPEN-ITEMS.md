@@ -545,3 +545,7 @@ Source: `docs/history/THE-OTHER-HOUSE-CIRCLE-2026-09-26.md`. Convergence, not pr
 - **A144 — Chapter 103, The Vault and the Arena (ADR-039).** This project is the Vault; the founder's remix is the Arena; nothing crosses by inference. DONE (documentation, DECISION, C1). On the board.
 - **A145 — Arena setup and invite-only gating.** Founder finishes remix setup; how PrepareAmerica, RRCA and Adjusting Professionals become invite-only in this project returns to the founder. OPEN — founder. On the board.
 - **C74 — Season 1 ticket, prize and qualifier.** What is sold, to whom, for what. OPEN — founder and counsel. On the board.
+
+## Chapter 104 — Market Applications: Every Node Connected (2026-10-13)
+
+- **A146 — Chapter 104, Every Node Connected.** Founder-authorized narrative connects the sacred-geometry brand family, the Claude logo conversation, the Market Applications DBA account, and the need for a distinct corporate expression with a publications/blog surface. Filed in the Manual as review, ASSERTION, C1, with DECISION / HYPOTHESIS / OPEN passages distinguished. Acceptance: chapter readable in the existing Manual; DBA account not represented as verified registration; no inferred asset ownership, new project, data sharing, event date or financial offer. DONE (documentation). Mirrored on the founder board. Corporate-site implementation is not part of this chapter-writing pass.
