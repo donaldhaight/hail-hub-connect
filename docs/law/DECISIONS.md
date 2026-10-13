@@ -1106,3 +1106,15 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** Make this entire application the corporate website (not selected: its institutional and operating responsibilities remain distinct). Duplicate the corpus into each website (not selected: the desired library is shared, with provenance retained). Implement a public API immediately from the assistant's draft (held: that proposal is not approved schema or a locked-order exception).
 
 **Boundaries.** No project creation, endpoint, schema, anonymous corpus access, deployment, price or fundraising instrument is authorized by publishing the chapter. The shared-library implementation waits for the applicable Records and API gates and a founder-approved public selection. No assertion becomes a fact through republication; personal memory never becomes publication input by inference. The changed Season 1 calendar remains unresolved against ADR-039 and is not silently rewritten. Registered as **A147–A149**.
+
+## ADR-041 — Many studios, one library (2026-10-13)
+
+**Status:** DECISION — founder instruction ("proceed with all that you recommend"), 2026-10-13 · **Class:** C1
+
+**Context.** The founder named five creative domains he recalls holding and asked for a chapter making them fit the serious work, while warning that the best publication schema already exists in the General's Library and HBOS.
+
+**Decision.** Each creative domain may become its own brand and project, but none holds a private copy of knowledge: all draw from one shared library, and every published work keeps its source and lineage by stable reference so rearranging the bundle recomputes dependent publications instead of breaking them. The General's Library and HBOS are the reference schema; chat-drafted manifests are measured against them.
+
+**Alternatives considered.** One site per domain with its own content (rejected: drift and lost provenance). Adopt Claude's flat CMS model now (held: no truth labels or lineage). Design the manifest before loading the founder's sources (held: A151).
+
+**Boundaries.** No project, domain, schema, endpoint, price or offer. Domain holdings unverified (A152); entity home stays with A138; shared library waits for Records and API gates (A149). Band 3 and personal memory never enter a work by inference. Registered as **A150–A152**.
