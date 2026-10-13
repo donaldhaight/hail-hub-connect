@@ -1096,3 +1096,13 @@ are recorded as ASSERTION until inspected. ADR-028 §6 (no public capital intake
 **Alternatives considered.** One project with gated routes (rejected by the founder's remix — the public surface and the canon pull in different directions). Lead with the PSL (held — no one could state the offer, and the valuation arithmetic was ambiguous). Round-robin assignment (rejected — work goes to demonstrated performance).
 
 **Boundaries.** No price, ticket, prize, quota or territory. TER stays private. Band 3 never enters the Arena. Gating the institutional Doors in this project returns to the founder (A145). Registered as **A142–A145**, **C74**.
+
+## ADR-040 — Market Applications' corporate expression and the shared publication direction (2026-10-13)
+
+**Status:** DECISION — founder approval, 2026-10-13 · **Class:** C1
+
+**Decision.** Market Applications' corporate website is to be a separate project, with a shared publications-library direction and an eventual demonstration of our own API concept. The publication scope includes written works, images, songs, videos and related questions and answers. November 1, 2026 remains the announcement target; a press release and book offering are founder direction, with white paper, dissertation, course and case-study combinations to be selected rather than presumed commissioned. Chapter 105 records this move from accumulated context toward execution and is authorized for publication in the existing confidential Manual.
+
+**Alternatives considered.** Make this entire application the corporate website (not selected: its institutional and operating responsibilities remain distinct). Duplicate the corpus into each website (not selected: the desired library is shared, with provenance retained). Implement a public API immediately from the assistant's draft (held: that proposal is not approved schema or a locked-order exception).
+
+**Boundaries.** No project creation, endpoint, schema, anonymous corpus access, deployment, price or fundraising instrument is authorized by publishing the chapter. The shared-library implementation waits for the applicable Records and API gates and a founder-approved public selection. No assertion becomes a fact through republication; personal memory never becomes publication input by inference. The changed Season 1 calendar remains unresolved against ADR-039 and is not silently rewritten. Registered as **A147–A149**.
